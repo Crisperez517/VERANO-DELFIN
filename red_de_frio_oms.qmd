@@ -1,0 +1,31 @@
+# Metodología y Modelo Estocástico
+
+En este capítulo presentaremos las bases de nuestro modelo de red de frío.
+
+## La Ecuación Principal
+
+Para modelar la temperatura interna del refrigerador, utilizamos un Proceso de Ornstein-Uhlenbeck. La dinámica de la temperatura $T(t)$ está dada por la siguiente ecuación diferencial estocástica:
+
+$$
+dT(t) = \kappa [\theta(t) - T(t)] dt + \sigma dW(t)
+$$ {#eq-ou-temperatura}
+
+Como podemos observar claramente en la @eq-ou-temperatura, el sistema presenta una reversión a la media controlada por el parámetro $\kappa$.
+
+## Conceptos Fundamentales
+
+Para entender el comportamiento de la red de frío ante fallos eléctricos, es vital establecer el siguiente concepto:
+
+::: {#def-inercia-termica}
+### Inercia Térmica
+Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.
+:::
+
+De acuerdo con la @def-inercia-termica, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad $\sigma$ de la @eq-ou-temperatura.
+
+::: {#def-cortes-energia}
+### Corte de Energía (Salto de Régimen)
+Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar y comience a converger hacia la temperatura ambiente exterior.
+:::
+
+Como vimos en la @def-cortes-energia, esto detonará el cambio de régimen en nuestro código.

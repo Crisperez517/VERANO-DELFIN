@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>red_de_frio_oms – Reporte de Investigación - Verano Delfín</title>
+<title>2&nbsp; Metodología y Modelo Estocástico – Reporte de Investigación - Verano Delfín</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,6 +81,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -255,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./red_de_frio_oms.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./red_de_frio_oms.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">red_de_frio_oms.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./red_de_frio_oms.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./red_de_frio_oms.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Metodología y Modelo Estocástico</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -311,7 +340,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./red_de_frio_oms.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">red_de_frio_oms.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Metodología y Modelo Estocástico</span></span></a>
   </div>
 </li>
       </ul>
@@ -367,18 +396,62 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#la-ecuación-principal" id="toc-la-ecuación-principal" class="nav-link active" data-scroll-target="#la-ecuación-principal"><span class="header-section-number">2.1</span> La Ecuación Principal</a></li>
+  <li><a href="#conceptos-fundamentales" id="toc-conceptos-fundamentales" class="nav-link" data-scroll-target="#conceptos-fundamentales"><span class="header-section-number">2.2</span> Conceptos Fundamentales</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./red_de_frio_oms.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./red_de_frio_oms.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">red_de_frio_oms.html</span></a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./red_de_frio_oms.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./red_de_frio_oms.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Metodología y Modelo Estocástico</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Metodología y Modelo Estocástico</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p>En este capítulo presentaremos las bases de nuestro modelo de red de frío.</p>
+<section id="la-ecuación-principal" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="la-ecuación-principal"><span class="header-section-number">2.1</span> La Ecuación Principal</h2>
+<p>Para modelar la temperatura interna del refrigerador, utilizamos un Proceso de Ornstein-Uhlenbeck. La dinámica de la temperatura <span class="math inline">\(T(t)\)</span> está dada por la siguiente ecuación diferencial estocástica:</p>
+<p><span id="eq-ou-temperatura"><span class="math display">\[
+dT(t) = \kappa [\theta(t) - T(t)] dt + \sigma dW(t)
+\tag{2.1}\]</span></span></p>
+<p>Como podemos observar claramente en la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a>, el sistema presenta una reversión a la media controlada por el parámetro <span class="math inline">\(\kappa\)</span>.</p>
+</section>
+<section id="conceptos-fundamentales" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="conceptos-fundamentales"><span class="header-section-number">2.2</span> Conceptos Fundamentales</h2>
+<p>Para entender el comportamiento de la red de frío ante fallos eléctricos, es vital establecer el siguiente concepto:</p>
+<div id="def-inercia-termica" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.1 (Inercia Térmica)</strong></span> Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.</p>
+</div>
+<p>De acuerdo con la <a href="#def-inercia-termica" class="quarto-xref">Definición&nbsp;<span>2.1</span></a>, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad <span class="math inline">\(\sigma\)</span> de la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a>.</p>
+<div id="def-cortes-energia" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.2 (Corte de Energía (Salto de Régimen))</strong></span> Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar y comience a converger hacia la temperatura ambiente exterior.</p>
+</div>
+<p>Como vimos en la <a href="#def-cortes-energia" class="quarto-xref">Definición&nbsp;<span>2.2</span></a>, esto detonará el cambio de régimen en nuestro código.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

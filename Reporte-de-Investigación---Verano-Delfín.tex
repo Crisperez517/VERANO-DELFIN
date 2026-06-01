@@ -186,6 +186,15 @@
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
+\newtheorem*{remark}{Observación}
+\newtheorem*{solution}{Solución}
+\newtheorem{refremark}{Observación}[chapter]
+\newtheorem{refsolution}{Solución}[chapter]
 \makeatother
 \makeatletter
 \makeatother
@@ -244,19 +253,67 @@ literate programming.
 
 \part{Marco Teórico y Normativa}
 
-\chapter{}\label{section}
+\chapter{Metodología y Modelo
+Estocástico}\label{metodologuxeda-y-modelo-estocuxe1stico}
+
+En este capítulo presentaremos las bases de nuestro modelo de red de
+frío.
+
+\section{La Ecuación Principal}\label{la-ecuaciuxf3n-principal}
+
+Para modelar la temperatura interna del refrigerador, utilizamos un
+Proceso de Ornstein-Uhlenbeck. La dinámica de la temperatura \(T(t)\)
+está dada por la siguiente ecuación diferencial estocástica:
+
+\begin{equation}\phantomsection\label{eq-ou-temperatura}{
+dT(t) = \kappa [\theta(t) - T(t)] dt + \sigma dW(t)
+}\end{equation}
+
+Como podemos observar claramente en la Ecuación~\ref{eq-ou-temperatura},
+el sistema presenta una reversión a la media controlada por el parámetro
+\(\kappa\).
+
+\section{Conceptos Fundamentales}\label{conceptos-fundamentales}
+
+Para entender el comportamiento de la red de frío ante fallos
+eléctricos, es vital establecer el siguiente concepto:
+
+\begin{definition}[Inercia
+Térmica]\protect\hypertarget{def-inercia-termica}{}\label{def-inercia-termica}
+
+Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes
+y las botellas de agua) para resistir cambios bruscos en su temperatura
+al absorber o ceder calor lentamente.
+
+\end{definition}
+
+De acuerdo con la Definición~\ref{def-inercia-termica}, a mayor masa
+térmica en el refrigerador, menor será la magnitud de la volatilidad
+\(\sigma\) de la Ecuación~\ref{eq-ou-temperatura}.
+
+\begin{definition}[Corte de Energía (Salto de
+Régimen)]\protect\hypertarget{def-cortes-energia}{}\label{def-cortes-energia}
+
+Se define como la interrupción del suministro eléctrico que provoca que
+el sistema deje de enfriar y comience a converger hacia la temperatura
+ambiente exterior.
+
+\end{definition}
+
+Como vimos en la Definición~\ref{def-cortes-energia}, esto detonará el
+cambio de régimen en nuestro código.
 
 \part{Modelo Matemático}
 
-\chapter{}\label{section-1}
+\chapter{}\label{section}
 
 \part{Simulación de Equipos (Haier HBC-150)}
 
-\chapter{}\label{section-2}
+\chapter{}\label{section-1}
 
 \bookmarksetup{startatroot}
 
-\chapter{}\label{section-3}
+\chapter{}\label{section-2}
 
 \bookmarksetup{startatroot}
 
