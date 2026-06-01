@@ -11,7 +11,7 @@ book:
   date: "today"
   downloads: [pdf]
   search: true
-  repo-url: https://github.com/Crisperez517/Tesis
+  repo-url: https://github.com/Crisperez517/VERANO-DELFIN.git
   page-navigation: true 
   chapters:
     - index.qmd
