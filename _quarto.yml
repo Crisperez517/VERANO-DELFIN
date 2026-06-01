@@ -1,0 +1,61 @@
+project:
+  type: book
+
+execute: 
+  freeze: auto
+
+book:
+  title: "Reporte de Investigación - Verano Delfín"
+  author: "Cristóbal Pérez González"
+  language: es
+  date: "today"
+  downloads: [pdf]
+  search: true
+  repo-url: https://github.com/Crisperez517/Tesis
+  page-navigation: true 
+  chapters:
+    - index.qmd
+    - intro.qmd
+    
+    - part: "Marco Teórico y Normativa"
+      chapters: 
+        - red_de_frio_oms.qmd
+
+    - part: "Modelo Matemático"
+      chapters: 
+        - procesos_poisson.qmd
+
+    - part: "Simulación de Equipos (Haier HBC-150)"
+      chapters: 
+        - montecarlo.qmd
+        
+    - conclusiones.qmd
+    - references.qmd
+
+comments:
+  hypothesis: true
+
+bibliography: referencias.bib
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    lang: es
+    html-math-method: mathjax
+    code-fold: true
+    code-copy: true
+    toc: true
+    toc-location: right
+
+  pdf:
+    lang: es
+    documentclass: scrreprt
+    papersize: letter
+    institution: Benemerita Universidad Autónoma de Chiapas
+    keep-tex: true
+    pdf-engine: lualatex
+    link-citations: true
+    number-sections: true
+    colorlinks: true
