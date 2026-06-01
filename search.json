@@ -20,6 +20,28 @@
     ]
   },
   {
+    "objectID": "red_de_frio_oms.html",
+    "href": "red_de_frio_oms.html",
+    "title": "2  Metodología y Modelo Estocástico",
+    "section": "",
+    "text": "2.1 La Ecuación Principal\nEn este capítulo presentaremos las bases de nuestro modelo de red de frío.\nPara modelar la temperatura interna del refrigerador, utilizamos un Proceso de Ornstein-Uhlenbeck. La dinámica de la temperatura \\(T(t)\\) está dada por la siguiente ecuación diferencial estocástica:\n\\[\ndT(t) = \\kappa [\\theta(t) - T(t)] dt + \\sigma dW(t)\n\\tag{2.1}\\]\nComo podemos observar claramente en la Ecuación 2.1, el sistema presenta una reversión a la media controlada por el parámetro \\(\\kappa\\).",
+    "crumbs": [
+      "Marco Teórico y Normativa",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Metodología y Modelo Estocástico</span>"
+    ]
+  },
+  {
+    "objectID": "red_de_frio_oms.html#conceptos-fundamentales",
+    "href": "red_de_frio_oms.html#conceptos-fundamentales",
+    "title": "2  Metodología y Modelo Estocástico",
+    "section": "2.2 Conceptos Fundamentales",
+    "text": "2.2 Conceptos Fundamentales\nPara entender el comportamiento de la red de frío ante fallos eléctricos, es vital establecer el siguiente concepto:\n\nDefinición 2.1 (Inercia Térmica) Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.\n\nDe acuerdo con la Definición 2.1, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad \\(\\sigma\\) de la Ecuación 2.1.\n\nDefinición 2.2 (Corte de Energía (Salto de Régimen)) Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar y comience a converger hacia la temperatura ambiente exterior.\n\nComo vimos en la Definición 2.2, esto detonará el cambio de régimen en nuestro código.",
+    "crumbs": [
+      "Marco Teórico y Normativa",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Metodología y Modelo Estocástico</span>"
+    ]
+  },
+  {
     "objectID": "references.html",
     "href": "references.html",
     "title": "References",
