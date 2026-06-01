@@ -29,3 +29,8 @@ Se define como la interrupción del suministro eléctrico que provoca que el sis
 :::
 
 Como vimos en la @def-cortes-energia, esto detonará el cambio de régimen en nuestro código.
+
+![logo](FCFM-UNACH.png){#fig-logo-principal width="50%" fig-align="center"}
+
+
+note que @fig-logo-principal es un logo de la Facultad de Ciencias Físicas y Matemáticas de la UNACH, el cual se utiliza para ilustrar la sección de metodología y modelo estocástico en nuestro proyecto de red de frío.
