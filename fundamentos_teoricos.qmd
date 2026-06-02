@@ -52,10 +52,6 @@ Como vimos en la @def-cortes-energia, esto detonará el cambio de régimen en nu
 Corresponde a las interrupciones térmicas instantáneas causadas por el personal médico al abrir el refrigerador. Se modelan matemáticamente mediante el diferencial del proceso de Poisson $dN(t)$, el cual inyecta un salto positivo $\gamma$ en la temperatura del sistema [@platen2010numerical].
 :::
 
-![Logo FCFM](FCFM-UNACH.png){#fig-logo-principal width="50%" fig-align="center"}
-
-Como ilustra la @fig-logo-principal, el modelo propuesto de red de frío busca resolver problemáticas del entorno mediante el rigor analítico de la Facultad de Ciencias Físicas y Matemáticas de la UNACH.
-
 ## El Lema de Itô Generalizado
 
 Para garantizar la rigurosidad matemática al momento de simular numéricamente la temperatura (por ejemplo, con el esquema de Euler-Maruyama), requerimos una extensión del cálculo estocástico clásico. Apoyados en la teoría de @yin2010hybrid y @platen2010numerical, establecemos el siguiente teorema que justifica nuestro código:
