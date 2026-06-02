@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Fundamentos Teoricos – Reporte de Investigación - Verano Delfín</title>
+<title>2&nbsp; Fundamentos Teóricos – Reporte de Investigación - Verano Delfín</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -304,7 +304,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teoricos</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -360,7 +360,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fundamentos_teoricos.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teoricos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></span></a>
   </div>
 </li>
       </ul>
@@ -421,9 +421,14 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#difusiones-híbridas-con-conmutación-y-saltos" id="toc-difusiones-híbridas-con-conmutación-y-saltos" class="nav-link active" data-scroll-target="#difusiones-híbridas-con-conmutación-y-saltos"><span class="header-section-number">2.1</span> Difusiones Híbridas con Conmutación y Saltos</a></li>
-  <li><a href="#la-ecuación-principal-ornstein-uhlenbeck" id="toc-la-ecuación-principal-ornstein-uhlenbeck" class="nav-link" data-scroll-target="#la-ecuación-principal-ornstein-uhlenbeck"><span class="header-section-number">2.2</span> La Ecuación Principal (Ornstein-Uhlenbeck)</a></li>
-  <li><a href="#conceptos-fundamentales" id="toc-conceptos-fundamentales" class="nav-link" data-scroll-target="#conceptos-fundamentales"><span class="header-section-number">2.3</span> Conceptos Fundamentales</a></li>
+  <li><a href="#procesos-estocásticos-de-soporte" id="toc-procesos-estocásticos-de-soporte" class="nav-link active" data-scroll-target="#procesos-estocásticos-de-soporte"><span class="header-section-number">2.1</span> Procesos Estocásticos de Soporte</a>
+  <ul class="collapse">
+  <li><a href="#movimiento-browniano-proceso-de-wiener" id="toc-movimiento-browniano-proceso-de-wiener" class="nav-link" data-scroll-target="#movimiento-browniano-proceso-de-wiener"><span class="header-section-number">2.1.1</span> Movimiento Browniano (Proceso de Wiener)</a></li>
+  <li><a href="#proceso-de-poisson-homogéneo" id="toc-proceso-de-poisson-homogéneo" class="nav-link" data-scroll-target="#proceso-de-poisson-homogéneo"><span class="header-section-number">2.1.2</span> Proceso de Poisson Homogéneo</a></li>
+  <li><a href="#cadenas-de-markov-de-tiempo-continuo" id="toc-cadenas-de-markov-de-tiempo-continuo" class="nav-link" data-scroll-target="#cadenas-de-markov-de-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov de Tiempo Continuo</a></li>
+  </ul></li>
+  <li><a href="#formulación-de-la-ecuación-diferencial-estocástica-general" id="toc-formulación-de-la-ecuación-diferencial-estocástica-general" class="nav-link" data-scroll-target="#formulación-de-la-ecuación-diferencial-estocástica-general"><span class="header-section-number">2.2</span> Formulación de la Ecuación Diferencial Estocástica General</a></li>
+  <li><a href="#el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado" id="toc-el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado" class="nav-link" data-scroll-target="#el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado"><span class="header-section-number">2.3</span> El Modelo Estocástico de Red de Frío (Ornstein-Uhlenbeck Modificado)</a></li>
   <li><a href="#el-lema-de-itô-generalizado" id="toc-el-lema-de-itô-generalizado" class="nav-link" data-scroll-target="#el-lema-de-itô-generalizado"><span class="header-section-number">2.4</span> El Lema de Itô Generalizado</a></li>
   </ul>
 </nav>
@@ -432,9 +437,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teoricos</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html">Marco Teórico y Normativa</a></li><li class="breadcrumb-item"><a href="./fundamentos_teoricos.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teoricos</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></h1>
 </div>
 
 
@@ -451,47 +456,94 @@ window.Quarto = {
 </header>
 
 
-<p>En este capítulo presentaremos las bases formales de nuestro modelo de red de frío.</p>
-<section id="difusiones-híbridas-con-conmutación-y-saltos" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="difusiones-híbridas-con-conmutación-y-saltos"><span class="header-section-number">2.1</span> Difusiones Híbridas con Conmutación y Saltos</h2>
-<p>Para describir rigurosamente la evolución de la temperatura interna <span class="math inline">\(T(t)\)</span> en un refrigerador de vacunas sujeto a perturbaciones ambientales y fallos estructurales, es necesario introducir el concepto de una difusión híbrida con conmutación de régimen y saltos de Poisson. Este marco formal combina la continuidad de los procesos de difusión clásicos con la naturaleza discreta de los eventos aleatorios exteriores <span class="citation" data-cites="yin2010hybrid platen2010numerical">(<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">Yin y Zhu 2010</a>; <a href="references.html#ref-platen2010numerical" role="doc-biblioref">Platen y Bruti-Liberati 2010</a>)</span>.</p>
-<p>Para modelar los cambios de estado prolongados del entorno (como la presencia o ausencia de suministro eléctrico), acoplamos el sistema a una cadena de Markov en tiempo continuo <span class="math inline">\(\alpha(t)\)</span> que toma valores en un espacio de estados finito <span class="math inline">\(\mathcal{M} = \{1, 2\}\)</span>.</p>
-<div id="def-sde-hibrida" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.1 (Ecuación Diferencial Estocástica Híbrida con Saltos)</strong></span> Una difusión con conmutación de régimen (switching diffusion) acoplada a procesos de salto es un proceso estocástico que satisface el siguiente sistema general:</p>
-<p><span id="eq-sde-hibrida-general"><span class="math display">\[
-dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
-\tag{2.1}\]</span></span></p>
-<p>donde <span class="math inline">\(\mu\)</span> representa la deriva, <span class="math inline">\(\sigma\)</span> la volatilidad y <span class="math inline">\(\gamma\)</span> la magnitud del salto térmico impulsado por el proceso de Poisson <span class="math inline">\(N(t)\)</span>, todos dependientes del régimen actual <span class="math inline">\(\alpha(t)\)</span>.</p>
+<p>En este capítulo presentaremos las bases conceptuales y el marco formal del cálculo estocástico que fundamentan el desarrollo de nuestro modelo matemático para la red de frío. Siguiendo un enfoque deductivo, se definirán en primer lugar los procesos estocásticos elementales para, posteriormente, construir la ecuación diferencial estocástica (EDE) híbrida que rige el sistema.</p>
+<section id="procesos-estocásticos-de-soporte" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="procesos-estocásticos-de-soporte"><span class="header-section-number">2.1</span> Procesos Estocásticos de Soporte</h2>
+<p>El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres continuas y perturbaciones discretas requiere herramientas más allá del cálculo determinista. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos fundamentales.</p>
+<section id="movimiento-browniano-proceso-de-wiener" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="movimiento-browniano-proceso-de-wiener"><span class="header-section-number">2.1.1</span> Movimiento Browniano (Proceso de Wiener)</h3>
+<p>Para representar las fluctuaciones térmicas continuas de baja intensidad —asociadas al ruido intrínseco del termostato y microtransferencias de calor— se utiliza el movimiento Browniano.</p>
+<div id="def-movimiento-browniano" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.1 (Proceso de Wiener)</strong></span> Un proceso estocástico continuo en el tiempo <span class="math inline">\(\{W(t)\}_{t \ge 0}\)</span> definido sobre un espacio de probabilidad filtrado <span class="math inline">\((\Omega, \mathcal{F}, \{\mathcal{F}_t\}, \mathbb{P})\)</span> es un movimiento Browniano estándar o proceso de Wiener si cumple con las siguientes propiedades:</p>
+<ol type="1">
+<li><span class="math inline">\(W(0) = 0\)</span> con probabilidad 1.</li>
+<li>Posee incrementos independientes; es decir, para cualesquiera tiempos <span class="math inline">\(0 \le t_1 &lt; t_2 &lt; \dots &lt; t_n\)</span>, las variables aleatorias <span class="math inline">\(W(t_2)-W(t_1), \dots, W(t_n)-W(t_{n-1})\)</span> son mutuamente independientes.</li>
+<li>Posee incrementos estacionarios gaussianos tales que para todo <span class="math inline">\(t &gt; s \ge 0\)</span>, el incremento <span class="math inline">\(W(t) - W(s) \sim \mathcal{N}(0, t-s)\)</span>.</li>
+<li>Sus trayectorias son continuas con probabilidad 1.</li>
+</ol>
 </div>
+<p>El término <span class="math inline">\(dW(t) = W(t+dt) - W(t)\)</span> representa el diferencial formal u operador infinitesimal del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal <span class="math inline">\(dt\)</span>, caracterizada matemáticamente por una media <span class="math inline">\(\mathbb{E}[dW(t)] = 0\)</span> y una varianza <span class="math inline">\(\mathbb{E}[(dW(t))^2] = dt\)</span>. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
 </section>
-<section id="la-ecuación-principal-ornstein-uhlenbeck" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="la-ecuación-principal-ornstein-uhlenbeck"><span class="header-section-number">2.2</span> La Ecuación Principal (Ornstein-Uhlenbeck)</h2>
-<p>En el contexto térmico, adaptamos la <a href="#eq-sde-hibrida-general" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a> bajo una estructura de reversión a la media. La dinámica de la temperatura <span class="math inline">\(T(t)\)</span> de nuestro refrigerador está dada por la siguiente ecuación diferencial estocástica de Ornstein-Uhlenbeck modificada:</p>
+<section id="proceso-de-poisson-homogéneo" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="proceso-de-poisson-homogéneo"><span class="header-section-number">2.1.2</span> Proceso de Poisson Homogéneo</h3>
+<p>Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso de conteo.</p>
+<div id="def-proceso-poisson" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.2 (Proceso de Poisson)</strong></span> Un proceso de conteo <span class="math inline">\(\{N(t)\}_{t \ge 0}\)</span> es un proceso de Poisson homogéneo con parámetro de intensidad <span class="math inline">\(\lambda &gt; 0\)</span> si satisface las siguientes condiciones:</p>
+<ol type="1">
+<li><span class="math inline">\(N(0) = 0\)</span>.</li>
+<li>Tiene incrementos independientes y estacionarios.</li>
+<li>La probabilidad de que ocurran exactamente <span class="math inline">\(n\)</span> eventos en un intervalo de tiempo de longitud <span class="math inline">\(t\)</span> está dada por la distribución de probabilidad:</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{P}(N(t + s) - N(s) = n) = \frac{(\lambda t)^n e^{-\lambda t}}{n!}, \quad n = 0, 1, 2, \dots
+\]</span></p>
+</div>
+<p>El comportamiento infinitesimal del proceso se captura a través de su diferencial <span class="math inline">\(dN(t)\)</span>, el cual contabiliza el número de saltos en un intervalo elemental <span class="math inline">\(dt\)</span>. Formalmente, sus probabilidades de transición en un horizonte infinitesimal están dadas por:</p>
+<p><span class="math display">\[
+dN(t) = \begin{cases}
+1 &amp; \text{con probabilidad } \lambda dt + o(dt) \\
+0 &amp; \text{con probabilidad } 1 - \lambda dt + o(dt)
+\end{cases}
+\]</span></p>
+<p>donde <span class="math inline">\(o(dt)\)</span> denota términos de orden superior que convergen a cero más rápido que <span class="math inline">\(dt\)</span>. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
+</section>
+<section id="cadenas-de-markov-de-tiempo-continuo" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="cadenas-de-markov-de-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov de Tiempo Continuo</h3>
+<p>Los fallos prolongados en el suministro eléctrico de la red pública alteran estructuralmente la dinámica del sistema. Para modelar estas transiciones entre estados macroscópicos del entorno, introducimos una cadena de Markov en tiempo continuo.</p>
+<div id="def-cadena-markov" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.3 (Proceso de Conmutación de Régimen)</strong></span> Sea <span class="math inline">\(\{\alpha(t)\}_{t \ge 0}\)</span> un proceso estocástico que toma valores en un espacio de estados finito y discreto <span class="math inline">\(\mathcal{M} = \{1, 2, \dots, m\}\)</span>. Se dice que <span class="math inline">\(\alpha(t)\)</span> es una cadena de Markov en tiempo continuo si para todo <span class="math inline">\(s, t \ge 0\)</span> y estados <span class="math inline">\(i, j \in \mathcal{M}\)</span>, cumple la propiedad de Markov:</p>
+<p><span class="math display">\[
+\mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i, \alpha(u) = \alpha_u, 0 \le u &lt; s) = \mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i)
+\]</span></p>
+</div>
+<p>Las leyes de transición de <span class="math inline">\(\alpha(t)\)</span> están gobernadas por el operador generador infinitesimal o matriz de tasas de transición <span class="math inline">\(Q = (q_{ij}) \in \mathbb{R}^{m \times m}\)</span>, tal que la probabilidad de transicionar del estado <span class="math inline">\(i\)</span> al estado <span class="math inline">\(j\)</span> en un intervalo infinitesimal <span class="math inline">\(dt\)</span> viene dada por <span class="math inline">\(\mathbb{P}(\alpha(t+dt) = j \mid \alpha(t) = i) = q_{ij}dt + o(dt)\)</span> para <span class="math inline">\(i \neq j\)</span>. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de <span class="citation" data-cites="yin2010hybrid">Yin y Zhu (<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">2010</a>)</span>.</p>
+</section>
+</section>
+<section id="formulación-de-la-ecuación-diferencial-estocástica-general" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="formulación-de-la-ecuación-diferencial-estocástica-general"><span class="header-section-number">2.2</span> Formulación de la Ecuación Diferencial Estocástica General</h2>
+<p>Una vez definidos los elementos estocásticos elementales, es posible formular el marco matemático que unifica la evolución analítica continua con las perturbaciones aleatorias macroscópicas y los saltos microscópicos discretos. De acuerdo con el marco general desarrollado por <span class="citation" data-cites="yin2010hybrid">Yin y Zhu (<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">2010</a>)</span> y <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>, una Difusión Híbrida con Conmutación de Régimen y Saltos se define formalmente mediante el siguiente sistema de ecuaciones diferenciales estocásticas:</p>
+<p><span id="eq-sde-hibrida-general"><span class="math display">\[
+dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \text{\alpha}(t^-)) dN(t)
+\tag{2.1}\]</span></span></p>
+<p>En la <a href="#eq-sde-hibrida-general" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a>, el término <span class="math inline">\(T(t^-) = \lim_{s \to t^-} T(s)\)</span> preserva la propiedad de continuidad por la izquierda con límites por la derecha (càdlàg) del proceso ante la ocurrencia de un salto. Las funciones de coeficientes se definen como: <span class="math display">\[\mu: \mathbb{R} \times \mathcal{M} \to \mathbb{R} \quad \text{(Coeficiente de deriva o tendencia)}\]</span> <span class="math display">\[\sigma: \mathbb{R} \times \mathcal{M} \to \mathbb{R} \quad \text{(Coeficiente de difusión o volatilidad)}\]</span> <span class="math display">\[\gamma: \mathbb{R} \times \mathcal{M} \to \mathbb{R} \quad \text{(Magnitud o intensidad del impacto del salto)}\]</span></p>
+<p>El acoplamiento funcional con la cadena de Markov <span class="math inline">\(\alpha(t)\)</span> implica que los parámetros estructurales del sistema cambian de forma aleatoria e instantánea cuando el entorno macroscópico conmuta de estado.</p>
+</section>
+<section id="el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado"><span class="header-section-number">2.3</span> El Modelo Estocástico de Red de Frío (Ornstein-Uhlenbeck Modificado)</h2>
+<p>Pasando del marco matemático abstracto a la física de nuestro problema particular, adaptamos la <a href="#eq-sde-hibrida-general" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a> bajo una estructura termodinámica de reversión a la media. Postulamos que la dinámica de la temperatura interna <span class="math inline">\(T(t)\)</span> de un refrigerador institucional de vacunas se rige por la siguiente ecuación diferencial estocástica de Ornstein-Uhlenbeck híbrida con saltos de Poisson:</p>
 <p><span id="eq-ou-temperatura"><span class="math display">\[
 dT(t) = \kappa(\alpha(t)) [\theta(\alpha(t)) - T(t)] dt + \sigma(\alpha(t)) dW(t) + \gamma dN(t)
 \tag{2.2}\]</span></span></p>
-<p>Como podemos observar claramente en la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>, el sistema presenta una reversión a la media hacia el nivel <span class="math inline">\(\theta(\alpha(t))\)</span>, controlada por el parámetro <span class="math inline">\(\kappa(\alpha(t))\)</span> que define la velocidad de enfriamiento o calentamiento según el régimen <span class="math inline">\(\alpha(t)\)</span>.</p>
-</section>
-<section id="conceptos-fundamentales" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="conceptos-fundamentales"><span class="header-section-number">2.3</span> Conceptos Fundamentales</h2>
-<p>Para entender el comportamiento de la red de frío ante fallos eléctricos y manipulaciones humanas, es vital establecer los siguientes conceptos físicos y estocásticos:</p>
+<p>Bajo esta parametrización particular, el espacio de estados de la cadena de Markov se restringe a dos regímenes operativos fundamentales, <span class="math inline">\(\mathcal{M} = \{1, 2\}\)</span>, cuyas implicaciones físicas y estocásticas se detallan en los siguientes conceptos:</p>
 <div id="def-inercia-termica" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.2 (Inercia Térmica)</strong></span> Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.</p>
+<p><span class="theorem-title"><strong>Definición 2.4 (Inercia Térmica y Parámetros Estructurales)</strong></span> La inercia térmica es la capacidad de la masa interna del refrigerador (biológicos, paquetes refrigerantes y botellas de agua) para amortiguar la transferencia de calor del exterior. En la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>, se modela mediante el coeficiente de velocidad de reversión <span class="math inline">\(\kappa(\alpha(t)) &gt; 0\)</span>. A mayor inercia térmica, menor será el valor de <span class="math inline">\(\kappa\)</span> en ausencia de energía eléctrica, retrasando el calentamiento del refrigerador. El parámetro de volatilidad <span class="math inline">\(\sigma(\alpha(t)) &gt; 0\)</span> cuantifica la magnitud del ruido continuo gaussiano inducido por el ciclo del compresor.</p>
 </div>
-<p>De acuerdo con la <a href="#def-inercia-termica" class="quarto-xref">Definición&nbsp;<span>2.2</span></a>, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad <span class="math inline">\(\sigma(\alpha(t))\)</span> y se alterará la fuerza de reversión <span class="math inline">\(\kappa(\alpha(t))\)</span> de la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>.</p>
 <div id="def-cortes-energia" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.3 (Corte de Energía (Salto de Régimen))</strong></span> Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar. Matemáticamente, detona el cambio de régimen markoviano de <span class="math inline">\(\alpha(t) = 1\)</span> (suministro normal) a <span class="math inline">\(\alpha(t) = 2\)</span> (falla eléctrica), haciendo que la temperatura converja hacia el ambiente exterior <span class="citation" data-cites="yin2010hybrid">(<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">Yin y Zhu 2010</a>)</span>.</p>
+<p><span class="theorem-title"><strong>Definición 2.5 (Corte de Energía (Conmutación de Régimen))</strong></span> Se define como la transición macroscópica de la cadena de Markov debido a fallos en el suministro eléctrico. El sistema conmuta del régimen con suministro normal (<span class="math inline">\(\alpha(t) = 1\)</span>) al régimen de falla (<span class="math inline">\(\alpha(t) = 2\)</span>). Esta conmutación altera los límites asintóticos de la deriva en la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>:</p>
+<ol type="1">
+<li><strong>Régimen <span class="math inline">\(\alpha(t) = 1\)</span>:</strong> El sistema converge a la temperatura óptima de consigna del termostato, es decir, <span class="math inline">\(\theta(1) = 5^\circ\text{C}\)</span>.</li>
+<li><strong>Régimen <span class="math inline">\(\alpha(t) = 2\)</span>:</strong> Al apagarse el motor, el sistema interrumpe el enfriamiento y la temperatura interna comienza a converger hacia la temperatura ambiente exterior del centro de salud, parametrizada por <span class="math inline">\(\theta(2) = T_{\text{amb}}\)</span>.</li>
+</ol>
 </div>
-<p>Como vimos en la <a href="#def-cortes-energia" class="quarto-xref">Definición&nbsp;<span>2.3</span></a>, esto detonará el cambio de régimen en nuestro código. Adicionalmente, el término de saltos en nuestra ecuación responde a otra eventualidad cotidiana:</p>
 <div id="def-apertura-puerta" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.4 (Apertura de Puertas (Saltos de Poisson))</strong></span> Corresponde a las interrupciones térmicas instantáneas causadas por el personal médico al abrir el refrigerador. Se modelan matemáticamente mediante el diferencial del proceso de Poisson <span class="math inline">\(dN(t)\)</span>, el cual inyecta un salto positivo <span class="math inline">\(\gamma\)</span> en la temperatura del sistema <span class="citation" data-cites="platen2010numerical">(<a href="references.html#ref-platen2010numerical" role="doc-biblioref">Platen y Bruti-Liberati 2010</a>)</span>.</p>
+<p><span class="theorem-title"><strong>Definición 2.6 (Apertura de Puertas (Perturbaciones por Saltos))</strong></span> Corresponde a la intrusión brusca de aire cálido exterior provocada por la manipulación operativa del personal de enfermería. Este fenómeno ocurre de forma intermitente y se modela en la <a href="#eq-ou-temperatura" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a> mediante el término de saltos <span class="math inline">\(\gamma dN(t)\)</span>, donde <span class="math inline">\(\gamma &gt; 0\)</span> representa el incremento térmico discreto e instantáneo en grados Celsius cada vez que el diferencial del proceso de Poisson registra un evento (<span class="math inline">\(dN(t) = 1\)</span>).</p>
 </div>
 </section>
 <section id="el-lema-de-itô-generalizado" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="el-lema-de-itô-generalizado"><span class="header-section-number">2.4</span> El Lema de Itô Generalizado</h2>
-<p>Para garantizar la rigurosidad matemática al momento de simular numéricamente la temperatura (por ejemplo, con el esquema de Euler-Maruyama), requerimos una extensión del cálculo estocástico clásico. Apoyados en la teoría de <span class="citation" data-cites="yin2010hybrid">Yin y Zhu (<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">2010</a>)</span> y <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>, establecemos el siguiente teorema que justifica nuestro código:</p>
+<p>La resolución analítica explícita o la justificación de esquemas de aproximación numérica convergentes (tales como el método de Euler-Maruyama para la simulación de Montecarlo) requiere una extensión del cálculo diferencial estocástico clásico. Apoyados en los desarrollos fundamentales de <span class="citation" data-cites="yin2010hybrid">Yin y Zhu (<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">2010</a>)</span> y <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>, establecemos el siguiente teorema analítico que rige el cálculo sobre trayectorias discontinuas con conmutación:</p>
 <div id="thm-ito-generalizado" class="theorem">
-<p><span class="theorem-title"><strong>Teorema 2.1 (Fórmula de Itô para Difusiones Híbridas con Saltos)</strong></span> Sea <span class="math inline">\(V(t, T, i)\)</span> una función continuamente diferenciable en <span class="math inline">\(t\)</span>, y dos veces continuamente diferenciable en <span class="math inline">\(T\)</span> para cada régimen markoviano <span class="math inline">\(i \in \mathcal{M}\)</span>. El diferencial estocástico del proceso viene dado por:</p>
+<p><span class="theorem-title"><strong>Teorema 2.1 (Fórmula de Itô para Difusiones Híbridas con Saltos)</strong></span> Sea <span class="math inline">\(V(t, T, i)\)</span> una función continuamente diferenciable en su componente temporal <span class="math inline">\(t\)</span>, y dos veces continuamente diferenciable en su componente espacial <span class="math inline">\(T\)</span> para cada régimen operativo <span class="math inline">\(i \in \mathcal{M}\)</span>. Si <span class="math inline">\(T(t)\)</span> es un proceso que satisface la <a href="#eq-sde-hibrida-general" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a>, entonces el diferencial estocástico de la función compuesta <span class="math inline">\(V(t, T(t), \alpha(t))\)</span> viene dado por:</p>
 <p><span id="eq-ito-generalizado"><span class="math display">\[
 \begin{aligned}
 dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\partial V}{\partial T}\mu(T, \alpha) + \frac{1}{2}\frac{\partial^2 V}{\partial T^2}\sigma^2(T, \alpha) + \sum_{j \in \mathcal{M}} q_{\alpha(t)j}V(t, T, j) \right] dt \\
@@ -499,7 +551,7 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 \end{aligned}
 \tag{2.3}\]</span></span></p>
 </div>
-<p>Como se puede apreciar en el <a href="#thm-ito-generalizado" class="quarto-xref">Teorema&nbsp;<span>2.1</span></a> y en la <a href="#eq-ito-generalizado" class="quarto-xref">Ecuación&nbsp;<span>2.3</span></a>, el operador diferencial de Itô se expande para incluir la matriz generadora de la cadena de Markov <span class="math inline">\(Q = (q_{ij})\)</span> y las diferencias finitas asociadas a los impactos inelásticos de los saltos de Poisson.</p>
+<p>Como se puede apreciar en el <a href="#thm-ito-generalizado" class="quarto-xref">Teorema&nbsp;<span>2.1</span></a>, el operador diferencial de Itô se expande de manera elegante. El primer término entre corchetes añade a la derivada temporal y al generador de difusión clásico una sumatoria ponderada por las tasas de transición <span class="math inline">\(q_{ij}\)</span> de la matriz <span class="math inline">\(Q\)</span>, lo cual captura el efecto del cambio estructural en la deriva. Por su parte, la componente final sustituye la derivada espacial tradicional por un operador de diferencias finitas encargado de absorber la discontinuidad inelástica en los tiempos de salto del proceso de Poisson.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
