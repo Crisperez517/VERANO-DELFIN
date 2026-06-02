@@ -1,64 +1,120 @@
-# Fundamentos Teoricos
+# Fundamentos Teóricos
 
-En este capítulo presentaremos las bases formales de nuestro modelo de red de frío.
+En este capítulo presentaremos las bases conceptuales y el marco formal del cálculo estocástico que fundamentan el desarrollo de nuestro modelo matemático para la red de frío. Siguiendo un enfoque deductivo, se definirán en primer lugar los procesos estocásticos elementales para, posteriormente, construir la ecuación diferencial estocástica (EDE) híbrida que rige el sistema.
 
-## Difusiones Híbridas con Conmutación y Saltos
+## Procesos Estocásticos de Soporte
 
-Para describir rigurosamente la evolución de la temperatura interna $T(t)$ en un refrigerador de vacunas sujeto a perturbaciones ambientales y fallos estructurales, es necesario introducir el concepto de una difusión híbrida con conmutación de régimen y saltos de Poisson. Este marco formal combina la continuidad de los procesos de difusión clásicos con la naturaleza discreta de los eventos aleatorios exteriores [@yin2010hybrid; @platen2010numerical].
+El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres continuas y perturbaciones discretas requiere herramientas más allá del cálculo determinista. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos fundamentales.
 
-Para modelar los cambios de estado prolongados del entorno (como la presencia o ausencia de suministro eléctrico), acoplamos el sistema a una cadena de Markov en tiempo continuo $\alpha(t)$ que toma valores en un espacio de estados finito $\mathcal{M} = \{1, 2\}$.
+### Movimiento Browniano (Proceso de Wiener)
 
-::: {#def-sde-hibrida}
-### Ecuación Diferencial Estocástica Híbrida con Saltos
-Una difusión con conmutación de régimen (switching diffusion) acoplada a procesos de salto es un proceso estocástico que satisface el siguiente sistema general:
+Para representar las fluctuaciones térmicas continuas de baja intensidad —asociadas al ruido intrínseco del termostato y microtransferencias de calor— se utiliza el movimiento Browniano.
 
-$$
-dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
-$$ {#eq-sde-hibrida-general}
+::: {#def-movimiento-browniano}
+### Proceso de Wiener
+Un proceso estocástico continuo en el tiempo $\{W(t)\}_{t \ge 0}$ definido sobre un espacio de probabilidad filtrado $(\Omega, \mathcal{F}, \{\mathcal{F}_t\}, \mathbb{P})$ es un movimiento Browniano estándar o proceso de Wiener si cumple con las siguientes propiedades:
 
-donde $\mu$ representa la deriva, $\sigma$ la volatilidad y $\gamma$ la magnitud del salto térmico impulsado por el proceso de Poisson $N(t)$, todos dependientes del régimen actual $\alpha(t)$.
+1. $W(0) = 0$ con probabilidad 1.
+2. Posee incrementos independientes; es decir, para cualesquiera tiempos $0 \le t_1 < t_2 < \dots < t_n$, las variables aleatorias $W(t_2)-W(t_1), \dots, W(t_n)-W(t_{n-1})$ son mutuamente independientes.
+3. Posee incrementos estacionarios gaussianos tales que para todo $t > s \ge 0$, el incremento $W(t) - W(s) \sim \mathcal{N}(0, t-s)$.
+4. Sus trayectorias son continuas con probabilidad 1.
 :::
 
-## La Ecuación Principal (Ornstein-Uhlenbeck)
+El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial formal u operador infinitesimal del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a @platen2010numerical.
 
-En el contexto térmico, adaptamos la @eq-sde-hibrida-general bajo una estructura de reversión a la media. La dinámica de la temperatura $T(t)$ de nuestro refrigerador está dada por la siguiente ecuación diferencial estocástica de Ornstein-Uhlenbeck modificada:
+### Proceso de Poisson Homogéneo
+
+Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso de conteo.
+
+::: {#def-proceso-poisson}
+### Proceso de Poisson
+Un proceso de conteo $\{N(t)\}_{t \ge 0}$ es un proceso de Poisson homogéneo con parámetro de intensidad $\lambda > 0$ si satisface las siguientes condiciones:
+
+1. $N(0) = 0$.
+2. Tiene incrementos independientes y estacionarios.
+3. La probabilidad de que ocurran exactamente $n$ eventos en un intervalo de tiempo de longitud $t$ está dada por la distribución de probabilidad:
+
+$$
+\mathbb{P}(N(t + s) - N(s) = n) = \frac{(\lambda t)^n e^{-\lambda t}}{n!}, \quad n = 0, 1, 2, \dots
+$$
+:::
+
+El comportamiento infinitesimal del proceso se captura a través de su diferencial $dN(t)$, el cual contabiliza el número de saltos en un intervalo elemental $dt$. Formalmente, sus probabilidades de transición en un horizonte infinitesimal están dadas por:
+
+$$
+dN(t) = \begin{cases} 
+1 & \text{con probabilidad } \lambda dt + o(dt) \\ 
+0 & \text{con probabilidad } 1 - \lambda dt + o(dt) 
+\end{cases}
+$$
+
+donde $o(dt)$ denota términos de orden superior que convergen a cero más rápido que $dt$. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en @platen2010numerical.
+
+### Cadenas de Markov de Tiempo Continuo
+
+Los fallos prolongados en el suministro eléctrico de la red pública alteran estructuralmente la dinámica del sistema. Para modelar estas transiciones entre estados macroscópicos del entorno, introducimos una cadena de Markov en tiempo continuo.
+
+::: {#def-cadena-markov}
+### Proceso de Conmutación de Régimen
+Sea $\{\alpha(t)\}_{t \ge 0}$ un proceso estocástico que toma valores en un espacio de estados finito y discreto $\mathcal{M} = \{1, 2, \dots, m\}$. Se dice que $\alpha(t)$ es una cadena de Markov en tiempo continuo si para todo $s, t \ge 0$ y estados $i, j \in \mathcal{M}$, cumple la propiedad de Markov:
+
+$$
+\mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i, \alpha(u) = \alpha_u, 0 \le u < s) = \mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i)
+$$
+:::
+
+Las leyes de transición de $\alpha(t)$ están gobernadas por el operador generador infinitesimal o matriz de tasas de transición $Q = (q_{ij}) \in \mathbb{R}^{m \times m}$, tal que la probabilidad de transicionar del estado $i$ al estado $j$ en un intervalo infinitesimal $dt$ viene dada por $\mathbb{P}(\alpha(t+dt) = j \mid \alpha(t) = i) = q_{ij}dt + o(dt)$ para $i \neq j$. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de @yin2010hybrid.
+
+## Formulación de la Ecuación Diferencial Estocástica General
+
+Una vez definidos los elementos estocásticos elementales, es posible formular el marco matemático que unifica la evolución analítica continua con las perturbaciones aleatorias macroscópicas y los saltos microscópicos discretos. De acuerdo con el marco general desarrollado por @yin2010hybrid y @platen2010numerical, una Difusión Híbrida con Conmutación de Régimen y Saltos se define formalmente mediante el siguiente sistema de ecuaciones diferenciales estocásticas:
+
+$$
+dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \text{\alpha}(t^-)) dN(t)
+$$ {#eq-sde-hibrida-general}
+
+En la @eq-sde-hibrida-general, el término $T(t^-) = \lim_{s \to t^-} T(s)$ preserva la propiedad de continuidad por la izquierda con límites por la derecha (càdlàg) del proceso ante la ocurrencia de un salto. Las funciones de coeficientes se definen como:
+$$\mu: \mathbb{R} \times \mathcal{M} \to \mathbb{R} \quad \text{(Coeficiente de deriva o tendencia)}$$
+$$\sigma: \mathbb{R} \times \mathcal{M} \to \mathbb{R} \quad \text{(Coeficiente de difusión o volatilidad)}$$
+$$\gamma: \mathbb{R} \times \mathcal{M} \to \mathbb{R} \quad \text{(Magnitud o intensidad del impacto del salto)}$$
+
+El acoplamiento funcional con la cadena de Markov $\alpha(t)$ implica que los parámetros estructurales del sistema cambian de forma aleatoria e instantánea cuando el entorno macroscópico conmuta de estado.
+
+## El Modelo Estocástico de Red de Frío (Ornstein-Uhlenbeck Modificado)
+
+Pasando del marco matemático abstracto a la física de nuestro problema particular, adaptamos la @eq-sde-hibrida-general bajo una estructura termodinámica de reversión a la media. Postulamos que la dinámica de la temperatura interna $T(t)$ de un refrigerador institucional de vacunas se rige por la siguiente ecuación diferencial estocástica de Ornstein-Uhlenbeck híbrida con saltos de Poisson:
 
 $$
 dT(t) = \kappa(\alpha(t)) [\theta(\alpha(t)) - T(t)] dt + \sigma(\alpha(t)) dW(t) + \gamma dN(t)
 $$ {#eq-ou-temperatura}
 
-Como podemos observar claramente en la @eq-ou-temperatura, el sistema presenta una reversión a la media hacia el nivel $\theta(\alpha(t))$, controlada por el parámetro $\kappa(\alpha(t))$ que define la velocidad de enfriamiento o calentamiento según el régimen $\alpha(t)$.
-
-## Conceptos Fundamentales
-
-Para entender el comportamiento de la red de frío ante fallos eléctricos y manipulaciones humanas, es vital establecer los siguientes conceptos físicos y estocásticos:
+Bajo esta parametrización particular, el espacio de estados de la cadena de Markov se restringe a dos regímenes operativos fundamentales, $\mathcal{M} = \{1, 2\}$, cuyas implicaciones físicas y estocásticas se detallan en los siguientes conceptos:
 
 ::: {#def-inercia-termica}
-### Inercia Térmica
-Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.
+### Inercia Térmica y Parámetros Estructurales
+La inercia térmica es la capacidad de la masa interna del refrigerador (biológicos, paquetes refrigerantes y botellas de agua) para amortiguar la transferencia de calor del exterior. En la @eq-ou-temperatura, se modela mediante el coeficiente de velocidad de reversión $\kappa(\alpha(t)) > 0$. A mayor inercia térmica, menor será el valor de $\kappa$ en ausencia de energía eléctrica, retrasando el calentamiento del refrigerador. El parámetro de volatilidad $\sigma(\alpha(t)) > 0$ cuantifica la magnitud del ruido continuo gaussiano inducido por el ciclo del compresor.
 :::
-
-De acuerdo con la @def-inercia-termica, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad $\sigma(\alpha(t))$ y se alterará la fuerza de reversión $\kappa(\alpha(t))$ de la @eq-ou-temperatura.
 
 ::: {#def-cortes-energia}
-### Corte de Energía (Salto de Régimen)
-Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar. Matemáticamente, detona el cambio de régimen markoviano de $\alpha(t) = 1$ (suministro normal) a $\alpha(t) = 2$ (falla eléctrica), haciendo que la temperatura converja hacia el ambiente exterior [@yin2010hybrid].
+### Corte de Energía (Conmutación de Régimen)
+Se define como la transición macroscópica de la cadena de Markov debido a fallos en el suministro eléctrico. El sistema conmuta del régimen con suministro normal ($\alpha(t) = 1$) al régimen de falla ($\alpha(t) = 2$). Esta conmutación altera los límites asintóticos de la deriva en la @eq-ou-temperatura:
+
+1. **Régimen $\alpha(t) = 1$:** El sistema converge a la temperatura óptima de consigna del termostato, es decir, $\theta(1) = 5^\circ\text{C}$.
+2. **Régimen $\alpha(t) = 2$:** Al apagarse el motor, el sistema interrumpe el enfriamiento y la temperatura interna comienza a converger hacia la temperatura ambiente exterior del centro de salud, parametrizada por $\theta(2) = T_{\text{amb}}$.
 :::
 
-Como vimos en la @def-cortes-energia, esto detonará el cambio de régimen en nuestro código. Adicionalmente, el término de saltos en nuestra ecuación responde a otra eventualidad cotidiana:
-
 ::: {#def-apertura-puerta}
-### Apertura de Puertas (Saltos de Poisson)
-Corresponde a las interrupciones térmicas instantáneas causadas por el personal médico al abrir el refrigerador. Se modelan matemáticamente mediante el diferencial del proceso de Poisson $dN(t)$, el cual inyecta un salto positivo $\gamma$ en la temperatura del sistema [@platen2010numerical].
+### Apertura de Puertas (Perturbaciones por Saltos)
+Corresponde a la intrusión brusca de aire cálido exterior provocada por la manipulación operativa del personal de enfermería. Este fenómeno ocurre de forma intermitente y se modela en la @eq-ou-temperatura mediante el término de saltos $\gamma dN(t)$, donde $\gamma > 0$ representa el incremento térmico discreto e instantáneo en grados Celsius cada vez que el diferencial del proceso de Poisson registra un evento ($dN(t) = 1$).
 :::
 
 ## El Lema de Itô Generalizado
 
-Para garantizar la rigurosidad matemática al momento de simular numéricamente la temperatura (por ejemplo, con el esquema de Euler-Maruyama), requerimos una extensión del cálculo estocástico clásico. Apoyados en la teoría de @yin2010hybrid y @platen2010numerical, establecemos el siguiente teorema que justifica nuestro código:
+La resolución analítica explícita o la justificación de esquemas de aproximación numérica convergentes (tales como el método de Euler-Maruyama para la simulación de Montecarlo) requiere una extensión del cálculo diferencial estocástico clásico. Apoyados en los desarrollos fundamentales de @yin2010hybrid y @platen2010numerical, establecemos el siguiente teorema analítico que rige el cálculo sobre trayectorias discontinuas con conmutación:
 
 ::: {#thm-ito-generalizado}
 ### Fórmula de Itô para Difusiones Híbridas con Saltos
-Sea $V(t, T, i)$ una función continuamente diferenciable en $t$, y dos veces continuamente diferenciable en $T$ para cada régimen markoviano $i \in \mathcal{M}$. El diferencial estocástico del proceso viene dado por:
+Sea $V(t, T, i)$ una función continuamente diferenciable en su componente temporal $t$, y dos veces continuamente diferenciable en su componente espacial $T$ para cada régimen operativo $i \in \mathcal{M}$. Si $T(t)$ es un proceso que satisface la @eq-sde-hibrida-general, entonces el diferencial estocástico de la función compuesta $V(t, T(t), \alpha(t))$ viene dado por:
 
 $$
 \begin{aligned}
@@ -68,4 +124,4 @@ dV(t, T(t), \alpha(t)) = & \left[ \frac{\partial V}{\partial t} + \frac{\partial
 $$ {#eq-ito-generalizado}
 :::
 
-Como se puede apreciar en el @thm-ito-generalizado y en la @eq-ito-generalizado, el operador diferencial de Itô se expande para incluir la matriz generadora de la cadena de Markov $Q = (q_{ij})$ y las diferencias finitas asociadas a los impactos inelásticos de los saltos de Poisson.
+Como se puede apreciar en el @thm-ito-generalizado, el operador diferencial de Itô se expande de manera elegante. El primer término entre corchetes añade a la derivada temporal y al generador de difusión clásico una sumatoria ponderada por las tasas de transición $q_{ij}$ de la matriz $Q$, lo cual captura el efecto del cambio estructural en la deriva. Por su parte, la componente final sustituye la derivada espacial tradicional por un operador de diferencias finitas encargado de absorber la discontinuidad inelástica en los tiempos de salto del proceso de Poisson.
