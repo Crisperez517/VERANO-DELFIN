@@ -19,7 +19,7 @@ book:
     
     - part: "Marco Teórico y Normativa"
       chapters: 
-        - red_de_frio_oms.qmd
+        - fundamentos_teoricos.qmd
 
     - part: "Modelo Matemático"
       chapters: 

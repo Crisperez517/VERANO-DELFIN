@@ -1,0 +1,75 @@
+# Fundamentos Teoricos
+
+En este capítulo presentaremos las bases formales de nuestro modelo de red de frío.
+
+## Difusiones Híbridas con Conmutación y Saltos
+
+Para describir rigurosamente la evolución de la temperatura interna $T(t)$ en un refrigerador de vacunas sujeto a perturbaciones ambientales y fallos estructurales, es necesario introducir el concepto de una difusión híbrida con conmutación de régimen y saltos de Poisson. Este marco formal combina la continuidad de los procesos de difusión clásicos con la naturaleza discreta de los eventos aleatorios exteriores [@yin2010hybrid; @platen2010numerical].
+
+Para modelar los cambios de estado prolongados del entorno (como la presencia o ausencia de suministro eléctrico), acoplamos el sistema a una cadena de Markov en tiempo continuo $\alpha(t)$ que toma valores en un espacio de estados finito $\mathcal{M} = \{1, 2\}$.
+
+::: {#def-sde-hibrida}
+### Ecuación Diferencial Estocástica Híbrida con Saltos
+Una difusión con conmutación de régimen (switching diffusion) acoplada a procesos de salto es un proceso estocástico que satisface el siguiente sistema general:
+
+$$
+dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
+$$ {#eq-sde-hibrida-general}
+
+donde $\mu$ representa la deriva, $\sigma$ la volatilidad y $\gamma$ la magnitud del salto térmico impulsado por el proceso de Poisson $N(t)$, todos dependientes del régimen actual $\alpha(t)$.
+:::
+
+## La Ecuación Principal (Ornstein-Uhlenbeck)
+
+En el contexto térmico, adaptamos la @eq-sde-hibrida-general bajo una estructura de reversión a la media. La dinámica de la temperatura $T(t)$ de nuestro refrigerador está dada por la siguiente ecuación diferencial estocástica de Ornstein-Uhlenbeck modificada:
+
+$$
+dT(t) = \kappa(\alpha(t)) [\theta(\alpha(t)) - T(t)] dt + \sigma(\alpha(t)) dW(t) + \gamma dN(t)
+$$ {#eq-ou-temperatura}
+
+Como podemos observar claramente en la @eq-ou-temperatura, el sistema presenta una reversión a la media hacia el nivel $\theta(\alpha(t))$, controlada por el parámetro $\kappa(\alpha(t))$ que define la velocidad de enfriamiento o calentamiento según el régimen $\alpha(t)$.
+
+## Conceptos Fundamentales
+
+Para entender el comportamiento de la red de frío ante fallos eléctricos y manipulaciones humanas, es vital establecer los siguientes conceptos físicos y estocásticos:
+
+::: {#def-inercia-termica}
+### Inercia Térmica
+Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.
+:::
+
+De acuerdo con la @def-inercia-termica, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad $\sigma(\alpha(t))$ y se alterará la fuerza de reversión $\kappa(\alpha(t))$ de la @eq-ou-temperatura.
+
+::: {#def-cortes-energia}
+### Corte de Energía (Salto de Régimen)
+Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar. Matemáticamente, detona el cambio de régimen markoviano de $\alpha(t) = 1$ (suministro normal) a $\alpha(t) = 2$ (falla eléctrica), haciendo que la temperatura converja hacia el ambiente exterior [@yin2010hybrid].
+:::
+
+Como vimos en la @def-cortes-energia, esto detonará el cambio de régimen en nuestro código. Adicionalmente, el término de saltos en nuestra ecuación responde a otra eventualidad cotidiana:
+
+::: {#def-apertura-puerta}
+### Apertura de Puertas (Saltos de Poisson)
+Corresponde a las interrupciones térmicas instantáneas causadas por el personal médico al abrir el refrigerador. Se modelan matemáticamente mediante el diferencial del proceso de Poisson $dN(t)$, el cual inyecta un salto positivo $\gamma$ en la temperatura del sistema [@platen2010numerical].
+:::
+
+![Logo FCFM](FCFM-UNACH.png){#fig-logo-principal width="50%" fig-align="center"}
+
+Como ilustra la @fig-logo-principal, el modelo propuesto de red de frío busca resolver problemáticas del entorno mediante el rigor analítico de la Facultad de Ciencias Físicas y Matemáticas de la UNACH.
+
+## El Lema de Itô Generalizado
+
+Para garantizar la rigurosidad matemática al momento de simular numéricamente la temperatura (por ejemplo, con el esquema de Euler-Maruyama), requerimos una extensión del cálculo estocástico clásico. Apoyados en la teoría de @yin2010hybrid y @platen2010numerical, establecemos el siguiente teorema que justifica nuestro código:
+
+::: {#thm-ito-generalizado}
+### Fórmula de Itô para Difusiones Híbridas con Saltos
+Sea $V(t, T, i)$ una función continuamente diferenciable en $t$, y dos veces continuamente diferenciable en $T$ para cada régimen markoviano $i \in \mathcal{M}$. El diferencial estocástico del proceso viene dado por:
+
+$$
+\begin{aligned}
+dV(t, T(t), \alpha(t)) = & \left[ \frac{\partial V}{\partial t} + \frac{\partial V}{\partial T}\mu(T, \alpha) + \frac{1}{2}\frac{\partial^2 V}{\partial T^2}\sigma^2(T, \alpha) + \sum_{j \in \mathcal{M}} q_{\alpha(t)j}V(t, T, j) \right] dt \\
+& + \frac{\partial V}{\partial T}\sigma(T, \alpha) dW(t) + \left[ V(t, T(t^-) + \gamma, \alpha(t^-)) - V(t, T(t^-), \alpha(t^-)) \right] dN(t)
+\end{aligned}
+$$ {#eq-ito-generalizado}
+:::
+
+Como se puede apreciar en el @thm-ito-generalizado y en la @eq-ito-generalizado, el operador diferencial de Itô se expande para incluir la matriz generadora de la cadena de Markov $Q = (q_{ij})$ y las diferencias finitas asociadas a los impactos inelásticos de los saltos de Poisson.

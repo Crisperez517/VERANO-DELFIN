@@ -4,41 +4,64 @@
     "href": "index.html",
     "title": "Reporte de Investigación - Verano Delfín",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "text": "Preface",
     "crumbs": [
       "Preface"
     ]
   },
   {
-    "objectID": "intro.html",
-    "href": "intro.html",
-    "title": "1  Introduction",
+    "objectID": "fundamentos_teoricos.html",
+    "href": "fundamentos_teoricos.html",
+    "title": "2  Fundamentos Teoricos",
     "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. «Literate Programming». Comput. J. 27 (2): 97-111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "2.1 Difusiones Híbridas con Conmutación y Saltos\nEn este capítulo presentaremos las bases formales de nuestro modelo de red de frío.\nPara describir rigurosamente la evolución de la temperatura interna \\(T(t)\\) en un refrigerador de vacunas sujeto a perturbaciones ambientales y fallos estructurales, es necesario introducir el concepto de una difusión híbrida con conmutación de régimen y saltos de Poisson. Este marco formal combina la continuidad de los procesos de difusión clásicos con la naturaleza discreta de los eventos aleatorios exteriores (Yin y Zhu 2010; Platen y Bruti-Liberati 2010).\nPara modelar los cambios de estado prolongados del entorno (como la presencia o ausencia de suministro eléctrico), acoplamos el sistema a una cadena de Markov en tiempo continuo \\(\\alpha(t)\\) que toma valores en un espacio de estados finito \\(\\mathcal{M} = \\{1, 2\\}\\).",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "Marco Teórico y Normativa",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos Teoricos</span>"
     ]
   },
   {
-    "objectID": "red_de_frio_oms.html",
-    "href": "red_de_frio_oms.html",
-    "title": "2  Metodología y Modelo Estocástico",
+    "objectID": "fundamentos_teoricos.html#difusiones-híbridas-con-conmutación-y-saltos",
+    "href": "fundamentos_teoricos.html#difusiones-híbridas-con-conmutación-y-saltos",
+    "title": "2  Fundamentos Teoricos",
     "section": "",
-    "text": "2.1 La Ecuación Principal\nEn este capítulo presentaremos las bases de nuestro modelo de red de frío.\nPara modelar la temperatura interna del refrigerador, utilizamos un Proceso de Ornstein-Uhlenbeck. La dinámica de la temperatura \\(T(t)\\) está dada por la siguiente ecuación diferencial estocástica:\n\\[\ndT(t) = \\kappa [\\theta(t) - T(t)] dt + \\sigma dW(t)\n\\tag{2.1}\\]\nComo podemos observar claramente en la Ecuación 2.1, el sistema presenta una reversión a la media controlada por el parámetro \\(\\kappa\\).",
+    "text": "Definición 2.1 (Ecuación Diferencial Estocástica Híbrida con Saltos) Una difusión con conmutación de régimen (switching diffusion) acoplada a procesos de salto es un proceso estocástico que satisface el siguiente sistema general:\n\\[\ndT(t) = \\mu(T(t), \\alpha(t)) dt + \\sigma(T(t), \\alpha(t)) dW(t) + \\gamma(T(t^-), \\alpha(t^-)) dN(t)\n\\tag{2.1}\\]\ndonde \\(\\mu\\) representa la deriva, \\(\\sigma\\) la volatilidad y \\(\\gamma\\) la magnitud del salto térmico impulsado por el proceso de Poisson \\(N(t)\\), todos dependientes del régimen actual \\(\\alpha(t)\\).",
     "crumbs": [
       "Marco Teórico y Normativa",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Metodología y Modelo Estocástico</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos Teoricos</span>"
     ]
   },
   {
-    "objectID": "red_de_frio_oms.html#conceptos-fundamentales",
-    "href": "red_de_frio_oms.html#conceptos-fundamentales",
-    "title": "2  Metodología y Modelo Estocástico",
-    "section": "2.2 Conceptos Fundamentales",
-    "text": "2.2 Conceptos Fundamentales\nPara entender el comportamiento de la red de frío ante fallos eléctricos, es vital establecer el siguiente concepto:\n\nDefinición 2.1 (Inercia Térmica) Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.\n\nDe acuerdo con la Definición 2.1, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad \\(\\sigma\\) de la Ecuación 2.1.\n\nDefinición 2.2 (Corte de Energía (Salto de Régimen)) Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar y comience a converger hacia la temperatura ambiente exterior.\n\nComo vimos en la Definición 2.2, esto detonará el cambio de régimen en nuestro código.\n\n\n\n\n\n\nFigura 2.1: logo\n\n\n\nnote que Figura 2.1 es un logo de la Facultad de Ciencias Físicas y Matemáticas de la UNACH, el cual se utiliza para ilustrar la sección de metodología y modelo estocástico en nuestro proyecto de red de frío.",
+    "objectID": "fundamentos_teoricos.html#la-ecuación-principal-ornstein-uhlenbeck",
+    "href": "fundamentos_teoricos.html#la-ecuación-principal-ornstein-uhlenbeck",
+    "title": "2  Fundamentos Teoricos",
+    "section": "2.2 La Ecuación Principal (Ornstein-Uhlenbeck)",
+    "text": "2.2 La Ecuación Principal (Ornstein-Uhlenbeck)\nEn el contexto térmico, adaptamos la Ecuación 2.1 bajo una estructura de reversión a la media. La dinámica de la temperatura \\(T(t)\\) de nuestro refrigerador está dada por la siguiente ecuación diferencial estocástica de Ornstein-Uhlenbeck modificada:\n\\[\ndT(t) = \\kappa(\\alpha(t)) [\\theta(\\alpha(t)) - T(t)] dt + \\sigma(\\alpha(t)) dW(t) + \\gamma dN(t)\n\\tag{2.2}\\]\nComo podemos observar claramente en la Ecuación 2.2, el sistema presenta una reversión a la media hacia el nivel \\(\\theta(\\alpha(t))\\), controlada por el parámetro \\(\\kappa(\\alpha(t))\\) que define la velocidad de enfriamiento o calentamiento según el régimen \\(\\alpha(t)\\).",
     "crumbs": [
       "Marco Teórico y Normativa",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Metodología y Modelo Estocástico</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos Teoricos</span>"
+    ]
+  },
+  {
+    "objectID": "fundamentos_teoricos.html#conceptos-fundamentales",
+    "href": "fundamentos_teoricos.html#conceptos-fundamentales",
+    "title": "2  Fundamentos Teoricos",
+    "section": "2.3 Conceptos Fundamentales",
+    "text": "2.3 Conceptos Fundamentales\nPara entender el comportamiento de la red de frío ante fallos eléctricos y manipulaciones humanas, es vital establecer los siguientes conceptos físicos y estocásticos:\n\nDefinición 2.2 (Inercia Térmica) Es la propiedad que tienen los cuerpos (como los paquetes refrigerantes y las botellas de agua) para resistir cambios bruscos en su temperatura al absorber o ceder calor lentamente.\n\nDe acuerdo con la Definición 2.2, a mayor masa térmica en el refrigerador, menor será la magnitud de la volatilidad \\(\\sigma(\\alpha(t))\\) y se alterará la fuerza de reversión \\(\\kappa(\\alpha(t))\\) de la Ecuación 2.2.\n\nDefinición 2.3 (Corte de Energía (Salto de Régimen)) Se define como la interrupción del suministro eléctrico que provoca que el sistema deje de enfriar. Matemáticamente, detona el cambio de régimen markoviano de \\(\\alpha(t) = 1\\) (suministro normal) a \\(\\alpha(t) = 2\\) (falla eléctrica), haciendo que la temperatura converja hacia el ambiente exterior (Yin y Zhu 2010).\n\nComo vimos en la Definición 2.3, esto detonará el cambio de régimen en nuestro código. Adicionalmente, el término de saltos en nuestra ecuación responde a otra eventualidad cotidiana:\n\nDefinición 2.4 (Apertura de Puertas (Saltos de Poisson)) Corresponde a las interrupciones térmicas instantáneas causadas por el personal médico al abrir el refrigerador. Se modelan matemáticamente mediante el diferencial del proceso de Poisson \\(dN(t)\\), el cual inyecta un salto positivo \\(\\gamma\\) en la temperatura del sistema (Platen y Bruti-Liberati 2010).\n\n\n\n\n\n\n\nFigura 2.1: Logo FCFM\n\n\n\nComo ilustra la Figura 2.1, el modelo propuesto de red de frío busca resolver problemáticas del entorno mediante el rigor analítico de la Facultad de Ciencias Físicas y Matemáticas de la UNACH.",
+    "crumbs": [
+      "Marco Teórico y Normativa",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos Teoricos</span>"
+    ]
+  },
+  {
+    "objectID": "fundamentos_teoricos.html#el-lema-de-itô-generalizado",
+    "href": "fundamentos_teoricos.html#el-lema-de-itô-generalizado",
+    "title": "2  Fundamentos Teoricos",
+    "section": "2.4 El Lema de Itô Generalizado",
+    "text": "2.4 El Lema de Itô Generalizado\nPara garantizar la rigurosidad matemática al momento de simular numéricamente la temperatura (por ejemplo, con el esquema de Euler-Maruyama), requerimos una extensión del cálculo estocástico clásico. Apoyados en la teoría de Yin y Zhu (2010) y Platen y Bruti-Liberati (2010), establecemos el siguiente teorema que justifica nuestro código:\n\nTeorema 2.1 (Fórmula de Itô para Difusiones Híbridas con Saltos) Sea \\(V(t, T, i)\\) una función continuamente diferenciable en \\(t\\), y dos veces continuamente diferenciable en \\(T\\) para cada régimen markoviano \\(i \\in \\mathcal{M}\\). El diferencial estocástico del proceso viene dado por:\n\\[\n\\begin{aligned}\ndV(t, T(t), \\alpha(t)) = & \\left[ \\frac{\\partial V}{\\partial t} + \\frac{\\partial V}{\\partial T}\\mu(T, \\alpha) + \\frac{1}{2}\\frac{\\partial^2 V}{\\partial T^2}\\sigma^2(T, \\alpha) + \\sum_{j \\in \\mathcal{M}} q_{\\alpha(t)j}V(t, T, j) \\right] dt \\\\\n& + \\frac{\\partial V}{\\partial T}\\sigma(T, \\alpha) dW(t) + \\left[ V(t, T(t^-) + \\gamma, \\alpha(t^-)) - V(t, T(t^-), \\alpha(t^-)) \\right] dN(t)\n\\end{aligned}\n\\tag{2.3}\\]\n\nComo se puede apreciar en el Teorema 2.1 y en la Ecuación 2.3, el operador diferencial de Itô se expande para incluir la matriz generadora de la cadena de Markov \\(Q = (q_{ij})\\) y las diferencias finitas asociadas a los impactos inelásticos de los saltos de Poisson.\n\n\n\n\nPlaten, Eckhard, y Nicola Bruti-Liberati. 2010. Numerical Solution of Stochastic Differential Equations with Jumps in Finance. Vol. 64. Stochastic Modelling y Applied Probability. Berlin, Heidelberg: Springer-Verlag. https://doi.org/10.1007/978-3-642-13694-8.\n\n\nYin, G. George, y Chao Zhu. 2010. Hybrid Switching Diffusions: Properties and Applications. Vol. 63. Stochastic Modelling y Applied Probability. New York, NY: Springer. https://doi.org/10.1007/978-1-4419-1105-6.",
+    "crumbs": [
+      "Marco Teórico y Normativa",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos Teoricos</span>"
     ]
   },
   {
@@ -46,7 +69,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "Platen, Eckhard, and Nicola Bruti-Liberati. 2010. Numerical Solution\nof Stochastic Differential Equations with Jumps in Finance. Vol.\n64. Stochastic Modelling and Applied Probability. Berlin, Heidelberg:\nSpringer-Verlag. https://doi.org/10.1007/978-3-642-13694-8.\n\n\nYin, G. George, and Chao Zhu. 2010. Hybrid Switching Diffusions:\nProperties and Applications. Vol. 63. Stochastic Modelling and\nApplied Probability. New York, NY: Springer. https://doi.org/10.1007/978-1-4419-1105-6.",
     "crumbs": [
       "References"
     ]
