@@ -421,7 +421,7 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#procesos-estocásticos-de-soporte" id="toc-procesos-estocásticos-de-soporte" class="nav-link active" data-scroll-target="#procesos-estocásticos-de-soporte"><span class="header-section-number">2.1</span> Procesos Estocásticos de Soporte</a>
+  <li><a href="#procesos-estocásticos" id="toc-procesos-estocásticos" class="nav-link active" data-scroll-target="#procesos-estocásticos"><span class="header-section-number">2.1</span> Procesos Estocásticos</a>
   <ul class="collapse">
   <li><a href="#movimiento-browniano-proceso-de-wiener" id="toc-movimiento-browniano-proceso-de-wiener" class="nav-link" data-scroll-target="#movimiento-browniano-proceso-de-wiener"><span class="header-section-number">2.1.1</span> Movimiento Browniano (Proceso de Wiener)</a></li>
   <li><a href="#proceso-de-poisson-homogéneo" id="toc-proceso-de-poisson-homogéneo" class="nav-link" data-scroll-target="#proceso-de-poisson-homogéneo"><span class="header-section-number">2.1.2</span> Proceso de Poisson Homogéneo</a></li>
@@ -456,13 +456,13 @@ window.Quarto = {
 </header>
 
 
-<p>En este capítulo presentaremos las bases conceptuales y el marco formal del cálculo estocástico que fundamentan el desarrollo de nuestro modelo matemático para la red de frío. Siguiendo un enfoque deductivo, se definirán en primer lugar los procesos estocásticos elementales para, posteriormente, construir la ecuación diferencial estocástica (EDE) híbrida que rige el sistema.</p>
-<section id="procesos-estocásticos-de-soporte" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="procesos-estocásticos-de-soporte"><span class="header-section-number">2.1</span> Procesos Estocásticos de Soporte</h2>
+<p>En este capítulo se presentarán las bases conceptuales y el marco formal del cálculo estocástico que fundamentan el desarrollo de nuestro modelo matemático para la red de frío. Se definirán en primer lugar los procesos estocásticos elementales para, posteriormente, construir la ecuación diferencial estocástica (EDE) híbrida que rige el sistema.</p>
+<section id="procesos-estocásticos" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="procesos-estocásticos"><span class="header-section-number">2.1</span> Procesos Estocásticos</h2>
 <p>El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres continuas y perturbaciones discretas requiere herramientas más allá del cálculo determinista. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos fundamentales.</p>
 <section id="movimiento-browniano-proceso-de-wiener" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="movimiento-browniano-proceso-de-wiener"><span class="header-section-number">2.1.1</span> Movimiento Browniano (Proceso de Wiener)</h3>
-<p>Para representar las fluctuaciones térmicas continuas de baja intensidad —asociadas al ruido intrínseco del termostato y microtransferencias de calor— se utiliza el movimiento Browniano.</p>
+<p>Para representar las fluctuaciones térmicas continuas de baja intensidad asociadas al ruido intrínseco del termostato y microtransferencias de calor se utiliza el movimiento Browniano.</p>
 <div id="def-movimiento-browniano" class="theorem definition">
 <p><span class="theorem-title"><strong>Definición 2.1 (Proceso de Wiener)</strong></span> Un proceso estocástico continuo en el tiempo <span class="math inline">\(\{W(t)\}_{t \ge 0}\)</span> definido sobre un espacio de probabilidad filtrado <span class="math inline">\((\Omega, \mathcal{F}, \{\mathcal{F}_t\}, \mathbb{P})\)</span> es un movimiento Browniano estándar o proceso de Wiener si cumple con las siguientes propiedades:</p>
 <ol type="1">
@@ -472,7 +472,7 @@ window.Quarto = {
 <li>Sus trayectorias son continuas con probabilidad 1.</li>
 </ol>
 </div>
-<p>El término <span class="math inline">\(dW(t) = W(t+dt) - W(t)\)</span> representa el diferencial formal u operador infinitesimal del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal <span class="math inline">\(dt\)</span>, caracterizada matemáticamente por una media <span class="math inline">\(\mathbb{E}[dW(t)] = 0\)</span> y una varianza <span class="math inline">\(\mathbb{E}[(dW(t))^2] = dt\)</span>. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
+<p>El término <span class="math inline">\(dW(t) = W(t+dt) - W(t)\)</span> representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal <span class="math inline">\(dt\)</span>, caracterizada matemáticamente por una media <span class="math inline">\(\mathbb{E}[dW(t)] = 0\)</span> y una varianza <span class="math inline">\(\mathbb{E}[(dW(t))^2] = dt\)</span>. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
 <div id="fig-wiener" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-wiener-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -498,14 +498,17 @@ Figura&nbsp;2.1: Trayectoria simulada del proceso de Wiener. El eje horizontal r
 \mathbb{P}(N(t + s) - N(s) = n) = \frac{(\lambda t)^n e^{-\lambda t}}{n!}, \quad n = 0, 1, 2, \dots
 \]</span></p>
 </div>
-<p>El comportamiento infinitesimal del proceso se captura a través de su diferencial <span class="math inline">\(dN(t)\)</span>, el cual contabiliza el número de saltos en un intervalo elemental <span class="math inline">\(dt\)</span>. Formalmente, sus probabilidades de transición en un horizonte infinitesimal están dadas por:</p>
-<p><span class="math display">\[
-dN(t) = \begin{cases}
-1 &amp; \text{con probabilidad } \lambda dt + o(dt) \\
-0 &amp; \text{con probabilidad } 1 - \lambda dt + o(dt)
-\end{cases}
-\]</span></p>
-<p>donde <span class="math inline">\(o(dt)\)</span> denota términos de orden superior que convergen a cero más rápido que <span class="math inline">\(dt\)</span>. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
+<div id="fig-poisson" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="proceso_poisson.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.2: Trayectorias simuladas de dos procesos de Poisson. El eje horizontal representa el tiempo de observación en un horizonte de <span class="math inline">\(T = 10.0\)</span> con incrementos discretos de <span class="math inline">\(dt = 0.01\)</span>. El eje vertical contabiliza el número acumulado de eventos discretos <span class="math inline">\(N(t)\)</span>, iniciando en <span class="math inline">\(N(0) = 0\)</span>. La línea continua (azul) ilustra un Proceso de Poisson Homogéneo con una tasa de intensidad constante <span class="math inline">\(\lambda = 1\)</span>, evidenciando incrementos estacionarios, por otro lado la línea punteada (roja) representa un Proceso de Poisson No Homogéneo con una intensidad de <span class="math inline">\(\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi}{10}\right)\)</span>, es decir es dependiente del tiempo, concentrando una mayor densidad de saltos en el periodo central del intervalo (simulando, por ejemplo, las horas pico de aperturas del refrigerador durante una jornada clínica). Ambas gráficas exhiben la naturaleza escalonada continua por la derecha con límites por la izquierda (càdlàg), propia de los procesos de saltos puros.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="cadenas-de-markov-de-tiempo-continuo" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="cadenas-de-markov-de-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov de Tiempo Continuo</h3>
