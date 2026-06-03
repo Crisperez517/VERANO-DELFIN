@@ -1,14 +1,14 @@
 # Fundamentos Teóricos
 
-En este capítulo presentaremos las bases conceptuales y el marco formal del cálculo estocástico que fundamentan el desarrollo de nuestro modelo matemático para la red de frío. Siguiendo un enfoque deductivo, se definirán en primer lugar los procesos estocásticos elementales para, posteriormente, construir la ecuación diferencial estocástica (EDE) híbrida que rige el sistema.
+En este capítulo se presentarán las bases conceptuales y el marco formal del cálculo estocástico que fundamentan el desarrollo de nuestro modelo matemático para la red de frío. Se definirán en primer lugar los procesos estocásticos elementales para, posteriormente, construir la ecuación diferencial estocástica (EDE) híbrida que rige el sistema.
 
-## Procesos Estocásticos de Soporte
+## Procesos Estocásticos
 
 El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres continuas y perturbaciones discretas requiere herramientas más allá del cálculo determinista. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos fundamentales.
 
 ### Movimiento Browniano (Proceso de Wiener)
 
-Para representar las fluctuaciones térmicas continuas de baja intensidad —asociadas al ruido intrínseco del termostato y microtransferencias de calor— se utiliza el movimiento Browniano.
+Para representar las fluctuaciones térmicas continuas de baja intensidad asociadas al ruido intrínseco del termostato y microtransferencias de calor     se utiliza el movimiento Browniano.
 
 ::: {#def-movimiento-browniano}
 ### Proceso de Wiener
@@ -20,7 +20,7 @@ Un proceso estocástico continuo en el tiempo $\{W(t)\}_{t \ge 0}$ definido sobr
 4. Sus trayectorias son continuas con probabilidad 1.
 :::
 
-El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial formal u operador infinitesimal del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a @platen2010numerical.
+El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a @platen2010numerical.
 
 ![Trayectoria simulada del proceso de Wiener. El eje horizontal representa el avance del tiempo continuo en un horizonte parametrizado de $T = 1.0$ con incrementos de $dt = 0.001$. El eje vertical denota la posición de las fluctuaciones aleatorias $W(t)$, iniciando en el origen $W(0) = 0$.](proceso_wiener.png){#fig-wiener width="80%" fig-align="center"}
 
@@ -42,16 +42,9 @@ $$
 $$
 :::
 
-El comportamiento infinitesimal del proceso se captura a través de su diferencial $dN(t)$, el cual contabiliza el número de saltos en un intervalo elemental $dt$. Formalmente, sus probabilidades de transición en un horizonte infinitesimal están dadas por:
+Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en @platen2010numerical.
 
-$$
-dN(t) = \begin{cases} 
-1 & \text{con probabilidad } \lambda dt + o(dt) \\ 
-0 & \text{con probabilidad } 1 - \lambda dt + o(dt) 
-\end{cases}
-$$
-
-donde $o(dt)$ denota términos de orden superior que convergen a cero más rápido que $dt$. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en @platen2010numerical.
+![Trayectorias simuladas de dos procesos de Poisson. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ con incrementos discretos de $dt = 0.01$. El eje vertical contabiliza el número acumulado de eventos discretos $N(t)$, iniciando en $N(0) = 0$. La línea continua (azul) ilustra un Proceso de Poisson Homogéneo con una tasa de intensidad constante $\lambda = 1$, evidenciando incrementos estacionarios, por otro lado la línea punteada (roja) representa un Proceso de Poisson No Homogéneo con una intensidad de $\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi}{10}\right)$, es decir es dependiente del tiempo, concentrando una mayor densidad de saltos en el periodo central del intervalo (simulando, por ejemplo, las horas pico de aperturas del refrigerador durante una jornada clínica). Ambas gráficas exhiben la naturaleza escalonada continua por la derecha con límites por la izquierda (càdlàg), propia de los procesos de saltos puros.](proceso_poisson.png){#fig-poisson width="85%" fig-align="center"}
 
 ### Cadenas de Markov de Tiempo Continuo
 
