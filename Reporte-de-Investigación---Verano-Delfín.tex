@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-02}
+\date{2026-06-03}
 \begin{document}
 \maketitle
 
@@ -307,6 +307,22 @@ una varianza \(\mathbb{E}[(dW(t))^2] = dt\). Para una revisión detallada
 sobre las propiedades de medida y construcciones analíticas de este
 proceso, se sugiere consultar a Platen y Bruti-Liberati
 (\citeproc{ref-platen2010numerical}{2010}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{proceso_wiener.png}
+
+}
+
+\caption{\label{fig-wiener}Trayectoria simulada del proceso de Wiener.
+El eje horizontal representa el avance del tiempo continuo en un
+horizonte parametrizado de \(T = 1.0\) con incrementos de
+\(dt = 0.001\). El eje vertical denota la posición de las fluctuaciones
+aleatorias \(W(t)\), iniciando en el origen \(W(0) = 0\).}
+
+\end{figure}%
 
 \subsection{Proceso de Poisson
 Homogéneo}\label{proceso-de-poisson-homoguxe9neo}
@@ -407,7 +423,7 @@ Híbrida con Conmutación de Régimen y Saltos se define formalmente
 mediante el siguiente sistema de ecuaciones diferenciales estocásticas:
 
 \begin{equation}\phantomsection\label{eq-sde-hibrida-general}{
-dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \text{\alpha}(t^-)) dN(t)
+dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
 }\end{equation}
 
 En la Ecuación~\ref{eq-sde-hibrida-general}, el término

@@ -22,6 +22,9 @@ Un proceso estocástico continuo en el tiempo $\{W(t)\}_{t \ge 0}$ definido sobr
 
 El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial formal u operador infinitesimal del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a @platen2010numerical.
 
+![Trayectoria simulada del proceso de Wiener. El eje horizontal representa el avance del tiempo continuo en un horizonte parametrizado de $T = 1.0$ con incrementos de $dt = 0.001$. El eje vertical denota la posición de las fluctuaciones aleatorias $W(t)$, iniciando en el origen $W(0) = 0$.](proceso_wiener.png){#fig-wiener width="80%" fig-align="center"}
+
+
 ### Proceso de Poisson Homogéneo
 
 Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso de conteo.
@@ -70,7 +73,7 @@ Las leyes de transición de $\alpha(t)$ están gobernadas por el operador genera
 Una vez definidos los elementos estocásticos elementales, es posible formular el marco matemático que unifica la evolución analítica continua con las perturbaciones aleatorias macroscópicas y los saltos microscópicos discretos. De acuerdo con el marco general desarrollado por @yin2010hybrid y @platen2010numerical, una Difusión Híbrida con Conmutación de Régimen y Saltos se define formalmente mediante el siguiente sistema de ecuaciones diferenciales estocásticas:
 
 $$
-dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \text{\alpha}(t^-)) dN(t)
+dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
 $$ {#eq-sde-hibrida-general}
 
 En la @eq-sde-hibrida-general, el término $T(t^-) = \lim_{s \to t^-} T(s)$ preserva la propiedad de continuidad por la izquierda con límites por la derecha (càdlàg) del proceso ante la ocurrencia de un salto. Las funciones de coeficientes se definen como:
