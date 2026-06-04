@@ -21,10 +21,10 @@ Para enlazar la teoría probabilística con la observación empírica de un fen�
 ::: {#def-trayectoria}
 ### Trayectorias del Proceso Estocástico
 Si $\{X(t)\}_{t \geq 0}$ es un proceso estocástico a tiempo continuo, para cada $\omega \in \Omega$ fijo y $\mathcal{S} = \mathbb{R}$, se definen las trayectorias del proceso como:
-\begin{center}
-    $T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}$
-    $t \rightarrow X_t(\omega)$.
-\end{center}
+$$
+    T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}\\
+    t \rightarrow X_t(\omega).
+$$
 :::
 
 Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento matemático de sus trayectorias [@platen2010numerical]. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.
