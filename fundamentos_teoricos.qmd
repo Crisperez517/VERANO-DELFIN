@@ -8,7 +8,7 @@ El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres con
 
 ::: {#def-proceso-estocastico}
 ### Proceso Estocástico
-Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathcal{S} \subseteq \mathbb{R}^d$ un espacio muestral dotado de su respectiva $\sigma$-álgebra de Borel. Un proceso estocástico es una colección de variables aleatorias $\{X_t\}_{t \in \mathcal{T}}$ parametrizadas por $t \in \mathcal{T}$, donde $\mathcal{T} \subseteq \mathbb{R}$, y para cada $X_t: \Omega \to \mathcal{S}$ es una función medible para cada  $t \in \mathcal{T}$.
+Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathcal{S} \subseteq \mathbb{R}^d$ un espacio muestral dotado de su respectiva $\sigma$-álgebra de Borel. Un proceso estocástico es una familia de variables aleatorias $\{X_t\}_{t \in \mathcal{T}}$ parametrizadas por $t \in \mathcal{T}$, donde $\mathcal{T} \subseteq \mathbb{R}$, y para cada $X_t: \Omega \to \mathcal{S}$ es una función medible para cada  $t \in \mathcal{T}$.
 :::
 
 Dependiendo de como es el conjunto de índices $\mathcal{T}$, los procesos estocásticos se clasifican en dos:
@@ -45,7 +45,7 @@ Un proceso estocástico continuo en el tiempo $\{W(t)\}_{t \ge 0}$ definido sobr
 4. Sus trayectorias son continuas con probabilidad 1.
 :::
 
-El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a @platen2010numerical.
+El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a [@platen2010numerical].
 
 ![Trayectoria simulada del proceso de Wiener. El eje horizontal representa el avance del tiempo continuo en un horizonte parametrizado de $T = 1.0$ con incrementos de $dt = 0.001$. El eje vertical denota la posición de las fluctuaciones aleatorias $W(t)$, iniciando en el origen $W(0) = 0$.](proceso_wiener.png){#fig-wiener width="80%" fig-align="center"}
 
