@@ -14,22 +14,22 @@ Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathc
 Dependiendo de como es el conjunto de índices $\mathcal{T}$, los procesos estocásticos se clasifican en dos:
 
 1. **Procesos estocásticos a tiempo discreto:** Si $\mathcal{T}$ es numerable,  por lo general $\mathcal{T} = \mathbb{N}_0 = \{0, 1, 2, \dots\}$ o $\mathcal{T} = \mathbb{Z}$, decimos que el proceso estocástico es a tiempo discreto. En este escenario, el sistema evoluciona mediante transiciones discretas en pasos fijos discretizados.
-2. **Procesos estocásticos a tiempo continuo:** Si $\mathcal{T}$ es un intervalo de $\mathbb{R}$, por lo general $\mathcal{T} = [0, \infty)$ o un intervalo acotado $\mathcal{T} = [0, T]$, $T > 0$. Esta estructura es la adecuada para modelar fenómenos físicos continuos, como la transferencia térmica.
+2. **Procesos estocásticos a tiempo continuo:** Si $\mathcal{T}$ es un intervalo de $\mathbb{R}$, por lo general $\mathcal{T} = [0, \infty)$ o un intervalo acotado $\mathcal{T} = [0, T]$, $T > 0$, se dice que el proceso estocástico es a tiempo continuo. Esta estructura es la adecuada para modelar fenómenos físicos continuos, como la transferencia térmica.
 
 Para enlazar la teoría probabilística con la observación empírica de un fenómeno estocástico, es indispensable establecer la distinción entre el espacio funcional del proceso y sus realizaciones particulares.
 
 ::: {#def-trayectoria}
 ### Trayectorias del Proceso Estocástico
-Si $\{X(t)\}_{t \geq 0}$ es un proceso estocástico a tiempo continuo, para cada $\omega \in \Omega$ fijo y $\mathcal{S} = \mathbb{R}$, se definen las trayectorias del proceso como:
+Si $\{X_t\}_{t \geq 0}$ es un proceso estocástico a tiempo continuo, para cada $\omega \in \Omega$ fijo y $\mathcal{S} = \mathbb{R}$, se definen las trayectorias del proceso como:
 $$
-    T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}
+    \mathcal{T} = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}
 $$
 $$
     t \rightarrow X_t(\omega).
 $$
 :::
 
-Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento matemático de sus trayectorias [@platen2010numerical]. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.
+Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento de sus trayectorias [@platen2010numerical]. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.
 
 ### Movimiento Browniano (Proceso de Wiener)
 
@@ -37,29 +37,28 @@ Para representar las fluctuaciones térmicas continuas de baja intensidad asocia
 
 ::: {#def-movimiento-browniano}
 ### Proceso de Wiener
-Un proceso estocástico continuo en el tiempo $\{W(t)\}_{t \ge 0}$ definido sobre un espacio de probabilidad filtrado $(\Omega, \mathcal{F}, \{\mathcal{F}_t\}, \mathbb{P})$ es un movimiento Browniano estándar o proceso de Wiener si cumple con las siguientes propiedades:
+Un proceso estocástico a tiempo continuo $\{W(t)\}_{t \ge 0}$ definido sobre un espacio de probabilidad filtrado $(\Omega, \mathcal{F}, \{\mathcal{F}_t\}, \mathbb{P})$ es un movimiento Browniano estándar o proceso de Wiener si cumple con las siguientes propiedades:
 
 1. $W(0) = 0$ con probabilidad 1.
 2. Posee incrementos independientes; es decir, para cualesquiera tiempos $0 \le t_1 < t_2 < \dots < t_n$, las variables aleatorias $W(t_2)-W(t_1), \dots, W(t_n)-W(t_{n-1})$ son mutuamente independientes.
-3. Posee incrementos estacionarios gaussianos tales que para todo $t > s \ge 0$, el incremento $W(t) - W(s) \sim \mathcal{N}(0, t-s)$.
-4. Sus trayectorias son continuas con probabilidad 1.
+3. Posee incrementos estacionarios gaussianos, es decir, para todo $t > s \ge 0$, $W(t) - W(s) \sim \mathcal{N}(0, t-s)$.
 :::
 
-El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada matemáticamente por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a [@platen2010numerical].
+El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a [@platen2010numerical].
 
 ![Trayectoria simulada del proceso de Wiener. El eje horizontal representa el avance del tiempo continuo en un horizonte parametrizado de $T = 1.0$ con incrementos de $dt = 0.001$. El eje vertical denota la posición de las fluctuaciones aleatorias $W(t)$, iniciando en el origen $W(0) = 0$.](proceso_wiener.png){#fig-wiener width="80%" fig-align="center"}
 
 
 ### Proceso de Poisson Homogéneo
 
-Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico continuo en el tiempo de saltos puros.
+Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico a tiempo de saltos puros.
 
 ::: {#def-proceso-poisson}
 ### Proceso de Poisson
-Un proceso estocástico lineal continuo en el tiempo $\{N(t)\}_{t \ge 0}$ que toma valores enteros en el espacio de estados $\mathcal{S} = \mathbb{N}_0$ es un proceso de Poisson homogéneo con parámetro de intensidad constante $\lambda > 0$ si satisface las siguientes condiciones:
+Un proceso estocástico a tiempo continuo $\{N(t)\}_{t \ge 0}$ que toma valores enteros en el espacio de estados $\mathcal{S} = \mathbb{N}_0$ es un proceso de Poisson homogéneo con parámetro de intensidad constante $\lambda > 0$ si satisface las siguientes condiciones:
 
 1. $N(0) = 0$ con probabilidad 1.
-2. Posee incrementos independientes; de tal manera que para cualquier secuencia temporal finita $0 \le t_1 < t_2 < \dots < t_n$, las variables aleatorias discretas $N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})$ son mutuamente independientes en sentido probabilístico.
+2. Posee incrementos independientes; es decir, para cualesquiera tiempos $0 \le t_1 < t_2 < \dots < t_n$, las variables aleatorias discretas $N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})$ son mutuamente independientes en sentido probabilístico.
 3. Posee incrementos estacionarios; lo que implica que la ley de probabilidad de cualquier incremento $N(t+s) - N(s)$ depende únicamente de la amplitud temporal $t$ y resulta invariante ante traslaciones sobre el origen cronológico $s$. De forma explícita, la variable aleatoria $N(t)$ sigue una distribución de Poisson con parámetro o tasa media dada por el producto $\lambda t$:
 
 $$
