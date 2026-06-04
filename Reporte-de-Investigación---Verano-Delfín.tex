@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -268,32 +268,34 @@ Estocástico]\protect\hypertarget{def-proceso-estocastico}{}\label{def-proceso-e
 Sea \((\Omega, \mathcal{F}, \mathbb{P})\) un espacio de probabilidad y
 sea \(\mathcal{S} \subseteq \mathbb{R}^d\) un espacio muestral dotado de
 su respectiva \(\sigma\)-álgebra de Borel. Un proceso estocástico es una
-colección de variables aleatorias \(\{X(t)\}_{t \in \mathcal{T}}\) donde
-cada \(X(t): \Omega \to \mathcal{S}\) es una función medible para cada
-parámetro indexado \(t\) perteneciente a un conjunto de índices o
-dominio temporal \(\mathcal{T}\).
+colección de variables aleatorias \(\{X(t)\}_{t \in \mathcal{T}}\)
+parametrizadas por \(t \in \mathcal{T}\), donde
+\(\mathcal{T} \subseteq \mathbb{R}\), y para cada
+\(X(t): \Omega \to \mathcal{S}\) es una función medible para cada
+\(t \in \mathcal{T}\).
 
 \end{definition}
 
-Dependiendo de la naturaleza algebraica del dominio indexado
-\(\mathcal{T}\), los procesos estocásticos se clasifican formalmente en
-dos grandes vertientes estructurales:
+Dependiendo de como es el conjunto de índices \(\mathcal{T}\), los
+procesos estocásticos se clasifican en dos:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Procesos estocásticos a tiempo discreto:} Ocurren cuando el
-  conjunto de índices es numerable, típicamente denotado por
+  \textbf{Procesos estocásticos a tiempo discreto:} Si \(\mathcal{T}\)
+  es numerable, por lo general
   \(\mathcal{T} = \mathbb{N}_0 = \{0, 1, 2, \dots\}\) o
-  \(\mathcal{T} = \mathbb{Z}\). En este escenario, el sistema evoluciona
-  mediante transiciones discretas en pasos fijos discretizados.
+  \(\mathcal{T} = \mathbb{Z}\), decimos que el proceso estocástico es a
+  tiempo discreto. En este escenario, el sistema evoluciona mediante
+  transiciones discretas en pasos fijos discretizados.
 \item
-  \textbf{Procesos estocásticos a tiempo continuo:} Ocurren cuando el
-  conjunto indexado es un intervalo continuo real, típicamente expresado
-  como \(\mathcal{T} = [0, \infty)\) o en un horizonte acotado
-  \(\mathcal{T} = [0, T]\). Esta estructura es la adecuada para modelar
-  fenómenos físicos continuos, como la transferencia térmica.
+  \textbf{Procesos estocásticos a tiempo continuo:} Si \(\mathcal{T}\)
+  es un intervalo de \(\mathbb{R}\), por lo general
+  \(\mathcal{T} = [0, \infty)\) o en un intervalo acotado
+  \(\mathcal{T} = [0, T]\), \(T > 0\). Esta estructura es la adecuada
+  para modelar fenómenos físicos continuos, como la transferencia
+  térmica.
 \end{enumerate}
 
 Para enlazar la teoría probabilística con la observación empírica de un
