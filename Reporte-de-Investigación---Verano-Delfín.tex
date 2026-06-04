@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -308,7 +308,8 @@ Estocástico]\protect\hypertarget{def-trayectoria}{}\label{def-trayectoria}
 Si \(\{X(t)\}_{t \geq 0}\) es un proceso estocástico a tiempo continuo,
 para cada \(\omega \in \Omega\) fijo y \(\mathcal{S} = \mathbb{R}\), se
 definen las trayectorias del proceso como: \[
-    T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}\\
+    T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}
+\] \[
     t \rightarrow X_t(\omega).
 \]
 

@@ -22,7 +22,9 @@ Para enlazar la teoría probabilística con la observación empírica de un fen�
 ### Trayectorias del Proceso Estocástico
 Si $\{X(t)\}_{t \geq 0}$ es un proceso estocástico a tiempo continuo, para cada $\omega \in \Omega$ fijo y $\mathcal{S} = \mathbb{R}$, se definen las trayectorias del proceso como:
 $$
-    T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}\\
+    T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}
+$$
+$$
     t \rightarrow X_t(\omega).
 $$
 :::
