@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-03}
+\date{2026-06-04}
 \begin{document}
 \maketitle
 
@@ -377,7 +377,7 @@ Proceso de Poisson Homogéneo con una tasa de intensidad constante
 \(\lambda = 1\), evidenciando incrementos estacionarios, por otro lado
 la línea punteada (roja) representa un Proceso de Poisson No Homogéneo
 con una intensidad de
-\(\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi}{10}\right)\),
+\(\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi t}{10}\right)\),
 es decir es dependiente del tiempo, concentrando una mayor densidad de
 saltos en el periodo central del intervalo (simulando, por ejemplo, las
 horas pico de aperturas del refrigerador durante una jornada clínica).
@@ -448,6 +448,48 @@ ocurrencia de un salto. Las funciones de coeficientes se definen como:
 El acoplamiento funcional con la cadena de Markov \(\alpha(t)\) implica
 que los parámetros estructurales del sistema cambian de forma aleatoria
 e instantánea cuando el entorno macroscópico conmuta de estado.
+
+Para ilustrar el impacto de nuestra formulación matemática sobre el
+modelado físico de la red de frío, es fundamental contrastar el
+comportamiento de las trayectorias resultantes. La simulación numérica
+del modelo revela cómo la incorporación de discontinuidades captura
+fenómenos que los modelos clásicos omiten.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{trayectorias_sde.png}
+
+}
+
+\caption{\label{fig-sde-comparacion}Trayectorias simuladas de la
+Ecuación Diferencial Estocástica de Ornstein-Uhlenbeck para la
+temperatura interna de un refrigerador de vacunas. El eje horizontal
+representa el tiempo de observación en un horizonte de \(T = 10.0\)
+horas con incrementos de \(dt = 0.01\). La línea base negra indica la
+temperatura óptima de consigna \(\theta = 4^\circ\text{C}\). La
+trayectoria continua (azul) ilustra una difusión clásica perturbada
+únicamente por el movimiento Browniano \(dW(t)\), simulando las
+microfluctuaciones gaussianas inherentes al ciclo del compresor. En
+contraste, la trayectoria híbrida (roja) superpone perturbaciones
+mediante un proceso de Poisson \(dN(t)\), modelando impactos inelásticos
+macroscópicos. Se observa claramente cómo los saltos térmicos positivos
+(simulando aperturas de la puerta por el personal) elevan bruscamente la
+temperatura, la cual posteriormente experimenta una reversión a la media
+controlada por el parámetro de inercia \(\kappa\). Las trayectorias
+fueron aproximadas computacionalmente mediante el esquema numérico de
+Euler-Maruyama.}
+
+\end{figure}%
+
+Como evidencia la Figura~\ref{fig-sde-comparacion}, modelar el sistema
+exclusivamente con componentes difusivos continuos subestima severamente
+el riesgo de excursiones térmicas fuera del rango normativo de la OMS (2
+°C a 8 °C). La inclusión del proceso de saltos justifica nuestra
+necesidad de utilizar el Lema de Itô generalizado, ya que la temperatura
+experimenta cambios finitos instantáneos que rompen la diferenciabilidad
+clásica del modelo.
 
 \section{El Modelo Estocástico de Red de Frío (Ornstein-Uhlenbeck
 Modificado)}\label{el-modelo-estocuxe1stico-de-red-de-fruxedo-ornstein-uhlenbeck-modificado}
