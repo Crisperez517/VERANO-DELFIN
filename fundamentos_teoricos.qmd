@@ -8,19 +8,23 @@ El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres con
 
 ::: {#def-proceso-estocastico}
 ### Proceso Estocástico
-Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathcal{S} \subseteq \mathbb{R}^d$ un espacio muestral dotado de su respectiva $\sigma$-álgebra de Borel. Un proceso estocástico es una colección de variables aleatorias $\{X(t)\}_{t \in \mathcal{T}}$ parametrizadas por $t \in \mathcal{T}$, donde $\mathcal{T} \subseteq \mathbb{R}$, y para cada $X(t): \Omega \to \mathcal{S}$ es una función medible para cada  $t \in \mathcal{T}$.
+Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathcal{S} \subseteq \mathbb{R}^d$ un espacio muestral dotado de su respectiva $\sigma$-álgebra de Borel. Un proceso estocástico es una colección de variables aleatorias $\{X_t\}_{t \in \mathcal{T}}$ parametrizadas por $t \in \mathcal{T}$, donde $\mathcal{T} \subseteq \mathbb{R}$, y para cada $X_t: \Omega \to \mathcal{S}$ es una función medible para cada  $t \in \mathcal{T}$.
 :::
 
 Dependiendo de como es el conjunto de índices $\mathcal{T}$, los procesos estocásticos se clasifican en dos:
 
 1. **Procesos estocásticos a tiempo discreto:** Si $\mathcal{T}$ es numerable,  por lo general $\mathcal{T} = \mathbb{N}_0 = \{0, 1, 2, \dots\}$ o $\mathcal{T} = \mathbb{Z}$, decimos que el proceso estocástico es a tiempo discreto. En este escenario, el sistema evoluciona mediante transiciones discretas en pasos fijos discretizados.
-2. **Procesos estocásticos a tiempo continuo:** Si $\mathcal{T}$ es un intervalo de $\mathbb{R}$, por lo general $\mathcal{T} = [0, \infty)$ o en un intervalo acotado $\mathcal{T} = [0, T]$, $T > 0$. Esta estructura es la adecuada para modelar fenómenos físicos continuos, como la transferencia térmica.
+2. **Procesos estocásticos a tiempo continuo:** Si $\mathcal{T}$ es un intervalo de $\mathbb{R}$, por lo general $\mathcal{T} = [0, \infty)$ o un intervalo acotado $\mathcal{T} = [0, T]$, $T > 0$. Esta estructura es la adecuada para modelar fenómenos físicos continuos, como la transferencia térmica.
 
 Para enlazar la teoría probabilística con la observación empírica de un fenómeno estocástico, es indispensable establecer la distinción entre el espacio funcional del proceso y sus realizaciones particulares.
 
 ::: {#def-trayectoria}
-### Trayectoria (Función Muestral)
-Para cada elemento fijo u omisión puntual del espacio muestral $\omega \in \Omega$, la función determinista que mapea el dominio temporal al espacio de estados, definida por $t \mapsto X(t, \omega)$ para todo $t \in \mathcal{T}$, se denomina trayectoria, camino muestral o función muestral del proceso estocástico.
+### Trayectorias del Proceso Estocástico
+Si $\{X(t)\}_{t \geq 0}$ es un proceso estocástico a tiempo continuo, para cada $\omega \in \Omega$ fijo y $\mathcal{S} = \mathbb{R}$, se definen las trayectorias del proceso como:
+\begin{center}
+    $T = [0, \infty) \rightarrow \mathcal{S} = \mathbb{R}$
+    $t \rightarrow X_t(\omega)$.
+\end{center}
 :::
 
 Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento matemático de sus trayectorias [@platen2010numerical]. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.
