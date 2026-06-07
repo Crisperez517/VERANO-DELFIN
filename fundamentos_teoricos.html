@@ -462,7 +462,7 @@ window.Quarto = {
 <h2 data-number="2.1" class="anchored" data-anchor-id="procesos-estocásticos"><span class="header-section-number">2.1</span> Procesos Estocásticos</h2>
 <p>El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres continuas y perturbaciones discretas requiere herramientas más allá del cálculo determinista. Desde una perspectiva analítica, un proceso estocástico representa la generalización de una variable aleatoria indexada en un conjunto ordenado, parametrizando la evolución de un sistema bajo incertidumbre.</p>
 <div id="def-proceso-estocastico" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.1 (Proceso Estocástico)</strong></span> Sea <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> un espacio de probabilidad y sea <span class="math inline">\(\mathcal{S} \subseteq \mathbb{R}^d\)</span> un espacio muestral dotado de su respectiva <span class="math inline">\(\sigma\)</span>-álgebra de Borel. Un proceso estocástico es una familia de variables aleatorias <span class="math inline">\(\{X_t\}_{t \in \mathcal{T}}\)</span> parametrizadas por <span class="math inline">\(t \in \mathcal{T}\)</span>, donde <span class="math inline">\(\mathcal{T} \subseteq \mathbb{R}\)</span>, y para cada <span class="math inline">\(X_t: \Omega \to \mathcal{S}\)</span> es una función medible para cada <span class="math inline">\(t \in \mathcal{T}\)</span>.</p>
+<p><span class="theorem-title"><strong>Definición 2.1 (Proceso Estocástico)</strong></span> Sea <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> un espacio de probabilidad y sea <span class="math inline">\(\mathcal{S} \subseteq \mathbb{R}^d\)</span> un espacio muestral dotado de su respectiva <span class="math inline">\(\sigma\)</span>-álgebra de Borel. Un proceso estocástico es una familia de variables aleatorias <span class="math inline">\(\{X_t\}_{t \in \mathcal{T}}\)</span> parametrizadas por <span class="math inline">\(t \in \mathcal{T}\)</span>, donde <span class="math inline">\(\mathcal{T} \subseteq \mathbb{R}\)</span>.</p>
 </div>
 <p>Dependiendo de como es el conjunto de índices <span class="math inline">\(\mathcal{T}\)</span>, los procesos estocásticos se clasifican en dos:</p>
 <ol type="1">
@@ -477,7 +477,7 @@ window.Quarto = {
     t \rightarrow X_t(\omega).
 \]</span></p>
 </div>
-<p>Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento de sus trayectorias <span class="citation" data-cites="platen2010numerical">(<a href="references.html#ref-platen2010numerical" role="doc-biblioref">Platen y Bruti-Liberati 2010</a>)</span>. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.</p>
+<p>Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento de varias componentes, para más detalles consultar <span class="citation" data-cites="karlin1998introduction">(<a href="references.html#ref-karlin1998introduction" role="doc-biblioref">Karlin y Taylor 1998</a>)</span>. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.</p>
 <section id="movimiento-browniano-proceso-de-wiener" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="movimiento-browniano-proceso-de-wiener"><span class="header-section-number">2.1.1</span> Movimiento Browniano (Proceso de Wiener)</h3>
 <p>Para representar las fluctuaciones térmicas continuas de baja intensidad asociadas al ruido intrínseco del termostato y microtransferencias de calor se utiliza el movimiento Browniano.</p>
@@ -616,6 +616,9 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-karlin1998introduction" class="csl-entry" role="listitem">
+Karlin, Samuel, y Howard M. Taylor. 1998. <em>An Introduction to Stochastic Modeling</em>. 3rd ed. San Diego, CA: Academic Press. <a href="https://doi.org/10.1016/C2009-0-22262-6">https://doi.org/10.1016/C2009-0-22262-6</a>.
+</div>
 <div id="ref-platen2010numerical" class="csl-entry" role="listitem">
 Platen, Eckhard, y Nicola Bruti-Liberati. 2010. <em>Numerical Solution of Stochastic Differential Equations with Jumps in Finance</em>. Vol. 64. Stochastic Modelling y Applied Probability. Berlin, Heidelberg: Springer-Verlag. <a href="https://doi.org/10.1007/978-3-642-13694-8">https://doi.org/10.1007/978-3-642-13694-8</a>.
 </div>
