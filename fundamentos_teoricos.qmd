@@ -8,7 +8,7 @@ El modelado térmico de un refrigerador de vacunas expuesto a incertidumbres con
 
 ::: {#def-proceso-estocastico}
 ### Proceso Estocástico
-Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathcal{S} \subseteq \mathbb{R}^d$ un espacio muestral dotado de su respectiva $\sigma$-álgebra de Borel. Un proceso estocástico es una familia de variables aleatorias $\{X_t\}_{t \in \mathcal{T}}$ parametrizadas por $t \in \mathcal{T}$, donde $\mathcal{T} \subseteq \mathbb{R}$, y para cada $X_t: \Omega \to \mathcal{S}$ es una función medible para cada  $t \in \mathcal{T}$.
+Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad y sea $\mathcal{S} \subseteq \mathbb{R}^d$ un espacio muestral dotado de su respectiva $\sigma$-álgebra de Borel. Un proceso estocástico es una familia de variables aleatorias $\{X_t\}_{t \in \mathcal{T}}$ parametrizadas por $t \in \mathcal{T}$, donde $\mathcal{T} \subseteq \mathbb{R}$.
 :::
 
 Dependiendo de como es el conjunto de índices $\mathcal{T}$, los procesos estocásticos se clasifican en dos:
@@ -29,7 +29,7 @@ $$
 $$
 :::
 
-Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento de sus trayectorias [@platen2010numerical]. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.
+Las propiedades analíticas de un proceso estocástico, tales como la continuidad, la diferenciabilidad y la presencia de discontinuidades finitas, se definen estrictamente a partir del comportamiento de varias componentes, para más detalles consultar  [@karlin1998introduction]. Los componentes aleatorios de nuestro sistema se sustentan en tres procesos estocásticos específicos a tiempo continuo.
 
 ### Movimiento Browniano (Proceso de Wiener)
 
