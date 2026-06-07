@@ -41,7 +41,7 @@ format:
   html:
     theme:
       light: flatly
-      dark: darkly
+      dark: superhero
     css: styles.css
     lang: es
     html-math-method: mathjax
