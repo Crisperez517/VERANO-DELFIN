@@ -1,0 +1,4 @@
+/* Justificar el texto de los párrafos en HTML */
+p {
+  text-align: justify;
+}
