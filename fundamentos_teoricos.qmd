@@ -51,15 +51,15 @@ El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wi
 
 ### Proceso de Poisson Homogéneo
 
-Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico a tiempo de saltos puros.
+Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico a tiempo continuo de saltos puros.
 
 ::: {#def-proceso-poisson}
-### Proceso de Poisson
+### Proceso de Poisson Homogéneo
 Un proceso estocástico a tiempo continuo $\{N(t)\}_{t \ge 0}$ que toma valores enteros en el espacio de estados $\mathcal{S} = \mathbb{N}_0$ es un proceso de Poisson homogéneo con parámetro de intensidad constante $\lambda > 0$ si satisface las siguientes condiciones:
 
 1. $N(0) = 0$ con probabilidad 1.
-2. Posee incrementos independientes; es decir, para cualesquiera tiempos $0 \le t_1 < t_2 < \dots < t_n$, las variables aleatorias discretas $N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})$ son mutuamente independientes en sentido probabilístico.
-3. Posee incrementos estacionarios; lo que implica que la ley de probabilidad de cualquier incremento $N(t+s) - N(s)$ depende únicamente de la amplitud temporal $t$ y resulta invariante ante traslaciones sobre el origen cronológico $s$. De forma explícita, la variable aleatoria $N(t)$ sigue una distribución de Poisson con parámetro o tasa media dada por el producto $\lambda t$:
+2. Posee incrementos independientes; es decir, para cualesquiera tiempos $0 \le t_1 < t_2 < \dots < t_n$, las variables aleatorias discretas $N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})$ son mutuamente independientes.
+3. Posee incrementos estacionarios; lo que implica que la ley de probabilidad de cualquier incremento $N(t+s) - N(s)$ depende únicamente de la amplitud temporal $t$ y resulta invariante ante traslaciones sobre el origen cronológico $s$. De forma explícita, la variable aleatoria $N(t)$ sigue una distribución de Poisson con parámetro o tasa media dada por el producto $\lambda t$, es decir:
 
 $$
 \mathbb{P}(N(t) = n) = \frac{(\lambda t)^n e^{-\lambda t}}{n!}, \quad n = 0, 1, 2, \dots
@@ -75,7 +75,7 @@ $$
 \mathbb{P}(N(t+h) - N(t) \ge 2) = o(h)
 $$
 
-donde la notación algebraico-asintótica de Landau $o(h)$ denota una función de orden superior tal que $\lim_{h \to 0} \frac{o(h)}{h} = 0$. Esto garantiza formalmente que la probabilidad de ocurrencia de múltiples eventos simultáneos en una fracción temporal infinitesimal es prácticamente nula. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en @platen2010numerical.
+donde la notación algebraico-asintótica de Landau $o(h)$ denota una función de orden superior tal que $\lim_{h \to 0} \frac{o(h)}{h} = 0$. Esto garantiza formalmente que la probabilidad de ocurrencia de múltiples eventos simultáneos en una fracción temporal infinitesimal es prácticamente nula. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en [@ross1996stochastic].
 
 ![Trayectorias simuladas de dos procesos de Poisson. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ con incrementos discretos de $dt = 0.01$. El eje vertical contabiliza el número acumulado de eventos discretos $N(t)$, iniciando en $N(0) = 0$. La línea continua (azul) </n> ilustra un Proceso de Poisson Homogéneo con una tasa de intensidad constante $\lambda = 1$, evidenciando incrementos estacionarios, por otro lado la línea punteada (roja) representa un Proceso de Poisson No Homogéneo con una intensidad de $\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi t}{10}\right)$, es decir es dependiente del tiempo, concentrando una mayor densidad de saltos en el periodo central del intervalo (simulando, por ejemplo, las horas pico de aperturas del refrigerador durante una jornada clínica). Ambas gráficas exhiben la naturaleza escalonada continua por la derecha con límites por la izquierda (càdlàg), propia de los procesos de saltos puros.](proceso_poisson.png){#fig-poisson width="85%" fig-align="center"}
 

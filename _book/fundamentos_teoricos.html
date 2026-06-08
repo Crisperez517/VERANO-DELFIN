@@ -503,13 +503,13 @@ Figura&nbsp;2.1: Trayectoria simulada del proceso de Wiener. El eje horizontal r
 </section>
 <section id="proceso-de-poisson-homogéneo" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="proceso-de-poisson-homogéneo"><span class="header-section-number">2.1.2</span> Proceso de Poisson Homogéneo</h3>
-<p>Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico a tiempo de saltos puros.</p>
+<p>Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico a tiempo continuo de saltos puros.</p>
 <div id="def-proceso-poisson" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.4 (Proceso de Poisson)</strong></span> Un proceso estocástico a tiempo continuo <span class="math inline">\(\{N(t)\}_{t \ge 0}\)</span> que toma valores enteros en el espacio de estados <span class="math inline">\(\mathcal{S} = \mathbb{N}_0\)</span> es un proceso de Poisson homogéneo con parámetro de intensidad constante <span class="math inline">\(\lambda &gt; 0\)</span> si satisface las siguientes condiciones:</p>
+<p><span class="theorem-title"><strong>Definición 2.4 (Proceso de Poisson Homogéneo)</strong></span> Un proceso estocástico a tiempo continuo <span class="math inline">\(\{N(t)\}_{t \ge 0}\)</span> que toma valores enteros en el espacio de estados <span class="math inline">\(\mathcal{S} = \mathbb{N}_0\)</span> es un proceso de Poisson homogéneo con parámetro de intensidad constante <span class="math inline">\(\lambda &gt; 0\)</span> si satisface las siguientes condiciones:</p>
 <ol type="1">
 <li><span class="math inline">\(N(0) = 0\)</span> con probabilidad 1.</li>
-<li>Posee incrementos independientes; es decir, para cualesquiera tiempos <span class="math inline">\(0 \le t_1 &lt; t_2 &lt; \dots &lt; t_n\)</span>, las variables aleatorias discretas <span class="math inline">\(N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})\)</span> son mutuamente independientes en sentido probabilístico.</li>
-<li>Posee incrementos estacionarios; lo que implica que la ley de probabilidad de cualquier incremento <span class="math inline">\(N(t+s) - N(s)\)</span> depende únicamente de la amplitud temporal <span class="math inline">\(t\)</span> y resulta invariante ante traslaciones sobre el origen cronológico <span class="math inline">\(s\)</span>. De forma explícita, la variable aleatoria <span class="math inline">\(N(t)\)</span> sigue una distribución de Poisson con parámetro o tasa media dada por el producto <span class="math inline">\(\lambda t\)</span>:</li>
+<li>Posee incrementos independientes; es decir, para cualesquiera tiempos <span class="math inline">\(0 \le t_1 &lt; t_2 &lt; \dots &lt; t_n\)</span>, las variables aleatorias discretas <span class="math inline">\(N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})\)</span> son mutuamente independientes.</li>
+<li>Posee incrementos estacionarios; lo que implica que la ley de probabilidad de cualquier incremento <span class="math inline">\(N(t+s) - N(s)\)</span> depende únicamente de la amplitud temporal <span class="math inline">\(t\)</span> y resulta invariante ante traslaciones sobre el origen cronológico <span class="math inline">\(s\)</span>. De forma explícita, la variable aleatoria <span class="math inline">\(N(t)\)</span> sigue una distribución de Poisson con parámetro o tasa media dada por el producto <span class="math inline">\(\lambda t\)</span>, es decir:</li>
 </ol>
 <p><span class="math display">\[
 \mathbb{P}(N(t) = n) = \frac{(\lambda t)^n e^{-\lambda t}}{n!}, \quad n = 0, 1, 2, \dots
@@ -521,7 +521,7 @@ Figura&nbsp;2.1: Trayectoria simulada del proceso de Wiener. El eje horizontal r
 \]</span> <span class="math display">\[
 \mathbb{P}(N(t+h) - N(t) \ge 2) = o(h)
 \]</span></p>
-<p>donde la notación algebraico-asintótica de Landau <span class="math inline">\(o(h)\)</span> denota una función de orden superior tal que <span class="math inline">\(\lim_{h \to 0} \frac{o(h)}{h} = 0\)</span>. Esto garantiza formalmente que la probabilidad de ocurrencia de múltiples eventos simultáneos en una fracción temporal infinitesimal es prácticamente nula. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en <span class="citation" data-cites="platen2010numerical">Platen y Bruti-Liberati (<a href="references.html#ref-platen2010numerical" role="doc-biblioref">2010</a>)</span>.</p>
+<p>donde la notación algebraico-asintótica de Landau <span class="math inline">\(o(h)\)</span> denota una función de orden superior tal que <span class="math inline">\(\lim_{h \to 0} \frac{o(h)}{h} = 0\)</span>. Esto garantiza formalmente que la probabilidad de ocurrencia de múltiples eventos simultáneos en una fracción temporal infinitesimal es prácticamente nula. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en <span class="citation" data-cites="ross1996stochastic">(<a href="references.html#ref-ross1996stochastic" role="doc-biblioref">Ross 1996</a>)</span>.</p>
 <div id="fig-poisson" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -624,6 +624,9 @@ Karlin, Samuel, y Howard M. Taylor. 1998. <em>An Introduction to Stochastic Mode
 </div>
 <div id="ref-platen2010numerical" class="csl-entry" role="listitem">
 Platen, Eckhard, y Nicola Bruti-Liberati. 2010. <em>Numerical Solution of Stochastic Differential Equations with Jumps in Finance</em>. Vol. 64. Stochastic Modelling y Applied Probability. Berlin, Heidelberg: Springer-Verlag. <a href="https://doi.org/10.1007/978-3-642-13694-8">https://doi.org/10.1007/978-3-642-13694-8</a>.
+</div>
+<div id="ref-ross1996stochastic" class="csl-entry" role="listitem">
+Ross, Sheldon M. 1996. <em>Stochastic Processes</em>. 2nd ed. New York, NY: Wiley.
 </div>
 <div id="ref-yin2010hybrid" class="csl-entry" role="listitem">
 Yin, G. George, y Chao Zhu. 2010. <em>Hybrid Switching Diffusions: Properties and Applications</em>. Vol. 63. Stochastic Modelling y Applied Probability. New York, NY: Springer. <a href="https://doi.org/10.1007/978-1-4419-1105-6">https://doi.org/10.1007/978-1-4419-1105-6</a>.

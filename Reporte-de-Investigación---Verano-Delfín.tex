@@ -384,10 +384,10 @@ Homogéneo}\label{proceso-de-poisson-homoguxe9neo}
 Las aperturas de las puertas del refrigerador por el personal médico
 constituyen eventos discretos y repentinos que alteran instantáneamente
 la temperatura interna. Este tipo de fenómenos se modela mediante un
-proceso estocástico a tiempo de saltos puros.
+proceso estocástico a tiempo continuo de saltos puros.
 
-\begin{definition}[Proceso de
-Poisson]\protect\hypertarget{def-proceso-poisson}{}\label{def-proceso-poisson}
+\begin{definition}[Proceso de Poisson
+Homogéneo]\protect\hypertarget{def-proceso-poisson}{}\label{def-proceso-poisson}
 
 Un proceso estocástico a tiempo continuo \(\{N(t)\}_{t \ge 0}\) que toma
 valores enteros en el espacio de estados \(\mathcal{S} = \mathbb{N}_0\)
@@ -403,14 +403,14 @@ es un proceso de Poisson homogéneo con parámetro de intensidad constante
   Posee incrementos independientes; es decir, para cualesquiera tiempos
   \(0 \le t_1 < t_2 < \dots < t_n\), las variables aleatorias discretas
   \(N(t_2)-N(t_1), \dots, N(t_n)-N(t_{n-1})\) son mutuamente
-  independientes en sentido probabilístico.
+  independientes.
 \item
   Posee incrementos estacionarios; lo que implica que la ley de
   probabilidad de cualquier incremento \(N(t+s) - N(s)\) depende
   únicamente de la amplitud temporal \(t\) y resulta invariante ante
   traslaciones sobre el origen cronológico \(s\). De forma explícita, la
   variable aleatoria \(N(t)\) sigue una distribución de Poisson con
-  parámetro o tasa media dada por el producto \(\lambda t\):
+  parámetro o tasa media dada por el producto \(\lambda t\), es decir:
 \end{enumerate}
 
 \[
@@ -437,7 +437,7 @@ Esto garantiza formalmente que la probabilidad de ocurrencia de
 múltiples eventos simultáneos en una fracción temporal infinitesimal es
 prácticamente nula. Una exposición rigurosa sobre los procesos de conteo
 y sus aplicaciones en sistemas con discontinuidades puede encontrarse en
-Platen y Bruti-Liberati (\citeproc{ref-platen2010numerical}{2010}).
+(\citeproc{ref-ross1996stochastic}{Ross 1996}).
 
 \begin{figure}
 
@@ -760,6 +760,10 @@ Platen, Eckhard, y Nicola Bruti-Liberati. 2010. \emph{Numerical Solution
 of Stochastic Differential Equations with Jumps in Finance}. Vol. 64.
 Stochastic Modelling y Applied Probability. Berlin, Heidelberg:
 Springer-Verlag. \url{https://doi.org/10.1007/978-3-642-13694-8}.
+
+\bibitem[\citeproctext]{ref-ross1996stochastic}
+Ross, Sheldon M. 1996. \emph{Stochastic Processes}. 2nd ed. New York,
+NY: Wiley.
 
 \bibitem[\citeproctext]{ref-yin2010hybrid}
 Yin, G. George, y Chao Zhu. 2010. \emph{Hybrid Switching Diffusions:
