@@ -378,8 +378,7 @@ aleatorias \(W(t)\), iniciando en el origen \(W(0) = 0\).}
 
 \end{figure}%
 
-\subsection{Proceso de Poisson
-Homogéneo}\label{proceso-de-poisson-homoguxe9neo}
+\subsection{Procesos de Poisson}\label{procesos-de-poisson}
 
 Las aperturas de las puertas del refrigerador por el personal médico
 constituyen eventos discretos y repentinos que alteran instantáneamente
@@ -435,8 +434,47 @@ donde la notación algebraico-asintótica de Landau \(o(h)\) denota una
 función de orden superior tal que \(\lim_{h \to 0} \frac{o(h)}{h} = 0\).
 Esto garantiza formalmente que la probabilidad de ocurrencia de
 múltiples eventos simultáneos en una fracción temporal infinitesimal es
-prácticamente nula. Una exposición rigurosa sobre los procesos de conteo
-y sus aplicaciones en sistemas con discontinuidades puede encontrarse en
+prácticamente nula.
+
+Sin embargo, en la dinámica real de un centro de salud, la tasa de
+aperturas del refrigerador no es constante; exhibe una estacionalidad
+diaria (por ejemplo, mayor actividad en horas pico). Para capturar esta
+variabilidad, generalizamos el modelo relajando la propiedad de
+incrementos estacionarios.
+
+\begin{definition}[Proceso de Poisson No
+Homogéneo]\protect\hypertarget{def-poisson-no-homogeneo}{}\label{def-poisson-no-homogeneo}
+
+Un proceso estocástico a tiempo continuo \(\{N(t)\}_{t \ge 0}\) es un
+proceso de Poisson no homogéneo con función de intensidad
+\(\lambda(t) \ge 0\) (para \(t \ge 0\)) si satisface las siguientes
+condiciones:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(N(0) = 0\) con probabilidad 1.
+\item
+  Posee incrementos independientes.
+\item
+  Para todo \(t \ge 0\) y \(h > 0\), la probabilidad de que ocurra
+  exactamente un evento en el intervalo \((t, t+h]\) está dada por la
+  tasa instantánea en el tiempo \(t\): \[
+  \mathbb{P}(N(t+h) - N(t) = 1) = \lambda(t) h + o(h)
+  \]
+\item
+  La probabilidad de observar dos o más eventos en dicho intervalo es de
+  orden superior a \(h\): \[
+  \mathbb{P}(N(t+h) - N(t) \ge 2) = o(h)
+  \]
+\end{enumerate}
+
+\end{definition}
+
+Una exposición rigurosa sobre los procesos de conteo, sus
+generalizaciones no homogéneas y sus aplicaciones en sistemas con
+discontinuidades puede encontrarse en
 (\citeproc{ref-ross1996stochastic}{Ross 1996}).
 
 \begin{figure}

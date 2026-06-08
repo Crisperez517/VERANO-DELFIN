@@ -48,8 +48,7 @@ El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wi
 
 ![Trayectoria simulada del proceso de Wiener. El eje horizontal representa el avance del tiempo continuo en un horizonte parametrizado de $T = 1.0$ con incrementos de $dt = 0.001$. El eje vertical denota la posición de las fluctuaciones aleatorias $W(t)$, iniciando en el origen $W(0) = 0$.](proceso_wiener.png){#fig-wiener width="80%" fig-align="center"}
 
-
-### Proceso de Poisson Homogéneo
+### Procesos de Poisson
 
 Las aperturas de las puertas del refrigerador por el personal médico constituyen eventos discretos y repentinos que alteran instantáneamente la temperatura interna. Este tipo de fenómenos se modela mediante un proceso estocástico a tiempo continuo de saltos puros.
 
@@ -75,9 +74,29 @@ $$
 \mathbb{P}(N(t+h) - N(t) \ge 2) = o(h)
 $$
 
-donde la notación algebraico-asintótica de Landau $o(h)$ denota una función de orden superior tal que $\lim_{h \to 0} \frac{o(h)}{h} = 0$. Esto garantiza formalmente que la probabilidad de ocurrencia de múltiples eventos simultáneos en una fracción temporal infinitesimal es prácticamente nula. Una exposición rigurosa sobre los procesos de conteo y sus aplicaciones en sistemas con discontinuidades puede encontrarse en [@ross1996stochastic].
+donde la notación algebraico-asintótica de Landau $o(h)$ denota una función de orden superior tal que $\lim_{h \to 0} \frac{o(h)}{h} = 0$. Esto garantiza formalmente que la probabilidad de ocurrencia de múltiples eventos simultáneos en una fracción temporal infinitesimal es prácticamente nula. 
 
-![Trayectorias simuladas de dos procesos de Poisson. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ con incrementos discretos de $dt = 0.01$. El eje vertical contabiliza el número acumulado de eventos discretos $N(t)$, iniciando en $N(0) = 0$. La línea continua (azul) </n> ilustra un Proceso de Poisson Homogéneo con una tasa de intensidad constante $\lambda = 1$, evidenciando incrementos estacionarios, por otro lado la línea punteada (roja) representa un Proceso de Poisson No Homogéneo con una intensidad de $\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi t}{10}\right)$, es decir es dependiente del tiempo, concentrando una mayor densidad de saltos en el periodo central del intervalo (simulando, por ejemplo, las horas pico de aperturas del refrigerador durante una jornada clínica). Ambas gráficas exhiben la naturaleza escalonada continua por la derecha con límites por la izquierda (càdlàg), propia de los procesos de saltos puros.](proceso_poisson.png){#fig-poisson width="85%" fig-align="center"}
+Sin embargo, en la dinámica real de un centro de salud, la tasa de aperturas del refrigerador no es constante; exhibe una estacionalidad diaria (por ejemplo, mayor actividad en horas pico). Para capturar esta variabilidad, generalizamos el modelo relajando la propiedad de incrementos estacionarios.
+
+::: {#def-poisson-no-homogeneo}
+### Proceso de Poisson No Homogéneo
+Un proceso estocástico a tiempo continuo $\{N(t)\}_{t \ge 0}$ es un proceso de Poisson no homogéneo con función de intensidad $\lambda(t) \ge 0$ (para $t \ge 0$) si satisface las siguientes condiciones:
+
+1. $N(0) = 0$ con probabilidad 1.
+2. Posee incrementos independientes.
+3. Para todo $t \ge 0$ y $h > 0$, la probabilidad de que ocurra exactamente un evento en el intervalo $(t, t+h]$ está dada por la tasa instantánea en el tiempo $t$:
+$$
+\mathbb{P}(N(t+h) - N(t) = 1) = \lambda(t) h + o(h)
+$$
+4. La probabilidad de observar dos o más eventos en dicho intervalo es de orden superior a $h$:
+$$
+\mathbb{P}(N(t+h) - N(t) \ge 2) = o(h)
+$$
+:::
+
+Una exposición rigurosa sobre los procesos de conteo, sus generalizaciones no homogéneas y sus aplicaciones en sistemas con discontinuidades puede encontrarse en [@ross1996stochastic].
+
+![Trayectorias simuladas de dos procesos de Poisson. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ con incrementos discretos de $dt = 0.01$. El eje vertical contabiliza el número acumulado de eventos discretos $N(t)$, iniciando en $N(0) = 0$. La línea continua (azul) ilustra un Proceso de Poisson Homogéneo con una tasa de intensidad constante $\lambda = 1$, evidenciando incrementos estacionarios, por otro lado la línea punteada (roja) representa un Proceso de Poisson No Homogéneo con una intensidad de $\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi t}{10}\right)$, es decir es dependiente del tiempo, concentrando una mayor densidad de saltos en el periodo central del intervalo (simulando, por ejemplo, las horas pico de aperturas del refrigerador durante una jornada clínica). Ambas gráficas exhiben la naturaleza escalonada continua por la derecha con límites por la izquierda (càdlàg), propia de los procesos de saltos puros.](proceso_poisson.png){#fig-poisson width="85%" fig-align="center"}
 
 ### Cadenas de Markov de Tiempo Continuo
 
