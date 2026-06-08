@@ -44,7 +44,7 @@ Un proceso estocástico a tiempo continuo $\{W(t)\}_{t \ge 0}$ definido sobre un
 3. Posee incrementos estacionarios gaussianos, es decir, para todo $t > s \ge 0$, $W(t) - W(s) \sim \mathcal{N}(0, t-s)$.
 :::
 
-El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a [@platen2010numerical].
+El término $dW(t) = W(t+dt) - W(t)$ representa el diferencial del proceso de Wiener. Este denota una perturbación gaussiana elemental en un intervalo infinitesimal $dt$, caracterizada por una media $\mathbb{E}[dW(t)] = 0$ y una varianza $\mathbb{E}[(dW(t))^2] = dt$. Para una revisión detallada sobre las propiedades de medida y construcciones analíticas de este proceso, se sugiere consultar a [@karatzas1998brownian].
 
 ![Trayectoria simulada del proceso de Wiener. El eje horizontal representa el avance del tiempo continuo en un horizonte parametrizado de $T = 1.0$ con incrementos de $dt = 0.001$. El eje vertical denota la posición de las fluctuaciones aleatorias $W(t)$, iniciando en el origen $W(0) = 0$.](proceso_wiener.png){#fig-wiener width="80%" fig-align="center"}
 
