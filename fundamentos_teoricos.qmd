@@ -127,9 +127,82 @@ $$
 
 A través de esta formulación basada en límites, las probabilidades de transición de primer orden quedan descritas asintóticamente mediante las expresiones $p_{ij}(h) = q_{ij}h + o(h)$ para $i \neq j$, y $p_{ii}(h) = 1 + q_{ii}h + o(h)$. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de [@asmussen2003markov].
 
+## Ecuaciones Diferenciales Estocásticas e Integral de Itô
+
+Una vez establecidos los procesos estocásticos de soporte, es necesario definir las reglas operacionales que permiten construir y resolver ecuaciones sujetas a perturbaciones aleatorias continuas. Dado que las trayectorias del movimiento Browniano son de variación infinita y no diferenciables en ningún punto, la expresión clásica $dW(t)/dt$ carece de sentido dentro del cálculo ordinario. Por lo tanto, la integración respecto a procesos estocásticos requiere la construcción de una nueva herramienta analítica conocida como la integral de Itô.
+
+::: {#def-integral-ito}
+### Integral de Itô
+Sea $\{X(t)\}_{t \ge 0}$ un proceso estocástico adaptado a la filtración Browniana $\{\mathcal{F}_t\}_{t \ge 0}$ que satisface la condición de integrabilidad $\mathbb{E}\left[\int_0^T X^2(t) dt\right] < \infty$. La integral de Itô de $X(t)$ respecto al proceso de Wiener $W(t)$ se define como el límite en media cuadrática de sumas de Riemann aproximadas por la izquierda:
+
+$$
+\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)]
+$$
+
+donde $0 = t_0 < t_1 < \dots < t_n = T$ es una partición del intervalo $[0, T]$ cuyo diámetro tiende a cero cuando $n \to \infty$.
+:::
+
+A diferencia del cálculo clásico, evaluar el integrando estrictamente en el extremo izquierdo de cada subintervalo ($t_i$) garantiza que la integral resultante conserve la propiedad de martingala, lo que implica que su esperanza matemática es nula, $\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0$. A partir de este concepto fundamental, se establece la formulación de una Ecuación Diferencial Estocástica (EDE).
+
+::: {#def-ede-general}
+### Ecuación Diferencial Estocástica
+Una ecuación diferencial estocástica para un proceso $\{X(t)\}_{t \ge 0}$ es una relación simbólica expresada en su forma diferencial mediante:
+
+$$
+dX(t) = b(t, X(t)) dt + \sigma(t, X(t)) dW(t)
+$$ {#eq-ede-general-diff}
+
+donde $b(t, X(t))$ denota el coeficiente de deriva y $\sigma(t, X(t))$ representa el coeficiente de difusión.
+:::
+
+El término $dX(t)$ en la @eq-ede-general-diff no debe interpretarse como una derivada ordinaria, sino como una representación abreviada de su ecuación integral equivalente:
+
+$$
+X(t) = X(0) + \int_0^t b(s, X(s)) ds + \int_0^t \sigma(s, X(s)) dW(s)
+$$ {#eq-ede-general-int}
+
+En la @eq-ede-general-int, la primera integral respecto al tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la tendencia determinista del sistema, mientras que la segunda es una integral de Itô que modela el ruido estocástico continuo. Para una revisión rigurosa del cálculo estocástico elemental, se sugiere consultar a @karatzas1998brownian.
+
+Para asegurar que una EDE posea una solución única ante cualquier condición inicial, los coeficientes de deriva y difusión deben cumplir condiciones de regularidad analítica bien definidas, expuestas en el siguiente teorema de existencia y unicidad.
+
+::: {#thm-existencia-unicidad}
+### Criterios de Existencia y Unicidad de Soluciones
+Sea la EDE definida en la @eq-ede-general-diff con una condición inicial $X(0) = X_0$ independiente del proceso de Wiener. Supóngase que para todo $t \in [0, T]$ y variables $x, y \in \mathbb{R}$, los coeficientes satisfacen las siguientes dos restricciones:
+
+1. **Condición de Lipschitz global:** Existe una constante $K > 0$ tal que:
+$$
+|b(t, x) - b(t, y)| + |\sigma(t, x) - \sigma(t, y)| \le K |x - y|
+$$
+2. **Condición de crecimiento lineal:** Existe una constante $C > 0$ tal que:
+$$
+|b(t, x)| + |\sigma(t, x)| \le C (1 + |x|)
+$$
+
+Bajo el cumplimiento de ambas condiciones estructurales, la ecuación admite una solución fuerte única $\{X(t)\}_{t \in [0, T]}$ con trayectorias continuas con probabilidad 1.
+:::
+
+La condición de Lipschitz previene que las trayectorias colapsen o se bifurquen de manera indeterminada, garantizando la unicidad, mientras que la restricción de crecimiento lineal evita que las soluciones diverjan a infinito en un tiempo finito. Una exposición detallada de estas demostraciones analíticas se encuentra en el texto de @karatzas1998brownian.
+
+## El Proceso de Ornstein-Uhlenbeck Clásico
+
+Como paso previo al desarrollo de nuestro modelo termodinámico final, es indispensable introducir un tipo particular de difusión lineal continua que modela la inercia física y la atracción hacia un estado estacionario de equilibrio: el proceso de Ornstein-Uhlenbeck.
+
+::: {#def-ou-clasico}
+### Proceso de Ornstein-Uhlenbeck
+Un proceso estocástico $\{X(t)\}_{t \ge 0}$ es un proceso de Ornstein-Uhlenbeck clásico si satisface la ecuación diferencial estocástica lineal homogénea:
+
+$$
+dX(t) = \kappa (\theta - X(t)) dt + \sigma dW(t)
+$$ {#eq-ou-clasica}
+
+donde $\kappa > 0$ representa la velocidad de reversión a la media, $\theta \in \mathbb{R}$ denota el nivel de equilibrio de largo plazo y $\sigma > 0$ es la volatilidad del sistema.
+:::
+
+La característica principal de la @eq-ou-clasica radica en su deriva lineal $b(x) = \kappa(\theta - x)$. Cuando el estado del proceso supera el valor de equilibrio ($X(t) > \theta$), la deriva se vuelve negativa, empujando la trayectoria hacia abajo; inversamente, si el proceso se encuentra por debajo del nivel de consigna ($X(t) < \theta$), la deriva se torna positiva, induciendo un crecimiento hacia el promedio. Esta propiedad de atracción elástica convierte a este proceso en la base idónea para simular la inercia térmica de sistemas cerrados gobernados por la ley de enfriamiento de Newton, cuyas propiedades analíticas detalladas se discuten en @karlin1998introduction.
+
 ## Formulación de la Ecuación Diferencial Estocástica General
 
-Una vez definidos los elementos estocásticos elementales, es posible formular el marco matemático que unifica la evolución analítica continua con las perturbaciones aleatorias macroscópicas y los saltos microscópicos discretos. De acuerdo con el marco general desarrollado por @yin2010hybrid y @platen2010numerical, una Difusión Híbrida con Conmutación de Régimen y Saltos se define formalmente mediante el siguiente sistema de ecuaciones diferenciales estocásticas:
+Una vez definidos los elementos estocásticos elementales, es posible formular el marco matemático que unifica la evolución analítica continua con las perturbaciones aleatorias macroscópicas y los saltos microscópicos discretos. De acuerdo con el marco general desarrollado por @yin2010hybrid y @platen2010numerical, una Difusión Híbrida con Conmutación de Régimen y Saltos se define mediante el siguiente sistema de ecuaciones diferenciales estocásticas:
 
 $$
 dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
@@ -144,7 +217,7 @@ El acoplamiento funcional con la cadena de Markov $\alpha(t)$ implica que los pa
 
 Para ilustrar el impacto de nuestra formulación matemática sobre el modelado físico de la red de frío, es fundamental contrastar el comportamiento de las trayectorias resultantes. La simulación numérica del modelo revela cómo la incorporación de discontinuidades captura fenómenos que los modelos clásicos omiten.
 
-![Trayectorias simuladas de la Ecuación Diferencial Estocástica de Ornstein-Uhlenbeck para la temperatura interna de un refrigerador de vacunas. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ horas con incrementos de $dt = 0.01$. La línea base negra indica la temperatura óptima de consigna $\theta = 4^\circ\text{C}$. La trayectoria continua (azul) ilustra una difusión clásica perturbada únicamente por el movimiento Browniano $dW(t)$, simulando las microfluctuaciones gaussianas inherentes al ciclo del compresor. En contraste, la trayectoria híbrida (roja) superpone perturbaciones mediante un proceso de Poisson $dN(t)$, modelando impactos inelásticos macroscópicos. Se observa claramente cómo los saltos térmicos positivos (simulando aperturas de la puerta por el personal) elevan bruscamente la temperatura, la cual posteriormente experimenta una reversión a la media controlada por el parámetro de inercia $\kappa$. Las trayectorias fueron aproximadas computacionalmente mediante el esquema numérico de Euler-Maruyama.](trayectorias_sde.png){#fig-sde-comparacion width="90%" fig-align="center"}
+![Trayectorias simuladas de la Ecuación Diferencial Estocástica de Ornstein-Uhlenbeck para la temperatura interna de un refrigerador de vacunas. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ horas con incrementos de $dt = 0.01$. La línea base negra indica la temperatura óptma de consigna $\theta = 4^\circ\text{C}$. La trayectoria continua (azul) ilustra una difusión clásica perturbada únicamente por el movimiento Browniano $dW(t)$, simulando las microfluctuaciones gaussianas inherentes al ciclo del compresor. En contraste, la trayectoria híbrida (roja) superpone perturbaciones mediante un proceso de Poisson $dN(t)$, modelando impactos inelásticos macroscópicos. Se observa claramente cómo los saltos térmicos positivos (simulando aperturas de la puerta por el personal) elevan bruscamente la temperatura, la cual posteriormente experimenta una reversión a la media controlada por el parámetro de inercia $\kappa$. Las trayectorias fueron aproximadas computacionalmente mediante el esquema numérico de Euler-Maruyama.](trayectorias_sde.png){#fig-sde-comparacion width="90%" fig-align="center"}
 
 Como evidencia la @fig-sde-comparacion, modelar el sistema exclusivamente con componentes difusivos continuos subestima severamente el riesgo de excursiones térmicas fuera del rango normativo de la OMS (2 °C a 8 °C). La inclusión del proceso de saltos justifica nuestra necesidad de utilizar el Lema de Itô generalizado, ya que la temperatura experimenta cambios finitos instantáneos que rompen la diferenciabilidad clásica del modelo.
 
@@ -167,7 +240,7 @@ La inercia térmica es la capacidad de la masa interna del refrigerador (biológ
 ### Corte de Energía (Conmutación de Régimen)
 Se define como la transición macroscópica de la cadena de Markov debido a fallos en el suministro eléctrico. El sistema conmuta del régimen con suministro normal ($\alpha(t) = 1$) al régimen de falla ($\alpha(t) = 2$). Esta conmutación altera los límites asintóticos de la deriva en la @eq-ou-temperatura:
 
-1. **Régimen $\alpha(t) = 1$:** El sistema converge a la temperatura óptima de consigna del termostato, es decir, $\theta(1) = 5^\circ\text{C}$.
+1. **Régimen $\alpha(t) = 1$:** El sistema converge a la temperatura óptma de consigna del termostato, es decir, $\theta(1) = 5^\circ\text{C}$.
 2. **Régimen $\alpha(t) = 2$:** Al apagarse el motor, el sistema interrumpe el enfriamiento y la temperatura interna comienza a converger hacia la temperatura ambiente exterior del centro de salud, parametrizada por $\theta(2) = T_{\text{amb}}$.
 :::
 
@@ -176,9 +249,22 @@ Se define como la transición macroscópica de la cadena de Markov debido a fall
 Corresponde a la intrusión brusca de aire cálido exterior provocada por la manipulación operativa del personal de enfermería. Este fenómeno ocurre de forma intermitente y se modela en la @eq-ou-temperatura mediante el término de saltos $\gamma dN(t)$, donde $\gamma > 0$ representa el incremento térmico discreto e instantáneo en grados Celsius cada vez que el diferencial del proceso de Poisson registra un evento ($dN(t) = 1$).
 :::
 
-## El Lema de Itô Generalizado
+## El Lema de Itô Clásico y Generalizado
 
-La resolución analítica explícita o la justificación de esquemas de aproximación numérica convergentes (tales como el método de Euler-Maruyama para la simulación de Montecarlo) requiere una extensión del cálculo diferencial estocástico clásico. Apoyados en los desarrollos fundamentales de @yin2010hybrid y @platen2010numerical, establecemos el siguiente teorema analítico que rige el cálculo sobre trayectorias discontinuas con conmutación:
+Para realizar transformaciones algebraicas sobre funciones que dependen de procesos estocásticos o para desarrollar algoritmos de aproximación computacional válidos, el teorema fundamental del cálculo determinista debe sustituirse por el Lema de Itô. Introducimos inicialmente la versión elemental para difusiones continuas.
+
+::: {#thm-ito-clasico}
+### Lema de Itô para Difusiones Continuas
+Sea $\{X(t)\}_{t \ge 0}$ una difusión estocástica continua gobernada por la ecuación $dX(t) = b(t, X(t)) dt + \sigma(t, X(t)) dW(t)$, y sea $V(t, x)$ una función escalar continuamente diferenciable en su componente temporal $t$ y dos veces continuamente diferenciable en su componente espacial $x$. El diferencial estocástico de la función compuesta viene dado por:
+
+$$
+dV(t, X(t)) = \left[ \frac{\partial V}{\partial t} + b(t, X(t))\frac{\partial V}{\partial x} + \frac{1}{2}\sigma^2(t, X(t))\frac{\partial^2 V}{\partial x^2} \right] dt + \sigma(t, X(t))\frac{\partial V}{\partial x} dW(t)
+$$
+:::
+
+El término de segundo orden respecto a la derivada espacial surge de la propiedad cuadrática del movimiento Browniano, donde $(dW(t))^2 \to dt$ en un sentido probabilístico riguroso. Este desarrollo elemental se detalla conceptualmente en @karatzas1998brownian. 
+
+No obstante, dado que nuestro modelo acopla conmutaciones estructurales discretas y discontinuidades inelásticas puntuales, la versión continua resulta insuficiente. Apoyados en los desarrollos fundamentales de @yin2010hybrid y @platen2010numerical, establecemos el siguiente teorema analítico que rige el cálculo sobre trayectorias discontinuas con conmutación:
 
 ::: {#thm-ito-generalizado}
 ### Fórmula de Itô para Difusiones Híbridas con Saltos

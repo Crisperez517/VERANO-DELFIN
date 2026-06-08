@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -575,6 +575,157 @@ Los lectores interesados en profundizar en las propiedades asintóticas y
 de estabilidad de estos procesos híbridos pueden remitirse al texto
 especializado de (\citeproc{ref-asmussen2003markov}{Asmussen 2003}).
 
+\section{Ecuaciones Diferenciales Estocásticas e Integral de
+Itô}\label{ecuaciones-diferenciales-estocuxe1sticas-e-integral-de-ituxf4}
+
+Una vez establecidos los procesos estocásticos de soporte, es necesario
+definir las reglas operacionales que permiten construir y resolver
+ecuaciones sujetas a perturbaciones aleatorias continuas. Dado que las
+trayectorias del movimiento Browniano son de variación infinita y no
+diferenciables en ningún punto, la expresión clásica \(dW(t)/dt\) carece
+de sentido dentro del cálculo ordinario. Por lo tanto, la integración
+respecto a procesos estocásticos requiere la construcción de una nueva
+herramienta analítica conocida como la integral de Itô.
+
+\begin{definition}[Integral de
+Itô]\protect\hypertarget{def-integral-ito}{}\label{def-integral-ito}
+
+Sea \(\{X(t)\}_{t \ge 0}\) un proceso estocástico adaptado a la
+filtración Browniana \(\{\mathcal{F}_t\}_{t \ge 0}\) que satisface la
+condición de integrabilidad
+\(\mathbb{E}\left[\int_0^T X^2(t) dt\right] < \infty\). La integral de
+Itô de \(X(t)\) respecto al proceso de Wiener \(W(t)\) se define como el
+límite en media cuadrática de sumas de Riemann aproximadas por la
+izquierda:
+
+\[
+\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)]
+\]
+
+donde \(0 = t_0 < t_1 < \dots < t_n = T\) es una partición del intervalo
+\([0, T]\) cuyo diámetro tiende a cero cuando \(n \to \infty\).
+
+\end{definition}
+
+A diferencia del cálculo clásico, evaluar el integrando estrictamente en
+el extremo izquierdo de cada subintervalo (\(t_i\)) garantiza que la
+integral resultante conserve la propiedad de martingala, lo que implica
+que su esperanza matemática es nula,
+\(\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0\). A partir de este
+concepto fundamental, se establece la formulación de una Ecuación
+Diferencial Estocástica (EDE).
+
+\begin{definition}[Ecuación Diferencial
+Estocástica]\protect\hypertarget{def-ede-general}{}\label{def-ede-general}
+
+Una ecuación diferencial estocástica para un proceso
+\(\{X(t)\}_{t \ge 0}\) es una relación simbólica expresada en su forma
+diferencial mediante:
+
+\begin{equation}\phantomsection\label{eq-ede-general-diff}{
+dX(t) = b(t, X(t)) dt + \sigma(t, X(t)) dW(t)
+}\end{equation}
+
+donde \(b(t, X(t))\) denota el coeficiente de deriva y
+\(\sigma(t, X(t))\) representa el coeficiente de difusión.
+
+\end{definition}
+
+El término \(dX(t)\) en la Ecuación~\ref{eq-ede-general-diff} no debe
+interpretarse como una derivada ordinaria, sino como una representación
+abreviada de su ecuación integral equivalente:
+
+\begin{equation}\phantomsection\label{eq-ede-general-int}{
+X(t) = X(0) + \int_0^t b(s, X(s)) ds + \int_0^t \sigma(s, X(s)) dW(s)
+}\end{equation}
+
+En la Ecuación~\ref{eq-ede-general-int}, la primera integral respecto al
+tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la
+tendencia determinista del sistema, mientras que la segunda es una
+integral de Itô que modela el ruido estocástico continuo. Para una
+revisión rigurosa del cálculo estocástico elemental, se sugiere
+consultar a Karatzas y Shreve
+(\citeproc{ref-karatzas1998brownian}{1998}).
+
+Para asegurar que una EDE posea una solución única ante cualquier
+condición inicial, los coeficientes de deriva y difusión deben cumplir
+condiciones de regularidad analítica bien definidas, expuestas en el
+siguiente teorema de existencia y unicidad.
+
+\begin{theorem}[Criterios de Existencia y Unicidad de
+Soluciones]\protect\hypertarget{thm-existencia-unicidad}{}\label{thm-existencia-unicidad}
+
+Sea la EDE definida en la Ecuación~\ref{eq-ede-general-diff} con una
+condición inicial \(X(0) = X_0\) independiente del proceso de Wiener.
+Supóngase que para todo \(t \in [0, T]\) y variables
+\(x, y \in \mathbb{R}\), los coeficientes satisfacen las siguientes dos
+restricciones:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Condición de Lipschitz global:} Existe una constante \(K > 0\)
+  tal que: \[
+  |b(t, x) - b(t, y)| + |\sigma(t, x) - \sigma(t, y)| \le K |x - y|
+  \]
+\item
+  \textbf{Condición de crecimiento lineal:} Existe una constante
+  \(C > 0\) tal que: \[
+  |b(t, x)| + |\sigma(t, x)| \le C (1 + |x|)
+  \]
+\end{enumerate}
+
+Bajo el cumplimiento de ambas condiciones estructurales, la ecuación
+admite una solución fuerte única \(\{X(t)\}_{t \in [0, T]}\) con
+trayectorias continuas con probabilidad 1.
+
+\end{theorem}
+
+La condición de Lipschitz previene que las trayectorias colapsen o se
+bifurquen de manera indeterminada, garantizando la unicidad, mientras
+que la restricción de crecimiento lineal evita que las soluciones
+diverjan a infinito en un tiempo finito. Una exposición detallada de
+estas demostraciones analíticas se encuentra en el texto de Karatzas y
+Shreve (\citeproc{ref-karatzas1998brownian}{1998}).
+
+\section{El Proceso de Ornstein-Uhlenbeck
+Clásico}\label{el-proceso-de-ornstein-uhlenbeck-cluxe1sico}
+
+Como paso previo al desarrollo de nuestro modelo termodinámico final, es
+indispensable introducir un tipo particular de difusión lineal continua
+que modela la inercia física y la atracción hacia un estado estacionario
+de equilibrio: el proceso de Ornstein-Uhlenbeck.
+
+\begin{definition}[Proceso de
+Ornstein-Uhlenbeck]\protect\hypertarget{def-ou-clasico}{}\label{def-ou-clasico}
+
+Un proceso estocástico \(\{X(t)\}_{t \ge 0}\) es un proceso de
+Ornstein-Uhlenbeck clásico si satisface la ecuación diferencial
+estocástica lineal homogénea:
+
+\begin{equation}\phantomsection\label{eq-ou-clasica}{
+dX(t) = \kappa (\theta - X(t)) dt + \sigma dW(t)
+}\end{equation}
+
+donde \(\kappa > 0\) representa la velocidad de reversión a la media,
+\(\theta \in \mathbb{R}\) denota el nivel de equilibrio de largo plazo y
+\(\sigma > 0\) es la volatilidad del sistema.
+
+\end{definition}
+
+La característica principal de la Ecuación~\ref{eq-ou-clasica} radica en
+su deriva lineal \(b(x) = \kappa(\theta - x)\). Cuando el estado del
+proceso supera el valor de equilibrio (\(X(t) > \theta\)), la deriva se
+vuelve negativa, empujando la trayectoria hacia abajo; inversamente, si
+el proceso se encuentra por debajo del nivel de consigna
+(\(X(t) < \theta\)), la deriva se torna positiva, induciendo un
+crecimiento hacia el promedio. Esta propiedad de atracción elástica
+convierte a este proceso en la base idónea para simular la inercia
+térmica de sistemas cerrados gobernados por la ley de enfriamiento de
+Newton, cuyas propiedades analíticas detalladas se discuten en Karlin y
+Taylor (\citeproc{ref-karlin1998introduction}{1998}).
+
 \section{Formulación de la Ecuación Diferencial Estocástica
 General}\label{formulaciuxf3n-de-la-ecuaciuxf3n-diferencial-estocuxe1stica-general}
 
@@ -584,8 +735,8 @@ con las perturbaciones aleatorias macroscópicas y los saltos
 microscópicos discretos. De acuerdo con el marco general desarrollado
 por Yin y Zhu (\citeproc{ref-yin2010hybrid}{2010}) y Platen y
 Bruti-Liberati (\citeproc{ref-platen2010numerical}{2010}), una Difusión
-Híbrida con Conmutación de Régimen y Saltos se define formalmente
-mediante el siguiente sistema de ecuaciones diferenciales estocásticas:
+Híbrida con Conmutación de Régimen y Saltos se define mediante el
+siguiente sistema de ecuaciones diferenciales estocásticas:
 
 \begin{equation}\phantomsection\label{eq-sde-hibrida-general}{
 dT(t) = \mu(T(t), \alpha(t)) dt + \sigma(T(t), \alpha(t)) dW(t) + \gamma(T(t^-), \alpha(t^-)) dN(t)
@@ -622,7 +773,7 @@ Ecuación Diferencial Estocástica de Ornstein-Uhlenbeck para la
 temperatura interna de un refrigerador de vacunas. El eje horizontal
 representa el tiempo de observación en un horizonte de \(T = 10.0\)
 horas con incrementos de \(dt = 0.01\). La línea base negra indica la
-temperatura óptima de consigna \(\theta = 4^\circ\text{C}\). La
+temperatura óptma de consigna \(\theta = 4^\circ\text{C}\). La
 trayectoria continua (azul) ilustra una difusión clásica perturbada
 únicamente por el movimiento Browniano \(dW(t)\), simulando las
 microfluctuaciones gaussianas inherentes al ciclo del compresor. En
@@ -693,7 +844,7 @@ la deriva en la Ecuación~\ref{eq-ou-temperatura}:
 \tightlist
 \item
   \textbf{Régimen \(\alpha(t) = 1\):} El sistema converge a la
-  temperatura óptima de consigna del termostato, es decir,
+  temperatura óptma de consigna del termostato, es decir,
   \(\theta(1) = 5^\circ\text{C}\).
 \item
   \textbf{Régimen \(\alpha(t) = 2\):} Al apagarse el motor, el sistema
@@ -717,17 +868,44 @@ proceso de Poisson registra un evento (\(dN(t) = 1\)).
 
 \end{definition}
 
-\section{El Lema de Itô
-Generalizado}\label{el-lema-de-ituxf4-generalizado}
+\section{El Lema de Itô Clásico y
+Generalizado}\label{el-lema-de-ituxf4-cluxe1sico-y-generalizado}
 
-La resolución analítica explícita o la justificación de esquemas de
-aproximación numérica convergentes (tales como el método de
-Euler-Maruyama para la simulación de Montecarlo) requiere una extensión
-del cálculo diferencial estocástico clásico. Apoyados en los desarrollos
-fundamentales de Yin y Zhu (\citeproc{ref-yin2010hybrid}{2010}) y Platen
-y Bruti-Liberati (\citeproc{ref-platen2010numerical}{2010}),
-establecemos el siguiente teorema analítico que rige el cálculo sobre
-trayectorias discontinuas con conmutación:
+Para realizar transformaciones algebraicas sobre funciones que dependen
+de procesos estocásticos o para desarrollar algoritmos de aproximación
+computacional válidos, el teorema fundamental del cálculo determinista
+debe sustituirse por el Lema de Itô. Introducimos inicialmente la
+versión elemental para difusiones continuas.
+
+\begin{theorem}[Lema de Itô para Difusiones
+Continuas]\protect\hypertarget{thm-ito-clasico}{}\label{thm-ito-clasico}
+
+Sea \(\{X(t)\}_{t \ge 0}\) una difusión estocástica continua gobernada
+por la ecuación \(dX(t) = b(t, X(t)) dt + \sigma(t, X(t)) dW(t)\), y sea
+\(V(t, x)\) una función escalar continuamente diferenciable en su
+componente temporal \(t\) y dos veces continuamente diferenciable en su
+componente espacial \(x\). El diferencial estocástico de la función
+compuesta viene dado por:
+
+\[
+dV(t, X(t)) = \left[ \frac{\partial V}{\partial t} + b(t, X(t))\frac{\partial V}{\partial x} + \frac{1}{2}\sigma^2(t, X(t))\frac{\partial^2 V}{\partial x^2} \right] dt + \sigma(t, X(t))\frac{\partial V}{\partial x} dW(t)
+\]
+
+\end{theorem}
+
+El término de segundo orden respecto a la derivada espacial surge de la
+propiedad cuadrática del movimiento Browniano, donde
+\((dW(t))^2 \to dt\) en un sentido probabilístico riguroso. Este
+desarrollo elemental se detalla conceptualmente en Karatzas y Shreve
+(\citeproc{ref-karatzas1998brownian}{1998}).
+
+No obstante, dado que nuestro modelo acopla conmutaciones estructurales
+discretas y discontinuidades inelásticas puntuales, la versión continua
+resulta insuficiente. Apoyados en los desarrollos fundamentales de Yin y
+Zhu (\citeproc{ref-yin2010hybrid}{2010}) y Platen y Bruti-Liberati
+(\citeproc{ref-platen2010numerical}{2010}), establecemos el siguiente
+teorema analítico que rige el cálculo sobre trayectorias discontinuas
+con conmutación:
 
 \begin{theorem}[Fórmula de Itô para Difusiones Híbridas con
 Saltos]\protect\hypertarget{thm-ito-generalizado}{}\label{thm-ito-generalizado}
