@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -499,8 +499,8 @@ es decir es dependiente del tiempo, concentrando una mayor densidad de
 saltos en el periodo central del intervalo (simulando, por ejemplo, las
 horas pico de aperturas del refrigerador durante una jornada clínica).
 Ambas gráficas exhiben la naturaleza escalonada continua por la derecha
-con límites por la izquierda (càdlàg), propia de los procesos de saltos
-puros.}
+con límites por la izquierda, por sus siglas en francés (càdlàg), propia
+de los procesos de saltos puros.}
 
 \end{figure}%
 
@@ -575,27 +575,28 @@ Los lectores interesados en profundizar en las propiedades asintóticas y
 de estabilidad de estos procesos híbridos pueden remitirse al texto
 especializado de (\citeproc{ref-asmussen2003markov}{Asmussen 2003}).
 
-\section{Ecuaciones Diferenciales Estocásticas e Integral de
-Itô}\label{ecuaciones-diferenciales-estocuxe1sticas-e-integral-de-ituxf4}
+\section{Ecuaciones Diferenciales Estocásticas y la Integral de
+Itô}\label{ecuaciones-diferenciales-estocuxe1sticas-y-la-integral-de-ituxf4}
 
 Una vez establecidos los procesos estocásticos de soporte, es necesario
 definir las reglas operacionales que permiten construir y resolver
 ecuaciones sujetas a perturbaciones aleatorias continuas. Dado que las
-trayectorias del movimiento Browniano son de variación infinita y no
-diferenciables en ningún punto, la expresión clásica \(dW(t)/dt\) carece
-de sentido dentro del cálculo ordinario. Por lo tanto, la integración
-respecto a procesos estocásticos requiere la construcción de una nueva
-herramienta analítica conocida como la integral de Itô.
+trayectorias del movimiento Browniano no son de variación acotada y
+tampoco son diferenciables en ningún punto, entonces la expresión
+clásica \(dW(t)/dt\) no tiene sentido dentro del cálculo ordinario. Por
+lo tanto, la integración respecto a procesos estocásticos requiere la
+construcción de una nueva herramienta analítica conocida como la
+integral de Itô.
 
 \begin{definition}[Integral de
 Itô]\protect\hypertarget{def-integral-ito}{}\label{def-integral-ito}
 
 Sea \(\{X(t)\}_{t \ge 0}\) un proceso estocástico adaptado a la
 filtración Browniana \(\{\mathcal{F}_t\}_{t \ge 0}\) que satisface la
-condición de integrabilidad
-\(\mathbb{E}\left[\int_0^T X^2(t) dt\right] < \infty\). La integral de
-Itô de \(X(t)\) respecto al proceso de Wiener \(W(t)\) se define como el
-límite en media cuadrática de sumas de Riemann aproximadas por la
+condición de integrabilidad,
+i.e.~\(\mathbb{E}\left[\int_0^T X^2(t) dt\right] < \infty\). La integral
+de Itô de \(X(t)\) respecto al proceso de Wiener \(W(t)\) se define como
+el límite en media cuadrática de sumas de Riemann aproximadas por la
 izquierda:
 
 \[
@@ -773,7 +774,7 @@ Ecuación Diferencial Estocástica de Ornstein-Uhlenbeck para la
 temperatura interna de un refrigerador de vacunas. El eje horizontal
 representa el tiempo de observación en un horizonte de \(T = 10.0\)
 horas con incrementos de \(dt = 0.01\). La línea base negra indica la
-temperatura óptma de consigna \(\theta = 4^\circ\text{C}\). La
+temperatura óptima de consigna \(\theta = 4^\circ\text{C}\). La
 trayectoria continua (azul) ilustra una difusión clásica perturbada
 únicamente por el movimiento Browniano \(dW(t)\), simulando las
 microfluctuaciones gaussianas inherentes al ciclo del compresor. En
