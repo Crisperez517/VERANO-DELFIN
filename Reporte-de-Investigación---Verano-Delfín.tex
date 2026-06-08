@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-07}
+\date{2026-06-08}
 \begin{document}
 \maketitle
 
@@ -529,14 +529,12 @@ estados \(i, j \in \mathcal{M}\), cumple la propiedad de Markov:
 
 Las leyes de transición y la evolución temporal de las probabilidades de
 estado de la cadena \(\{\alpha(t)\}_{t \ge 0}\) se encuentran
-completamente caracterizadas y gobernadas por el operador generador
-infinitesimal o matriz de intensidades de transición
+completamente caracterizadas por la matriz de intensidades de transición
 \(Q = (q_{ij}) \in \mathbb{R}^{m \times m}\). Si definimos las funciones
 de probabilidad de transición condicional mediante
 \(p_{ij}(h) = \mathbb{P}(\alpha(t+h) = j \mid \alpha(t) = i)\) para un
 incremento temporal positivo \(h > 0\), las componentes de la matriz
-\(Q\) se determinan rigurosamente evaluando el límite analítico en el
-origen:
+\(Q\) se determinan evaluando el límite analítico en el origen:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -545,7 +543,7 @@ origen:
   Para transiciones entre estados distintos (\(i \neq j\)), la
   componente \(q_{ij}\) representa la tasa instantánea o intensidad de
   conmutación desde el régimen \(i\) hacia el régimen \(j\), definida
-  formalmente como:
+  como:
 \end{enumerate}
 
 \[
@@ -567,16 +565,15 @@ q_{ij} = \lim_{h \to 0^+} \frac{p_{ij}(h)}{h} \ge 0
 q_{ii} = \lim_{h \to 0^+} \frac{p_{ii}(h) - 1}{h} = -\sum_{j \neq i} q_{ij}
 \]
 
-A través de esta formulación matemática formal basada en límites, las
-probabilidades de transición de primer orden quedan descritas
-asintóticamente mediante las expresiones \(p_{ij}(h) = q_{ij}h + o(h)\)
-para \(i \neq j\), y \(p_{ii}(h) = 1 + q_{ii}h + o(h)\). Esto permite
-modelar las conmutaciones macroscópicas de la dinámica del refrigerador
-sin necesidad de introducir variables temporales discretas ni
-heurísticas infinitesimales vagas. Los lectores interesados en
-profundizar en las propiedades asintóticas y de estabilidad de estos
-procesos híbridos pueden remitirse al texto especializado de Yin y Zhu
-(\citeproc{ref-yin2010hybrid}{2010}).
+A través de esta formulación basada en límites, las probabilidades de
+transición de primer orden quedan descritas asintóticamente mediante las
+expresiones \(p_{ij}(h) = q_{ij}h + o(h)\) para \(i \neq j\), y
+\(p_{ii}(h) = 1 + q_{ii}h + o(h)\). Esto permite modelar las
+conmutaciones macroscópicas de la dinámica del refrigerador sin
+necesidad de introducir variables temporales discretas ni heurísticas.
+Los lectores interesados en profundizar en las propiedades asintóticas y
+de estabilidad de estos procesos híbridos pueden remitirse al texto
+especializado de (\citeproc{ref-asmussen2003markov}{Asmussen 2003}).
 
 \section{Formulación de la Ecuación Diferencial Estocástica
 General}\label{formulaciuxf3n-de-la-ecuaciuxf3n-diferencial-estocuxe1stica-general}
@@ -783,6 +780,11 @@ salto del proceso de Poisson.
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-asmussen2003markov}
+Asmussen, Søren. 2003. {«Applied Probability and Queues»}. En, 2nd ed.,
+51:39-59. Stochastic Modelling y Applied Probability. New York, NY:
+Springer-Verlag. \url{https://doi.org/10.1007/0-387-21525-5_2}.
+
 \bibitem[\citeproctext]{ref-karatzas1998brownian}
 Karatzas, Ioannis, y Steven E. Shreve. 1998. \emph{Brownian Motion and
 Stochastic Calculus}. 2nd ed. Vol. 113. Graduate Texts en Mathematics.

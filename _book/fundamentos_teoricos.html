@@ -557,9 +557,9 @@ Figura&nbsp;2.2: Trayectorias simuladas de dos procesos de Poisson. El eje horiz
 \mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i, \alpha(u) = \alpha_u, 0 \le u &lt; s) = \mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i)
 \]</span></p>
 </div>
-<p>Las leyes de transición y la evolución temporal de las probabilidades de estado de la cadena <span class="math inline">\(\{\alpha(t)\}_{t \ge 0}\)</span> se encuentran completamente caracterizadas y gobernadas por el operador generador infinitesimal o matriz de intensidades de transición <span class="math inline">\(Q = (q_{ij}) \in \mathbb{R}^{m \times m}\)</span>. Si definimos las funciones de probabilidad de transición condicional mediante <span class="math inline">\(p_{ij}(h) = \mathbb{P}(\alpha(t+h) = j \mid \alpha(t) = i)\)</span> para un incremento temporal positivo <span class="math inline">\(h &gt; 0\)</span>, las componentes de la matriz <span class="math inline">\(Q\)</span> se determinan rigurosamente evaluando el límite analítico en el origen:</p>
+<p>Las leyes de transición y la evolución temporal de las probabilidades de estado de la cadena <span class="math inline">\(\{\alpha(t)\}_{t \ge 0}\)</span> se encuentran completamente caracterizadas por la matriz de intensidades de transición <span class="math inline">\(Q = (q_{ij}) \in \mathbb{R}^{m \times m}\)</span>. Si definimos las funciones de probabilidad de transición condicional mediante <span class="math inline">\(p_{ij}(h) = \mathbb{P}(\alpha(t+h) = j \mid \alpha(t) = i)\)</span> para un incremento temporal positivo <span class="math inline">\(h &gt; 0\)</span>, las componentes de la matriz <span class="math inline">\(Q\)</span> se determinan evaluando el límite analítico en el origen:</p>
 <ol type="1">
-<li>Para transiciones entre estados distintos (<span class="math inline">\(i \neq j\)</span>), la componente <span class="math inline">\(q_{ij}\)</span> representa la tasa instantánea o intensidad de conmutación desde el régimen <span class="math inline">\(i\)</span> hacia el régimen <span class="math inline">\(j\)</span>, definida formalmente como:</li>
+<li>Para transiciones entre estados distintos (<span class="math inline">\(i \neq j\)</span>), la componente <span class="math inline">\(q_{ij}\)</span> representa la tasa instantánea o intensidad de conmutación desde el régimen <span class="math inline">\(i\)</span> hacia el régimen <span class="math inline">\(j\)</span>, definida como:</li>
 </ol>
 <p><span class="math display">\[
 q_{ij} = \lim_{h \to 0^+} \frac{p_{ij}(h)}{h} \ge 0
@@ -570,7 +570,7 @@ q_{ij} = \lim_{h \to 0^+} \frac{p_{ij}(h)}{h} \ge 0
 <p><span class="math display">\[
 q_{ii} = \lim_{h \to 0^+} \frac{p_{ii}(h) - 1}{h} = -\sum_{j \neq i} q_{ij}
 \]</span></p>
-<p>A través de esta formulación matemática formal basada en límites, las probabilidades de transición de primer orden quedan descritas asintóticamente mediante las expresiones <span class="math inline">\(p_{ij}(h) = q_{ij}h + o(h)\)</span> para <span class="math inline">\(i \neq j\)</span>, y <span class="math inline">\(p_{ii}(h) = 1 + q_{ii}h + o(h)\)</span>. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas infinitesimales vagas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de <span class="citation" data-cites="yin2010hybrid">Yin y Zhu (<a href="references.html#ref-yin2010hybrid" role="doc-biblioref">2010</a>)</span>.</p>
+<p>A través de esta formulación basada en límites, las probabilidades de transición de primer orden quedan descritas asintóticamente mediante las expresiones <span class="math inline">\(p_{ij}(h) = q_{ij}h + o(h)\)</span> para <span class="math inline">\(i \neq j\)</span>, y <span class="math inline">\(p_{ii}(h) = 1 + q_{ii}h + o(h)\)</span>. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de <span class="citation" data-cites="asmussen2003markov">(<a href="references.html#ref-asmussen2003markov" role="doc-biblioref">Asmussen 2003</a>)</span>.</p>
 </section>
 </section>
 <section id="formulación-de-la-ecuación-diferencial-estocástica-general" class="level2" data-number="2.2">
@@ -631,6 +631,9 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-asmussen2003markov" class="csl-entry" role="listitem">
+Asmussen, Søren. 2003. <span>«Applied Probability and Queues»</span>. En, 2nd ed., 51:39-59. Stochastic Modelling y Applied Probability. New York, NY: Springer-Verlag. <a href="https://doi.org/10.1007/0-387-21525-5_2">https://doi.org/10.1007/0-387-21525-5_2</a>.
+</div>
 <div id="ref-karatzas1998brownian" class="csl-entry" role="listitem">
 Karatzas, Ioannis, y Steven E. Shreve. 1998. <em>Brownian Motion and Stochastic Calculus</em>. 2nd ed. Vol. 113. Graduate Texts en Mathematics. New York, NY: Springer-Verlag. <a href="https://doi.org/10.1007/978-1-4612-0949-2">https://doi.org/10.1007/978-1-4612-0949-2</a>.
 </div>

@@ -111,9 +111,9 @@ $$
 $$
 :::
 
-Las leyes de transición y la evolución temporal de las probabilidades de estado de la cadena $\{\alpha(t)\}_{t \ge 0}$ se encuentran completamente caracterizadas y gobernadas por el operador generador infinitesimal o matriz de intensidades de transición $Q = (q_{ij}) \in \mathbb{R}^{m \times m}$. Si definimos las funciones de probabilidad de transición condicional mediante $p_{ij}(h) = \mathbb{P}(\alpha(t+h) = j \mid \alpha(t) = i)$ para un incremento temporal positivo $h > 0$, las componentes de la matriz $Q$ se determinan rigurosamente evaluando el límite analítico en el origen:
+Las leyes de transición y la evolución temporal de las probabilidades de estado de la cadena $\{\alpha(t)\}_{t \ge 0}$ se encuentran completamente caracterizadas por la matriz de intensidades de transición $Q = (q_{ij}) \in \mathbb{R}^{m \times m}$. Si definimos las funciones de probabilidad de transición condicional mediante $p_{ij}(h) = \mathbb{P}(\alpha(t+h) = j \mid \alpha(t) = i)$ para un incremento temporal positivo $h > 0$, las componentes de la matriz $Q$ se determinan evaluando el límite analítico en el origen:
 
-1. Para transiciones entre estados distintos ($i \neq j$), la componente $q_{ij}$ representa la tasa instantánea o intensidad de conmutación desde el régimen $i$ hacia el régimen $j$, definida formalmente como:
+1. Para transiciones entre estados distintos ($i \neq j$), la componente $q_{ij}$ representa la tasa instantánea o intensidad de conmutación desde el régimen $i$ hacia el régimen $j$, definida como:
 
 $$
 q_{ij} = \lim_{h \to 0^+} \frac{p_{ij}(h)}{h} \ge 0
@@ -125,7 +125,7 @@ $$
 q_{ii} = \lim_{h \to 0^+} \frac{p_{ii}(h) - 1}{h} = -\sum_{j \neq i} q_{ij}
 $$
 
-A través de esta formulación matemática formal basada en límites, las probabilidades de transición de primer orden quedan descritas asintóticamente mediante las expresiones $p_{ij}(h) = q_{ij}h + o(h)$ para $i \neq j$, y $p_{ii}(h) = 1 + q_{ii}h + o(h)$. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas infinitesimales vagas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de @yin2010hybrid.
+A través de esta formulación basada en límites, las probabilidades de transición de primer orden quedan descritas asintóticamente mediante las expresiones $p_{ij}(h) = q_{ij}h + o(h)$ para $i \neq j$, y $p_{ii}(h) = 1 + q_{ii}h + o(h)$. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de [@asmussen2003markov].
 
 ## Formulación de la Ecuación Diferencial Estocástica General
 
