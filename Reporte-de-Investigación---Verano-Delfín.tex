@@ -566,8 +566,8 @@ q_{ii} = \lim_{h \to 0^+} \frac{p_{ii}(h) - 1}{h} = -\sum_{j \neq i} q_{ij}
 \]
 
 A través de esta formulación basada en límites, las probabilidades de
-transición de primer orden quedan descritas asintóticamente mediante las
-expresiones \(p_{ij}(h) = q_{ij}h + o(h)\) para \(i \neq j\), y
+transición de primer orden quedan descritas mediante las expresiones
+\(p_{ij}(h) = q_{ij}h + o(h)\) para \(i \neq j\), y
 \(p_{ii}(h) = 1 + q_{ii}h + o(h)\). Esto permite modelar las
 conmutaciones macroscópicas de la dinámica del refrigerador sin
 necesidad de introducir variables temporales discretas ni heurísticas.
@@ -935,6 +935,223 @@ de la matriz \(Q\), lo cual captura el efecto del cambio en la deriva.
 Por su parte, la componente final sustituye la derivada espacial
 tradicional por un operador de diferencias finitas encargado de absorber
 la discontinuidad en los tiempos de salto del proceso de Poisson.
+
+\section{Soluciones Numéricas de Ecuaciones Diferenciales
+Estocásticas}\label{soluciones-numuxe9ricas-de-ecuaciones-diferenciales-estocuxe1sticas}
+
+En la práctica, la gran mayoría de las ecuaciones diferenciales
+estocásticas carecen de una solución analítica explícita debido a la no
+linealidad de sus coeficientes o al acoplamiento de sus perturbaciones.
+Por este motivo, resulta necesario recurrir a esquemas de aproximación
+numérica distribuidos en un mallado temporal discreto. A diferencia del
+cálculo determinista, donde la convergencia se evalúa de forma puntual,
+en el ámbito estocástico la cercanía entre la solución real \(X(t)\) y
+la aproximación discreta \(Y_n\) requiere criterios fundamentados en la
+teoría de la medida.
+
+Para definir los criterios de convergencia, consideremos una partición
+regular del intervalo de tiempo \([0, T]\) con un tamaño de paso
+constante \(\Delta t = \frac{T}{N}\), fijando los nodos temporales como
+\(t_n = n \Delta t\) para cada paso \(n = 0, 1, \dots, N\). Denotaremos
+a la solución aproximada en el nodo \(t_n\) como \(Y_n = Y(t_n)\).
+
+\begin{definition}[Convergencia
+Fuerte]\protect\hypertarget{def-convergencia-fuerte}{}\label{def-convergencia-fuerte}
+
+Se dice que una aproximación discreta \(Y\) converge fuertemente de
+orden \(\gamma > 0\) hacia la solución real \(X(T)\) en el tiempo
+terminal \(T\) si existe una constante positiva \(C\), independiente de
+\(\Delta t\), tal que se cumple la desigualdad:
+
+\[
+\mathbb{E}\left[|X(T) - Y_N|\right] \le C (\Delta t)^\gamma
+\]
+
+\end{definition}
+
+La convergencia fuerte evalúa el error promedio directo sobre cada
+trayectoria individual del proceso. Es el criterio adecuado cuando
+interesa simular caminos muestrales específicos del sistema.
+
+\begin{definition}[Convergencia
+Débil]\protect\hypertarget{def-convergencia-debil}{}\label{def-convergencia-debil}
+
+Se dice que una aproximación discreta \(Y\) converge débilmente de orden
+\(\beta > 0\) hacia la solución real \(X(T)\) en el tiempo terminal
+\(T\) si, para toda función de prueba \(g: \mathbb{R} \to \mathbb{R}\)
+continuamente diferenciable de crecimiento polinomial, existe una
+constante positiva \(C\) tal que:
+
+\[
+|\mathbb{E}[g(X(T))] - \mathbb{E}[g(Y_N)]| \le C (\Delta t)^\beta
+\]
+
+\end{definition}
+
+La convergencia débil no compara trayectoria por trayectoria, sino que
+evalúa la aproximación de la distribución de probabilidad global y sus
+momentos estadísticos (como la media y la varianza).
+
+\subsection{Esquema Numérico de
+Euler-Maruyama}\label{esquema-numuxe9rico-de-euler-maruyama}
+
+El método de Euler-Maruyama constituye la extensión estocástica más
+elemental del método de Euler para ecuaciones diferenciales ordinarias.
+Este esquema aproxima el cambio continuo truncando las integrales de la
+ecuación mediante aproximaciones de orden inferior.
+
+\begin{theorem}[Teorema de Convergencia de
+Euler-Maruyama]\protect\hypertarget{thm-euler-maruyama}{}\label{thm-euler-maruyama}
+
+Sea la ecuación diferencial estocástica continua
+\(dX(t) = b(t, X(t))dt + \sigma(t, X(t))dW(t)\) sujeta a las condiciones
+de existencia y unicidad. Si los coeficientes de deriva \(b\) y de
+difusión \(\sigma\) son continuamente diferenciables y satisfacen las
+condiciones de Lipschitz y crecimiento lineal, entonces el esquema de
+Euler-Maruyama converge fuertemente con orden:
+
+\[
+\gamma = 0.5
+\]
+
+y converge débilmente con un orden de acotación de \(\beta = 1.0\).
+
+\end{theorem}
+
+La demostración de este orden de convergencia estricto se fundamenta en
+que el incremento del movimiento Browniano domina algebraicamente sobre
+el incremento del tiempo determinista, dado que su escala de variación
+es proporcional a \(\sqrt{\Delta t}\).
+
+\textbf{Algoritmo General de Euler-Maruyama}
+
+Para aproximar numéricamente las trayectorias de la ecuación en el
+intervalo \([0, T]\) con condición inicial \(X(0) = x_0\):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Inicialización:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Fijar el número de pasos \(N\) y calcular el incremento
+    \(\Delta t = T/N\).
+  \item
+    Construir la malla temporal \(t_n = n \Delta t\) para
+    \(n = 0, 1, \dots, N\).
+  \item
+    Asignar el valor inicial a la primera posición del vector:
+    \(Y_0 = x_0\).
+  \end{itemize}
+\item
+  \textbf{Bucle de Simulación:} Para cada paso temporal
+  \(n = 0, 1, \dots, N-1\):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Generar una variable aleatoria normal estándar independiente:
+    \(Z_n \sim \mathcal{N}(0, 1)\).
+  \item
+    Calcular el incremento del proceso de Wiener mediante el
+    escalamiento:
+    \[\Delta W_n = W(t_{n+1}) - W(t_n) = Z_n \sqrt{\Delta t}\]
+  \item
+    Actualizar el estado del proceso en el siguiente nodo evaluando la
+    relación recursiva:
+    \[Y_{n+1} = Y_n + b(t_n, Y_n) \Delta t + \sigma(t_n, Y_n) \Delta W_n\]
+  \end{itemize}
+\item
+  \textbf{Resultado:} El vector de estados discreto
+  \(\{Y_0, Y_1, \dots, Y_N\}\) representa la trayectoria simulada
+  aproximada del proceso.
+\end{enumerate}
+
+\subsection{Esquema Numérico de
+Milstein}\label{esquema-numuxe9rico-de-milstein}
+
+El método de Milstein es un esquema numérico avanzado de orden superior
+que corrige la aproximación de la componente difusiva. Surge de aplicar
+de manera explícita el Lema de Itô al integrando de la componente
+estocástica en la expansión de Taylor-Itô, rescatando los términos de
+segundo orden que el método de Euler-Maruyama ignora.
+
+\begin{theorem}[Teorema de Convergencia de
+Milstein]\protect\hypertarget{thm-milstein}{}\label{thm-milstein}
+
+Sea la ecuación diferencial estocástica continua sujeta a las
+condiciones estándar de regularidad. Si los coeficientes \(b(t, x)\) y
+\(\sigma(t, x)\) son dos veces continuamente diferenciables respecto a
+sus componentes y cumplen los criterios de crecimiento acotado, entonces
+el esquema numérico de Milstein converge fuertemente con un orden
+superior dado por:
+
+\[
+\gamma = 1.0
+\]
+
+\end{theorem}
+
+El incremento en la velocidad de convergencia fuerte se logra al
+incorporar de forma analítica el término correspondiente a la integral
+estocástica iterada
+\(\int_{t_n}^{t_{n+1}} \int_{t_n}^s dW(u) dW(s) = \frac{1}{2} \left[ (\Delta W_n)^2 - \Delta t \right]\),
+la cual modela la curvatura interna del ruido estocástico dentro del
+intervalo de simulación.
+
+\textbf{Algoritmo General de Milstein}
+
+Para aproximar numéricamente las trayectorias bajo el refinamiento de
+segundo orden estocástico en el intervalo \([0, T]\) con condición
+inicial \(X(0) = x_0\):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Inicialización:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Establecer el número de intervalos \(N\) y calcular el paso
+    \(\Delta t = T/N\).
+  \item
+    Definir los puntos de la malla \(t_n = n \Delta t\) para
+    \(n = 0, 1, \dots, N\).
+  \item
+    Asignar la condición de inicio del proceso: \(Y_0 = x_0\).
+  \end{itemize}
+\item
+  \textbf{Bucle de Simulación:} Para cada paso temporal
+  \(n = 0, 1, \dots, N-1\):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Obtener una realización independiente de una variable normal
+    estándar: \(Z_n \sim \mathcal{N}(0, 1)\).
+  \item
+    Establecer el incremento browniano escalar correspondientemente:
+    \(\Delta W_n = Z_n \sqrt{\Delta t}\).
+  \item
+    Calcular analíticamente el valor de la primera derivada parcial del
+    coeficiente de difusión respecto a la variable espacial evaluado en
+    el punto actual:
+    \[\sigma'(t_n, Y_n) = \frac{\partial \sigma(t, x)}{\partial x} \bigg|_{(t_n, Y_n)}\]
+  \item
+    Realizar la actualización recursiva del estado integrando la
+    corrección de segundo orden:
+    \[Y_{n+1} = Y_n + b(t_n, Y_n)\Delta t + \sigma(t_n, Y_n)\Delta W_n + \frac{1}{2}\sigma(t_n, Y_n)\sigma'(t_n, Y_n)\left[(\Delta W_n)^2 - \Delta t\right]\]
+  \end{itemize}
+\item
+  \textbf{Resultado:} El conjunto ordenado de aproximaciones numéricas
+  \(\{Y_0, Y_1, \dots, Y_N\}\) conforma la trayectoria analizada bajo
+  estabilidad de orden superior.
+\end{enumerate}
 
 \part{Modelo Matemático}
 
