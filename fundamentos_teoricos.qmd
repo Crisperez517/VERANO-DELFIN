@@ -98,12 +98,12 @@ Una exposición rigurosa sobre los procesos de conteo, sus generalizaciones no h
 
 ![Trayectorias simuladas de dos procesos de Poisson. El eje horizontal representa el tiempo de observación en un horizonte de $T = 10.0$ con incrementos discretos de $dt = 0.01$. El eje vertical contabiliza el número acumulado de eventos discretos $N(t)$, iniciando en $N(0) = 0$. La línea continua (azul) ilustra un Proceso de Poisson Homogéneo con una tasa de intensidad constante $\lambda = 1$, evidenciando incrementos estacionarios, por otro lado la línea punteada (roja) representa un Proceso de Poisson No Homogéneo con una intensidad de $\lambda(t) = \frac{1}{2} + \frac{5}{2} \sin\left(\frac{\pi t}{10}\right)$, es decir es dependiente del tiempo, concentrando una mayor densidad de saltos en el periodo central del intervalo (simulando, por ejemplo, las horas pico de aperturas del refrigerador durante una jornada clínica). Ambas gráficas exhiben la naturaleza escalonada continua por la derecha con límites por la izquierda, por sus siglas en francés (càdlàg), propia de los procesos de saltos puros.](proceso_poisson.png){#fig-poisson width="85%" fig-align="center"}
 
-### Cadenas de Markov de Tiempo Continuo
+### Cadenas de Markov a Tiempo Continuo
 
 Los fallos prolongados en el suministro eléctrico de la red pública alteran estructuralmente la dinámica del sistema. Para modelar estas transiciones entre estados macroscópicos del entorno, introducimos una cadena de Markov en tiempo continuo.
 
 ::: {#def-cadena-markov}
-### Proceso de Conmutación de Régimen
+### Cadena de Markov a Tiempo Continuo
 Sea $\{\alpha(t)\}_{t \ge 0}$ un proceso estocástico que toma valores en un espacio de estados finito y discreto $\mathcal{M} = \{1, 2, \dots, m\}$. Se dice que $\alpha(t)$ es una cadena de Markov en tiempo continuo si para todo $s, t \ge 0$ y estados $i, j \in \mathcal{M}$, cumple la propiedad de Markov:
 
 $$
@@ -136,13 +136,13 @@ Una vez establecidos los procesos estocásticos de soporte, es necesario definir
 Sea $\{X(t)\}_{t \ge 0}$ un proceso estocástico adaptado a la filtración Browniana $\{\mathcal{F}_t\}_{t \ge 0}$ que satisface la condición de integrabilidad, i.e. $\mathbb{E}\left[\int_0^T X^2(t) dt\right] < \infty$. La integral de Itô de $X(t)$ respecto al proceso de Wiener $W(t)$ se define como el límite en media cuadrática de sumas de Riemann aproximadas por la izquierda:
 
 $$
-\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)]
+\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)] \quad \text{en } L^2
 $$
 
 donde $0 = t_0 < t_1 < \dots < t_n = T$ es una partición del intervalo $[0, T]$ cuyo diámetro tiende a cero cuando $n \to \infty$.
 :::
 
-A diferencia del cálculo clásico, evaluar el integrando estrictamente en el extremo izquierdo de cada subintervalo ($t_i$) garantiza que la integral resultante conserve la propiedad de martingala, lo que implica que su esperanza matemática es nula, $\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0$. A partir de este concepto fundamental, se establece la formulación de una Ecuación Diferencial Estocástica (EDE).
+A diferencia del cálculo clásico, evaluar el integrando estrictamente en el extremo izquierdo de cada subintervalo ($t_i$) garantiza que la integral resultante conserve la propiedad de martingala, lo que implica que su esperanza matemática es nula, i.e. $\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0$. A partir de este concepto fundamental, se establece la formulación de una Ecuación Diferencial Estocástica (EDE).
 
 ::: {#def-ede-general}
 ### Ecuación Diferencial Estocástica
@@ -161,9 +161,9 @@ $$
 X(t) = X(0) + \int_0^t b(s, X(s)) ds + \int_0^t \sigma(s, X(s)) dW(s)
 $$ {#eq-ede-general-int}
 
-En la @eq-ede-general-int, la primera integral respecto al tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la tendencia determinista del sistema, mientras que la segunda es una integral de Itô que modela el ruido estocástico continuo. Para una revisión rigurosa del cálculo estocástico elemental, se sugiere consultar a @karatzas1998brownian.
+En la @eq-ede-general-int, la primera integral respecto al tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la tendencia determinista del sistema, mientras que la segunda es una integral de Itô que modela el ruido estocástico continuo. Para una revisión rigurosa del cálculo estocástico elemental, se sugiere consultar a [@karatzas1998brownian].
 
-Para asegurar que una EDE posea una solución única ante cualquier condición inicial, los coeficientes de deriva y difusión deben cumplir condiciones de regularidad analítica bien definidas, expuestas en el siguiente teorema de existencia y unicidad.
+Para asegurar que una EDE posea una solución única ante cualquier condición inicial, los coeficientes de deriva y difusión deben cumplir ciertas condiciones, expuestas en el siguiente teorema de existencia y unicidad.
 
 ::: {#thm-existencia-unicidad}
 ### Criterios de Existencia y Unicidad de Soluciones
@@ -178,10 +178,10 @@ $$
 |b(t, x)| + |\sigma(t, x)| \le C (1 + |x|)
 $$
 
-Bajo el cumplimiento de ambas condiciones estructurales, la ecuación admite una solución fuerte única $\{X(t)\}_{t \in [0, T]}$ con trayectorias continuas con probabilidad 1.
+Bajo el cumplimiento de ambas condiciones, la ecuación tiene una solución fuerte única $\{X(t)\}_{t \in [0, T]}$ con trayectorias continuas con probabilidad 1, una demostración a detalle de este teorema, basada en el método de aproximaciones sucesivas de Picard, se encuentra en [@arnold1974stochastic]
 :::
 
-La condición de Lipschitz previene que las trayectorias colapsen o se bifurquen de manera indeterminada, garantizando la unicidad, mientras que la restricción de crecimiento lineal evita que las soluciones diverjan a infinito en un tiempo finito. Una exposición detallada de estas demostraciones analíticas se encuentra en el texto de @karatzas1998brownian.
+La condición de Lipschitz previene que las trayectorias colapsen de manera indeterminada, garantizando la unicidad, mientras que la restricción de crecimiento lineal evita que las soluciones diverjan a infinito en un tiempo finito.
 
 ## El Proceso de Ornstein-Uhlenbeck Clásico
 

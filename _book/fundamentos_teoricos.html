@@ -426,7 +426,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#movimiento-browniano-proceso-de-wiener" id="toc-movimiento-browniano-proceso-de-wiener" class="nav-link" data-scroll-target="#movimiento-browniano-proceso-de-wiener"><span class="header-section-number">2.1.1</span> Movimiento Browniano (Proceso de Wiener)</a></li>
   <li><a href="#procesos-de-poisson" id="toc-procesos-de-poisson" class="nav-link" data-scroll-target="#procesos-de-poisson"><span class="header-section-number">2.1.2</span> Procesos de Poisson</a></li>
-  <li><a href="#cadenas-de-markov-de-tiempo-continuo" id="toc-cadenas-de-markov-de-tiempo-continuo" class="nav-link" data-scroll-target="#cadenas-de-markov-de-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov de Tiempo Continuo</a></li>
+  <li><a href="#cadenas-de-markov-a-tiempo-continuo" id="toc-cadenas-de-markov-a-tiempo-continuo" class="nav-link" data-scroll-target="#cadenas-de-markov-a-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov a Tiempo Continuo</a></li>
   </ul></li>
   <li><a href="#ecuaciones-diferenciales-estocásticas-y-la-integral-de-itô" id="toc-ecuaciones-diferenciales-estocásticas-y-la-integral-de-itô" class="nav-link" data-scroll-target="#ecuaciones-diferenciales-estocásticas-y-la-integral-de-itô"><span class="header-section-number">2.2</span> Ecuaciones Diferenciales Estocásticas y la Integral de Itô</a></li>
   <li><a href="#el-proceso-de-ornstein-uhlenbeck-clásico" id="toc-el-proceso-de-ornstein-uhlenbeck-clásico" class="nav-link" data-scroll-target="#el-proceso-de-ornstein-uhlenbeck-clásico"><span class="header-section-number">2.3</span> El Proceso de Ornstein-Uhlenbeck Clásico</a></li>
@@ -550,11 +550,11 @@ Figura&nbsp;2.2: Trayectorias simuladas de dos procesos de Poisson. El eje horiz
 </figure>
 </div>
 </section>
-<section id="cadenas-de-markov-de-tiempo-continuo" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="cadenas-de-markov-de-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov de Tiempo Continuo</h3>
+<section id="cadenas-de-markov-a-tiempo-continuo" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="cadenas-de-markov-a-tiempo-continuo"><span class="header-section-number">2.1.3</span> Cadenas de Markov a Tiempo Continuo</h3>
 <p>Los fallos prolongados en el suministro eléctrico de la red pública alteran estructuralmente la dinámica del sistema. Para modelar estas transiciones entre estados macroscópicos del entorno, introducimos una cadena de Markov en tiempo continuo.</p>
 <div id="def-cadena-markov" class="theorem definition">
-<p><span class="theorem-title"><strong>Definición 2.6 (Proceso de Conmutación de Régimen)</strong></span> Sea <span class="math inline">\(\{\alpha(t)\}_{t \ge 0}\)</span> un proceso estocástico que toma valores en un espacio de estados finito y discreto <span class="math inline">\(\mathcal{M} = \{1, 2, \dots, m\}\)</span>. Se dice que <span class="math inline">\(\alpha(t)\)</span> es una cadena de Markov en tiempo continuo si para todo <span class="math inline">\(s, t \ge 0\)</span> y estados <span class="math inline">\(i, j \in \mathcal{M}\)</span>, cumple la propiedad de Markov:</p>
+<p><span class="theorem-title"><strong>Definición 2.6 (Cadena de Markov a Tiempo Continuo)</strong></span> Sea <span class="math inline">\(\{\alpha(t)\}_{t \ge 0}\)</span> un proceso estocástico que toma valores en un espacio de estados finito y discreto <span class="math inline">\(\mathcal{M} = \{1, 2, \dots, m\}\)</span>. Se dice que <span class="math inline">\(\alpha(t)\)</span> es una cadena de Markov en tiempo continuo si para todo <span class="math inline">\(s, t \ge 0\)</span> y estados <span class="math inline">\(i, j \in \mathcal{M}\)</span>, cumple la propiedad de Markov:</p>
 <p><span class="math display">\[
 \mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i, \alpha(u) = \alpha_u, 0 \le u &lt; s) = \mathbb{P}(\alpha(t+s) = j \mid \alpha(s) = i)
 \]</span></p>
@@ -581,11 +581,11 @@ q_{ii} = \lim_{h \to 0^+} \frac{p_{ii}(h) - 1}{h} = -\sum_{j \neq i} q_{ij}
 <div id="def-integral-ito" class="theorem definition">
 <p><span class="theorem-title"><strong>Definición 2.7 (Integral de Itô)</strong></span> Sea <span class="math inline">\(\{X(t)\}_{t \ge 0}\)</span> un proceso estocástico adaptado a la filtración Browniana <span class="math inline">\(\{\mathcal{F}_t\}_{t \ge 0}\)</span> que satisface la condición de integrabilidad, i.e.&nbsp;<span class="math inline">\(\mathbb{E}\left[\int_0^T X^2(t) dt\right] &lt; \infty\)</span>. La integral de Itô de <span class="math inline">\(X(t)\)</span> respecto al proceso de Wiener <span class="math inline">\(W(t)\)</span> se define como el límite en media cuadrática de sumas de Riemann aproximadas por la izquierda:</p>
 <p><span class="math display">\[
-\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)]
+\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)] \quad \text{en } L^2
 \]</span></p>
 <p>donde <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \dots &lt; t_n = T\)</span> es una partición del intervalo <span class="math inline">\([0, T]\)</span> cuyo diámetro tiende a cero cuando <span class="math inline">\(n \to \infty\)</span>.</p>
 </div>
-<p>A diferencia del cálculo clásico, evaluar el integrando estrictamente en el extremo izquierdo de cada subintervalo (<span class="math inline">\(t_i\)</span>) garantiza que la integral resultante conserve la propiedad de martingala, lo que implica que su esperanza matemática es nula, <span class="math inline">\(\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0\)</span>. A partir de este concepto fundamental, se establece la formulación de una Ecuación Diferencial Estocástica (EDE).</p>
+<p>A diferencia del cálculo clásico, evaluar el integrando estrictamente en el extremo izquierdo de cada subintervalo (<span class="math inline">\(t_i\)</span>) garantiza que la integral resultante conserve la propiedad de martingala, lo que implica que su esperanza matemática es nula, i.e.&nbsp;<span class="math inline">\(\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0\)</span>. A partir de este concepto fundamental, se establece la formulación de una Ecuación Diferencial Estocástica (EDE).</p>
 <div id="def-ede-general" class="theorem definition">
 <p><span class="theorem-title"><strong>Definición 2.8 (Ecuación Diferencial Estocástica)</strong></span> Una ecuación diferencial estocástica para un proceso <span class="math inline">\(\{X(t)\}_{t \ge 0}\)</span> es una relación simbólica expresada en su forma diferencial mediante:</p>
 <p><span id="eq-ede-general-diff"><span class="math display">\[
@@ -597,8 +597,8 @@ dX(t) = b(t, X(t)) dt + \sigma(t, X(t)) dW(t)
 <p><span id="eq-ede-general-int"><span class="math display">\[
 X(t) = X(0) + \int_0^t b(s, X(s)) ds + \int_0^t \sigma(s, X(s)) dW(s)
 \tag{2.2}\]</span></span></p>
-<p>En la <a href="#eq-ede-general-int" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>, la primera integral respecto al tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la tendencia determinista del sistema, mientras que la segunda es una integral de Itô que modela el ruido estocástico continuo. Para una revisión rigurosa del cálculo estocástico elemental, se sugiere consultar a <span class="citation" data-cites="karatzas1998brownian">Karatzas y Shreve (<a href="references.html#ref-karatzas1998brownian" role="doc-biblioref">1998</a>)</span>.</p>
-<p>Para asegurar que una EDE posea una solución única ante cualquier condición inicial, los coeficientes de deriva y difusión deben cumplir condiciones de regularidad analítica bien definidas, expuestas en el siguiente teorema de existencia y unicidad.</p>
+<p>En la <a href="#eq-ede-general-int" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>, la primera integral respecto al tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la tendencia determinista del sistema, mientras que la segunda es una integral de Itô que modela el ruido estocástico continuo. Para una revisión rigurosa del cálculo estocástico elemental, se sugiere consultar a <span class="citation" data-cites="karatzas1998brownian">(<a href="references.html#ref-karatzas1998brownian" role="doc-biblioref">Karatzas y Shreve 1998</a>)</span>.</p>
+<p>Para asegurar que una EDE posea una solución única ante cualquier condición inicial, los coeficientes de deriva y difusión deben cumplir ciertas condiciones, expuestas en el siguiente teorema de existencia y unicidad.</p>
 <div id="thm-existencia-unicidad" class="theorem">
 <p><span class="theorem-title"><strong>Teorema 2.1 (Criterios de Existencia y Unicidad de Soluciones)</strong></span> Sea la EDE definida en la <a href="#eq-ede-general-diff" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a> con una condición inicial <span class="math inline">\(X(0) = X_0\)</span> independiente del proceso de Wiener. Supóngase que para todo <span class="math inline">\(t \in [0, T]\)</span> y variables <span class="math inline">\(x, y \in \mathbb{R}\)</span>, los coeficientes satisfacen las siguientes dos restricciones:</p>
 <ol type="1">
@@ -609,9 +609,9 @@ X(t) = X(0) + \int_0^t b(s, X(s)) ds + \int_0^t \sigma(s, X(s)) dW(s)
 |b(t, x)| + |\sigma(t, x)| \le C (1 + |x|)
 \]</span></li>
 </ol>
-<p>Bajo el cumplimiento de ambas condiciones estructurales, la ecuación admite una solución fuerte única <span class="math inline">\(\{X(t)\}_{t \in [0, T]}\)</span> con trayectorias continuas con probabilidad 1.</p>
+<p>Bajo el cumplimiento de ambas condiciones, la ecuación tiene una solución fuerte única <span class="math inline">\(\{X(t)\}_{t \in [0, T]}\)</span> con trayectorias continuas con probabilidad 1, una demostración a detalle de este teorema, basada en el método de aproximaciones sucesivas de Picard, se encuentra en <span class="citation" data-cites="arnold1974stochastic">(<a href="references.html#ref-arnold1974stochastic" role="doc-biblioref">Arnold 1974</a>)</span></p>
 </div>
-<p>La condición de Lipschitz previene que las trayectorias colapsen o se bifurquen de manera indeterminada, garantizando la unicidad, mientras que la restricción de crecimiento lineal evita que las soluciones diverjan a infinito en un tiempo finito. Una exposición detallada de estas demostraciones analíticas se encuentra en el texto de <span class="citation" data-cites="karatzas1998brownian">Karatzas y Shreve (<a href="references.html#ref-karatzas1998brownian" role="doc-biblioref">1998</a>)</span>.</p>
+<p>La condición de Lipschitz previene que las trayectorias colapsen de manera indeterminada, garantizando la unicidad, mientras que la restricción de crecimiento lineal evita que las soluciones diverjan a infinito en un tiempo finito.</p>
 </section>
 <section id="el-proceso-de-ornstein-uhlenbeck-clásico" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="el-proceso-de-ornstein-uhlenbeck-clásico"><span class="header-section-number">2.3</span> El Proceso de Ornstein-Uhlenbeck Clásico</h2>
@@ -691,6 +691,9 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-arnold1974stochastic" class="csl-entry" role="listitem">
+Arnold, Ludwig. 1974. <em>Stochastic Differential Equations: Theory and Applications</em>. New York, NY: John Wiley &amp; Sons.
+</div>
 <div id="ref-asmussen2003markov" class="csl-entry" role="listitem">
 Asmussen, Søren. 2003. <span>«Applied Probability and Queues»</span>. En, 2nd ed., 51:39-59. Stochastic Modelling y Applied Probability. New York, NY: Springer-Verlag. <a href="https://doi.org/10.1007/0-387-21525-5_2">https://doi.org/10.1007/0-387-21525-5_2</a>.
 </div>

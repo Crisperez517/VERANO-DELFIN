@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-08}
+\date{2026-06-10}
 \begin{document}
 \maketitle
 
@@ -504,16 +504,16 @@ de los procesos de saltos puros.}
 
 \end{figure}%
 
-\subsection{Cadenas de Markov de Tiempo
-Continuo}\label{cadenas-de-markov-de-tiempo-continuo}
+\subsection{Cadenas de Markov a Tiempo
+Continuo}\label{cadenas-de-markov-a-tiempo-continuo}
 
 Los fallos prolongados en el suministro eléctrico de la red pública
 alteran estructuralmente la dinámica del sistema. Para modelar estas
 transiciones entre estados macroscópicos del entorno, introducimos una
 cadena de Markov en tiempo continuo.
 
-\begin{definition}[Proceso de Conmutación de
-Régimen]\protect\hypertarget{def-cadena-markov}{}\label{def-cadena-markov}
+\begin{definition}[Cadena de Markov a Tiempo
+Continuo]\protect\hypertarget{def-cadena-markov}{}\label{def-cadena-markov}
 
 Sea \(\{\alpha(t)\}_{t \ge 0}\) un proceso estocástico que toma valores
 en un espacio de estados finito y discreto
@@ -600,7 +600,7 @@ el límite en media cuadrática de sumas de Riemann aproximadas por la
 izquierda:
 
 \[
-\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)]
+\int_0^T X(t) dW(t) = \lim_{n \to \infty} \sum_{i=0}^{n-1} X(t_i) [W(t_{i+1}) - W(t_i)] \quad \text{en } L^2
 \]
 
 donde \(0 = t_0 < t_1 < \dots < t_n = T\) es una partición del intervalo
@@ -612,8 +612,8 @@ A diferencia del cálculo clásico, evaluar el integrando estrictamente en
 el extremo izquierdo de cada subintervalo (\(t_i\)) garantiza que la
 integral resultante conserve la propiedad de martingala, lo que implica
 que su esperanza matemática es nula,
-\(\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0\). A partir de este
-concepto fundamental, se establece la formulación de una Ecuación
+i.e.~\(\mathbb{E}\left[\int_0^T X(t) dW(t)\right] = 0\). A partir de
+este concepto fundamental, se establece la formulación de una Ecuación
 Diferencial Estocástica (EDE).
 
 \begin{definition}[Ecuación Diferencial
@@ -645,13 +645,13 @@ tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la
 tendencia determinista del sistema, mientras que la segunda es una
 integral de Itô que modela el ruido estocástico continuo. Para una
 revisión rigurosa del cálculo estocástico elemental, se sugiere
-consultar a Karatzas y Shreve
-(\citeproc{ref-karatzas1998brownian}{1998}).
+consultar a (\citeproc{ref-karatzas1998brownian}{Karatzas y Shreve
+1998}).
 
 Para asegurar que una EDE posea una solución única ante cualquier
 condición inicial, los coeficientes de deriva y difusión deben cumplir
-condiciones de regularidad analítica bien definidas, expuestas en el
-siguiente teorema de existencia y unicidad.
+ciertas condiciones, expuestas en el siguiente teorema de existencia y
+unicidad.
 
 \begin{theorem}[Criterios de Existencia y Unicidad de
 Soluciones]\protect\hypertarget{thm-existencia-unicidad}{}\label{thm-existencia-unicidad}
@@ -677,18 +677,18 @@ restricciones:
   \]
 \end{enumerate}
 
-Bajo el cumplimiento de ambas condiciones estructurales, la ecuación
-admite una solución fuerte única \(\{X(t)\}_{t \in [0, T]}\) con
-trayectorias continuas con probabilidad 1.
+Bajo el cumplimiento de ambas condiciones, la ecuación tiene una
+solución fuerte única \(\{X(t)\}_{t \in [0, T]}\) con trayectorias
+continuas con probabilidad 1, una demostración a detalle de este
+teorema, basada en el método de aproximaciones sucesivas de Picard, se
+encuentra en (\citeproc{ref-arnold1974stochastic}{Arnold 1974})
 
 \end{theorem}
 
-La condición de Lipschitz previene que las trayectorias colapsen o se
-bifurquen de manera indeterminada, garantizando la unicidad, mientras
-que la restricción de crecimiento lineal evita que las soluciones
-diverjan a infinito en un tiempo finito. Una exposición detallada de
-estas demostraciones analíticas se encuentra en el texto de Karatzas y
-Shreve (\citeproc{ref-karatzas1998brownian}{1998}).
+La condición de Lipschitz previene que las trayectorias colapsen de
+manera indeterminada, garantizando la unicidad, mientras que la
+restricción de crecimiento lineal evita que las soluciones diverjan a
+infinito en un tiempo finito.
 
 \section{El Proceso de Ornstein-Uhlenbeck
 Clásico}\label{el-proceso-de-ornstein-uhlenbeck-cluxe1sico}
@@ -959,6 +959,10 @@ salto del proceso de Poisson.
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-arnold1974stochastic}
+Arnold, Ludwig. 1974. \emph{Stochastic Differential Equations: Theory
+and Applications}. New York, NY: John Wiley \& Sons.
+
 \bibitem[\citeproctext]{ref-asmussen2003markov}
 Asmussen, Søren. 2003. {«Applied Probability and Queues»}. En, 2nd ed.,
 51:39-59. Stochastic Modelling y Applied Probability. New York, NY:
