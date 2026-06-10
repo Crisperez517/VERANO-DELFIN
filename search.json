@@ -4,9 +4,9 @@
     "href": "index.html",
     "title": "Reporte de Investigación - Verano Delfín",
     "section": "",
-    "text": "Preface",
+    "text": "Prefacio",
     "crumbs": [
-      "Preface"
+      "Prefacio"
     ]
   },
   {
@@ -100,11 +100,11 @@
   {
     "objectID": "references.html",
     "href": "references.html",
-    "title": "References",
+    "title": "Referencias",
     "section": "",
     "text": "Arnold, Ludwig. 1974. Stochastic Differential Equations: Theory and\nApplications. New York, NY: John Wiley & Sons.\n\n\nAsmussen, Søren. 2003. “Applied Probability and Queues.”\nIn, 2nd ed., 51:39–59. Stochastic Modelling and Applied Probability. New\nYork, NY: Springer-Verlag. https://doi.org/10.1007/0-387-21525-5_2.\n\n\nKaratzas, Ioannis, and Steven E. Shreve. 1998. Brownian Motion and\nStochastic Calculus. 2nd ed. Vol. 113. Graduate Texts in\nMathematics. New York, NY: Springer-Verlag. https://doi.org/10.1007/978-1-4612-0949-2.\n\n\nKarlin, Samuel, and Howard M. Taylor. 1998. An Introduction to\nStochastic Modeling. 3rd ed. San Diego, CA: Academic Press.\n\n\nPlaten, Eckhard, and Nicola Bruti-Liberati. 2010. Numerical Solution\nof Stochastic Differential Equations with Jumps in Finance. Vol.\n64. Stochastic Modelling and Applied Probability. Berlin, Heidelberg:\nSpringer-Verlag. https://doi.org/10.1007/978-3-642-13694-8.\n\n\nRoss, Sheldon M. 1996. Stochastic Processes. 2nd ed. New York,\nNY: Wiley.\n\n\nYin, G. George, and Chao Zhu. 2010. Hybrid Switching Diffusions:\nProperties and Applications. Vol. 63. Stochastic Modelling and\nApplied Probability. New York, NY: Springer. https://doi.org/10.1007/978-1-4419-1105-6.",
     "crumbs": [
-      "References"
+      "Referencias"
     ]
   }
 ]
