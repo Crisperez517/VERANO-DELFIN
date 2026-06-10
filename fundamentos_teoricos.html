@@ -433,6 +433,11 @@ window.Quarto = {
   <li><a href="#formulación-de-la-ecuación-diferencial-estocástica-general" id="toc-formulación-de-la-ecuación-diferencial-estocástica-general" class="nav-link" data-scroll-target="#formulación-de-la-ecuación-diferencial-estocástica-general"><span class="header-section-number">2.4</span> Formulación de la Ecuación Diferencial Estocástica General</a></li>
   <li><a href="#el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado" id="toc-el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado" class="nav-link" data-scroll-target="#el-modelo-estocástico-de-red-de-frío-ornstein-uhlenbeck-modificado"><span class="header-section-number">2.5</span> El Modelo Estocástico de Red de Frío (Ornstein-Uhlenbeck Modificado)</a></li>
   <li><a href="#el-lema-de-itô-clásico-y-generalizado" id="toc-el-lema-de-itô-clásico-y-generalizado" class="nav-link" data-scroll-target="#el-lema-de-itô-clásico-y-generalizado"><span class="header-section-number">2.6</span> El Lema de Itô Clásico y Generalizado</a></li>
+  <li><a href="#soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas" id="toc-soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas" class="nav-link" data-scroll-target="#soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas"><span class="header-section-number">2.7</span> Soluciones Numéricas de Ecuaciones Diferenciales Estocásticas</a>
+  <ul class="collapse">
+  <li><a href="#esquema-numérico-de-euler-maruyama" id="toc-esquema-numérico-de-euler-maruyama" class="nav-link" data-scroll-target="#esquema-numérico-de-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</a></li>
+  <li><a href="#esquema-numérico-de-milstein" id="toc-esquema-numérico-de-milstein" class="nav-link" data-scroll-target="#esquema-numérico-de-milstein"><span class="header-section-number">2.7.2</span> Esquema Numérico de Milstein</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -572,7 +577,7 @@ q_{ij} = \lim_{h \to 0^+} \frac{p_{ij}(h)}{h} \ge 0
 <p><span class="math display">\[
 q_{ii} = \lim_{h \to 0^+} \frac{p_{ii}(h) - 1}{h} = -\sum_{j \neq i} q_{ij}
 \]</span></p>
-<p>A través de esta formulación basada en límites, las probabilidades de transición de primer orden quedan descritas asintóticamente mediante las expresiones <span class="math inline">\(p_{ij}(h) = q_{ij}h + o(h)\)</span> para <span class="math inline">\(i \neq j\)</span>, y <span class="math inline">\(p_{ii}(h) = 1 + q_{ii}h + o(h)\)</span>. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de <span class="citation" data-cites="asmussen2003markov">(<a href="references.html#ref-asmussen2003markov" role="doc-biblioref">Asmussen 2003</a>)</span>.</p>
+<p>A través de esta formulación basada en límites, las probabilidades de transición de primer orden quedan descritas mediante las expresiones <span class="math inline">\(p_{ij}(h) = q_{ij}h + o(h)\)</span> para <span class="math inline">\(i \neq j\)</span>, y <span class="math inline">\(p_{ii}(h) = 1 + q_{ii}h + o(h)\)</span>. Esto permite modelar las conmutaciones macroscópicas de la dinámica del refrigerador sin necesidad de introducir variables temporales discretas ni heurísticas. Los lectores interesados en profundizar en las propiedades asintóticas y de estabilidad de estos procesos híbridos pueden remitirse al texto especializado de <span class="citation" data-cites="asmussen2003markov">(<a href="references.html#ref-asmussen2003markov" role="doc-biblioref">Asmussen 2003</a>)</span>.</p>
 </section>
 </section>
 <section id="ecuaciones-diferenciales-estocásticas-y-la-integral-de-itô" class="level2" data-number="2.2">
@@ -688,6 +693,82 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 \tag{2.6}\]</span></span></p>
 </div>
 <p>Como se puede apreciar en el <a href="#thm-ito-generalizado" class="quarto-xref">Teorema&nbsp;<span>2.3</span></a>, el operador diferencial de Itô se logra expandir. El primer término entre corchetes añade a la derivada temporal y al generador de difusión clásico una sumatoria ponderada por las tasas de transición <span class="math inline">\(q_{ij}\)</span> de la matriz <span class="math inline">\(Q\)</span>, lo cual captura el efecto del cambio en la deriva. Por su parte, la componente final sustituye la derivada espacial tradicional por un operador de diferencias finitas encargado de absorber la discontinuidad en los tiempos de salto del proceso de Poisson.</p>
+</section>
+<section id="soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas"><span class="header-section-number">2.7</span> Soluciones Numéricas de Ecuaciones Diferenciales Estocásticas</h2>
+<p>En la práctica, la gran mayoría de las ecuaciones diferenciales estocásticas carecen de una solución analítica explícita debido a la no linealidad de sus coeficientes o al acoplamiento de sus perturbaciones. Por este motivo, resulta necesario recurrir a esquemas de aproximación numérica distribuidos en un mallado temporal discreto. A diferencia del cálculo determinista, donde la convergencia se evalúa de forma puntual, en el ámbito estocástico la cercanía entre la solución real <span class="math inline">\(X(t)\)</span> y la aproximación discreta <span class="math inline">\(Y_n\)</span> requiere criterios fundamentados en la teoría de la medida.</p>
+<p>Para definir los criterios de convergencia, consideremos una partición regular del intervalo de tiempo <span class="math inline">\([0, T]\)</span> con un tamaño de paso constante <span class="math inline">\(\Delta t = \frac{T}{N}\)</span>, fijando los nodos temporales como <span class="math inline">\(t_n = n \Delta t\)</span> para cada paso <span class="math inline">\(n = 0, 1, \dots, N\)</span>. Denotaremos a la solución aproximada en el nodo <span class="math inline">\(t_n\)</span> como <span class="math inline">\(Y_n = Y(t_n)\)</span>.</p>
+<div id="def-convergencia-fuerte" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.13 (Convergencia Fuerte)</strong></span> Se dice que una aproximación discreta <span class="math inline">\(Y\)</span> converge fuertemente de orden <span class="math inline">\(\gamma &gt; 0\)</span> hacia la solución real <span class="math inline">\(X(T)\)</span> en el tiempo terminal <span class="math inline">\(T\)</span> si existe una constante positiva <span class="math inline">\(C\)</span>, independiente de <span class="math inline">\(\Delta t\)</span>, tal que se cumple la desigualdad:</p>
+<p><span class="math display">\[
+\mathbb{E}\left[|X(T) - Y_N|\right] \le C (\Delta t)^\gamma
+\]</span></p>
+</div>
+<p>La convergencia fuerte evalúa el error promedio directo sobre cada trayectoria individual del proceso. Es el criterio adecuado cuando interesa simular caminos muestrales específicos del sistema.</p>
+<div id="def-convergencia-debil" class="theorem definition">
+<p><span class="theorem-title"><strong>Definición 2.14 (Convergencia Débil)</strong></span> Se dice que una aproximación discreta <span class="math inline">\(Y\)</span> converge débilmente de orden <span class="math inline">\(\beta &gt; 0\)</span> hacia la solución real <span class="math inline">\(X(T)\)</span> en el tiempo terminal <span class="math inline">\(T\)</span> si, para toda función de prueba <span class="math inline">\(g: \mathbb{R} \to \mathbb{R}\)</span> continuamente diferenciable de crecimiento polinomial, existe una constante positiva <span class="math inline">\(C\)</span> tal que:</p>
+<p><span class="math display">\[
+|\mathbb{E}[g(X(T))] - \mathbb{E}[g(Y_N)]| \le C (\Delta t)^\beta
+\]</span></p>
+</div>
+<p>La convergencia débil no compara trayectoria por trayectoria, sino que evalúa la aproximación de la distribución de probabilidad global y sus momentos estadísticos (como la media y la varianza).</p>
+<section id="esquema-numérico-de-euler-maruyama" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="esquema-numérico-de-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</h3>
+<p>El método de Euler-Maruyama constituye la extensión estocástica más elemental del método de Euler para ecuaciones diferenciales ordinarias. Este esquema aproxima el cambio continuo truncando las integrales de la ecuación mediante aproximaciones de orden inferior.</p>
+<div id="thm-euler-maruyama" class="theorem">
+<p><span class="theorem-title"><strong>Teorema 2.4 (Teorema de Convergencia de Euler-Maruyama)</strong></span> Sea la ecuación diferencial estocástica continua <span class="math inline">\(dX(t) = b(t, X(t))dt + \sigma(t, X(t))dW(t)\)</span> sujeta a las condiciones de existencia y unicidad. Si los coeficientes de deriva <span class="math inline">\(b\)</span> y de difusión <span class="math inline">\(\sigma\)</span> son continuamente diferenciables y satisfacen las condiciones de Lipschitz y crecimiento lineal, entonces el esquema de Euler-Maruyama converge fuertemente con orden:</p>
+<p><span class="math display">\[
+\gamma = 0.5
+\]</span></p>
+<p>y converge débilmente con un orden de acotación de <span class="math inline">\(\beta = 1.0\)</span>.</p>
+</div>
+<p>La demostración de este orden de convergencia estricto se fundamenta en que el incremento del movimiento Browniano domina algebraicamente sobre el incremento del tiempo determinista, dado que su escala de variación es proporcional a <span class="math inline">\(\sqrt{\Delta t}\)</span>.</p>
+<p><strong>Algoritmo General de Euler-Maruyama</strong></p>
+<p>Para aproximar numéricamente las trayectorias de la ecuación en el intervalo <span class="math inline">\([0, T]\)</span> con condición inicial <span class="math inline">\(X(0) = x_0\)</span>:</p>
+<ol type="1">
+<li><strong>Inicialización:</strong>
+<ul>
+<li>Fijar el número de pasos <span class="math inline">\(N\)</span> y calcular el incremento <span class="math inline">\(\Delta t = T/N\)</span>.</li>
+<li>Construir la malla temporal <span class="math inline">\(t_n = n \Delta t\)</span> para <span class="math inline">\(n = 0, 1, \dots, N\)</span>.</li>
+<li>Asignar el valor inicial a la primera posición del vector: <span class="math inline">\(Y_0 = x_0\)</span>.</li>
+</ul></li>
+<li><strong>Bucle de Simulación:</strong> Para cada paso temporal <span class="math inline">\(n = 0, 1, \dots, N-1\)</span>:
+<ul>
+<li>Generar una variable aleatoria normal estándar independiente: <span class="math inline">\(Z_n \sim \mathcal{N}(0, 1)\)</span>.</li>
+<li>Calcular el incremento del proceso de Wiener mediante el escalamiento: <span class="math display">\[\Delta W_n = W(t_{n+1}) - W(t_n) = Z_n \sqrt{\Delta t}\]</span></li>
+<li>Actualizar el estado del proceso en el siguiente nodo evaluando la relación recursiva: <span class="math display">\[Y_{n+1} = Y_n + b(t_n, Y_n) \Delta t + \sigma(t_n, Y_n) \Delta W_n\]</span></li>
+</ul></li>
+<li><strong>Resultado:</strong> El vector de estados discreto <span class="math inline">\(\{Y_0, Y_1, \dots, Y_N\}\)</span> representa la trayectoria simulada aproximada del proceso.</li>
+</ol>
+</section>
+<section id="esquema-numérico-de-milstein" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="esquema-numérico-de-milstein"><span class="header-section-number">2.7.2</span> Esquema Numérico de Milstein</h3>
+<p>El método de Milstein es un esquema numérico avanzado de orden superior que corrige la aproximación de la componente difusiva. Surge de aplicar de manera explícita el Lema de Itô al integrando de la componente estocástica en la expansión de Taylor-Itô, rescatando los términos de segundo orden que el método de Euler-Maruyama ignora.</p>
+<div id="thm-milstein" class="theorem">
+<p><span class="theorem-title"><strong>Teorema 2.5 (Teorema de Convergencia de Milstein)</strong></span> Sea la ecuación diferencial estocástica continua sujeta a las condiciones estándar de regularidad. Si los coeficientes <span class="math inline">\(b(t, x)\)</span> y <span class="math inline">\(\sigma(t, x)\)</span> son dos veces continuamente diferenciables respecto a sus componentes y cumplen los criterios de crecimiento acotado, entonces el esquema numérico de Milstein converge fuertemente con un orden superior dado por:</p>
+<p><span class="math display">\[
+\gamma = 1.0
+\]</span></p>
+</div>
+<p>El incremento en la velocidad de convergencia fuerte se logra al incorporar de forma analítica el término correspondiente a la integral estocástica iterada <span class="math inline">\(\int_{t_n}^{t_{n+1}} \int_{t_n}^s dW(u) dW(s) = \frac{1}{2} \left[ (\Delta W_n)^2 - \Delta t \right]\)</span>, la cual modela la curvatura interna del ruido estocástico dentro del intervalo de simulación.</p>
+<p><strong>Algoritmo General de Milstein</strong></p>
+<p>Para aproximar numéricamente las trayectorias bajo el refinamiento de segundo orden estocástico en el intervalo <span class="math inline">\([0, T]\)</span> con condición inicial <span class="math inline">\(X(0) = x_0\)</span>:</p>
+<ol type="1">
+<li><strong>Inicialización:</strong>
+<ul>
+<li>Establecer el número de intervalos <span class="math inline">\(N\)</span> y calcular el paso <span class="math inline">\(\Delta t = T/N\)</span>.</li>
+<li>Definir los puntos de la malla <span class="math inline">\(t_n = n \Delta t\)</span> para <span class="math inline">\(n = 0, 1, \dots, N\)</span>.</li>
+<li>Asignar la condición de inicio del proceso: <span class="math inline">\(Y_0 = x_0\)</span>.</li>
+</ul></li>
+<li><strong>Bucle de Simulación:</strong> Para cada paso temporal <span class="math inline">\(n = 0, 1, \dots, N-1\)</span>:
+<ul>
+<li>Obtener una realización independiente de una variable normal estándar: <span class="math inline">\(Z_n \sim \mathcal{N}(0, 1)\)</span>.</li>
+<li>Establecer el incremento browniano escalar correspondientemente: <span class="math inline">\(\Delta W_n = Z_n \sqrt{\Delta t}\)</span>.</li>
+<li>Calcular analíticamente el valor de la primera derivada parcial del coeficiente de difusión respecto a la variable espacial evaluado en el punto actual: <span class="math display">\[\sigma'(t_n, Y_n) = \frac{\partial \sigma(t, x)}{\partial x} \bigg|_{(t_n, Y_n)}\]</span></li>
+<li>Realizar la actualización recursiva del estado integrando la corrección de segundo orden: <span class="math display">\[Y_{n+1} = Y_n + b(t_n, Y_n)\Delta t + \sigma(t_n, Y_n)\Delta W_n + \frac{1}{2}\sigma(t_n, Y_n)\sigma'(t_n, Y_n)\left[(\Delta W_n)^2 - \Delta t\right]\]</span></li>
+</ul></li>
+<li><strong>Resultado:</strong> El conjunto ordenado de aproximaciones numéricas <span class="math inline">\(\{Y_0, Y_1, \dots, Y_N\}\)</span> conforma la trayectoria analizada bajo estabilidad de orden superior.</li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -713,6 +794,7 @@ Ross, Sheldon M. 1996. <em>Stochastic Processes</em>. 2nd ed. New York, NY: Wile
 Yin, G. George, y Chao Zhu. 2010. <em>Hybrid Switching Diffusions: Properties and Applications</em>. Vol. 63. Stochastic Modelling y Applied Probability. New York, NY: Springer. <a href="https://doi.org/10.1007/978-1-4419-1105-6">https://doi.org/10.1007/978-1-4419-1105-6</a>.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
