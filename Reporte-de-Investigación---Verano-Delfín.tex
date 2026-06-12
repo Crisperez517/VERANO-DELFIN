@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-10}
+\date{2026-06-12}
 \begin{document}
 \maketitle
 
@@ -653,8 +653,8 @@ condición inicial, los coeficientes de deriva y difusión deben cumplir
 ciertas condiciones, expuestas en el siguiente teorema de existencia y
 unicidad.
 
-\begin{theorem}[Criterios de Existencia y Unicidad de
-Soluciones]\protect\hypertarget{thm-existencia-unicidad}{}\label{thm-existencia-unicidad}
+\begin{theorem}[Teorema de Existencia y
+Unicidad]\protect\hypertarget{thm-existencia-unicidad}{}\label{thm-existencia-unicidad}
 
 Sea la EDE definida en la Ecuación~\ref{eq-ede-general-diff} con una
 condición inicial \(X(0) = X_0\) independiente del proceso de Wiener.
@@ -1003,12 +1003,12 @@ ecuación mediante aproximaciones de orden inferior.
 \begin{theorem}[Teorema de Convergencia de
 Euler-Maruyama]\protect\hypertarget{thm-euler-maruyama}{}\label{thm-euler-maruyama}
 
-Sea la ecuación diferencial estocástica continua
-\(dX(t) = b(t, X(t))dt + \sigma(t, X(t))dW(t)\) sujeta a las condiciones
-de existencia y unicidad. Si los coeficientes de deriva \(b\) y de
-difusión \(\sigma\) son continuamente diferenciables y satisfacen las
-condiciones de Lipschitz y crecimiento lineal, entonces el esquema de
-Euler-Maruyama converge fuertemente con orden:
+Considere la EDE Ecuación~\ref{eq-ede-general-diff}, con condición
+inicial \(X(0) = x_0\), si se cumplen las hipotesis del teorema de
+existencia y unicidad Teorema~\ref{thm-existencia-unicidad} y los
+coeficientes \(b\) y de difusión \(\sigma\) son continuamente
+diferenciables, entonces el esquema de Euler-Maruyama converge
+fuertemente con orden:
 
 \[
 \gamma = 0.5
@@ -1021,7 +1021,9 @@ y converge débilmente con un orden de acotación de \(\beta = 1.0\).
 La demostración de este orden de convergencia estricto se fundamenta en
 que el incremento del movimiento Browniano domina algebraicamente sobre
 el incremento del tiempo determinista, dado que su escala de variación
-es proporcional a \(\sqrt{\Delta t}\).
+es proporcional a \(\sqrt{\Delta t}\), la demostración de este teoremaq
+se encuentra en (\citeproc{ref-kloeden1992numerical}{Kloeden y Platen
+1992}).
 
 \textbf{Algoritmo General de Euler-Maruyama}
 
@@ -1082,7 +1084,7 @@ segundo orden que el método de Euler-Maruyama ignora.
 \begin{theorem}[Teorema de Convergencia de
 Milstein]\protect\hypertarget{thm-milstein}{}\label{thm-milstein}
 
-Sea la ecuación diferencial estocástica continua sujeta a las
+Considere la EDE Ecuación~\ref{eq-ede-general-diff} sujeta a las
 condiciones estándar de regularidad. Si los coeficientes \(b(t, x)\) y
 \(\sigma(t, x)\) son dos veces continuamente diferenciables respecto a
 sus componentes y cumplen los criterios de crecimiento acotado, entonces
@@ -1098,9 +1100,15 @@ superior dado por:
 El incremento en la velocidad de convergencia fuerte se logra al
 incorporar de forma analítica el término correspondiente a la integral
 estocástica iterada
-\(\int_{t_n}^{t_{n+1}} \int_{t_n}^s dW(u) dW(s) = \frac{1}{2} \left[ (\Delta W_n)^2 - \Delta t \right]\),
+
+\[
+\int_{t_n}^{t_{n+1}} \int_{t_n}^s dW(u) dW(s) = \frac{1}{2} \left[ (\Delta W_n)^2 - \Delta t \right],
+\]
+
 la cual modela la curvatura interna del ruido estocástico dentro del
-intervalo de simulación.
+intervalo de simulación, lo que permite una aproximación más precisa de
+la trayectoria. La demostración de este resultado se encuentra en
+(\citeproc{ref-kloeden1992numerical}{Kloeden y Platen 1992}).
 
 \textbf{Algoritmo General de Milstein}
 
@@ -1153,6 +1161,85 @@ inicial \(X(0) = x_0\):
   estabilidad de orden superior.
 \end{enumerate}
 
+\section{Análisis Comparativo de Convergencia
+Fuerte}\label{anuxe1lisis-comparativo-de-convergencia-fuerte}
+
+Para mostrar la diferencia analítica que hay entre los esquemas de
+Euler-Maruyama y Milstein, y justificar la necesidad de utilizar este
+último cuando se requiere precisión en trayectorias individuales,
+planteamos un problema de control numérico. Consideremos el Movimiento
+Browniano Geométrico (GBM), una EDE lineal homogenea caracterizada por
+un coeficiente de difusión multiplicativo, dada por la ecuación:
+
+\begin{equation}\phantomsection\label{eq-ede-gbm}{
+dX(t) = \mu X(t) dt + \sigma X(t) dW(t)
+}\end{equation}
+
+con condición inicial \(X(0) = X_0\), tendencia determinista \(\mu > 0\)
+y volatilidad \(\sigma > 0\). Este proceso posee una solución analítica
+única dada por:
+
+\[
+X(t) = X_0 \exp\left[\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right]
+\]
+
+Esta forma cerrada nos permite contrastar directamente las
+aproximaciones numéricas contra la realidad del proceso. La principal
+limitación del método de Euler-Maruyama radica en su coeficiente de
+difusión constante en cada paso temporal. Al truncar la integral
+estocástica en orden 0.5 fuerte, el esquema no absorbe correctamente la
+curvatura del ruido multiplicativo (\(\sigma X_t\)), acumulando errores
+significativos sobre las trayectorias individuales, incluso ante
+mallados temporales relativamente finos. Por el contrario, el método de
+Milstein integra el término de segundo orden estocástico, logrando que
+el vector de estados discreto coincida con mayor fidelidad con la
+dinámica real del proceso (\citeproc{ref-kloeden1992numerical}{Kloeden y
+Platen 1992}).
+
+En la Figura~\ref{fig-sde-metodos}, simulamos una trayectoria de GBM en
+un horizonte temporal acotado (\(T=2.0\) años) con una volatilidad alta
+(\(\sigma = 1\)) y un tamaño de paso discreto relativamente grueso
+(\(\Delta t = 0.05\), correspondiente a \(N=40\) pasos). Esta
+configuración es deliberada para resaltar las fallas tipográficas de los
+aproximadores de orden bajo.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{comparacion_metodos.png}
+
+}
+
+\caption{\label{fig-sde-metodos}Análisis de convergencia fuerte de
+esquemas numéricos estocásticos para una trayectoria de Movimiento
+Browniano Geométrico (GBM) definida por \(dX = 0.05 X dt + 0.4 X dW\)
+con \(X_0 = 1\). El eje horizontal representa el tiempo discreto y el
+eje vertical el estado del proceso \(X(t)\). La línea negra continua
+muestra la solución analítica exacta. La línea roja discontinua ilustra
+la aproximación de Euler-Maruyama (Orden fuerte 0.5), evidenciando
+desviaciones significativas y oscilaciones erráticas respecto a la
+trayectoria real. La línea azul discontinua-punto representa el esquema
+de Milstein (Orden fuerte 1.0), el cual sigue con alta precisión la
+dinámica exacta, demostrando su estabilidad superior ante ruidos
+multiplicativos y mallados temporales gruesos. La fuente de los datos
+corresponde a una simulación de elaboración propia generada en Python.}
+
+\end{figure}%
+
+Como se puede apreciar nítidamente en la Figura~\ref{fig-sde-metodos},
+la trayectoria roja correspondiente a Euler-Maruyama falla
+estrepitosamente en capturar la dinámica exacta (línea negra),
+presentando oscilaciones exageradas y alejándose del valor real a medida
+que el tiempo avanza. En contraste, la trayectoria azul de Milstein
+sigue prácticamente de forma idéntica el camino muestral real. Este
+contraste justifica nuestra decisión de utilizar el esquema numérico de
+Milstein para simular el comportamiento térmico del refrigerador
+HBC-150, ya que el modelo híbrido presenta un coeficiente de ruido
+continuo \(\sigma(\alpha(t))\), lo cual genera perturbaciones
+multiplicativas que requieren un orden de convergencia estricto para no
+subestimar el riesgo de trayectorias erráticas.
+
 \part{Modelo Matemático}
 
 \chapter{}\label{section}
@@ -1192,6 +1279,11 @@ New York, NY: Springer-Verlag.
 \bibitem[\citeproctext]{ref-karlin1998introduction}
 Karlin, Samuel, y Howard M. Taylor. 1998. \emph{An Introduction to
 Stochastic Modeling}. 3rd ed. San Diego, CA: Academic Press.
+
+\bibitem[\citeproctext]{ref-kloeden1992numerical}
+Kloeden, Peter E., y Eckhard Platen. 1992. \emph{Numerical Solution of
+Stochastic Differential Equations}. Vol. 23. Stochastic Modelling y
+Applied Probability. Berlin, Heidelberg: Springer-Verlag.
 
 \bibitem[\citeproctext]{ref-platen2010numerical}
 Platen, Eckhard, y Nicola Bruti-Liberati. 2010. \emph{Numerical Solution
