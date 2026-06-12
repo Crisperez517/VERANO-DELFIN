@@ -23,7 +23,7 @@ book:
 
     - part: "Modelo Matemático"
       chapters: 
-        - procesos_poisson.qmd
+        - Estudio_de_caso.qmd
 
     - part: "Simulación de Equipos (Haier HBC-150)"
       chapters: 
