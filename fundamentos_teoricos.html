@@ -438,6 +438,7 @@ window.Quarto = {
   <li><a href="#esquema-numérico-de-euler-maruyama" id="toc-esquema-numérico-de-euler-maruyama" class="nav-link" data-scroll-target="#esquema-numérico-de-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</a></li>
   <li><a href="#esquema-numérico-de-milstein" id="toc-esquema-numérico-de-milstein" class="nav-link" data-scroll-target="#esquema-numérico-de-milstein"><span class="header-section-number">2.7.2</span> Esquema Numérico de Milstein</a></li>
   </ul></li>
+  <li><a href="#análisis-comparativo-de-convergencia-fuerte" id="toc-análisis-comparativo-de-convergencia-fuerte" class="nav-link" data-scroll-target="#análisis-comparativo-de-convergencia-fuerte"><span class="header-section-number">2.8</span> Análisis Comparativo de Convergencia Fuerte</a></li>
   </ul>
 </nav>
     </div>
@@ -605,7 +606,7 @@ X(t) = X(0) + \int_0^t b(s, X(s)) ds + \int_0^t \sigma(s, X(s)) dW(s)
 <p>En la <a href="#eq-ede-general-int" class="quarto-xref">Ecuación&nbsp;<span>2.2</span></a>, la primera integral respecto al tiempo es una integral ordinaria de Lebesgue-Stieltjes que captura la tendencia determinista del sistema, mientras que la segunda es una integral de Itô que modela el ruido estocástico continuo. Para una revisión rigurosa del cálculo estocástico elemental, se sugiere consultar a <span class="citation" data-cites="karatzas1998brownian">(<a href="references.html#ref-karatzas1998brownian" role="doc-biblioref">Karatzas y Shreve 1998</a>)</span>.</p>
 <p>Para asegurar que una EDE posea una solución única ante cualquier condición inicial, los coeficientes de deriva y difusión deben cumplir ciertas condiciones, expuestas en el siguiente teorema de existencia y unicidad.</p>
 <div id="thm-existencia-unicidad" class="theorem">
-<p><span class="theorem-title"><strong>Teorema 2.1 (Criterios de Existencia y Unicidad de Soluciones)</strong></span> Sea la EDE definida en la <a href="#eq-ede-general-diff" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a> con una condición inicial <span class="math inline">\(X(0) = X_0\)</span> independiente del proceso de Wiener. Supóngase que para todo <span class="math inline">\(t \in [0, T]\)</span> y variables <span class="math inline">\(x, y \in \mathbb{R}\)</span>, los coeficientes satisfacen las siguientes dos restricciones:</p>
+<p><span class="theorem-title"><strong>Teorema 2.1 (Teorema de Existencia y Unicidad)</strong></span> Sea la EDE definida en la <a href="#eq-ede-general-diff" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a> con una condición inicial <span class="math inline">\(X(0) = X_0\)</span> independiente del proceso de Wiener. Supóngase que para todo <span class="math inline">\(t \in [0, T]\)</span> y variables <span class="math inline">\(x, y \in \mathbb{R}\)</span>, los coeficientes satisfacen las siguientes dos restricciones:</p>
 <ol type="1">
 <li><strong>Condición de Lipschitz global:</strong> Existe una constante <span class="math inline">\(K &gt; 0\)</span> tal que: <span class="math display">\[
 |b(t, x) - b(t, y)| + |\sigma(t, x) - \sigma(t, y)| \le K |x - y|
@@ -716,13 +717,13 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 <h3 data-number="2.7.1" class="anchored" data-anchor-id="esquema-numérico-de-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</h3>
 <p>El método de Euler-Maruyama constituye la extensión estocástica más elemental del método de Euler para ecuaciones diferenciales ordinarias. Este esquema aproxima el cambio continuo truncando las integrales de la ecuación mediante aproximaciones de orden inferior.</p>
 <div id="thm-euler-maruyama" class="theorem">
-<p><span class="theorem-title"><strong>Teorema 2.4 (Teorema de Convergencia de Euler-Maruyama)</strong></span> Sea la ecuación diferencial estocástica continua <span class="math inline">\(dX(t) = b(t, X(t))dt + \sigma(t, X(t))dW(t)\)</span> sujeta a las condiciones de existencia y unicidad. Si los coeficientes de deriva <span class="math inline">\(b\)</span> y de difusión <span class="math inline">\(\sigma\)</span> son continuamente diferenciables y satisfacen las condiciones de Lipschitz y crecimiento lineal, entonces el esquema de Euler-Maruyama converge fuertemente con orden:</p>
+<p><span class="theorem-title"><strong>Teorema 2.4 (Teorema de Convergencia de Euler-Maruyama)</strong></span> Considere la EDE <a href="#eq-ede-general-diff" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a>, con condición inicial <span class="math inline">\(X(0) = x_0\)</span>, si se cumplen las hipotesis del teorema de existencia y unicidad <a href="#thm-existencia-unicidad" class="quarto-xref">Teorema&nbsp;<span>2.1</span></a> y los coeficientes <span class="math inline">\(b\)</span> y de difusión <span class="math inline">\(\sigma\)</span> son continuamente diferenciables, entonces el esquema de Euler-Maruyama converge fuertemente con orden:</p>
 <p><span class="math display">\[
 \gamma = 0.5
 \]</span></p>
 <p>y converge débilmente con un orden de acotación de <span class="math inline">\(\beta = 1.0\)</span>.</p>
 </div>
-<p>La demostración de este orden de convergencia estricto se fundamenta en que el incremento del movimiento Browniano domina algebraicamente sobre el incremento del tiempo determinista, dado que su escala de variación es proporcional a <span class="math inline">\(\sqrt{\Delta t}\)</span>.</p>
+<p>La demostración de este orden de convergencia estricto se fundamenta en que el incremento del movimiento Browniano domina algebraicamente sobre el incremento del tiempo determinista, dado que su escala de variación es proporcional a <span class="math inline">\(\sqrt{\Delta t}\)</span>, la demostración de este teoremaq se encuentra en <span class="citation" data-cites="kloeden1992numerical">(<a href="references.html#ref-kloeden1992numerical" role="doc-biblioref">Kloeden y Platen 1992</a>)</span>.</p>
 <p><strong>Algoritmo General de Euler-Maruyama</strong></p>
 <p>Para aproximar numéricamente las trayectorias de la ecuación en el intervalo <span class="math inline">\([0, T]\)</span> con condición inicial <span class="math inline">\(X(0) = x_0\)</span>:</p>
 <ol type="1">
@@ -745,12 +746,16 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 <h3 data-number="2.7.2" class="anchored" data-anchor-id="esquema-numérico-de-milstein"><span class="header-section-number">2.7.2</span> Esquema Numérico de Milstein</h3>
 <p>El método de Milstein es un esquema numérico avanzado de orden superior que corrige la aproximación de la componente difusiva. Surge de aplicar de manera explícita el Lema de Itô al integrando de la componente estocástica en la expansión de Taylor-Itô, rescatando los términos de segundo orden que el método de Euler-Maruyama ignora.</p>
 <div id="thm-milstein" class="theorem">
-<p><span class="theorem-title"><strong>Teorema 2.5 (Teorema de Convergencia de Milstein)</strong></span> Sea la ecuación diferencial estocástica continua sujeta a las condiciones estándar de regularidad. Si los coeficientes <span class="math inline">\(b(t, x)\)</span> y <span class="math inline">\(\sigma(t, x)\)</span> son dos veces continuamente diferenciables respecto a sus componentes y cumplen los criterios de crecimiento acotado, entonces el esquema numérico de Milstein converge fuertemente con un orden superior dado por:</p>
+<p><span class="theorem-title"><strong>Teorema 2.5 (Teorema de Convergencia de Milstein)</strong></span> Considere la EDE <a href="#eq-ede-general-diff" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a> sujeta a las condiciones estándar de regularidad. Si los coeficientes <span class="math inline">\(b(t, x)\)</span> y <span class="math inline">\(\sigma(t, x)\)</span> son dos veces continuamente diferenciables respecto a sus componentes y cumplen los criterios de crecimiento acotado, entonces el esquema numérico de Milstein converge fuertemente con un orden superior dado por:</p>
 <p><span class="math display">\[
 \gamma = 1.0
 \]</span></p>
 </div>
-<p>El incremento en la velocidad de convergencia fuerte se logra al incorporar de forma analítica el término correspondiente a la integral estocástica iterada <span class="math inline">\(\int_{t_n}^{t_{n+1}} \int_{t_n}^s dW(u) dW(s) = \frac{1}{2} \left[ (\Delta W_n)^2 - \Delta t \right]\)</span>, la cual modela la curvatura interna del ruido estocástico dentro del intervalo de simulación.</p>
+<p>El incremento en la velocidad de convergencia fuerte se logra al incorporar de forma analítica el término correspondiente a la integral estocástica iterada</p>
+<p><span class="math display">\[
+\int_{t_n}^{t_{n+1}} \int_{t_n}^s dW(u) dW(s) = \frac{1}{2} \left[ (\Delta W_n)^2 - \Delta t \right],
+\]</span></p>
+<p>la cual modela la curvatura interna del ruido estocástico dentro del intervalo de simulación, lo que permite una aproximación más precisa de la trayectoria. La demostración de este resultado se encuentra en <span class="citation" data-cites="kloeden1992numerical">(<a href="references.html#ref-kloeden1992numerical" role="doc-biblioref">Kloeden y Platen 1992</a>)</span>.</p>
 <p><strong>Algoritmo General de Milstein</strong></p>
 <p>Para aproximar numéricamente las trayectorias bajo el refinamiento de segundo orden estocástico en el intervalo <span class="math inline">\([0, T]\)</span> con condición inicial <span class="math inline">\(X(0) = x_0\)</span>:</p>
 <ol type="1">
@@ -769,6 +774,31 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 </ul></li>
 <li><strong>Resultado:</strong> El conjunto ordenado de aproximaciones numéricas <span class="math inline">\(\{Y_0, Y_1, \dots, Y_N\}\)</span> conforma la trayectoria analizada bajo estabilidad de orden superior.</li>
 </ol>
+</section>
+</section>
+<section id="análisis-comparativo-de-convergencia-fuerte" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="análisis-comparativo-de-convergencia-fuerte"><span class="header-section-number">2.8</span> Análisis Comparativo de Convergencia Fuerte</h2>
+<p>Para mostrar la diferencia analítica que hay entre los esquemas de Euler-Maruyama y Milstein, y justificar la necesidad de utilizar este último cuando se requiere precisión en trayectorias individuales, planteamos un problema de control numérico. Consideremos el Movimiento Browniano Geométrico (GBM), una EDE lineal homogenea caracterizada por un coeficiente de difusión multiplicativo, dada por la ecuación:</p>
+<p><span id="eq-ede-gbm"><span class="math display">\[
+dX(t) = \mu X(t) dt + \sigma X(t) dW(t)
+\tag{2.7}\]</span></span></p>
+<p>con condición inicial <span class="math inline">\(X(0) = X_0\)</span>, tendencia determinista <span class="math inline">\(\mu &gt; 0\)</span> y volatilidad <span class="math inline">\(\sigma &gt; 0\)</span>. Este proceso posee una solución analítica única dada por:</p>
+<p><span class="math display">\[
+X(t) = X_0 \exp\left[\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right]
+\]</span></p>
+<p>Esta forma cerrada nos permite contrastar directamente las aproximaciones numéricas contra la realidad del proceso. La principal limitación del método de Euler-Maruyama radica en su coeficiente de difusión constante en cada paso temporal. Al truncar la integral estocástica en orden 0.5 fuerte, el esquema no absorbe correctamente la curvatura del ruido multiplicativo (<span class="math inline">\(\sigma X_t\)</span>), acumulando errores significativos sobre las trayectorias individuales, incluso ante mallados temporales relativamente finos. Por el contrario, el método de Milstein integra el término de segundo orden estocástico, logrando que el vector de estados discreto coincida con mayor fidelidad con la dinámica real del proceso <span class="citation" data-cites="kloeden1992numerical">(<a href="references.html#ref-kloeden1992numerical" role="doc-biblioref">Kloeden y Platen 1992</a>)</span>.</p>
+<p>En la <a href="#fig-sde-metodos" class="quarto-xref">Figura&nbsp;<span>2.4</span></a>, simulamos una trayectoria de GBM en un horizonte temporal acotado (<span class="math inline">\(T=2.0\)</span> años) con una volatilidad alta (<span class="math inline">\(\sigma = 1\)</span>) y un tamaño de paso discreto relativamente grueso (<span class="math inline">\(\Delta t = 0.05\)</span>, correspondiente a <span class="math inline">\(N=40\)</span> pasos). Esta configuración es deliberada para resaltar las fallas tipográficas de los aproximadores de orden bajo.</p>
+<div id="fig-sde-metodos" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sde-metodos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="comparacion_metodos.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sde-metodos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.4: Análisis de convergencia fuerte de esquemas numéricos estocásticos para una trayectoria de Movimiento Browniano Geométrico (GBM) definida por <span class="math inline">\(dX = 0.05 X dt + 0.4 X dW\)</span> con <span class="math inline">\(X_0 = 1\)</span>. El eje horizontal representa el tiempo discreto y el eje vertical el estado del proceso <span class="math inline">\(X(t)\)</span>. La línea negra continua muestra la solución analítica exacta. La línea roja discontinua ilustra la aproximación de Euler-Maruyama (Orden fuerte 0.5), evidenciando desviaciones significativas y oscilaciones erráticas respecto a la trayectoria real. La línea azul discontinua-punto representa el esquema de Milstein (Orden fuerte 1.0), el cual sigue con alta precisión la dinámica exacta, demostrando su estabilidad superior ante ruidos multiplicativos y mallados temporales gruesos. La fuente de los datos corresponde a una simulación de elaboración propia generada en Python.
+</figcaption>
+</figure>
+</div>
+<p>Como se puede apreciar nítidamente en la <a href="#fig-sde-metodos" class="quarto-xref">Figura&nbsp;<span>2.4</span></a>, la trayectoria roja correspondiente a Euler-Maruyama falla estrepitosamente en capturar la dinámica exacta (línea negra), presentando oscilaciones exageradas y alejándose del valor real a medida que el tiempo avanza. En contraste, la trayectoria azul de Milstein sigue prácticamente de forma idéntica el camino muestral real. Este contraste justifica nuestra decisión de utilizar el esquema numérico de Milstein para simular el comportamiento térmico del refrigerador HBC-150, ya que el modelo híbrido presenta un coeficiente de ruido continuo <span class="math inline">\(\sigma(\alpha(t))\)</span>, lo cual genera perturbaciones multiplicativas que requieren un orden de convergencia estricto para no subestimar el riesgo de trayectorias erráticas.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -784,6 +814,9 @@ Karatzas, Ioannis, y Steven E. Shreve. 1998. <em>Brownian Motion and Stochastic 
 <div id="ref-karlin1998introduction" class="csl-entry" role="listitem">
 Karlin, Samuel, y Howard M. Taylor. 1998. <em>An Introduction to Stochastic Modeling</em>. 3rd ed. San Diego, CA: Academic Press.
 </div>
+<div id="ref-kloeden1992numerical" class="csl-entry" role="listitem">
+Kloeden, Peter E., y Eckhard Platen. 1992. <em>Numerical Solution of Stochastic Differential Equations</em>. Vol. 23. Stochastic Modelling y Applied Probability. Berlin, Heidelberg: Springer-Verlag.
+</div>
 <div id="ref-platen2010numerical" class="csl-entry" role="listitem">
 Platen, Eckhard, y Nicola Bruti-Liberati. 2010. <em>Numerical Solution of Stochastic Differential Equations with Jumps in Finance</em>. Vol. 64. Stochastic Modelling y Applied Probability. Berlin, Heidelberg: Springer-Verlag. <a href="https://doi.org/10.1007/978-3-642-13694-8">https://doi.org/10.1007/978-3-642-13694-8</a>.
 </div>
@@ -794,7 +827,6 @@ Ross, Sheldon M. 1996. <em>Stochastic Processes</em>. 2nd ed. New York, NY: Wile
 Yin, G. George, y Chao Zhu. 2010. <em>Hybrid Switching Diffusions: Properties and Applications</em>. Vol. 63. Stochastic Modelling y Applied Probability. New York, NY: Springer. <a href="https://doi.org/10.1007/978-1-4419-1105-6">https://doi.org/10.1007/978-1-4419-1105-6</a>.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
