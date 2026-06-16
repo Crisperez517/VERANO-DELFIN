@@ -8,14 +8,14 @@ Para que nuestra simulacion sea valida, no podemos usar la Ecuación Diferencial
 
 ## Datos Base (CFE) e Indicadores de Confiabilidad
 
-El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del suministro eléctrico en el punto específico de Tuxtla Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de partida provienen de la Comisión Federal de Electricidad (CFE), la cual evalúa la continuidad del suministro a través de dos indicadores internacionales de confiabilidad:
+El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del suministro eléctrico en el punto específico de Tuxtla Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de partida provienen de la Comisión Federal de Electricidad (CFE) [@cfe2024informe], la cual evalúa la continuidad del suministro a través de dos indicadores internacionales de confiabilidad:
 
-1. **SAIFI (Índice de Frecuencia Promedio de Interrupción del Sistema):** Mide la cantidad promedio de veces que un usuario experimenta un corte de energía sostenido durante un periodo predefinido. Se mide en interrupciones por cliente y se calcula mediante la relación:
+1. **SAIFI (Índice de la Frecuencia de Interrupción, en número):** El indicador SAIFI mide la frecuencia con que se interrumpe el servicio a los usuarios por causas propias del transportista y se calcula evalúa como:
 $$
 SAIFI = \frac{\sum \text{Número total de interrupciones de clientes}}{\text{Número total de clientes servidos}}
 $$
 
-2. **SAIDI (Índice de Duración Promedio de Interrupción del Sistema):** Representa el tiempo total promedio que un usuario carece de energía eléctrica. Se mide en horas o minutos por cliente y se evalúa como:
+2. **SAIDI (Índice de Duración Promedio de Interrupción, en minutos):** El inicador SAIDI mide en minutos el tiempo que los usuarios del servicio de energía eléctrica no cuentan con servicio por causas atribuibles al transportista y se evalúa como:
 $$
 SAIDI = \frac{\sum \text{Duración total de las interrupciones de clientes}}{\text{Número total de clientes servidos}}
 $$

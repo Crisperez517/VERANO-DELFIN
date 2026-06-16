@@ -1274,25 +1274,25 @@ Confiabilidad}\label{datos-base-cfe-e-indicadores-de-confiabilidad}
 El objetivo fundamental es modelar la tasa de ocurrencia de
 interrupciones del suministro eléctrico en el punto específico de Tuxtla
 Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de
-partida provienen de la Comisión Federal de Electricidad (CFE), la cual
-evalúa la continuidad del suministro a través de dos indicadores
+partida provienen de la Comisión Federal de Electricidad (CFE)
+(\citeproc{ref-cfe2024informe}{Comisión Federal de Electricidad 2024}),
+la cual evalúa la continuidad del suministro a través de dos indicadores
 internacionales de confiabilidad:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{SAIFI (Índice de Frecuencia Promedio de Interrupción del
-  Sistema):} Mide la cantidad promedio de veces que un usuario
-  experimenta un corte de energía sostenido durante un periodo
-  predefinido. Se mide en interrupciones por cliente y se calcula
-  mediante la relación: \[
+  \textbf{SAIFI (Índice de la Frecuencia de Interrupción, en número):}
+  El indicador SAIFI mide la frecuencia con que se interrumpe el
+  servicio a los usuarios por causas propias del transportista y se
+  calcula evalúa como: \[
   SAIFI = \frac{\sum \text{Número total de interrupciones de clientes}}{\text{Número total de clientes servidos}}
   \]
 \item
-  \textbf{SAIDI (Índice de Duración Promedio de Interrupción del
-  Sistema):} Representa el tiempo total promedio que un usuario carece
-  de energía eléctrica. Se mide en horas o minutos por cliente y se
-  evalúa como: \[
+  \textbf{SAIDI (Índice de Duración Promedio de Interrupción, en
+  minutos):} El inicador SAIDI mide en minutos el tiempo que los
+  usuarios del servicio de energía eléctrica no cuentan con servicio por
+  causas atribuibles al transportista y se evalúa como: \[
   SAIDI = \frac{\sum \text{Duración total de las interrupciones de clientes}}{\text{Número total de clientes servidos}}
   \]
 \end{enumerate}
