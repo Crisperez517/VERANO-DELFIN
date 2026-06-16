@@ -2,13 +2,25 @@
 
 ## Motivación y Contexto del Estudio
 
-El presente estudio de caso consolida el marco teórico y metodológico de nuestra investigación aplicándolo a un escenario real y altamente crítico: la red de frío de Tuxtla Gutiérrez, Chiapas. Debido a las altas temperaturas de la región y a la vulnerabilidad de la infraestructura eléctrica ante eventos climáticos, los refrigeradores institucionales de vacunas se enfrentan a un estrés operativo constante.
+El presente estudio de caso consolida el marco teórico y metodológico de nuestra investigación aplicándolo a un escenario real y altamente crítico: la red de frío para la preservación de vacunas en Tuxtla Gutiérrez, Chiapas. Debido a las altas temperaturas de la región y a la vulnerabilidad de la infraestructura eléctrica ante eventos climáticos, los refrigeradores institucionales de vacunas se enfrentan a una dificultad operativa constante.
 
-Para que nuestro simulador computacional tenga rigor y validez, no podemos alimentar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En este capítulo, calibraremos todos los parámetros de nuestro modelo. Primero, determinaremos la frecuencia de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de un Proceso de Poisson No Homogéneo. Posteriormente, utilizaremos la física del enfriamiento para deducir numéricamente los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores.
+Para que nuestra simulacion sea valida, no podemos usar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En esta sección, calibraremos todos los parámetros de nuestro modelo. Primero, determinaremos la frecuencia de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de un Proceso de Poisson No Homogéneo. Posteriormente, utilizaremos la física del enfriamiento para deducir numéricamente los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores.
 
-## Datos Base (CFE)
+## Datos Base (CFE) e Indicadores de Confiabilidad
 
-El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del suministro eléctrico en el punto específico de Tuxtla Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de partida provienen de los reportes oficiales de la CFE, los cuales registran el número de interrupciones y su duración. Estos datos se relacionan con los indicadores SAIFI (Frecuencia) y SAIDI (Duración). 
+El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del suministro eléctrico en el punto específico de Tuxtla Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de partida provienen de la Comisión Federal de Electricidad (CFE), la cual evalúa la continuidad del suministro a través de dos indicadores internacionales de confiabilidad:
+
+1. **SAIFI (Índice de Frecuencia Promedio de Interrupción del Sistema):** Mide la cantidad promedio de veces que un usuario experimenta un corte de energía sostenido durante un periodo predefinido. Se mide en interrupciones por cliente y se calcula mediante la relación:
+$$
+SAIFI = \frac{\sum \text{Número total de interrupciones de clientes}}{\text{Número total de clientes servidos}}
+$$
+
+2. **SAIDI (Índice de Duración Promedio de Interrupción del Sistema):** Representa el tiempo total promedio que un usuario carece de energía eléctrica. Se mide en horas o minutos por cliente y se evalúa como:
+$$
+SAIDI = \frac{\sum \text{Duración total de las interrupciones de clientes}}{\text{Número total de clientes servidos}}
+$$
+
+Mediante una solicitud de información pública por transparencia dirigida a la CFE, se obtuvo el registro histórico y proyectado del promedio mensual de interrupciones y su duración para el municipio de Tuxtla Gutiérrez.
 
 | Año | Cortes Promedio al Mes | Duración Promedio (Horas) |
 |:---:|:---:|:---:|
@@ -20,9 +32,9 @@ El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del s
 | 2024 | 43 | 2.39 |
 | 2025 | 38 | 2.02 |
 
-: Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas.
+: Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente: Solicitud de Transparencia a la CFE).
 
-Para este modelo, se toma como línea base el comportamiento proyectado para el año **2025**, el cual indica **38 cortes por mes en promedio**. Esto resulta en una esperanza matemática anual macroscópica de:
+Para este modelo, se toma como línea base el comportamiento proyectado para el año **2025**, el cual indica **38 cortes por mes en promedio**. Esto resulta en una esperanza matemática anual agregada de:
 
 $$38 \text{ cortes/mes} \times 12 \text{ meses} = 456 \text{ cortes/año}$$
 
@@ -30,45 +42,63 @@ $$38 \text{ cortes/mes} \times 12 \text{ meses} = 456 \text{ cortes/año}$$
 
 ### Justificación de la Reducción de Escala
 
-El valor de 456 cortes al año es un dato agregado a nivel municipal. En la modelación aplicada, utilizar directamente este valor para un solo refrigerador implicaría asumir que el edificio clínico sufre más de un apagón diario, lo cual no es realista. Este error ocurre al ignorar que un edificio está conectado a un solo nodo de la red, no a todos simultáneamente.
+El valor de 456 cortes al año es un dato agregado a nivel municipal. En la modelación estocástica, utilizar directamente este valor para un solo refrigerador implicaría asumir que el edificio clínico sufre más de un apagón diario, lo cual carece de sentido físico. Este error ocurre al ignorar que un edificio está conectado a un solo nodo de la red, no a todos simultáneamente.
 
-Para solucionar esto, introducimos un factor de escala espacial. De acuerdo con la arquitectura de la red de distribución de la CFE, la mancha urbana de Tuxtla Gutiérrez está alimentada de manera sectorizada por exactamente **8 subestaciones principales** (Tuxtla Céntrica, Oriente, Poniente, Terán, Tuxtla Norte, Tuxtla Dos, Mactumatzá y Real del Bosque).
+Para solucionar esto, introducimos un factor de escala espacial. De acuerdo con el Programa para el Desarrollo del Sistema Eléctrico Nacional (PRODESEN) y los diagramas de infraestructura del Centro Nacional de Control de Energía (CENACE) [@sener2024prodesen], la mancha urbana de Tuxtla Gutiérrez está alimentada de manera sectorizada por exactamente **8 subestaciones principales** de distribución (Tuxtla Céntrica, Oriente, Poniente, Terán, Tuxtla Norte, Tuxtla Dos, Mactumatzá y Real del Bosque).
 
 ### La Esperanza Matemática Local
 
-Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (por ejemplo, la subestación Tuxtla Norte que alimenta a centros de salud) corresponde a $1/8$ del total municipal.
+Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (por ejemplo, la subestación Tuxtla Norte que alimenta a la zona de hospitales) corresponde a un octavo del total municipal.
 
 $$\mathbb{E}[N_{local}] = \frac{456 \text{ cortes}}{8 \text{ subestaciones}} = 57 \text{ cortes al año}$$
 
 Esto establece una base realista de **57 interrupciones esperadas al año** (un promedio de 4.75 al mes) para nuestra simulación.
 
-## Distribución Temporal: El Indicador SAIFI 2024
+## Distribución Temporal de las Fallas
 
-Las fallas no se distribuyen uniformemente a lo largo del año (no ocurren 4.75 cortes idénticos cada mes). La variabilidad depende drásticamente del clima. Para no asignar cortes de manera subjetiva, utilizamos el **SAIFI (Índice de Frecuencia Promedio de Interrupción)** mensual reportado oficialmente por la CFE en 2024. Este índice nos proporciona la "forma" empírica de cómo colapsa la red a lo largo del año.
+Las interrupciones no se distribuyen de manera homogénea a lo largo del año (es decir, no ocurren 4.75 cortes exactos cada mes). La variabilidad depende drásticamente de los fenómenos climatológicos (olas de calor y huracanes). Para no asignar cortes de manera subjetiva, utilizamos el comportamiento nacional reportado en el *Informe Anual de la CFE 2024* [@cfe2024informe], específicamente en su página 82, donde se documenta la evolución acumulada de los indicadores SAIFI y SAIDI a lo largo de los 12 meses.
 
-Los reportes de la CFE publican el SAIFI de forma acumulada. Para encontrar el peso de cada mes aislado, calculamos la diferencia ($\Delta$) respecto al mes anterior. Sabiendo que el total nacional del SAIFI (0.113) representa el año completo, lo equiparamos a nuestra esperanza local de 57 cortes mediante una asignación proporcional:
+| Mes | SAIDI Acumulado (Horas) | SAIFI Acumulado | Usuarios (Millones) |
+|:---|:---:|:---:|:---:|
+| Enero | 1.011 | 0.013 | 48.4 |
+| Febrero | 1.579 | 0.017 | 48.5 |
+| Marzo | 2.115 | 0.022 | 48.6 |
+| Abril | 2.651 | 0.027 | 48.6 |
+| Mayo | 3.865 | 0.037 | 48.7 |
+| Junio | 5.766 | 0.053 | 48.8 |
+| Julio | 7.230 | 0.065 | 48.9 |
+| Agosto | 9.387 | 0.080 | 48.9 |
+| Septiembre | 11.238 | 0.096 | 49.0 |
+| Octubre | 12.308 | 0.103 | 49.1 |
+| Noviembre | 12.637 | 0.106 | 49.2 |
+| Diciembre | 13.567 | 0.113 | 49.3 |
+
+: Tabla 2. Evolución mensual de los indicadores del tiempo total de interrupción por usuario a nivel nacional (Fuente: Informe Anual CFE 2024, p. 82).
+
+Dado que el informe publica el SAIFI de forma acumulada, calculamos la diferencia ($\Delta$) respecto al mes anterior para encontrar el peso relativo de cada mes de forma aislada. Sabiendo que el total anual del SAIFI (0.113) engloba el 100% de las fallas del año, lo equiparamos a nuestra esperanza local calculada previamente de 57 cortes. La asignación de apagones esperados para cada mes $i$ se realiza mediante una simple proporcionalidad matemática:
 
 $$\text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 57$$
 
-| Mes | SAIFI Acumulado | $\Delta$ SAIFI | Cortes Exactos | Cortes Asignados |
-|:---|:---:|:---:|:---:|:---:|
-| Enero | 0.013 | 0.013 | 6.56 | 7 |
-| Febrero | 0.017 | 0.004 | 2.02 | 2 |
-| Marzo | 0.022 | 0.005 | 2.52 | 2 |
-| Abril | 0.027 | 0.005 | 2.52 | 2 |
-| Mayo | 0.037 | 0.010 | 5.04 | 5 |
-| Junio | 0.053 | 0.016 | 8.07 | 8 |
-| Julio | 0.065 | 0.012 | 6.05 | 6 |
-| Agosto | 0.080 | 0.015 | 7.57 | 8 |
-| Septiembre | 0.096 | 0.016 | 8.07 | 8 |
-| Octubre | 0.103 | 0.007 | 3.53 | 4 |
-| Noviembre | 0.106 | 0.003 | 1.51 | 1 |
-| Diciembre | 0.113 | 0.007 | 3.53 | 4 |
+Al ejecutar este cálculo y redondear al evento discreto más cercano (ajustando para conservar la suma total), obtenemos el perfil temporal empírico de las fallas para el municipio:
 
-: Tabla 2. Distribución de los 57 cortes usando la densidad del SAIFI 2024.
+| Mes | $\Delta$ SAIFI (Mensual) | Cortes Exactos Calculados | Cortes Asignados (Redondeo) |
+|:---|:---:|:---:|:---:|
+| Enero | 0.013 | 6.56 | 7 |
+| Febrero | 0.004 | 2.02 | 2 |
+| Marzo | 0.005 | 2.52 | 2 |
+| Abril | 0.005 | 2.52 | 2 |
+| Mayo | 0.010 | 5.04 | 5 |
+| Junio | 0.016 | 8.07 | 8 |
+| Julio | 0.012 | 6.05 | 6 |
+| Agosto | 0.015 | 7.57 | 8 |
+| Septiembre | 0.016 | 8.07 | 8 |
+| Octubre | 0.007 | 3.53 | 4 |
+| Noviembre | 0.003 | 1.51 | 1 |
+| Diciembre | 0.007 | 3.53 | 4 |
 
-El análisis revela dos momentos críticos: el pico de calor reflejado en **Junio (8 cortes)** y la temporada de lluvias fuertes y huracanes en **Agosto y Septiembre (8 cortes)**. El invierno representa un estado de alta estabilidad eléctrica.
+: Tabla 3. Distribución estacional de los 57 cortes locales proyectados usando la densidad del SAIFI 2024.
 
+El análisis revela dos momentos críticos que comprometen la red de frío: el pico de calor reflejado en **Junio (8 cortes)** provocado por la saturación de aires acondicionados, y la temporada de lluvias fuertes y huracanes en **Agosto y Septiembre (8 cortes)**. El invierno representa un estado de alta estabilidad eléctrica.
 ## Modelado del Proceso de Poisson No Homogéneo (PPNH)
 
 Para integrar las fallas en la EDE, la ocurrencia de los cortes debe ser modelada en tiempo continuo $t$, donde $t \in [0, 365]$ representa los días del año. Para ello, utilizamos un **Proceso de Poisson No Homogéneo**, cuya intensidad de fallas $\lambda(t)$ varía en el tiempo.

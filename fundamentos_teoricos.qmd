@@ -323,7 +323,7 @@ $$
 y converge débilmente con un orden de acotación de $\beta = 1.0$.
 :::
 
-La demostración de este orden de convergencia estricto se fundamenta en que el incremento del movimiento Browniano domina algebraicamente sobre el incremento del tiempo determinista, dado que su escala de variación es proporcional a $\sqrt{\Delta t}$, la demostración de este teorema se encuentra en [@kloeden1992numerical].
+Este orden de convergencia se fundamenta en que el incremento del movimiento Browniano domina algebraicamente sobre el incremento del tiempo determinista, dado que su escala de variación es proporcional a $\sqrt{\Delta t}$, la demostración de este teorema se encuentra en [@kloeden1992numerical].
 
 **Algoritmo General de Euler-Maruyama**
 

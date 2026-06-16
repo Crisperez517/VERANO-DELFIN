@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -403,20 +423,19 @@ window.Quarto = {
    
   <ul>
   <li><a href="#motivación-y-contexto-del-estudio" id="toc-motivación-y-contexto-del-estudio" class="nav-link active" data-scroll-target="#motivación-y-contexto-del-estudio"><span class="header-section-number">3.1</span> Motivación y Contexto del Estudio</a></li>
-  <li><a href="#datos-base-cfe" id="toc-datos-base-cfe" class="nav-link" data-scroll-target="#datos-base-cfe"><span class="header-section-number">3.2</span> Datos Base (CFE)</a></li>
+  <li><a href="#datos-base-cfe-e-indicadores-de-confiabilidad" id="toc-datos-base-cfe-e-indicadores-de-confiabilidad" class="nav-link" data-scroll-target="#datos-base-cfe-e-indicadores-de-confiabilidad"><span class="header-section-number">3.2</span> Datos Base (CFE) e Indicadores de Confiabilidad</a></li>
   <li><a href="#corrección-de-escala-espacial-factor-kappa_espacial" id="toc-corrección-de-escala-espacial-factor-kappa_espacial" class="nav-link" data-scroll-target="#corrección-de-escala-espacial-factor-kappa_espacial"><span class="header-section-number">3.3</span> Corrección de Escala Espacial (Factor <span class="math inline">\(\kappa_{espacial}\)</span>)</a>
   <ul class="collapse">
   <li><a href="#justificación-de-la-reducción-de-escala" id="toc-justificación-de-la-reducción-de-escala" class="nav-link" data-scroll-target="#justificación-de-la-reducción-de-escala"><span class="header-section-number">3.3.1</span> Justificación de la Reducción de Escala</a></li>
   <li><a href="#la-esperanza-matemática-local" id="toc-la-esperanza-matemática-local" class="nav-link" data-scroll-target="#la-esperanza-matemática-local"><span class="header-section-number">3.3.2</span> La Esperanza Matemática Local</a></li>
   </ul></li>
-  <li><a href="#distribución-temporal-el-indicador-saifi-2024" id="toc-distribución-temporal-el-indicador-saifi-2024" class="nav-link" data-scroll-target="#distribución-temporal-el-indicador-saifi-2024"><span class="header-section-number">3.4</span> Distribución Temporal: El Indicador SAIFI 2024</a></li>
-  <li><a href="#modelado-del-proceso-de-poisson-no-homogéneo-ppnh" id="toc-modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="nav-link" data-scroll-target="#modelado-del-proceso-de-poisson-no-homogéneo-ppnh"><span class="header-section-number">3.5</span> Modelado del Proceso de Poisson No Homogéneo (PPNH)</a></li>
-  <li><a href="#validación-del-modelo-cálculo-integral" id="toc-validación-del-modelo-cálculo-integral" class="nav-link" data-scroll-target="#validación-del-modelo-cálculo-integral"><span class="header-section-number">3.6</span> Validación del Modelo (Cálculo Integral)</a></li>
-  <li><a href="#calibración-de-la-ecuación-diferencial-estocástica-ede" id="toc-calibración-de-la-ecuación-diferencial-estocástica-ede" class="nav-link" data-scroll-target="#calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.7</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</a>
+  <li><a href="#distribución-temporal-de-las-fallas" id="toc-distribución-temporal-de-las-fallas" class="nav-link" data-scroll-target="#distribución-temporal-de-las-fallas"><span class="header-section-number">3.4</span> Distribución Temporal de las Fallas</a></li>
+  <li><a href="#validación-del-modelo-cálculo-integral" id="toc-validación-del-modelo-cálculo-integral" class="nav-link" data-scroll-target="#validación-del-modelo-cálculo-integral"><span class="header-section-number">3.5</span> Validación del Modelo (Cálculo Integral)</a></li>
+  <li><a href="#calibración-de-la-ecuación-diferencial-estocástica-ede" id="toc-calibración-de-la-ecuación-diferencial-estocástica-ede" class="nav-link" data-scroll-target="#calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.6</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</a>
   <ul class="collapse">
-  <li><a href="#régimen-1-operación-normal-alphat-1" id="toc-régimen-1-operación-normal-alphat-1" class="nav-link" data-scroll-target="#régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.7.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</a></li>
-  <li><a href="#régimen-2-falla-eléctrica-alphat-2" id="toc-régimen-2-falla-eléctrica-alphat-2" class="nav-link" data-scroll-target="#régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.7.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
-  <li><a href="#perturbaciones-discretas-apertura-de-puertas-n_puertat" id="toc-perturbaciones-discretas-apertura-de-puertas-n_puertat" class="nav-link" data-scroll-target="#perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.7.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</a></li>
+  <li><a href="#régimen-1-operación-normal-alphat-1" id="toc-régimen-1-operación-normal-alphat-1" class="nav-link" data-scroll-target="#régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.6.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</a></li>
+  <li><a href="#régimen-2-falla-eléctrica-alphat-2" id="toc-régimen-2-falla-eléctrica-alphat-2" class="nav-link" data-scroll-target="#régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.6.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
+  <li><a href="#perturbaciones-discretas-apertura-de-puertas-n_puertat" id="toc-perturbaciones-discretas-apertura-de-puertas-n_puertat" class="nav-link" data-scroll-target="#perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.6.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -446,14 +465,23 @@ window.Quarto = {
 
 <section id="motivación-y-contexto-del-estudio" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="motivación-y-contexto-del-estudio"><span class="header-section-number">3.1</span> Motivación y Contexto del Estudio</h2>
-<p>El presente estudio de caso consolida el marco teórico y metodológico de nuestra investigación aplicándolo a un escenario real y altamente crítico: la red de frío de Tuxtla Gutiérrez, Chiapas. Debido a las altas temperaturas de la región y a la vulnerabilidad de la infraestructura eléctrica ante eventos climáticos, los refrigeradores institucionales de vacunas se enfrentan a un estrés operativo constante.</p>
-<p>Para que nuestro simulador computacional tenga rigor y validez, no podemos alimentar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En este capítulo, calibraremos todos los parámetros de nuestro modelo. Primero, determinaremos la frecuencia de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de un Proceso de Poisson No Homogéneo. Posteriormente, utilizaremos la física del enfriamiento para deducir numéricamente los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores.</p>
+<p>El presente estudio de caso consolida el marco teórico y metodológico de nuestra investigación aplicándolo a un escenario real y altamente crítico: la red de frío para la preservación de vacunas en Tuxtla Gutiérrez, Chiapas. Debido a las altas temperaturas de la región y a la vulnerabilidad de la infraestructura eléctrica ante eventos climáticos, los refrigeradores institucionales de vacunas se enfrentan a una dificultad operativa constante.</p>
+<p>Para que nuestra simulacion sea valida, no podemos usar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En esta sección, calibraremos todos los parámetros de nuestro modelo. Primero, determinaremos la frecuencia de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de un Proceso de Poisson No Homogéneo. Posteriormente, utilizaremos la física del enfriamiento para deducir numéricamente los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores.</p>
 </section>
-<section id="datos-base-cfe" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="datos-base-cfe"><span class="header-section-number">3.2</span> Datos Base (CFE)</h2>
-<p>El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del suministro eléctrico en el punto específico de Tuxtla Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de partida provienen de los reportes oficiales de la CFE, los cuales registran el número de interrupciones y su duración. Estos datos se relacionan con los indicadores SAIFI (Frecuencia) y SAIDI (Duración).</p>
+<section id="datos-base-cfe-e-indicadores-de-confiabilidad" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="datos-base-cfe-e-indicadores-de-confiabilidad"><span class="header-section-number">3.2</span> Datos Base (CFE) e Indicadores de Confiabilidad</h2>
+<p>El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del suministro eléctrico en el punto específico de Tuxtla Gutiérrez donde se ubicaría el refrigerador de vacunas. Los datos de partida provienen de la Comisión Federal de Electricidad (CFE), la cual evalúa la continuidad del suministro a través de dos indicadores internacionales de confiabilidad:</p>
+<ol type="1">
+<li><p><strong>SAIFI (Índice de Frecuencia Promedio de Interrupción del Sistema):</strong> Mide la cantidad promedio de veces que un usuario experimenta un corte de energía sostenido durante un periodo predefinido. Se mide en interrupciones por cliente y se calcula mediante la relación: <span class="math display">\[
+SAIFI = \frac{\sum \text{Número total de interrupciones de clientes}}{\text{Número total de clientes servidos}}
+\]</span></p></li>
+<li><p><strong>SAIDI (Índice de Duración Promedio de Interrupción del Sistema):</strong> Representa el tiempo total promedio que un usuario carece de energía eléctrica. Se mide en horas o minutos por cliente y se evalúa como: <span class="math display">\[
+SAIDI = \frac{\sum \text{Duración total de las interrupciones de clientes}}{\text{Número total de clientes servidos}}
+\]</span></p></li>
+</ol>
+<p>Mediante una solicitud de información pública por transparencia dirigida a la CFE, se obtuvo el registro histórico y proyectado del promedio mensual de interrupciones y su duración para el municipio de Tuxtla Gutiérrez.</p>
 <table class="caption-top table">
-<caption>Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas.</caption>
+<caption>Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente: Solicitud de Transparencia a la CFE).</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Año</th>
@@ -499,137 +527,212 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Para este modelo, se toma como línea base el comportamiento proyectado para el año <strong>2025</strong>, el cual indica <strong>38 cortes por mes en promedio</strong>. Esto resulta en una esperanza matemática anual macroscópica de:</p>
+<p>Para este modelo, se toma como línea base el comportamiento proyectado para el año <strong>2025</strong>, el cual indica <strong>38 cortes por mes en promedio</strong>. Esto resulta en una esperanza matemática anual agregada de:</p>
 <p><span class="math display">\[38 \text{ cortes/mes} \times 12 \text{ meses} = 456 \text{ cortes/año}\]</span></p>
 </section>
 <section id="corrección-de-escala-espacial-factor-kappa_espacial" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="corrección-de-escala-espacial-factor-kappa_espacial"><span class="header-section-number">3.3</span> Corrección de Escala Espacial (Factor <span class="math inline">\(\kappa_{espacial}\)</span>)</h2>
 <section id="justificación-de-la-reducción-de-escala" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="justificación-de-la-reducción-de-escala"><span class="header-section-number">3.3.1</span> Justificación de la Reducción de Escala</h3>
-<p>El valor de 456 cortes al año es un dato agregado a nivel municipal. En la modelación aplicada, utilizar directamente este valor para un solo refrigerador implicaría asumir que el edificio clínico sufre más de un apagón diario, lo cual no es realista. Este error ocurre al ignorar que un edificio está conectado a un solo nodo de la red, no a todos simultáneamente.</p>
-<p>Para solucionar esto, introducimos un factor de escala espacial. De acuerdo con la arquitectura de la red de distribución de la CFE, la mancha urbana de Tuxtla Gutiérrez está alimentada de manera sectorizada por exactamente <strong>8 subestaciones principales</strong> (Tuxtla Céntrica, Oriente, Poniente, Terán, Tuxtla Norte, Tuxtla Dos, Mactumatzá y Real del Bosque).</p>
+<p>El valor de 456 cortes al año es un dato agregado a nivel municipal. En la modelación estocástica, utilizar directamente este valor para un solo refrigerador implicaría asumir que el edificio clínico sufre más de un apagón diario, lo cual carece de sentido físico. Este error ocurre al ignorar que un edificio está conectado a un solo nodo de la red, no a todos simultáneamente.</p>
+<p>Para solucionar esto, introducimos un factor de escala espacial. De acuerdo con el Programa para el Desarrollo del Sistema Eléctrico Nacional (PRODESEN) y los diagramas de infraestructura del Centro Nacional de Control de Energía (CENACE) <span class="citation" data-cites="sener2024prodesen">(<a href="references.html#ref-sener2024prodesen" role="doc-biblioref">Secretaría de Energía 2024</a>)</span>, la mancha urbana de Tuxtla Gutiérrez está alimentada de manera sectorizada por exactamente <strong>8 subestaciones principales</strong> de distribución (Tuxtla Céntrica, Oriente, Poniente, Terán, Tuxtla Norte, Tuxtla Dos, Mactumatzá y Real del Bosque).</p>
 </section>
 <section id="la-esperanza-matemática-local" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="la-esperanza-matemática-local"><span class="header-section-number">3.3.2</span> La Esperanza Matemática Local</h3>
-<p>Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (por ejemplo, la subestación Tuxtla Norte que alimenta a centros de salud) corresponde a <span class="math inline">\(1/8\)</span> del total municipal.</p>
+<p>Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (por ejemplo, la subestación Tuxtla Norte que alimenta a la zona de hospitales) corresponde a un octavo del total municipal.</p>
 <p><span class="math display">\[\mathbb{E}[N_{local}] = \frac{456 \text{ cortes}}{8 \text{ subestaciones}} = 57 \text{ cortes al año}\]</span></p>
 <p>Esto establece una base realista de <strong>57 interrupciones esperadas al año</strong> (un promedio de 4.75 al mes) para nuestra simulación.</p>
 </section>
 </section>
-<section id="distribución-temporal-el-indicador-saifi-2024" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="distribución-temporal-el-indicador-saifi-2024"><span class="header-section-number">3.4</span> Distribución Temporal: El Indicador SAIFI 2024</h2>
-<p>Las fallas no se distribuyen uniformemente a lo largo del año (no ocurren 4.75 cortes idénticos cada mes). La variabilidad depende drásticamente del clima. Para no asignar cortes de manera subjetiva, utilizamos el <strong>SAIFI (Índice de Frecuencia Promedio de Interrupción)</strong> mensual reportado oficialmente por la CFE en 2024. Este índice nos proporciona la “forma” empírica de cómo colapsa la red a lo largo del año.</p>
-<p>Los reportes de la CFE publican el SAIFI de forma acumulada. Para encontrar el peso de cada mes aislado, calculamos la diferencia (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior. Sabiendo que el total nacional del SAIFI (0.113) representa el año completo, lo equiparamos a nuestra esperanza local de 57 cortes mediante una asignación proporcional:</p>
-<p><span class="math display">\[\text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 57\]</span></p>
+<section id="distribución-temporal-de-las-fallas" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="distribución-temporal-de-las-fallas"><span class="header-section-number">3.4</span> Distribución Temporal de las Fallas</h2>
+<p>Las interrupciones no se distribuyen de manera homogénea a lo largo del año (es decir, no ocurren 4.75 cortes exactos cada mes). La variabilidad depende drásticamente de los fenómenos climatológicos (olas de calor y huracanes). Para no asignar cortes de manera subjetiva, utilizamos el comportamiento nacional reportado en el <em>Informe Anual de la CFE 2024</em> <span class="citation" data-cites="cfe2024informe">(<a href="references.html#ref-cfe2024informe" role="doc-biblioref">Comisión Federal de Electricidad 2024</a>)</span>, específicamente en su página 82, donde se documenta la evolución acumulada de los indicadores SAIFI y SAIDI a lo largo de los 12 meses.</p>
 <table class="caption-top table">
-<caption>Tabla 2. Distribución de los 57 cortes usando la densidad del SAIFI 2024.</caption>
+<caption>Tabla 2. Evolución mensual de los indicadores del tiempo total de interrupción por usuario a nivel nacional (Fuente: Informe Anual CFE 2024, p.&nbsp;82).</caption>
 <colgroup>
-<col style="width: 16%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Mes</th>
+<th style="text-align: center;">SAIDI Acumulado (Horas)</th>
 <th style="text-align: center;">SAIFI Acumulado</th>
-<th style="text-align: center;"><span class="math inline">\(\Delta\)</span> SAIFI</th>
-<th style="text-align: center;">Cortes Exactos</th>
-<th style="text-align: center;">Cortes Asignados</th>
+<th style="text-align: center;">Usuarios (Millones)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Enero</td>
+<td style="text-align: center;">1.011</td>
+<td style="text-align: center;">0.013</td>
+<td style="text-align: center;">48.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Febrero</td>
+<td style="text-align: center;">1.579</td>
+<td style="text-align: center;">0.017</td>
+<td style="text-align: center;">48.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Marzo</td>
+<td style="text-align: center;">2.115</td>
+<td style="text-align: center;">0.022</td>
+<td style="text-align: center;">48.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abril</td>
+<td style="text-align: center;">2.651</td>
+<td style="text-align: center;">0.027</td>
+<td style="text-align: center;">48.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mayo</td>
+<td style="text-align: center;">3.865</td>
+<td style="text-align: center;">0.037</td>
+<td style="text-align: center;">48.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Junio</td>
+<td style="text-align: center;">5.766</td>
+<td style="text-align: center;">0.053</td>
+<td style="text-align: center;">48.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Julio</td>
+<td style="text-align: center;">7.230</td>
+<td style="text-align: center;">0.065</td>
+<td style="text-align: center;">48.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agosto</td>
+<td style="text-align: center;">9.387</td>
+<td style="text-align: center;">0.080</td>
+<td style="text-align: center;">48.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Septiembre</td>
+<td style="text-align: center;">11.238</td>
+<td style="text-align: center;">0.096</td>
+<td style="text-align: center;">49.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Octubre</td>
+<td style="text-align: center;">12.308</td>
+<td style="text-align: center;">0.103</td>
+<td style="text-align: center;">49.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Noviembre</td>
+<td style="text-align: center;">12.637</td>
+<td style="text-align: center;">0.106</td>
+<td style="text-align: center;">49.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diciembre</td>
+<td style="text-align: center;">13.567</td>
+<td style="text-align: center;">0.113</td>
+<td style="text-align: center;">49.3</td>
+</tr>
+</tbody>
+</table>
+<p>Dado que el informe publica el SAIFI de forma acumulada, calculamos la diferencia (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para encontrar el peso relativo de cada mes de forma aislada. Sabiendo que el total anual del SAIFI (0.113) engloba el 100% de las fallas del año, lo equiparamos a nuestra esperanza local calculada previamente de 57 cortes. La asignación de apagones esperados para cada mes <span class="math inline">\(i\)</span> se realiza mediante una simple proporcionalidad matemática:</p>
+<p><span class="math display">\[\text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 57\]</span></p>
+<p>Al ejecutar este cálculo y redondear al evento discreto más cercano (ajustando para conservar la suma total), obtenemos el perfil temporal empírico de las fallas para el municipio:</p>
+<table class="caption-top table">
+<caption>Tabla 3. Distribución estacional de los 57 cortes locales proyectados usando la densidad del SAIFI 2024.</caption>
+<colgroup>
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mes</th>
+<th style="text-align: center;"><span class="math inline">\(\Delta\)</span> SAIFI (Mensual)</th>
+<th style="text-align: center;">Cortes Exactos Calculados</th>
+<th style="text-align: center;">Cortes Asignados (Redondeo)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Enero</td>
 <td style="text-align: center;">0.013</td>
-<td style="text-align: center;">0.013</td>
 <td style="text-align: center;">6.56</td>
 <td style="text-align: center;">7</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Febrero</td>
-<td style="text-align: center;">0.017</td>
 <td style="text-align: center;">0.004</td>
 <td style="text-align: center;">2.02</td>
 <td style="text-align: center;">2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Marzo</td>
-<td style="text-align: center;">0.022</td>
 <td style="text-align: center;">0.005</td>
 <td style="text-align: center;">2.52</td>
 <td style="text-align: center;">2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Abril</td>
-<td style="text-align: center;">0.027</td>
 <td style="text-align: center;">0.005</td>
 <td style="text-align: center;">2.52</td>
 <td style="text-align: center;">2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Mayo</td>
-<td style="text-align: center;">0.037</td>
 <td style="text-align: center;">0.010</td>
 <td style="text-align: center;">5.04</td>
 <td style="text-align: center;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Junio</td>
-<td style="text-align: center;">0.053</td>
 <td style="text-align: center;">0.016</td>
 <td style="text-align: center;">8.07</td>
 <td style="text-align: center;">8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Julio</td>
-<td style="text-align: center;">0.065</td>
 <td style="text-align: center;">0.012</td>
 <td style="text-align: center;">6.05</td>
 <td style="text-align: center;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Agosto</td>
-<td style="text-align: center;">0.080</td>
 <td style="text-align: center;">0.015</td>
 <td style="text-align: center;">7.57</td>
 <td style="text-align: center;">8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Septiembre</td>
-<td style="text-align: center;">0.096</td>
 <td style="text-align: center;">0.016</td>
 <td style="text-align: center;">8.07</td>
 <td style="text-align: center;">8</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Octubre</td>
-<td style="text-align: center;">0.103</td>
 <td style="text-align: center;">0.007</td>
 <td style="text-align: center;">3.53</td>
 <td style="text-align: center;">4</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Noviembre</td>
-<td style="text-align: center;">0.106</td>
 <td style="text-align: center;">0.003</td>
 <td style="text-align: center;">1.51</td>
 <td style="text-align: center;">1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Diciembre</td>
-<td style="text-align: center;">0.113</td>
 <td style="text-align: center;">0.007</td>
 <td style="text-align: center;">3.53</td>
 <td style="text-align: center;">4</td>
 </tr>
 </tbody>
 </table>
-<p>El análisis revela dos momentos críticos: el pico de calor reflejado en <strong>Junio (8 cortes)</strong> y la temporada de lluvias fuertes y huracanes en <strong>Agosto y Septiembre (8 cortes)</strong>. El invierno representa un estado de alta estabilidad eléctrica.</p>
-</section>
-<section id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh"><span class="header-section-number">3.5</span> Modelado del Proceso de Poisson No Homogéneo (PPNH)</h2>
+<p>El análisis revela dos momentos críticos que comprometen la red de frío: el pico de calor reflejado en <strong>Junio (8 cortes)</strong> provocado por la saturación de aires acondicionados, y la temporada de lluvias fuertes y huracanes en <strong>Agosto y Septiembre (8 cortes)</strong>. El invierno representa un estado de alta estabilidad eléctrica. ## Modelado del Proceso de Poisson No Homogéneo (PPNH)</p>
 <p>Para integrar las fallas en la EDE, la ocurrencia de los cortes debe ser modelada en tiempo continuo <span class="math inline">\(t\)</span>, donde <span class="math inline">\(t \in [0, 365]\)</span> representa los días del año. Para ello, utilizamos un <strong>Proceso de Poisson No Homogéneo</strong>, cuya intensidad de fallas <span class="math inline">\(\lambda(t)\)</span> varía en el tiempo.</p>
 <p>El modelo se define como la suma de una tasa base constante y dos funciones de perturbación gaussianas. Las gaussianas modelan perfectamente cómo inicia y termina una ola de calor o temporada de lluvias de manera suave, evitando discontinuidades que harían inestable la simulación, y hacen coincidir el mayor riesgo de falla eléctrica justo en las épocas más calurosas del año.</p>
 <p>La función analítica propuesta es:</p>
@@ -646,8 +749,8 @@ Figura&nbsp;3.1: Función de intensidad de fallas eléctricas <span class="math 
 </figure>
 </div>
 </section>
-<section id="validación-del-modelo-cálculo-integral" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="validación-del-modelo-cálculo-integral"><span class="header-section-number">3.6</span> Validación del Modelo (Cálculo Integral)</h2>
+<section id="validación-del-modelo-cálculo-integral" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="validación-del-modelo-cálculo-integral"><span class="header-section-number">3.5</span> Validación del Modelo (Cálculo Integral)</h2>
 <p>En un Proceso de Poisson No Homogéneo, el número esperado de eventos en cualquier intervalo de tiempo <span class="math inline">\((t_1, t_2]\)</span> está dado estrictamente por el área bajo la curva de su función de intensidad: <span class="math inline">\(\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\)</span>.</p>
 <p>Para verificar que nuestro modelo matemático refleja la realidad, calculamos numéricamente las 12 integrales definidas para cada mes del año y las comparamos con el objetivo empírico de la CFE:</p>
 <table class="caption-top table">
@@ -724,24 +827,32 @@ Figura&nbsp;3.1: Función de intensidad de fallas eléctricas <span class="math 
 </table>
 <p>La suma total del dominio continuo arrojó un valor exacto de <strong>56.74 cortes</strong>, lo que empata perfectamente con nuestra meta de 57 eventos anuales. Esto garantiza que el generador estocástico de nuestra simulación en Python estará acoplado a la realidad operativa de Tuxtla Gutiérrez.</p>
 </section>
-<section id="calibración-de-la-ecuación-diferencial-estocástica-ede" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.7</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</h2>
+<section id="calibración-de-la-ecuación-diferencial-estocástica-ede" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.6</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</h2>
 <p>Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna <span class="math inline">\(T(t)\)</span> del refrigerador está gobernada por:</p>
 <p><span class="math display">\[dT(t) = \kappa(\alpha(t)) [\theta(\alpha(t)) - T(t)] dt + \sigma(\alpha(t)) dW(t) + \gamma dN_{puerta}(t)\]</span></p>
 <p>Para reflejar fielmente a un equipo institucional que cumple el estándar de la OMS (como el modelo Haier HBC-150), calibraremos los coeficientes.</p>
-<section id="régimen-1-operación-normal-alphat-1" class="level3" data-number="3.7.1">
-<h3 data-number="3.7.1" class="anchored" data-anchor-id="régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.7.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
+<section id="régimen-1-operación-normal-alphat-1" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.6.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
 <p>Ocurre cuando hay energía eléctrica y el compresor funciona. * <strong>Temperatura de Consigna (<span class="math inline">\(\theta_1\)</span>)</strong>: Se establece en <strong><span class="math inline">\(5^\circ \text{C}\)</span></strong>, el centro ideal del rango normativo de seguridad (2°C a 8°C). * <strong>Velocidad de Enfriamiento (<span class="math inline">\(\kappa_1\)</span>)</strong>: Representa la capacidad del motor para recuperar la temperatura. Se calibra en <span class="math inline">\(\kappa_1 = 0.1188\)</span>. * <strong>Ruido del Compresor (<span class="math inline">\(\sigma_1\)</span>)</strong>: El motor prende y apaga intermitentemente para mantener los 5°C. Para que el 99.7% del tiempo las fluctuaciones se mantengan en un rango de <span class="math inline">\(\pm 3^\circ \text{C}\)</span> (regla empírica de 3 sigmas del proceso Ornstein-Uhlenbeck), calculamos <span class="math inline">\(\sigma_1 = \sqrt{0.2376} \approx 0.487\)</span>.</p>
 </section>
-<section id="régimen-2-falla-eléctrica-alphat-2" class="level3" data-number="3.7.2">
-<h3 data-number="3.7.2" class="anchored" data-anchor-id="régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.7.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
+<section id="régimen-2-falla-eléctrica-alphat-2" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.6.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
 <p>Se activa cuando el Proceso de Poisson dispara un apagón. * <strong>Temperatura Exterior (<span class="math inline">\(\theta_2\)</span>)</strong>: Para evaluar el caso crítico en Tuxtla Gutiérrez, fijamos una temperatura ambiental extrema de <strong><span class="math inline">\(43^\circ \text{C}\)</span></strong>. * <strong>Inercia Térmica (<span class="math inline">\(\kappa_2\)</span>)</strong>: Los refrigeradores OMS cuentan con paquetes de hielo como “masa térmica”. El equipo Haier garantiza un <em>Holdover Time</em> (tiempo de autonomía) de 63.8 horas a 43°C antes de rebasar los 8°C. Usando la solución analítica de enfriamiento determinista de 5°C a 8°C: <span class="math display">\[8 = 43 + (5 - 43) e^{-\kappa_2 (63.8)}\]</span> Al despejar, obtenemos un valor sumamente bajo de <span class="math inline">\(\kappa_2 \approx 0.00128\)</span>, lo que demuestra la alta efectividad del aislamiento térmico. * <strong>Volatilidad Externa (<span class="math inline">\(\sigma_2\)</span>)</strong>: Sin compresor encendido, las variaciones obedecen solo a micro-filtraciones de aire. Establecemos un ruido menor: <span class="math inline">\(\sigma_2 = 0.05\)</span>.</p>
 </section>
-<section id="perturbaciones-discretas-apertura-de-puertas-n_puertat" class="level3" data-number="3.7.3">
-<h3 data-number="3.7.3" class="anchored" data-anchor-id="perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.7.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</h3>
+<section id="perturbaciones-discretas-apertura-de-puertas-n_puertat" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.6.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</h3>
 <p>Las aperturas de puerta son provocadas activamente por el personal de enfermería para sacar o guardar biológicos. * <strong>Tasa de Aperturas</strong>: Se modelan con un Proceso de Poisson Homogéneo que ocurre solo durante el horario laboral. * <strong>Impacto de la Apertura (<span class="math inline">\(\gamma\)</span>)</strong>: Asignamos un incremento térmico inmediato de <strong><span class="math inline">\(+0.5^\circ \text{C}\)</span></strong> por evento. Esta es la perturbación que altera bruscamente la temperatura.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-cfe2024informe" class="csl-entry" role="listitem">
+Comisión Federal de Electricidad. 2024. <span>«Informe Anual 2024»</span>. Ciudad de México: Gobierno de México.
+</div>
+<div id="ref-sener2024prodesen" class="csl-entry" role="listitem">
+Secretaría de Energía. 2024. <span>«Programa para el Desarrollo del Sistema Eléctrico Nacional (PRODESEN) 2024-2038»</span>. Ciudad de México: Gobierno de México.
+</div>
+</div>
 </section>
 </section>
 
