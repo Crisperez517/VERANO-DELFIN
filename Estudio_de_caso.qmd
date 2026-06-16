@@ -12,17 +12,17 @@ El objetivo fundamental es modelar la tasa de ocurrencia de interrupciones del s
 
 1. **SAIFI (Índice de la Frecuencia de Interrupción, en número):** El indicador SAIFI mide la frecuencia con que se interrumpe el servicio a los usuarios por causas propias del transportista y se calcula evalúa como:
 $$
-SAIFI = \frac{\sum \text{Número total de interrupciones de clientes}}{\text{Número total de clientes servidos}}
+SAIFI = \frac{\sum \text{Número total de interrupciones por usuario}}{\text{Número total de usuarios}}
 $$
 
 2. **SAIDI (Índice de Duración Promedio de Interrupción, en minutos):** El inicador SAIDI mide en minutos el tiempo que los usuarios del servicio de energía eléctrica no cuentan con servicio por causas atribuibles al transportista y se evalúa como:
 $$
-SAIDI = \frac{\sum \text{Duración total de las interrupciones de clientes}}{\text{Número total de clientes servidos}}
+SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usuario}}{\text{Número total de usuarios}}
 $$
 
-Mediante una solicitud de información pública por transparencia dirigida a la CFE, se obtuvo el registro histórico y proyectado del promedio mensual de interrupciones y su duración para el municipio de Tuxtla Gutiérrez.
+Mediante una solicitud de información pública de transparencia dirigida a la CFE, se obtuvo el registro histórico del promedio mensual de interrupciones y su duración para el municipio de Tuxtla Gutiérrez.
 
-| Año | Cortes Promedio al Mes | Duración Promedio (Horas) |
+| Año | Número de interrupciones \\ promedio por mes | Duración Promedio de las \\ interrupciones (Horas) |
 |:---:|:---:|:---:|
 | 2019 | 25 | 2.02 |
 | 2020 | 42 | 1.73 |

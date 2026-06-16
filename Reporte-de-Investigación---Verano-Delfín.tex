@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -1286,31 +1286,45 @@ internacionales de confiabilidad:
   El indicador SAIFI mide la frecuencia con que se interrumpe el
   servicio a los usuarios por causas propias del transportista y se
   calcula evalúa como: \[
-  SAIFI = \frac{\sum \text{Número total de interrupciones de clientes}}{\text{Número total de clientes servidos}}
+  SAIFI = \frac{\sum \text{Número total de interrupciones por usuario}}{\text{Número total de usuarios}}
   \]
 \item
   \textbf{SAIDI (Índice de Duración Promedio de Interrupción, en
   minutos):} El inicador SAIDI mide en minutos el tiempo que los
   usuarios del servicio de energía eléctrica no cuentan con servicio por
   causas atribuibles al transportista y se evalúa como: \[
-  SAIDI = \frac{\sum \text{Duración total de las interrupciones de clientes}}{\text{Número total de clientes servidos}}
+  SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usuario}}{\text{Número total de usuarios}}
   \]
 \end{enumerate}
 
-Mediante una solicitud de información pública por transparencia dirigida
-a la CFE, se obtuvo el registro histórico y proyectado del promedio
-mensual de interrupciones y su duración para el municipio de Tuxtla
-Gutiérrez.
+Mediante una solicitud de información pública de transparencia dirigida
+a la CFE, se obtuvo el registro histórico del promedio mensual de
+interrupciones y su duración para el municipio de Tuxtla Gutiérrez.
 
-\begin{longtable}[]{@{}ccc@{}}
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \caption{Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas
 (Fuente: Solicitud de Transparencia a la CFE).}\tabularnewline
 \toprule\noalign{}
-Año & Cortes Promedio al Mes & Duración Promedio (Horas) \\
+\begin{minipage}[b]{\linewidth}\centering
+Año
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Número de interrupciones \textbackslash{} promedio por mes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Duración Promedio de las \textbackslash{} interrupciones (Horas)
+\end{minipage} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-Año & Cortes Promedio al Mes & Duración Promedio (Horas) \\
+\begin{minipage}[b]{\linewidth}\centering
+Año
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Número de interrupciones \textbackslash{} promedio por mes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Duración Promedio de las \textbackslash{} interrupciones (Horas)
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
