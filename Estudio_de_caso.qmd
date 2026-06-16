@@ -22,7 +22,7 @@ $$
 
 Mediante una solicitud de información pública de transparencia dirigida a la CFE, se obtuvo el registro histórico del promedio mensual de interrupciones y su duración para el municipio de Tuxtla Gutiérrez.
 
-| Año | Número de interrupciones \\ promedio por mes | Duración Promedio de las \\ interrupciones (Horas) |
+| Año | Número de interrupciones \ promedio por mes | Duración Promedio de las \ interrupciones (Horas) |
 |:---:|:---:|:---:|
 | 2019 | 25 | 2.02 |
 | 2020 | 42 | 1.73 |
