@@ -430,12 +430,13 @@ window.Quarto = {
   <li><a href="#la-esperanza-matemática-local" id="toc-la-esperanza-matemática-local" class="nav-link" data-scroll-target="#la-esperanza-matemática-local"><span class="header-section-number">3.3.2</span> La Esperanza Matemática Local</a></li>
   </ul></li>
   <li><a href="#distribución-temporal-de-las-fallas" id="toc-distribución-temporal-de-las-fallas" class="nav-link" data-scroll-target="#distribución-temporal-de-las-fallas"><span class="header-section-number">3.4</span> Distribución Temporal de las Fallas</a></li>
-  <li><a href="#validación-del-modelo-cálculo-integral" id="toc-validación-del-modelo-cálculo-integral" class="nav-link" data-scroll-target="#validación-del-modelo-cálculo-integral"><span class="header-section-number">3.5</span> Validación del Modelo (Cálculo Integral)</a></li>
-  <li><a href="#calibración-de-la-ecuación-diferencial-estocástica-ede" id="toc-calibración-de-la-ecuación-diferencial-estocástica-ede" class="nav-link" data-scroll-target="#calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.6</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</a>
+  <li><a href="#modelado-del-proceso-de-poisson-no-homogéneo-ppnh" id="toc-modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="nav-link" data-scroll-target="#modelado-del-proceso-de-poisson-no-homogéneo-ppnh"><span class="header-section-number">3.5</span> Modelado del Proceso de Poisson No Homogéneo (PPNH)</a></li>
+  <li><a href="#validación-del-modelo-cálculo-integral" id="toc-validación-del-modelo-cálculo-integral" class="nav-link" data-scroll-target="#validación-del-modelo-cálculo-integral"><span class="header-section-number">3.6</span> Validación del Modelo (Cálculo Integral)</a></li>
+  <li><a href="#calibración-de-la-ecuación-diferencial-estocástica-ede" id="toc-calibración-de-la-ecuación-diferencial-estocástica-ede" class="nav-link" data-scroll-target="#calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.7</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</a>
   <ul class="collapse">
-  <li><a href="#régimen-1-operación-normal-alphat-1" id="toc-régimen-1-operación-normal-alphat-1" class="nav-link" data-scroll-target="#régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.6.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</a></li>
-  <li><a href="#régimen-2-falla-eléctrica-alphat-2" id="toc-régimen-2-falla-eléctrica-alphat-2" class="nav-link" data-scroll-target="#régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.6.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
-  <li><a href="#perturbaciones-discretas-apertura-de-puertas-n_puertat" id="toc-perturbaciones-discretas-apertura-de-puertas-n_puertat" class="nav-link" data-scroll-target="#perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.6.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</a></li>
+  <li><a href="#régimen-1-operación-normal-alphat-1" id="toc-régimen-1-operación-normal-alphat-1" class="nav-link" data-scroll-target="#régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.7.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</a></li>
+  <li><a href="#régimen-2-falla-eléctrica-alphat-2" id="toc-régimen-2-falla-eléctrica-alphat-2" class="nav-link" data-scroll-target="#régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.7.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
+  <li><a href="#perturbaciones-discretas-apertura-de-puertas-n_puertat" id="toc-perturbaciones-discretas-apertura-de-puertas-n_puertat" class="nav-link" data-scroll-target="#perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.7.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -737,7 +738,10 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
-<p>El análisis revela dos momentos críticos que comprometen la red de frío: el pico de calor reflejado en <strong>Junio (8 cortes)</strong> provocado por la saturación de aires acondicionados, y la temporada de lluvias fuertes y huracanes en <strong>Agosto y Septiembre (8 cortes)</strong>. El invierno representa un estado de alta estabilidad eléctrica. ## Modelado del Proceso de Poisson No Homogéneo (PPNH)</p>
+<p>El análisis revela dos momentos críticos que comprometen la red de frío: el pico de calor reflejado en <strong>Junio (8 cortes)</strong> provocado por la saturación de aires acondicionados, y la temporada de lluvias fuertes y huracanes en <strong>Agosto y Septiembre (8 cortes)</strong>. El invierno representa un estado de alta estabilidad eléctrica.</p>
+</section>
+<section id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh"><span class="header-section-number">3.5</span> Modelado del Proceso de Poisson No Homogéneo (PPNH)</h2>
 <p>Para integrar las fallas en la EDE, la ocurrencia de los cortes debe ser modelada en tiempo continuo <span class="math inline">\(t\)</span>, donde <span class="math inline">\(t \in [0, 365]\)</span> representa los días del año. Para ello, utilizamos un <strong>Proceso de Poisson No Homogéneo</strong>, cuya intensidad de fallas <span class="math inline">\(\lambda(t)\)</span> varía en el tiempo.</p>
 <p>El modelo se define como la suma de una tasa base constante y dos funciones de perturbación gaussianas. Las gaussianas modelan perfectamente cómo inicia y termina una ola de calor o temporada de lluvias de manera suave, evitando discontinuidades que harían inestable la simulación, y hacen coincidir el mayor riesgo de falla eléctrica justo en las épocas más calurosas del año.</p>
 <p>La función analítica propuesta es:</p>
@@ -754,8 +758,8 @@ Figura&nbsp;3.1: Función de intensidad de fallas eléctricas <span class="math 
 </figure>
 </div>
 </section>
-<section id="validación-del-modelo-cálculo-integral" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="validación-del-modelo-cálculo-integral"><span class="header-section-number">3.5</span> Validación del Modelo (Cálculo Integral)</h2>
+<section id="validación-del-modelo-cálculo-integral" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="validación-del-modelo-cálculo-integral"><span class="header-section-number">3.6</span> Validación del Modelo (Cálculo Integral)</h2>
 <p>En un Proceso de Poisson No Homogéneo, el número esperado de eventos en cualquier intervalo de tiempo <span class="math inline">\((t_1, t_2]\)</span> está dado estrictamente por el área bajo la curva de su función de intensidad: <span class="math inline">\(\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\)</span>.</p>
 <p>Para verificar que nuestro modelo matemático refleja la realidad, calculamos numéricamente las 12 integrales definidas para cada mes del año y las comparamos con el objetivo empírico de la CFE:</p>
 <table class="caption-top table">
@@ -832,21 +836,21 @@ Figura&nbsp;3.1: Función de intensidad de fallas eléctricas <span class="math 
 </table>
 <p>La suma total del dominio continuo arrojó un valor exacto de <strong>56.74 cortes</strong>, lo que empata perfectamente con nuestra meta de 57 eventos anuales. Esto garantiza que el generador estocástico de nuestra simulación en Python estará acoplado a la realidad operativa de Tuxtla Gutiérrez.</p>
 </section>
-<section id="calibración-de-la-ecuación-diferencial-estocástica-ede" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.6</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</h2>
+<section id="calibración-de-la-ecuación-diferencial-estocástica-ede" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.7</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</h2>
 <p>Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna <span class="math inline">\(T(t)\)</span> del refrigerador está gobernada por:</p>
 <p><span class="math display">\[dT(t) = \kappa(\alpha(t)) [\theta(\alpha(t)) - T(t)] dt + \sigma(\alpha(t)) dW(t) + \gamma dN_{puerta}(t)\]</span></p>
 <p>Para reflejar fielmente a un equipo institucional que cumple el estándar de la OMS (como el modelo Haier HBC-150), calibraremos los coeficientes.</p>
-<section id="régimen-1-operación-normal-alphat-1" class="level3" data-number="3.6.1">
-<h3 data-number="3.6.1" class="anchored" data-anchor-id="régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.6.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
+<section id="régimen-1-operación-normal-alphat-1" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.7.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
 <p>Ocurre cuando hay energía eléctrica y el compresor funciona. * <strong>Temperatura de Consigna (<span class="math inline">\(\theta_1\)</span>)</strong>: Se establece en <strong><span class="math inline">\(5^\circ \text{C}\)</span></strong>, el centro ideal del rango normativo de seguridad (2°C a 8°C). * <strong>Velocidad de Enfriamiento (<span class="math inline">\(\kappa_1\)</span>)</strong>: Representa la capacidad del motor para recuperar la temperatura. Se calibra en <span class="math inline">\(\kappa_1 = 0.1188\)</span>. * <strong>Ruido del Compresor (<span class="math inline">\(\sigma_1\)</span>)</strong>: El motor prende y apaga intermitentemente para mantener los 5°C. Para que el 99.7% del tiempo las fluctuaciones se mantengan en un rango de <span class="math inline">\(\pm 3^\circ \text{C}\)</span> (regla empírica de 3 sigmas del proceso Ornstein-Uhlenbeck), calculamos <span class="math inline">\(\sigma_1 = \sqrt{0.2376} \approx 0.487\)</span>.</p>
 </section>
-<section id="régimen-2-falla-eléctrica-alphat-2" class="level3" data-number="3.6.2">
-<h3 data-number="3.6.2" class="anchored" data-anchor-id="régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.6.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
+<section id="régimen-2-falla-eléctrica-alphat-2" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.7.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
 <p>Se activa cuando el Proceso de Poisson dispara un apagón. * <strong>Temperatura Exterior (<span class="math inline">\(\theta_2\)</span>)</strong>: Para evaluar el caso crítico en Tuxtla Gutiérrez, fijamos una temperatura ambiental extrema de <strong><span class="math inline">\(43^\circ \text{C}\)</span></strong>. * <strong>Inercia Térmica (<span class="math inline">\(\kappa_2\)</span>)</strong>: Los refrigeradores OMS cuentan con paquetes de hielo como “masa térmica”. El equipo Haier garantiza un <em>Holdover Time</em> (tiempo de autonomía) de 63.8 horas a 43°C antes de rebasar los 8°C. Usando la solución analítica de enfriamiento determinista de 5°C a 8°C: <span class="math display">\[8 = 43 + (5 - 43) e^{-\kappa_2 (63.8)}\]</span> Al despejar, obtenemos un valor sumamente bajo de <span class="math inline">\(\kappa_2 \approx 0.00128\)</span>, lo que demuestra la alta efectividad del aislamiento térmico. * <strong>Volatilidad Externa (<span class="math inline">\(\sigma_2\)</span>)</strong>: Sin compresor encendido, las variaciones obedecen solo a micro-filtraciones de aire. Establecemos un ruido menor: <span class="math inline">\(\sigma_2 = 0.05\)</span>.</p>
 </section>
-<section id="perturbaciones-discretas-apertura-de-puertas-n_puertat" class="level3" data-number="3.6.3">
-<h3 data-number="3.6.3" class="anchored" data-anchor-id="perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.6.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</h3>
+<section id="perturbaciones-discretas-apertura-de-puertas-n_puertat" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.7.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</h3>
 <p>Las aperturas de puerta son provocadas activamente por el personal de enfermería para sacar o guardar biológicos. * <strong>Tasa de Aperturas</strong>: Se modelan con un Proceso de Poisson Homogéneo que ocurre solo durante el horario laboral. * <strong>Impacto de la Apertura (<span class="math inline">\(\gamma\)</span>)</strong>: Asignamos un incremento térmico inmediato de <strong><span class="math inline">\(+0.5^\circ \text{C}\)</span></strong> por evento. Esta es la perturbación que altera bruscamente la temperatura.</p>
 
 
