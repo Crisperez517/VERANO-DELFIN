@@ -533,7 +533,7 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
-<p>Para este modelo, se toma como línea base el comportamiento histórico consolidado para el año <strong>2024</strong>, el cual indica un promedio de <strong>43 cortes por mes</strong>. Esto resulta en una esperanza matemática anual agregada a nivel municipal de:</p>
+<p>Para este modelo, se toma como línea base el comportamiento del año <strong>2024</strong>, el cual indica un promedio de <strong>43 cortes por mes</strong>. Esto resulta en un promedio anual a nivel municipal de:</p>
 <p><span class="math display">\[43 \text{ cortes/mes} \times 12 \text{ meses} = 516 \text{ cortes/año}\]</span></p>
 </section>
 <section id="corrección-de-escala-espacial-factor-kappa_espacial" class="level2" data-number="3.3">
@@ -545,16 +545,16 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </section>
 <section id="la-esperanza-matemática-local" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="la-esperanza-matemática-local"><span class="header-section-number">3.3.2</span> La Esperanza Matemática Local</h3>
-<p>Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (la subestación Tuxtla Norte, encargada de alimentar la zona de hospitales y laboratorios de la Colonia Maya) corresponde a un octavo del total municipal.</p>
+<p>Asumiendo que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (la subestación Tuxtla Norte, encargada de alimentar la zona de hospitales y laboratorios de la Colonia Maya) corresponde a un octavo del total municipal.</p>
 <p><span class="math display">\[\mathbb{E}[N_{local}] = \frac{516 \text{ cortes}}{8 \text{ subestaciones}} = 64.5 \approx 64 \text{ cortes al año}\]</span></p>
 <p>Al ajustar al entero más cercano, establecemos una base realista de <strong>64 interrupciones esperadas al año</strong> para nuestra simulación.</p>
 </section>
 </section>
 <section id="distribución-temporal-de-las-fallas" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="distribución-temporal-de-las-fallas"><span class="header-section-number">3.4</span> Distribución Temporal de las Fallas</h2>
-<p>Las interrupciones no ocurren de manera homogénea a lo largo del año (es decir, no se presentan exactamente 5.33 cortes idénticos cada mes). La variabilidad mensual depende directamente de los factores climáticos estacionales de la región. Para no asignar los apagones de manera subjetiva, utilizamos el comportamiento documentado en el <em>Informe Anual de la CFE 2024</em> <span class="citation" data-cites="cfe2024informe">(<a href="references.html#ref-cfe2024informe" role="doc-biblioref">Comisión Federal de Electricidad 2024</a>)</span>, específicamente en su página 82, donde se registra la evolución de los indicadores de continuidad del servicio a lo largo de los meses.</p>
+<p>Las interrupciones no ocurren de manera homogénea a lo largo del año (es decir, no se presentan exactamente 5.33 cortes idénticos cada mes). La variabilidad mensual depende directamente de los factores climáticos estacionales de la región. Para no asignar los apagones de manera aleatoria, utilizamos el comportamiento documentado en el <em>Informe Anual de la CFE 2024</em> <span class="citation" data-cites="cfe2024informe">(<a href="references.html#ref-cfe2024informe" role="doc-biblioref">Comisión Federal de Electricidad 2024</a>)</span>, específicamente en su página 82, donde se registra la evolución de los indicadores de continuidad del servicio a lo largo de los meses.</p>
 <table class="caption-top table">
-<caption>Tabla 2. Evolución mensual acumulada de los indicadores nacionales de calidad del suministro (Fuente: Informe Anual CFE 2024, p.&nbsp;82).</caption>
+<caption>Tabla 2. Evolución mensual acumulada de los indicadores SAIDI y SAIFI (Fuente: Informe Anual CFE 2024, p.&nbsp;82).</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Mes</th>
@@ -565,79 +565,78 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Enero</td>
-<td style="text-align: center;">1.011</td>
+<td style="text-align: center;">0.998</td>
 <td style="text-align: center;">0.013</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Febrero</td>
-<td style="text-align: center;">1.579</td>
+<td style="text-align: center;">1.110</td>
 <td style="text-align: center;">0.017</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Marzo</td>
-<td style="text-align: center;">2.115</td>
+<td style="text-align: center;">1.285</td>
 <td style="text-align: center;">0.022</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Abril</td>
-<td style="text-align: center;">2.651</td>
+<td style="text-align: center;">2.793</td>
 <td style="text-align: center;">0.027</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Mayo</td>
-<td style="text-align: center;">3.865</td>
+<td style="text-align: center;">4.120</td>
 <td style="text-align: center;">0.037</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Junio</td>
-<td style="text-align: center;">5.766</td>
+<td style="text-align: center;">5.774</td>
 <td style="text-align: center;">0.053</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Julio</td>
-<td style="text-align: center;">7.230</td>
+<td style="text-align: center;">6.557</td>
 <td style="text-align: center;">0.065</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Agosto</td>
-<td style="text-align: center;">9.387</td>
+<td style="text-align: center;">7.905</td>
 <td style="text-align: center;">0.080</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Septiembre</td>
-<td style="text-align: center;">11.238</td>
+<td style="text-align: center;">8.592</td>
 <td style="text-align: center;">0.096</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Octubre</td>
-<td style="text-align: center;">12.308</td>
+<td style="text-align: center;">9.063</td>
 <td style="text-align: center;">0.103</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Noviembre</td>
-<td style="text-align: center;">12.637</td>
+<td style="text-align: center;">9.314</td>
 <td style="text-align: center;">0.106</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Diciembre</td>
-<td style="text-align: center;">13.567</td>
+<td style="text-align: center;">10.812</td>
 <td style="text-align: center;">0.113</td>
 </tr>
 </tbody>
 </table>
-<p>Dado que el informe de la CFE publica el indicador SAIFI de forma acumulada (Year-to-Date), es necesario calcular la diferencia marginal (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para aislar el peso estadístico de cada mes de forma individual:</p>
+<p>Dado que el informe de la CFE publica el indicador SAIFI de forma acumulada, es necesario calcular la diferencia marginal (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para aislar el peso estadístico de cada mes de forma individual:</p>
 <p><span class="math display">\[
 \Delta \text{SAIFI}_i = \text{SAIFI}_i - \text{SAIFI}_{i-1}
-\]</span></p>
-<p>Para distribuir los 64 cortes anuales calculados para la subestación local respetando esta estacionalidad, aplicamos una <strong>regla de tres simple</strong>. Partimos de la premisa de que si el valor total del SAIFI al final del año (<span class="math inline">\(0.113\)</span>) representa el 100% de las fallas (equivalente a los 64 cortes locales), entonces el incremento mensual generado en cada periodo (<span class="math inline">\(\Delta \text{SAIFI}_i\)</span>) absorberá una fracción directamente proporcional de eventos. Expresado de forma general para cualquier mes <span class="math inline">\(i\)</span>, la asignación viene dada por la fórmula:</p>
+\]</span> @ Para distribuir los 64 cortes anuales calculados para la subestación local respetando esta estacionalidad, aplicamos una <strong>regla de tres simple</strong>. Suponiendo que el valor total del SAIFI al final del año (<span class="math inline">\(0.113\)</span>) representa el 100% de las fallas (equivalente a los 64 cortes), entonces el incremento mensual generado en cada periodo (<span class="math inline">\(\Delta \text{SAIFI}_i\)</span>) representara una fracción directamente proporcional de cortes. Expresado de forma general para cualquier mes <span class="math inline">\(i\)</span>, la asignación viene dada por:</p>
 <p><span class="math display">\[
 \text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{\text{SAIFI}_{total}} \right) \times \mathbb{E}[N_{local}]
 \]</span></p>
-<p>Sustituyendo los valores de nuestro escenario (<span class="math inline">\(\text{SAIFI}_{total} = 0.113\)</span> y <span class="math inline">\(\mathbb{E}[N_{local}] = 64\)</span>), la ecuación operativa del modelo es:</p>
+<p>Sustituyendo los valores de nuestro escenario (<span class="math inline">\(\text{SAIFI}_{total} = 0.113\)</span> y <span class="math inline">\(\mathbb{E}[N_{local}] = 64\)</span>), la ecuación del modelo es:</p>
 <p><span class="math display">\[
 \text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 64
 \]</span></p>
-<p>Al ejecutar este cálculo y redondear al evento discreto más cercano (realizando un ajuste fino para mantener la conservación de la suma total en 64), obtenemos la distribución estacional empírica de fallas:</p>
+<p>Al hacer este cálculo y redondeando al entero más cercano (realizando un ajuste para mantener la conservación de la suma total en 64), obtenemos la distribución estacional empírica de fallas:</p>
 <table class="caption-top table">
 <caption>Tabla 3. Distribución estacional de los 64 cortes locales calculada mediante proporcionalidad sobre el SAIFI 2024.</caption>
 <colgroup>
@@ -737,7 +736,12 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <p>El modelo se define como la suma de una tasa base constante y dos funciones de perturbación gaussianas. Las gaussianas modelan perfectamente cómo inicia y termina una ola de calor o temporada de lluvias de manera suave, evitando discontinuidades que harían inestable la simulación, y hacen coincidir el mayor riesgo de falla eléctrica justo en las épocas más calurosas del año.</p>
 <p>La función analítica propuesta es:</p>
 <p><span class="math display">\[\lambda(t) = 0.07 + 0.30 \exp\left(-\frac{(t - 165)^2}{800}\right) + 0.28 \exp\left(-\frac{(t - 258)^2}{1250}\right)\]</span></p>
-<p>Donde: * <strong><span class="math inline">\(0.07\)</span>:</strong> Es el ruido de fondo (fallas aleatorias de infraestructura), garantizando que exista riesgo incluso en invierno. * <strong>El primer exponencial:</strong> Captura la anomalía térmica de Junio (día 165 del año) con una amplitud de <span class="math inline">\(0.30\)</span> cortes adicionales por día. * <strong>El segundo exponencial:</strong> Captura la anomalía pluvial de Septiembre (día 258) con una cola de varianza más ancha para cubrir los huracanes de agosto a octubre.</p>
+<p>Donde:</p>
+<ul>
+<li><p><strong><span class="math inline">\(0.07\)</span>:</strong> Es el ruido de fondo (fallas aleatorias de infraestructura), garantizando que exista riesgo incluso en invierno.</p></li>
+<li><p><strong>El primer exponencial:</strong> Captura la anomalía térmica de Junio (día 165 del año) con una amplitud de <span class="math inline">\(0.30\)</span> cortes adicionales por día.</p></li>
+<li><p><strong>El segundo exponencial:</strong> Captura la anomalía pluvial de Septiembre (día 258) con una cola de varianza más ancha para cubrir los huracanes de agosto a octubre.</p></li>
+</ul>
 <div id="fig-lambda-t" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lambda-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">

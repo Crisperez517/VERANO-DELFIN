@@ -1338,10 +1338,9 @@ Duración Promedio de las interrupciones (Horas)
 2025 & 38 & 2.02 \\
 \end{longtable}
 
-Para este modelo, se toma como línea base el comportamiento histórico
-consolidado para el año \textbf{2024}, el cual indica un promedio de
-\textbf{43 cortes por mes}. Esto resulta en una esperanza matemática
-anual agregada a nivel municipal de:
+Para este modelo, se toma como línea base el comportamiento del año
+\textbf{2024}, el cual indica un promedio de \textbf{43 cortes por mes}.
+Esto resulta en un promedio anual a nivel municipal de:
 
 \[43 \text{ cortes/mes} \times 12 \text{ meses} = 516 \text{ cortes/año}\]
 
@@ -1371,12 +1370,11 @@ Mactumatzá y Real del Bosque).
 \subsection{La Esperanza Matemática
 Local}\label{la-esperanza-matemuxe1tica-local}
 
-Asumiendo por el principio de razón suficiente que las fallas de
-transmisión se distribuyen de manera uniforme sobre estas
-infraestructuras, el riesgo que absorbe el edificio de interés (la
-subestación Tuxtla Norte, encargada de alimentar la zona de hospitales y
-laboratorios de la Colonia Maya) corresponde a un octavo del total
-municipal.
+Asumiendo que las fallas de transmisión se distribuyen de manera
+uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio
+de interés (la subestación Tuxtla Norte, encargada de alimentar la zona
+de hospitales y laboratorios de la Colonia Maya) corresponde a un octavo
+del total municipal.
 
 \[\mathbb{E}[N_{local}] = \frac{516 \text{ cortes}}{8 \text{ subestaciones}} = 64.5 \approx 64 \text{ cortes al año}\]
 
@@ -1390,16 +1388,15 @@ Las interrupciones no ocurren de manera homogénea a lo largo del año (es
 decir, no se presentan exactamente 5.33 cortes idénticos cada mes). La
 variabilidad mensual depende directamente de los factores climáticos
 estacionales de la región. Para no asignar los apagones de manera
-subjetiva, utilizamos el comportamiento documentado en el \emph{Informe
+aleatoria, utilizamos el comportamiento documentado en el \emph{Informe
 Anual de la CFE 2024} (\citeproc{ref-cfe2024informe}{Comisión Federal de
 Electricidad 2024}), específicamente en su página 82, donde se registra
 la evolución de los indicadores de continuidad del servicio a lo largo
 de los meses.
 
 \begin{longtable}[]{@{}lcc@{}}
-\caption{Tabla 2. Evolución mensual acumulada de los indicadores
-nacionales de calidad del suministro (Fuente: Informe Anual CFE 2024,
-p.~82).}\tabularnewline
+\caption{Tabla 2. Evolución mensual acumulada de los indicadores SAIDI y
+SAIFI (Fuente: Informe Anual CFE 2024, p.~82).}\tabularnewline
 \toprule\noalign{}
 Mes & SAIDI Acumulado (Horas) & SAIFI Acumulado \\
 \midrule\noalign{}
@@ -1410,38 +1407,35 @@ Mes & SAIDI Acumulado (Horas) & SAIFI Acumulado \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Enero & 1.011 & 0.013 \\
-Febrero & 1.579 & 0.017 \\
-Marzo & 2.115 & 0.022 \\
-Abril & 2.651 & 0.027 \\
-Mayo & 3.865 & 0.037 \\
-Junio & 5.766 & 0.053 \\
-Julio & 7.230 & 0.065 \\
-Agosto & 9.387 & 0.080 \\
-Septiembre & 11.238 & 0.096 \\
-Octubre & 12.308 & 0.103 \\
-Noviembre & 12.637 & 0.106 \\
-Diciembre & 13.567 & 0.113 \\
+Enero & 0.998 & 0.013 \\
+Febrero & 1.110 & 0.017 \\
+Marzo & 1.285 & 0.022 \\
+Abril & 2.793 & 0.027 \\
+Mayo & 4.120 & 0.037 \\
+Junio & 5.774 & 0.053 \\
+Julio & 6.557 & 0.065 \\
+Agosto & 7.905 & 0.080 \\
+Septiembre & 8.592 & 0.096 \\
+Octubre & 9.063 & 0.103 \\
+Noviembre & 9.314 & 0.106 \\
+Diciembre & 10.812 & 0.113 \\
 \end{longtable}
 
 Dado que el informe de la CFE publica el indicador SAIFI de forma
-acumulada (Year-to-Date), es necesario calcular la diferencia marginal
-(\(\Delta\)) respecto al mes anterior para aislar el peso estadístico de
-cada mes de forma individual:
+acumulada, es necesario calcular la diferencia marginal (\(\Delta\))
+respecto al mes anterior para aislar el peso estadístico de cada mes de
+forma individual:
 
 \[
 \Delta \text{SAIFI}_i = \text{SAIFI}_i - \text{SAIFI}_{i-1}
-\]
-
-Para distribuir los 64 cortes anuales calculados para la subestación
-local respetando esta estacionalidad, aplicamos una \textbf{regla de
-tres simple}. Partimos de la premisa de que si el valor total del SAIFI
+\] @ Para distribuir los 64 cortes anuales calculados para la
+subestación local respetando esta estacionalidad, aplicamos una
+\textbf{regla de tres simple}. Suponiendo que el valor total del SAIFI
 al final del año (\(0.113\)) representa el 100\% de las fallas
-(equivalente a los 64 cortes locales), entonces el incremento mensual
-generado en cada periodo (\(\Delta \text{SAIFI}_i\)) absorberá una
-fracción directamente proporcional de eventos. Expresado de forma
-general para cualquier mes \(i\), la asignación viene dada por la
-fórmula:
+(equivalente a los 64 cortes), entonces el incremento mensual generado
+en cada periodo (\(\Delta \text{SAIFI}_i\)) representara una fracción
+directamente proporcional de cortes. Expresado de forma general para
+cualquier mes \(i\), la asignación viene dada por:
 
 \[
 \text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{\text{SAIFI}_{total}} \right) \times \mathbb{E}[N_{local}]
@@ -1449,15 +1443,15 @@ fórmula:
 
 Sustituyendo los valores de nuestro escenario
 (\(\text{SAIFI}_{total} = 0.113\) y \(\mathbb{E}[N_{local}] = 64\)), la
-ecuación operativa del modelo es:
+ecuación del modelo es:
 
 \[
 \text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 64
 \]
 
-Al ejecutar este cálculo y redondear al evento discreto más cercano
-(realizando un ajuste fino para mantener la conservación de la suma
-total en 64), obtenemos la distribución estacional empírica de fallas:
+Al hacer este cálculo y redondeando al entero más cercano (realizando un
+ajuste para mantener la conservación de la suma total en 64), obtenemos
+la distribución estacional empírica de fallas:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2105}}
@@ -1533,13 +1527,21 @@ La función analítica propuesta es:
 
 \[\lambda(t) = 0.07 + 0.30 \exp\left(-\frac{(t - 165)^2}{800}\right) + 0.28 \exp\left(-\frac{(t - 258)^2}{1250}\right)\]
 
-Donde: * \textbf{\(0.07\):} Es el ruido de fondo (fallas aleatorias de
-infraestructura), garantizando que exista riesgo incluso en invierno. *
-\textbf{El primer exponencial:} Captura la anomalía térmica de Junio
-(día 165 del año) con una amplitud de \(0.30\) cortes adicionales por
-día. * \textbf{El segundo exponencial:} Captura la anomalía pluvial de
-Septiembre (día 258) con una cola de varianza más ancha para cubrir los
-huracanes de agosto a octubre.
+Donde:
+
+\begin{itemize}
+\item
+  \textbf{\(0.07\):} Es el ruido de fondo (fallas aleatorias de
+  infraestructura), garantizando que exista riesgo incluso en invierno.
+\item
+  \textbf{El primer exponencial:} Captura la anomalía térmica de Junio
+  (día 165 del año) con una amplitud de \(0.30\) cortes adicionales por
+  día.
+\item
+  \textbf{El segundo exponencial:} Captura la anomalía pluvial de
+  Septiembre (día 258) con una cola de varianza más ancha para cubrir
+  los huracanes de agosto a octubre.
+\end{itemize}
 
 \begin{figure}
 
