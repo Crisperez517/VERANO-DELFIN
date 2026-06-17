@@ -99,6 +99,7 @@ Al ejecutar este cálculo y redondear al evento discreto más cercano (ajustando
 : Tabla 3. Distribución estacional de los 57 cortes locales proyectados usando la densidad del SAIFI 2024.
 
 El análisis revela dos momentos críticos que comprometen la red de frío: el pico de calor reflejado en **Junio (8 cortes)** provocado por la saturación de aires acondicionados, y la temporada de lluvias fuertes y huracanes en **Agosto y Septiembre (8 cortes)**. El invierno representa un estado de alta estabilidad eléctrica.
+
 ## Modelado del Proceso de Poisson No Homogéneo (PPNH)
 
 Para integrar las fallas en la EDE, la ocurrencia de los cortes debe ser modelada en tiempo continuo $t$, donde $t \in [0, 365]$ representa los días del año. Para ello, utilizamos un **Proceso de Poisson No Homogéneo**, cuya intensidad de fallas $\lambda(t)$ varía en el tiempo.
