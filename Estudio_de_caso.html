@@ -533,40 +533,33 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
-<p>Para este modelo, se toma como línea base el comportamiento proyectado para el año <strong>2025</strong>, el cual indica <strong>38 cortes por mes en promedio</strong>. Esto resulta en una esperanza matemática anual agregada de:</p>
-<p><span class="math display">\[38 \text{ cortes/mes} \times 12 \text{ meses} = 456 \text{ cortes/año}\]</span></p>
+<p>Para este modelo, se toma como línea base el comportamiento histórico consolidado para el año <strong>2024</strong>, el cual indica un promedio de <strong>43 cortes por mes</strong>. Esto resulta en una esperanza matemática anual agregada a nivel municipal de:</p>
+<p><span class="math display">\[43 \text{ cortes/mes} \times 12 \text{ meses} = 516 \text{ cortes/año}\]</span></p>
 </section>
 <section id="corrección-de-escala-espacial-factor-kappa_espacial" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="corrección-de-escala-espacial-factor-kappa_espacial"><span class="header-section-number">3.3</span> Corrección de Escala Espacial (Factor <span class="math inline">\(\kappa_{espacial}\)</span>)</h2>
 <section id="justificación-de-la-reducción-de-escala" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="justificación-de-la-reducción-de-escala"><span class="header-section-number">3.3.1</span> Justificación de la Reducción de Escala</h3>
-<p>El valor de 456 cortes al año es un dato agregado a nivel municipal. En la modelación estocástica, utilizar directamente este valor para un solo refrigerador implicaría asumir que el edificio clínico sufre más de un apagón diario, lo cual carece de sentido físico. Este error ocurre al ignorar que un edificio está conectado a un solo nodo de la red, no a todos simultáneamente.</p>
+<p>El valor de 516 cortes al año es un dato agregado de todo el municipio. En la modelación aplicada, utilizar directamente este valor para un solo refrigerador implicaría asumir que el edificio clínico sufre más de un apagón diario, lo cual no es físicamente real. Este error ocurre al ignorar que un edificio está conectado a un solo nodo de la red, no a todos simultáneamente.</p>
 <p>Para solucionar esto, introducimos un factor de escala espacial. De acuerdo con el Programa para el Desarrollo del Sistema Eléctrico Nacional (PRODESEN) y los diagramas de infraestructura del Centro Nacional de Control de Energía (CENACE) <span class="citation" data-cites="sener2024prodesen">(<a href="references.html#ref-sener2024prodesen" role="doc-biblioref">Secretaría de Energía 2024</a>)</span>, la mancha urbana de Tuxtla Gutiérrez está alimentada de manera sectorizada por exactamente <strong>8 subestaciones principales</strong> de distribución (Tuxtla Céntrica, Oriente, Poniente, Terán, Tuxtla Norte, Tuxtla Dos, Mactumatzá y Real del Bosque).</p>
 </section>
 <section id="la-esperanza-matemática-local" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="la-esperanza-matemática-local"><span class="header-section-number">3.3.2</span> La Esperanza Matemática Local</h3>
-<p>Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (por ejemplo, la subestación Tuxtla Norte que alimenta a la zona de hospitales) corresponde a un octavo del total municipal.</p>
-<p><span class="math display">\[\mathbb{E}[N_{local}] = \frac{456 \text{ cortes}}{8 \text{ subestaciones}} = 57 \text{ cortes al año}\]</span></p>
-<p>Esto establece una base realista de <strong>57 interrupciones esperadas al año</strong> (un promedio de 4.75 al mes) para nuestra simulación.</p>
+<p>Asumiendo por el principio de razón suficiente que las fallas de transmisión se distribuyen de manera uniforme sobre estas infraestructuras, el riesgo que absorbe el edificio de interés (la subestación Tuxtla Norte, encargada de alimentar la zona de hospitales y laboratorios de la Colonia Maya) corresponde a un octavo del total municipal.</p>
+<p><span class="math display">\[\mathbb{E}[N_{local}] = \frac{516 \text{ cortes}}{8 \text{ subestaciones}} = 64.5 \approx 64 \text{ cortes al año}\]</span></p>
+<p>Al ajustar al entero más cercano, establecemos una base realista de <strong>64 interrupciones esperadas al año</strong> para nuestra simulación.</p>
 </section>
 </section>
 <section id="distribución-temporal-de-las-fallas" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="distribución-temporal-de-las-fallas"><span class="header-section-number">3.4</span> Distribución Temporal de las Fallas</h2>
-<p>Las interrupciones no se distribuyen de manera homogénea a lo largo del año (es decir, no ocurren 4.75 cortes exactos cada mes). La variabilidad depende drásticamente de los fenómenos climatológicos (olas de calor y huracanes). Para no asignar cortes de manera subjetiva, utilizamos el comportamiento nacional reportado en el <em>Informe Anual de la CFE 2024</em> <span class="citation" data-cites="cfe2024informe">(<a href="references.html#ref-cfe2024informe" role="doc-biblioref">Comisión Federal de Electricidad 2024</a>)</span>, específicamente en su página 82, donde se documenta la evolución acumulada de los indicadores SAIFI y SAIDI a lo largo de los 12 meses.</p>
+<p>Las interrupciones no ocurren de manera homogénea a lo largo del año (es decir, no se presentan exactamente 5.33 cortes idénticos cada mes). La variabilidad mensual depende directamente de los factores climáticos estacionales de la región. Para no asignar los apagones de manera subjetiva, utilizamos el comportamiento documentado en el <em>Informe Anual de la CFE 2024</em> <span class="citation" data-cites="cfe2024informe">(<a href="references.html#ref-cfe2024informe" role="doc-biblioref">Comisión Federal de Electricidad 2024</a>)</span>, específicamente en su página 82, donde se registra la evolución de los indicadores de continuidad del servicio a lo largo de los meses.</p>
 <table class="caption-top table">
-<caption>Tabla 2. Evolución mensual de los indicadores del tiempo total de interrupción por usuario a nivel nacional (Fuente: Informe Anual CFE 2024, p.&nbsp;82).</caption>
-<colgroup>
-<col style="width: 21%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-</colgroup>
+<caption>Tabla 2. Evolución mensual acumulada de los indicadores nacionales de calidad del suministro (Fuente: Informe Anual CFE 2024, p.&nbsp;82).</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Mes</th>
 <th style="text-align: center;">SAIDI Acumulado (Horas)</th>
 <th style="text-align: center;">SAIFI Acumulado</th>
-<th style="text-align: center;">Usuarios (Millones)</th>
 </tr>
 </thead>
 <tbody>
@@ -574,81 +567,79 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <td style="text-align: left;">Enero</td>
 <td style="text-align: center;">1.011</td>
 <td style="text-align: center;">0.013</td>
-<td style="text-align: center;">48.4</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Febrero</td>
 <td style="text-align: center;">1.579</td>
 <td style="text-align: center;">0.017</td>
-<td style="text-align: center;">48.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Marzo</td>
 <td style="text-align: center;">2.115</td>
 <td style="text-align: center;">0.022</td>
-<td style="text-align: center;">48.6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Abril</td>
 <td style="text-align: center;">2.651</td>
 <td style="text-align: center;">0.027</td>
-<td style="text-align: center;">48.6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Mayo</td>
 <td style="text-align: center;">3.865</td>
 <td style="text-align: center;">0.037</td>
-<td style="text-align: center;">48.7</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Junio</td>
 <td style="text-align: center;">5.766</td>
 <td style="text-align: center;">0.053</td>
-<td style="text-align: center;">48.8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Julio</td>
 <td style="text-align: center;">7.230</td>
 <td style="text-align: center;">0.065</td>
-<td style="text-align: center;">48.9</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Agosto</td>
 <td style="text-align: center;">9.387</td>
 <td style="text-align: center;">0.080</td>
-<td style="text-align: center;">48.9</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Septiembre</td>
 <td style="text-align: center;">11.238</td>
 <td style="text-align: center;">0.096</td>
-<td style="text-align: center;">49.0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Octubre</td>
 <td style="text-align: center;">12.308</td>
 <td style="text-align: center;">0.103</td>
-<td style="text-align: center;">49.1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Noviembre</td>
 <td style="text-align: center;">12.637</td>
 <td style="text-align: center;">0.106</td>
-<td style="text-align: center;">49.2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Diciembre</td>
 <td style="text-align: center;">13.567</td>
 <td style="text-align: center;">0.113</td>
-<td style="text-align: center;">49.3</td>
 </tr>
 </tbody>
 </table>
-<p>Dado que el informe publica el SAIFI de forma acumulada, calculamos la diferencia (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para encontrar el peso relativo de cada mes de forma aislada. Sabiendo que el total anual del SAIFI (0.113) engloba el 100% de las fallas del año, lo equiparamos a nuestra esperanza local calculada previamente de 57 cortes. La asignación de apagones esperados para cada mes <span class="math inline">\(i\)</span> se realiza mediante una simple proporcionalidad matemática:</p>
-<p><span class="math display">\[\text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 57\]</span></p>
-<p>Al ejecutar este cálculo y redondear al evento discreto más cercano (ajustando para conservar la suma total), obtenemos el perfil temporal empírico de las fallas para el municipio:</p>
+<p>Dado que el informe de la CFE publica el indicador SAIFI de forma acumulada (Year-to-Date), es necesario calcular la diferencia marginal (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para aislar el peso estadístico de cada mes de forma individual:</p>
+<p><span class="math display">\[
+\Delta \text{SAIFI}_i = \text{SAIFI}_i - \text{SAIFI}_{i-1}
+\]</span></p>
+<p>Para distribuir los 64 cortes anuales calculados para la subestación local respetando esta estacionalidad, aplicamos una <strong>regla de tres simple</strong>. Partimos de la premisa de que si el valor total del SAIFI al final del año (<span class="math inline">\(0.113\)</span>) representa el 100% de las fallas (equivalente a los 64 cortes locales), entonces el incremento mensual generado en cada periodo (<span class="math inline">\(\Delta \text{SAIFI}_i\)</span>) absorberá una fracción directamente proporcional de eventos. Expresado de forma general para cualquier mes <span class="math inline">\(i\)</span>, la asignación viene dada por la fórmula:</p>
+<p><span class="math display">\[
+\text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{\text{SAIFI}_{total}} \right) \times \mathbb{E}[N_{local}]
+\]</span></p>
+<p>Sustituyendo los valores de nuestro escenario (<span class="math inline">\(\text{SAIFI}_{total} = 0.113\)</span> y <span class="math inline">\(\mathbb{E}[N_{local}] = 64\)</span>), la ecuación operativa del modelo es:</p>
+<p><span class="math display">\[
+\text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 64
+\]</span></p>
+<p>Al ejecutar este cálculo y redondear al evento discreto más cercano (realizando un ajuste fino para mantener la conservación de la suma total en 64), obtenemos la distribución estacional empírica de fallas:</p>
 <table class="caption-top table">
-<caption>Tabla 3. Distribución estacional de los 57 cortes locales proyectados usando la densidad del SAIFI 2024.</caption>
+<caption>Tabla 3. Distribución estacional de los 64 cortes locales calculada mediante proporcionalidad sobre el SAIFI 2024.</caption>
 <colgroup>
 <col style="width: 21%">
 <col style="width: 26%">
@@ -667,78 +658,78 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <tr class="odd">
 <td style="text-align: left;">Enero</td>
 <td style="text-align: center;">0.013</td>
-<td style="text-align: center;">6.56</td>
+<td style="text-align: center;">7.36</td>
 <td style="text-align: center;">7</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Febrero</td>
 <td style="text-align: center;">0.004</td>
-<td style="text-align: center;">2.02</td>
+<td style="text-align: center;">2.26</td>
 <td style="text-align: center;">2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Marzo</td>
 <td style="text-align: center;">0.005</td>
-<td style="text-align: center;">2.52</td>
-<td style="text-align: center;">2</td>
+<td style="text-align: center;">2.83</td>
+<td style="text-align: center;">3</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Abril</td>
 <td style="text-align: center;">0.005</td>
-<td style="text-align: center;">2.52</td>
-<td style="text-align: center;">2</td>
+<td style="text-align: center;">2.83</td>
+<td style="text-align: center;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Mayo</td>
 <td style="text-align: center;">0.010</td>
-<td style="text-align: center;">5.04</td>
-<td style="text-align: center;">5</td>
+<td style="text-align: center;">5.66</td>
+<td style="text-align: center;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Junio</td>
 <td style="text-align: center;">0.016</td>
-<td style="text-align: center;">8.07</td>
-<td style="text-align: center;">8</td>
+<td style="text-align: center;">9.06</td>
+<td style="text-align: center;">9</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Julio</td>
 <td style="text-align: center;">0.012</td>
-<td style="text-align: center;">6.05</td>
-<td style="text-align: center;">6</td>
+<td style="text-align: center;">6.79</td>
+<td style="text-align: center;">7</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Agosto</td>
 <td style="text-align: center;">0.015</td>
-<td style="text-align: center;">7.57</td>
+<td style="text-align: center;">8.49</td>
 <td style="text-align: center;">8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Septiembre</td>
 <td style="text-align: center;">0.016</td>
-<td style="text-align: center;">8.07</td>
-<td style="text-align: center;">8</td>
+<td style="text-align: center;">9.06</td>
+<td style="text-align: center;">9</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Octubre</td>
 <td style="text-align: center;">0.007</td>
-<td style="text-align: center;">3.53</td>
+<td style="text-align: center;">3.96</td>
 <td style="text-align: center;">4</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Noviembre</td>
 <td style="text-align: center;">0.003</td>
-<td style="text-align: center;">1.51</td>
-<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.70</td>
+<td style="text-align: center;">2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Diciembre</td>
 <td style="text-align: center;">0.007</td>
-<td style="text-align: center;">3.53</td>
+<td style="text-align: center;">3.96</td>
 <td style="text-align: center;">4</td>
 </tr>
 </tbody>
 </table>
-<p>El análisis revela dos momentos críticos que comprometen la red de frío: el pico de calor reflejado en <strong>Junio (8 cortes)</strong> provocado por la saturación de aires acondicionados, y la temporada de lluvias fuertes y huracanes en <strong>Agosto y Septiembre (8 cortes)</strong>. El invierno representa un estado de alta estabilidad eléctrica.</p>
+<p>El análisis de la Tabla 3 revela con claridad los dos momentos estacionales de mayor vulnerabilidad para la red de frío: el pico de verano en <strong>Junio (9 cortes)</strong>, ocasionado por la saturación de la red debido al uso masivo de sistemas de enfriamiento ambiental, y la temporada de tormentas tropicales en <strong>Agosto y Septiembre (8 y 9 cortes respectivamente)</strong>. Por su parte, la época invernal se consolida como el periodo de máxima estabilidad eléctrica en la región.</p>
 </section>
 <section id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh"><span class="header-section-number">3.5</span> Modelado del Proceso de Poisson No Homogéneo (PPNH)</h2>
