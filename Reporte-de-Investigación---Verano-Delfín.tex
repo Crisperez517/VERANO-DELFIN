@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -1559,7 +1559,7 @@ Gutiérrez (2024), se realiza el siguiente desglose analítico:
   \textbf{Tasa Base (\(\lambda_{base} = 0.0667\)):} Representa el riesgo
   mínimo de fondo debido a fallas fortuitas o mantenimiento de la red,
   independiente del clima. Se calcula desde los meses más estables
-  (febrero y noviembre, con 2 cortes al mes). Al prorratear este valor,
+  (febrero y noviembre, con 2 cortes al mes). Al dividir este valor,
   obtenemos la tasa diaria:
   \[\lambda_{base} = \frac{2 \text{ cortes}}{30 \text{ días}} \approx 0.0667 \text{ cortes/día}\]
 \item
@@ -1579,11 +1579,11 @@ Gutiérrez (2024), se realiza el siguiente desglose analítico:
 \item
   \textbf{Varianzas Estacionales (\(\sigma_1 = 40\) y
   \(\sigma_2 = 30\)):} Controlan el ancho temporal de las afectaciones.
-  Para la ola de calor, se asigna una desviación de \(40\) días
+  Para la ola de calor, se asigna una desviación estándar de \(40\) días
   (varianza \(2\sigma_1^2 = 3200\)) para garantizar que la campana sea
   lo suficientemente ancha como para cubrir desde finales de abril
   (cuando inician las altas temperaturas) hasta mediados de julio. Para
-  las lluvias, una desviación de \(30\) días (varianza
+  las lluvias, una desviación estándar de \(30\) días (varianza
   \(2\sigma_2^2 = 1800\)) modela una perturbación que cubre por completo
   agosto y septiembre, extendiéndose hacia octubre.
 \end{itemize}
@@ -1615,8 +1615,7 @@ Integral)}\label{validaciuxf3n-del-modelo-cuxe1lculo-integral}
 
 Por los fundamentos de los Procesos de Poisson No Homogéneos, el número
 esperado de eventos en cualquier intervalo cerrado \((t_1, t_2]\) está
-determinado de forma estricta por la integral definida de su función de
-intensidad:
+determinado por la integral definida de su función de intensidad:
 
 \[\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\]
 
@@ -1675,9 +1674,8 @@ Diciembre & \([334, 365]\) & 4 & 2.10 \\
 
 La suma acumulada de las 12 integrales definidas a lo largo de todo el
 dominio anual arrojó un valor total de \textbf{65.25 eventos esperados}.
-Al comparar este resultado matemático con la meta de 64 cortes
-empíricos, se observa que el modelo añade, en promedio, una falla anual
-extra.
+Al comparar este resultado con la meta de 64 cortes empíricos, se
+observa que el modelo añade, en promedio, una falla anual extra.
 
 Esta desviación hacia arriba es una decisión metodológica deliberada
 para blindar la simulación de Montecarlo: al ensanchar las campanas de
@@ -1687,6 +1685,247 @@ severo} que la simple estadística aislada. Esto garantiza que las
 proyecciones de estrés térmico sobre la red de frío no subestimen el
 peligro real al que estarán sometidos los biológicos de la OMS durante
 las estaciones críticas en Tuxtla Gutiérrez.
+
+\section{Distribución Log-Normal de las Duraciones de las
+Fallas}\label{distribuciuxf3n-log-normal-de-las-duraciones-de-las-fallas}
+
+Una vez modelada la frecuencia estocástica con la que ocurren las
+interrupciones eléctricas, el siguiente componente crítico para el
+simulador termodinámico consiste en determinar cuánto tiempo dura cada
+apagón (\(D\)). La duración de una falla es una variable aleatoria
+continua estrictamente positiva con una marcada asimetría hacia la
+derecha (la mayoría de los cortes se resuelven en pocas horas, pero
+existen eventos atípicos muy prolongados). Por este motivo, la teoría
+analítica establece que el comportamiento de las duraciones se modela
+mediante una distribución Log-normal:
+
+\[
+D \sim \text{LogNormal}(\mu, \sigma^2)
+\]
+
+Para calibrar los parámetros de escala \(\mu\) (media de los logaritmos)
+y de forma \(\sigma\) (desviación estándar de los logaritmos) para cada
+régimen estacional, es necesario procesar los indicadores empíricos de
+la CFE bajo un esquema de desagregación temporal.
+
+\subsection{Desglose Mensual de Horas de
+Interrupción}\label{desglose-mensual-de-horas-de-interrupciuxf3n}
+
+De acuerdo con el registro histórico municipal consolidado para el año
+2024, la duración promedio general de una interrupción en Tuxtla
+Gutiérrez fue de \textbf{\(2.39\) horas por corte}. Sabiendo que el
+factor de escala espacial redujo el riesgo del edificio a una esperanza
+de \textbf{\(64\) cortes locales al año}, podemos deducir la cantidad
+total de tiempo que el refrigerador experimentará desabasto eléctrico a
+lo largo de todo el año:
+
+\[
+\text{Horas Totales del Año} = 64 \text{ cortes/año} \times 2.39 \text{ horas/corte} = 152.96 \text{ horas/año}
+\]
+
+Para distribuir estas \(152.96\) horas anuales entre los 12 meses
+respetando la estacionalidad de la red, utilizamos el indicador SAIDI
+acumulado del \emph{Informe Anual de la CFE 2024}. Primero, calculamos
+la diferencia marginal (\(\Delta \text{SAIDI}_i\)) para aislar el
+impacto de cada mes. Posteriormente, mediante una regla de tres simple,
+equiparamos el SAIDI total acumulado al final del año (\(10.812\) horas)
+con nuestras \(152.96\) horas de afectación local. La asignación de
+horas de falla para cada mes viene dada por:
+
+\[
+\text{Horas del Mes}_i = \left( \frac{\Delta \text{SAIDI}_i}{10.812} \right) \times 152.96
+\]
+
+Finalmente, para conocer la duración promedio esperada de un corte
+individual en un mes específico (\(E_i\)), se divide el presupuesto de
+horas asignadas de ese mes entre el número de cortes discretos
+calculados previamente en la Tabla 3
+(\(E_i = \text{Horas del Mes}_i / \text{Cortes}_i\)):
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1379}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}@{}}
+\caption{Tabla 5. Estimación de la duración promedio mensual por corte a
+partir de los indicadores SAIDI 2024.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Mes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SAIDI Acumulado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\Delta\) SAIDI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Horas del Mes Calculadas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Cortes del Mes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Duración Media \(E_i\) (Horas)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Mes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SAIDI Acumulado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\Delta\) SAIDI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Horas del Mes Calculadas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Cortes del Mes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Duración Media \(E_i\) (Horas)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Enero & 0.998 & 0.998 & 14.12 & 7 & 2.017 \\
+Febrero & 1.110 & 0.112 & 1.58 & 2 & 0.790 \\
+Marzo & 1.285 & 0.175 & 2.48 & 3 & 0.827 \\
+Abril & 2.793 & 1.508 & 21.33 & 3 & 7.110 \\
+Mayo & 4.120 & 1.327 & 18.77 & 6 & 3.128 \\
+Junio & 5.774 & 1.654 & 23.40 & 9 & 2.600 \\
+Julio & 6.557 & 0.783 & 11.08 & 7 & 1.583 \\
+Agosto & 7.905 & 1.348 & 19.07 & 8 & 2.384 \\
+Septiembre & 8.592 & 0.687 & 9.72 & 9 & 1.080 \\
+Octubre & 9.063 & 0.471 & 6.66 & 4 & 1.665 \\
+Noviembre & 9.314 & 0.251 & 3.55 & 2 & 1.775 \\
+Diciembre & 10.812 & 1.498 & 21.19 & 4 & 5.298 \\
+\end{longtable}
+
+\subsection{Cálculo Empírico de Medias y Varianzas por
+Régimen}\label{cuxe1lculo-empuxedrico-de-medias-y-varianzas-por-ruxe9gimen}
+
+Para alimentar la conmutación de regímenes de la EDE, agrupamos los
+meses en las tres temporadas climáticas analizadas. Sin embargo,
+realizar un promedio aritmético simple entre las duraciones mensuales
+introduciría un sesgo metodológico, ya que trataría por igual a un mes
+con 9 cortes que a uno con solo 2 cortes.
+
+Para resolver esto, calculamos la media empírica
+(\(\mathbb{E}[D_{reg}]\)) y la varianza empírica
+(\(\mathbb{V}[D_{reg}]\)) de cada régimen utilizando estadística
+descriptiva ponderada, donde el peso de cada mes está determinado
+estrictamente por su número de cortes (\(\omega_i = \text{Cortes}_i\)).
+Analíticamente, las ecuaciones operativas son:
+
+\[
+\mathbb{E}[D_{reg}] = \frac{\sum \omega_i E_i}{\sum \omega_i} = \frac{\text{Total de Horas del Régimen}}{\text{Total de Cortes del Régimen}}
+\]
+
+\[
+\mathbb{V}[D_{reg}] = \frac{\sum \omega_i (E_i - \mathbb{E}[D_{reg}])^2}{\sum \omega_i}
+\]
+
+Agrupando los datos bajo este criterio de ponderación, se obtienen las
+siguientes métricas muestrales por temporada: * \textbf{Régimen de Calor
+(Mayo, Junio y Julio):} Acumula \(22\) cortes y \(53.25\) horas de
+interrupción, resultando en una duración media de
+\(\mathbb{E}[D] = 2.420\) horas y una varianza de
+\(\mathbb{V}[D] = 0.373\). * \textbf{Régimen de Lluvias (Agosto,
+Septiembre y Octubre):} Suma \(21\) cortes y \(35.45\) horas de
+interrupción, generando una duración media de \(\mathbb{E}[D] = 1.688\)
+horas y una varianza de \(\mathbb{V}[D] = 0.343\). * \textbf{Régimen
+Base e Invierno (Resto de meses):} Concentra \(23\) cortes y \(64.25\)
+horas, arrojando una duración media de \(\mathbb{E}[D] = 2.793\) horas
+con una varianza más dispersa de \(\mathbb{V}[D] = 4.650\) debido a la
+anomalía de abril.
+
+\subsection{Transformación Analítica a Parámetros
+Log-Normales}\label{transformaciuxf3n-analuxedtica-a-paruxe1metros-log-normales}
+
+Una vez que conocemos la media aritmética real (\(\mathbb{E}[D]\)) y la
+varianza geométrica real (\(\mathbb{V}[D]\)) del sistema, debemos
+mapearlas hacia los parámetros analíticos internos \(\mu\) y \(\sigma\)
+que requiere la función de distribución de probabilidad en el código de
+Python.
+
+Por definición matemática, la esperanza matemática y la varianza de una
+variable aleatoria con distribución Log-normal se rigen por las
+siguientes dos identidades:
+
+\[
+\mathbb{E}[D] = \exp\left(\mu + \frac{\sigma^2}{2}\right)
+\]
+
+\[
+\mathbb{V}[D] = \left[\exp(\sigma^2) - 1\right] \exp(2\mu + \sigma^2) = (\mathbb{E}[D])^2 \left[\exp(\sigma^2) - 1\right]
+\]
+
+Al resolver este sistema de ecuaciones no lineales de forma algebraica
+para despejar los parámetros objetivos en función de los momentos
+estadísticos conocidos, se deducen las fórmulas generales de
+calibración:
+
+\[
+\sigma = \sqrt{\ln\left(1 + \frac{\mathbb{V}[D]}{(\mathbb{E}[D])^2}\right)}
+\]
+
+\[
+\mu = \ln(\mathbb{E}[D]) - \frac{\sigma^2}{2} = \ln\left( \frac{(\mathbb{E}[D])^2}{\sqrt{\mathbb{V}[D] + (\mathbb{E}[D])^2}} \right)
+\]
+
+Al sustituir las medias y varianzas empíricas ponderadas de cada
+temporada en estas relaciones analíticas de transformación, obtenemos
+los parámetros exactos calibrados que gobernará el reloj de simulación
+de Montecarlo:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1379}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}@{}}
+\caption{Tabla 6. Parámetros lognormales finales calculados mediante el
+método de momentos ponderados.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Régimen Estacional
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Meses que lo integran
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Media Empírica \(\mathbb{E}[D]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Varianza Empírica \(\mathbb{V}[D]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parámetro \(\mu\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parámetro \(\sigma\)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Régimen Estacional
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Meses que lo integran
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Media Empírica \(\mathbb{E}[D]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Varianza Empírica \(\mathbb{V}[D]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parámetro \(\mu\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parámetro \(\sigma\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Base (Invierno)} & Ene, Feb, Mar, Abr, Nov, Dic & 2.793 & 4.650
+& 0.7933 & 0.6838 \\
+\textbf{Calor (Ola de Verano)} & May, Jun, Jul & 2.420 & 0.373 & 0.8529
+& 0.2485 \\
+\textbf{Lluvias (Ciclones)} & Ago, Sep, Oct & 1.688 & 0.343 & 0.4667 &
+0.3371 \\
+\end{longtable}
 
 \section{Calibración de la Ecuación Diferencial Estocástica
 (EDE)}\label{calibraciuxf3n-de-la-ecuaciuxf3n-diferencial-estocuxe1stica-ede}
