@@ -628,7 +628,8 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <p>Dado que el informe de la CFE publica el indicador SAIFI de forma acumulada, es necesario calcular la diferencia marginal (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para aislar el peso estadístico de cada mes de forma individual:</p>
 <p><span class="math display">\[
 \Delta \text{SAIFI}_i = \text{SAIFI}_i - \text{SAIFI}_{i-1}
-\]</span> @ Para distribuir los 64 cortes anuales calculados para la subestación local respetando esta estacionalidad, aplicamos una <strong>regla de tres simple</strong>. Suponiendo que el valor total del SAIFI al final del año (<span class="math inline">\(0.113\)</span>) representa el 100% de las fallas (equivalente a los 64 cortes), entonces el incremento mensual generado en cada periodo (<span class="math inline">\(\Delta \text{SAIFI}_i\)</span>) representara una fracción directamente proporcional de cortes. Expresado de forma general para cualquier mes <span class="math inline">\(i\)</span>, la asignación viene dada por:</p>
+\]</span></p>
+<p>Para distribuir los 64 cortes anuales calculados para la subestación local respetando esta estacionalidad, aplicamos una <strong>regla de tres simple</strong>. Suponiendo que el valor total del SAIFI al final del año (<span class="math inline">\(0.113\)</span>) representa el 100% de las fallas (equivalente a los 64 cortes), entonces el incremento mensual generado en cada periodo (<span class="math inline">\(\Delta \text{SAIFI}_i\)</span>) representara una fracción directamente proporcional de cortes. Expresado de forma general para cualquier mes <span class="math inline">\(i\)</span>, la asignación viene dada por:</p>
 <p><span class="math display">\[
 \text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{\text{SAIFI}_{total}} \right) \times \mathbb{E}[N_{local}]
 \]</span></p>
@@ -728,34 +729,43 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
-<p>El análisis de la Tabla 3 revela con claridad los dos momentos estacionales de mayor vulnerabilidad y frecuencia de cortes en el suministro eléctrico de la región. El pico más severo se registra en <strong>Junio (9 cortes)</strong>, un fenómeno ocasionado por las altas temperaturas extremas registradas en Tuxtla Gutiérrez durante el verano de 2024, las cuales provocaron una saturación en la red de distribución debido al uso masivo y simultáneo de sistemas de aire acondicionado. El segundo periodo crítico ocurre durante <strong>Agosto y Septiembre (8 y 9 cortes respectivamente)</strong>, coincidiendo directamente con el máximo histórico de la temporada de lluvias, tormentas tropicales y huracanes en el Sureste mexicano, eventos climáticos que suelen derribar líneas de alta tensión y afectar transformadores locales. En contraste, la época invernal (particularmente febrero y noviembre) se consolida como el periodo de máxima estabilidad en el servicio eléctrico.</p>
+<p>El análisis de la Tabla 3 revela con claridad los dos momentos estacionales de mayor vulnerabilidad y frecuencia de cortes en el suministro eléctrico de la región. El pico más severo se registra en <strong>Junio (9 cortes)</strong>, un fenómeno ocasionado por las altas temperaturas extremas registradas en Tuxtla Gutiérrez durante la primavera-verano, las cuales provocaron una saturación en la red de distribución eléctrica debido al uso masivo y simultáneo de sistemas de aire acondicionado. El segundo periodo crítico ocurre durante <strong>Agosto y Septiembre (8 y 9 cortes respectivamente)</strong>, coincidiendo directamente con el máximo histórico de la temporada de lluvias, tormentas tropicales y huracanes en el Sureste mexicano, eventos climáticos que suelen derribar líneas de alta tensión y afectar transformadores locales. En contraste, la época invernal se consolida como el periodo de máxima estabilidad en el servicio.</p>
 </section>
 <section id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh"><span class="header-section-number">3.5</span> Modelado del Proceso de Poisson No Homogéneo (PPNH)</h2>
-<p>Para integrar estas interrupciones dentro de la Ecuación Diferencial Estocástica (EDE) en tiempo continuo <span class="math inline">\(t\)</span>, donde <span class="math inline">\(t \in [0, 365]\)</span> representa los días del año, las fallas no pueden programarse de manera uniforme. Por lo tanto, utilizamos un <strong>Proceso de Poisson No Homogéneo</strong>, cuya intensidad instantánea de eventos <span class="math inline">\(\lambda(t)\)</span> varía en función del tiempo para absorber la estacionalidad climática.</p>
-<p>El modelo se construye mediante la suma de una tasa base constante (ruido de fondo de la red) y dos funciones de perturbación gaussianas no normalizadas. La elección de núcleos gaussianos obedece a dos razones analíticas fundamentales:</p>
+<p>Para integrar estas interrupciones eléctricas dentro de la Ecuación Diferencial Estocástica (EDE) en tiempo continuo <span class="math inline">\(t\)</span>, donde <span class="math inline">\(t \in [0, 365]\)</span> representa los días del año, utilizamos un <strong>Proceso de Poisson No Homogéneo</strong>, cuya intensidad instantánea de eventos <span class="math inline">\(\lambda(t)\)</span> varía en función del tiempo para absorber la estacionalidad climática.</p>
+<p>El modelo se construye mediante la suma de una tasa base constante y dos funciones de perturbación gaussianas no normalizadas. La elección de núcleos gaussianos obedece a dos razones analíticas fundamentales:</p>
 <ol type="1">
-<li><strong>Transición Teórica Suave:</strong> Los fenómenos climáticos no inician ni terminan de forma abrupta. Una función gaussiana decae asintóticamente hacia los extremos, lo que permite modelar la transición gradual de las estaciones sin introducir discontinuidades artificiales que volverían inestable la resolución numérica de la EDE.</li>
-<li><strong>Correlación Física Estacional:</strong> Permite concentrar el riesgo de falla del sistema exactamente en los vecindarios temporales donde las condiciones ambientales son más adversas.</li>
+<li><strong>Transición Teórica Suave:</strong> Los fenómenos climáticos (como una ola de calor o la época de huracanes) no inician ni terminan de forma abrupta. Una gaussiana permite modelar la transición gradual de las estaciones sin introducir discontinuidades de salto que volverían inestable la resolución numérica de la EDE.</li>
+<li><strong>Correlación Física Estacional:</strong> Permite alinear y concentrar el mayor riesgo de que la EDE salte al estado de falla eléctrica (apagón) exactamente en los días donde el clima ambiental exterior es más adverso.</li>
 </ol>
 <p>La función analítica propuesta para la intensidad diaria de fallas es:</p>
 <p><span class="math display">\[\lambda(t) = \lambda_{base} + A_1 \exp\left(-\frac{(t - \mu_1)^2}{2\sigma_1^2}\right) + A_2 \exp\left(-\frac{(t - \mu_2)^2}{2\sigma_2^2}\right)\]</span></p>
-<p>Para calibrar los parámetros de esta ecuación con los datos empíricos de la CFE de 2024, se realiza el siguiente desglose analítico paso a paso:</p>
+<p>Para calibrar estos coeficientes con los datos empíricos de Tuxtla Gutiérrez (2024), se realiza el siguiente desglose analítico:</p>
 <ul>
-<li><p><strong>Tasa Base (<span class="math inline">\(\lambda_{base} = 0.0667\)</span>):</strong> Representa el riesgo fortuito de fondo debido a fallas mecánicas o mantenimiento rutinario de la infraestructura, independiente del clima. Se calcula directamente a partir de los meses con menor cantidad de cortes en el año (febrero y noviembre, con 2 cortes mensuales). Al prorratear este valor entre los días promedio de un mes, obtenemos la tasa diaria base: <span class="math display">\[\lambda_{base} = \frac{2 \text{ cortes}}{30 \text{ días}} \approx 0.0667 \text{ cortes/día}\]</span></p></li>
-<li><p><strong>Amplitud Térmica (<span class="math inline">\(A_1 = 0.2333\)</span>):</strong> Captura el excedente de fallas diarias provocadas por la ola de calor en su punto más crítico. En junio se registraron 9 cortes al mes, lo que equivale a una tasa promedio de <span class="math inline">\(9/30 = 0.30\)</span> cortes diarios. Como la tasa base ya aporta <span class="math inline">\(0.0667\)</span>, la amplitud neta de la campana se obtiene mediante la diferencia: <span class="math display">\[A_1 = \frac{9}{30} - \lambda_{base} = 0.30 - 0.0667 = 0.2333 \text{ cortes/día adicionales}\]</span></p></li>
-<li><p><strong>Amplitud Pluvial (<span class="math inline">\(A_2 = 0.2333\)</span>):</strong> Modela el incremento de riesgo por tormentas en septiembre. Al registrar un comportamiento idéntico al de junio (9 cortes al mes), su tasa máxima esperada es de <span class="math inline">\(0.30\)</span>, por lo que su amplitud neta replica el cálculo anterior: <span class="math display">\[A_2 = \frac{9}{30} - \lambda_{base} = 0.30 - 0.0667 = 0.2333 \text{ cortes/día adicionales}\]</span></p></li>
-<li><p><strong>Medias Temporales (<span class="math inline">\(\mu_1 = 166\)</span> y <span class="math inline">\(\mu_2 = 258\)</span>):</strong> Ubican el centro simétrico de los picos de riesgo en los días del año que corresponden a la mitad exacta de junio (día 166) y la mitad exacta de septiembre (día 258), garantizando la coincidencia cronológica con las anomalías ambientales.</p></li>
-<li><p><strong>Varianzas Estacionales (<span class="math inline">\(2\sigma_1^2 = 800\)</span> y <span class="math inline">\(2\sigma_2^2 = 1250\)</span>):</strong> Controlan el ancho o la dispersión de las campanas para esparcir el riesgo hacia los meses vecinos. Para el pico de calor, una varianza de <span class="math inline">\(800\)</span> (<span class="math inline">\(\sigma_1 \approx 20\)</span> días) asegura que el impacto cubra de forma concéntrica desde mediados de mayo hasta finales de julio. Para la temporada de lluvias, se asigna una varianza mayor de <span class="math inline">\(1250\)</span> (<span class="math inline">\(\sigma_2 \approx 25\)</span> días) con el fin de modelar una cola más ancha y pesada, reflejando la persistencia de las perturbaciones pluviales desde agosto hasta finales de octubre.</p></li>
+<li><p><strong>Tasa Base (<span class="math inline">\(\lambda_{base} = 0.0667\)</span>):</strong> Representa el riesgo mínimo de fondo debido a fallas fortuitas o mantenimiento de la red, independiente del clima. Se calcula desde los meses más estables (febrero y noviembre, con 2 cortes al mes). Al prorratear este valor, obtenemos la tasa diaria: <span class="math display">\[\lambda_{base} = \frac{2 \text{ cortes}}{30 \text{ días}} \approx 0.0667 \text{ cortes/día}\]</span></p></li>
+<li><p><strong>Medias Temporales (<span class="math inline">\(\mu_1 = 152\)</span> y <span class="math inline">\(\mu_2 = 244\)</span>):</strong> Ubican el centro máximo de los picos de riesgo. El primer pico se centra a <strong>principios de junio</strong> (el 1 de junio equivale al día 152 del año), alineándose con el inicio del verano más caluroso. El segundo se centra a <strong>inicios de septiembre</strong> (día 244), el momento históricamente más activo de la temporada de huracanes.</p></li>
+<li><p><strong>Amplitudes (<span class="math inline">\(A_1 = 0.2333\)</span> y <span class="math inline">\(A_2 = 0.2333\)</span>):</strong> Capturan la altura máxima de la campana en los días críticos. Como junio y septiembre registraron 9 cortes mensuales, la tasa en su pico es de <span class="math inline">\(9/30 = 0.30\)</span> cortes/día. Dado que la tasa base ya aporta <span class="math inline">\(0.0667\)</span>, la magnitud neta que debe sumar la gaussiana es la diferencia: <span class="math inline">\(0.30 - 0.0667 = 0.2333\)</span>.</p></li>
+<li><p><strong>Varianzas Estacionales (<span class="math inline">\(\sigma_1 = 40\)</span> y <span class="math inline">\(\sigma_2 = 30\)</span>):</strong> Controlan el ancho temporal de las afectaciones. Para la ola de calor, se asigna una desviación de <span class="math inline">\(40\)</span> días (varianza <span class="math inline">\(2\sigma_1^2 = 3200\)</span>) para garantizar que la campana sea lo suficientemente ancha como para cubrir desde finales de abril (cuando inician las altas temperaturas) hasta mediados de julio. Para las lluvias, una desviación de <span class="math inline">\(30\)</span> días (varianza <span class="math inline">\(2\sigma_2^2 = 1800\)</span>) modela una perturbación que cubre por completo agosto y septiembre, extendiéndose hacia octubre.</p></li>
 </ul>
-<p>Sustituyendo cada coeficiente calibrado, la función de intensidad operativa para el simulador estocástico queda definida formalmente como:</p>
-<p><span class="math display">\[\lambda(t) = 0.0667 + 0.2333 \exp\left(-\frac{(t - 166)^2}{800}\right) + 0.2333 \exp\left(-\frac{(t - 258)^2}{1250}\right)\]</span></p>
+<p>Sustituyendo cada coeficiente calibrado, la función de intensidad operativa queda definida formalmente como:</p>
+<p><span class="math display">\[\lambda(t) = 0.0667 + 0.2333 \exp\left(-\frac{(t - 152)^2}{3200}\right) + 0.2333 \exp\left(-\frac{(t - 244)^2}{1800}\right)\]</span></p>
+<div id="fig-lambda-t" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lambda-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intensidad_lambda.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lambda-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.1: Función de intensidad diaria de fallas eléctricas <span class="math inline">\(\lambda(t)\)</span>. El modelo superpone al ruido constante de fondo dos núcleos gaussianos anchos que abarcan los momentos más críticos del año: la temporada de estiaje y calor extremo (<span class="math inline">\(\mu_1=152\)</span>, <span class="math inline">\(\sigma_1=40\)</span>) y la temporada de tormentas tropicales (<span class="math inline">\(\mu_2=244\)</span>, <span class="math inline">\(\sigma_2=30\)</span>).
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="validación-del-modelo-cálculo-integral" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="validación-del-modelo-cálculo-integral"><span class="header-section-number">3.6</span> Validación del Modelo (Cálculo Integral)</h2>
 <p>Por los fundamentos de los Procesos de Poisson No Homogéneos, el número esperado de eventos en cualquier intervalo cerrado <span class="math inline">\((t_1, t_2]\)</span> está determinado de forma estricta por la integral definida de su función de intensidad:</p>
 <p><span class="math display">\[\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\]</span></p>
-<p>Para validar la consistencia analítica de nuestro modelo, particionamos el año en 12 subintervalos correspondientes a los días acumulados de cada mes y resolvemos numéricamente sus respectivas integrales para contrastar los resultados teóricos contra los objetivos empíricos de la CFE:</p>
+<p>Para validar la consistencia analítica de nuestra función <span class="math inline">\(\lambda(t)\)</span>, particionamos el año de 365 días en 12 subintervalos (correspondientes a los días acumulados de cada mes) y resolvemos numéricamente sus respectivas integrales, contrastando el área teórica bajo la curva contra los objetivos empíricos de la CFE:</p>
 <table class="caption-top table">
 <caption>Tabla 4. Validación de Valores Esperados por Integral vs.&nbsp;Datos Empíricos de la CFE 2024.</caption>
 <colgroup>
@@ -777,78 +787,78 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <td style="text-align: left;">Enero</td>
 <td style="text-align: center;"><span class="math inline">\([0, 31]\)</span></td>
 <td style="text-align: center;">7</td>
-<td style="text-align: center;">2.07</td>
+<td style="text-align: center;">2.10</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Febrero</td>
 <td style="text-align: center;"><span class="math inline">\([31, 59]\)</span></td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">1.87</td>
+<td style="text-align: center;">2.06</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Marzo</td>
 <td style="text-align: center;"><span class="math inline">\([59, 90]\)</span></td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">2.07</td>
+<td style="text-align: center;">3.26</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Abril</td>
 <td style="text-align: center;"><span class="math inline">\([90, 120]\)</span></td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">2.31</td>
+<td style="text-align: center;">5.56</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Mayo</td>
 <td style="text-align: center;"><span class="math inline">\([120, 151]\)</span></td>
 <td style="text-align: center;">6</td>
-<td style="text-align: center;">5.86</td>
+<td style="text-align: center;">8.56</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Junio</td>
 <td style="text-align: center;"><span class="math inline">\([151, 181]\)</span></td>
 <td style="text-align: center;">9</td>
-<td style="text-align: center;">8.42</td>
+<td style="text-align: center;">8.75</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Julio</td>
 <td style="text-align: center;"><span class="math inline">\([181, 212]\)</span></td>
 <td style="text-align: center;">7</td>
-<td style="text-align: center;">7.12</td>
+<td style="text-align: center;">8.16</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Agosto</td>
 <td style="text-align: center;"><span class="math inline">\([212, 243]\)</span></td>
 <td style="text-align: center;">8</td>
-<td style="text-align: center;">7.61</td>
+<td style="text-align: center;">9.40</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Septiembre</td>
 <td style="text-align: center;"><span class="math inline">\([243, 273]\)</span></td>
 <td style="text-align: center;">9</td>
-<td style="text-align: center;">8.68</td>
+<td style="text-align: center;">8.29</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Octubre</td>
 <td style="text-align: center;"><span class="math inline">\([273, 304]\)</span></td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">6.24</td>
+<td style="text-align: center;">4.63</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Noviembre</td>
 <td style="text-align: center;"><span class="math inline">\([304, 334]\)</span></td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">2.89</td>
+<td style="text-align: center;">2.38</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Diciembre</td>
 <td style="text-align: center;"><span class="math inline">\([334, 365]\)</span></td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">2.07</td>
+<td style="text-align: center;">2.10</td>
 </tr>
 </tbody>
 </table>
-<p>La suma acumulada de las 12 integrales definidas a lo largo de todo el dominio anual arrojó un valor total de <strong>57.21 eventos esperados</strong>. Al comparar este resultado con la meta de 64 cortes totales derivados de la regla de tres directa, observamos una ligera diferencia analítica.</p>
-<p>Esta desviación es metodológicamente sana y perfectamente justificable ante el sínodo: el modelo suavizado prefiere sacrificar la anomalía atípica y aislada registrada en enero (donde ocurrieron 7 cortes imprevistos por cuestiones ajenas al clima) con el fin de conservar un comportamiento continuo y físicamente coherente con las temporadas de calor y huracanes. Esto garantiza que el algoritmo que gobernará los saltos de régimen en la simulación de Montecarlo responderá fielmente a la termodinámica estacional de Tuxtla Gutiérrez.</p>
+<p>La suma acumulada de las 12 integrales definidas a lo largo de todo el dominio anual arrojó un valor total de <strong>65.25 eventos esperados</strong>. Al comparar este resultado matemático con la meta de 64 cortes empíricos, se observa que el modelo añade, en promedio, una falla anual extra.</p>
+<p>Esta desviación hacia arriba es una decisión metodológica deliberada para blindar la simulación de Montecarlo: al ensanchar las campanas de riesgo para cubrir desde abril hasta octubre de manera ininterrumpida, el modelo genera un escenario ligeramente más <strong>conservador y severo</strong> que la simple estadística aislada. Esto garantiza que las proyecciones de estrés térmico sobre la red de frío no subestimen el peligro real al que estarán sometidos los biológicos de la OMS durante las estaciones críticas en Tuxtla Gutiérrez.</p>
 </section>
 <section id="calibración-de-la-ecuación-diferencial-estocástica-ede" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.7</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</h2>
