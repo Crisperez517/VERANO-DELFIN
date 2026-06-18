@@ -32,7 +32,7 @@ Mediante una solicitud de información pública de transparencia dirigida a la C
 | 2024 | 43 | 2.39 |
 | 2025 | 38 | 2.02 |
 
-: Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente: Solicitud de Transparencia a la CFE).
+: Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente: Solicitud de Transparencia a la CFE). {#tbl-interrupciones-cfe}
 
 Para este modelo, se toma como línea base el comportamiento del año **2024**, el cual indica un promedio de **43 cortes por mes**. Esto resulta en un promedio anual a nivel municipal de:
 
@@ -73,7 +73,7 @@ Las interrupciones no ocurren de manera homogénea a lo largo del año (es decir
 | Noviembre | 9.314 | 0.106 |
 | Diciembre | 10.812 | 0.113 |
 
-: Tabla 2. Evolución mensual acumulada de los indicadores SAIDI y SAIFI (Fuente: Informe Anual CFE 2024, p. 82).
+: Evolución mensual acumulada de los indicadores SAIDI y SAIFI (Fuente: Informe Anual CFE 2024, p. 82). {#tbl-saidi-saifi}
 
 Dado que el informe de la CFE publica el indicador SAIFI de forma acumulada, es necesario calcular la diferencia marginal ($\Delta$) respecto al mes anterior para aislar el peso estadístico de cada mes de forma individual:
 
@@ -110,7 +110,7 @@ Al hacer este cálculo y redondeando al entero más cercano (realizando un ajust
 | Noviembre | 0.003 | 1.70 | 2 |
 | Diciembre | 0.007 | 3.96 | 4 |
 
-: Tabla 3. Distribución estacional de los 64 cortes locales calculada mediante proporcionalidad sobre el SAIFI 2024.
+: Distribución estacional de los 64 cortes locales calculada mediante proporcionalidad sobre el SAIFI 2024. {#tbl-cortes-mensuales}
 
 El análisis de la Tabla 3 revela con claridad los dos momentos estacionales de mayor vulnerabilidad y frecuencia de cortes en el suministro eléctrico de la región. El pico más severo se registra en **Junio (9 cortes)**, un fenómeno ocasionado por las altas temperaturas extremas registradas en Tuxtla Gutiérrez durante la primavera-verano, las cuales provocaron una saturación en la red de distribución eléctrica debido al uso masivo y simultáneo de sistemas de aire acondicionado. El segundo periodo crítico ocurre durante **Agosto y Septiembre (8 y 9 cortes respectivamente)**, coincidiendo directamente con el máximo histórico de la temporada de lluvias, tormentas tropicales y huracanes en el Sureste mexicano, eventos climáticos que suelen derribar líneas de alta tensión y afectar transformadores locales. En contraste, la época invernal se consolida como el periodo de máxima estabilidad en el servicio.
 
@@ -167,7 +167,7 @@ Para validar la consistencia analítica de nuestra función $\lambda(t)$, partic
 | Noviembre | $[304, 334]$ | 2 | 2.38 |
 | Diciembre | $[334, 365]$ | 4 | 2.10 |
 
-: Tabla 4. Validación de Valores Esperados por Integral vs. Datos Empíricos de la CFE 2024.
+: Validación de Valores Esperados por Integral vs. Datos Empíricos de la CFE 2024. {#tbl-validacion-integral}
 
 La suma acumulada de las 12 integrales definidas a lo largo de todo el dominio anual arrojó un valor total de **65.25 eventos esperados**. Al comparar este resultado con la meta de 64 cortes empíricos, se observa que el modelo añade, en promedio, una falla anual extra. 
 
@@ -175,7 +175,7 @@ Esta desviación hacia arriba es una decisión metodológica deliberada para bli
 
 ## Distribución Log-Normal de las Duraciones de las Fallas
 
-Una vez modelada la frecuencia estocástica con la que ocurren las interrupciones eléctricas, el siguiente componente crítico para el simulador termodinámico consiste en determinar cuánto tiempo dura cada apagón ($D$). La duración de una falla es una variable aleatoria continua estrictamente positiva con una marcada asimetría hacia la derecha (la mayoría de los cortes se resuelven en pocas horas, pero existen eventos atípicos muy prolongados). Por este motivo, la teoría analítica establece que el comportamiento de las duraciones se modela mediante una distribución Log-normal:
+Una vez modelada la frecuencia con la que ocurren las interrupciones eléctricas, el siguiente componente crítico para el simulador termodinámico consiste en determinar cuánto tiempo dura cada apagón ($D$). La duración de una falla es una variable aleatoria continua estrictamente positiva con una marcada asimetría hacia la derecha (la mayoría de los cortes se resuelven en pocas horas, pero existen eventos atípicos muy prolongados). Por este motivo, la teoría analítica establece que el comportamiento de las duraciones se modela mediante una distribución Log-normal:
 
 $$
 D \sim \text{LogNormal}(\mu, \sigma^2)
@@ -185,7 +185,7 @@ Para calibrar los parámetros de escala $\mu$ (media de los logaritmos) y de for
 
 ### Desglose Mensual de Horas de Interrupción
 
-De acuerdo con el registro histórico municipal consolidado para el año 2024, la duración promedio general de una interrupción en Tuxtla Gutiérrez fue de **$2.39$ horas por corte**. Sabiendo que el factor de escala espacial redujo el riesgo del edificio a una esperanza de **$64$ cortes locales al año**, podemos deducir la cantidad total de tiempo que el refrigerador experimentará desabasto eléctrico a lo largo de todo el año:
+De acuerdo con el registro histórico municipal consolidado para el año 2024, la duración promedio general de una interrupción en Tuxtla Gutiérrez fue de **$2.39$ horas por corte** @tbl-interrupciones-cfe. Sabiendo que el factor de escala espacial redujo el riesgo del edificio a una esperanza de **$64$ cortes locales al año**, podemos deducir la cantidad total de tiempo que el refrigerador experimentará desabasto eléctrico a lo largo de todo el año:
 
 $$
 \text{Horas Totales del Año} = 64 \text{ cortes/año} \times 2.39 \text{ horas/corte} = 152.96 \text{ horas/año}
@@ -214,7 +214,7 @@ Finalmente, para conocer la duración promedio esperada de un corte individual e
 | Noviembre | 9.314 | 0.251 | 3.55 | 2 | 1.775 |
 | Diciembre | 10.812 | 1.498 | 21.19 | 4 | 5.298 |
 
-: Tabla 5. Estimación de la duración promedio mensual por corte a partir de los indicadores SAIDI 2024.
+: Estimación de la duración promedio mensual por corte a partir de los indicadores SAIDI 2024. {#tbl-duracion-cortes}
 
 ### Cálculo Empírico de Medias y Varianzas por Régimen
 

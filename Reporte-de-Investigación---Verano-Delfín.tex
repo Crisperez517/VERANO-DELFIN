@@ -1305,8 +1305,9 @@ interrupciones y su duración para el municipio de Tuxtla Gutiérrez.
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\caption{Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas
-(Fuente: Solicitud de Transparencia a la CFE).}\tabularnewline
+\caption{Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente:
+Solicitud de Transparencia a la
+CFE).}\label{tbl-interrupciones-cfe}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 Año
@@ -1395,8 +1396,9 @@ la evolución de los indicadores de continuidad del servicio a lo largo
 de los meses.
 
 \begin{longtable}[]{@{}lcc@{}}
-\caption{Tabla 2. Evolución mensual acumulada de los indicadores SAIDI y
-SAIFI (Fuente: Informe Anual CFE 2024, p.~82).}\tabularnewline
+\caption{Evolución mensual acumulada de los indicadores SAIDI y SAIFI
+(Fuente: Informe Anual CFE 2024,
+p.~82).}\label{tbl-saidi-saifi}\tabularnewline
 \toprule\noalign{}
 Mes & SAIDI Acumulado (Horas) & SAIFI Acumulado \\
 \midrule\noalign{}
@@ -1460,8 +1462,9 @@ la distribución estacional empírica de fallas:
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2632}}
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2632}}
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2632}}@{}}
-\caption{Tabla 3. Distribución estacional de los 64 cortes locales
-calculada mediante proporcionalidad sobre el SAIFI 2024.}\tabularnewline
+\caption{Distribución estacional de los 64 cortes locales calculada
+mediante proporcionalidad sobre el SAIFI
+2024.}\label{tbl-cortes-mensuales}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mes
@@ -1630,8 +1633,8 @@ bajo la curva contra los objetivos empíricos de la CFE:
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2632}}
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2632}}
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2632}}@{}}
-\caption{Tabla 4. Validación de Valores Esperados por Integral vs.~Datos
-Empíricos de la CFE 2024.}\tabularnewline
+\caption{Validación de Valores Esperados por Integral vs.~Datos
+Empíricos de la CFE 2024.}\label{tbl-validacion-integral}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mes
@@ -1689,15 +1692,15 @@ las estaciones críticas en Tuxtla Gutiérrez.
 \section{Distribución Log-Normal de las Duraciones de las
 Fallas}\label{distribuciuxf3n-log-normal-de-las-duraciones-de-las-fallas}
 
-Una vez modelada la frecuencia estocástica con la que ocurren las
-interrupciones eléctricas, el siguiente componente crítico para el
-simulador termodinámico consiste en determinar cuánto tiempo dura cada
-apagón (\(D\)). La duración de una falla es una variable aleatoria
-continua estrictamente positiva con una marcada asimetría hacia la
-derecha (la mayoría de los cortes se resuelven en pocas horas, pero
-existen eventos atípicos muy prolongados). Por este motivo, la teoría
-analítica establece que el comportamiento de las duraciones se modela
-mediante una distribución Log-normal:
+Una vez modelada la frecuencia con la que ocurren las interrupciones
+eléctricas, el siguiente componente crítico para el simulador
+termodinámico consiste en determinar cuánto tiempo dura cada apagón
+(\(D\)). La duración de una falla es una variable aleatoria continua
+estrictamente positiva con una marcada asimetría hacia la derecha (la
+mayoría de los cortes se resuelven en pocas horas, pero existen eventos
+atípicos muy prolongados). Por este motivo, la teoría analítica
+establece que el comportamiento de las duraciones se modela mediante una
+distribución Log-normal:
 
 \[
 D \sim \text{LogNormal}(\mu, \sigma^2)
@@ -1713,11 +1716,12 @@ Interrupción}\label{desglose-mensual-de-horas-de-interrupciuxf3n}
 
 De acuerdo con el registro histórico municipal consolidado para el año
 2024, la duración promedio general de una interrupción en Tuxtla
-Gutiérrez fue de \textbf{\(2.39\) horas por corte}. Sabiendo que el
-factor de escala espacial redujo el riesgo del edificio a una esperanza
-de \textbf{\(64\) cortes locales al año}, podemos deducir la cantidad
-total de tiempo que el refrigerador experimentará desabasto eléctrico a
-lo largo de todo el año:
+Gutiérrez fue de \textbf{\(2.39\) horas por corte}
+Tabla~\ref{tbl-interrupciones-cfe}. Sabiendo que el factor de escala
+espacial redujo el riesgo del edificio a una esperanza de \textbf{\(64\)
+cortes locales al año}, podemos deducir la cantidad total de tiempo que
+el refrigerador experimentará desabasto eléctrico a lo largo de todo el
+año:
 
 \[
 \text{Horas Totales del Año} = 64 \text{ cortes/año} \times 2.39 \text{ horas/corte} = 152.96 \text{ horas/año}
@@ -1749,8 +1753,9 @@ calculados previamente en la Tabla 3
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1724}}@{}}
-\caption{Tabla 5. Estimación de la duración promedio mensual por corte a
-partir de los indicadores SAIDI 2024.}\tabularnewline
+\caption{Estimación de la duración promedio mensual por corte a partir
+de los indicadores SAIDI
+2024.}\label{tbl-duracion-cortes}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mes
