@@ -487,8 +487,13 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 \]</span></p></li>
 </ol>
 <p>Mediante una solicitud de información pública de transparencia dirigida a la CFE, se obtuvo el registro histórico del promedio mensual de interrupciones y su duración para el municipio de Tuxtla Gutiérrez.</p>
+<div id="tbl-interrupciones-cfe" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-interrupciones-cfe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3.1: Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente: Solicitud de Transparencia a la CFE).
+</figcaption>
+<div aria-describedby="tbl-interrupciones-cfe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Tabla 1. Interrupciones eléctricas en Tuxtla Gutiérrez, Chiapas (Fuente: Solicitud de Transparencia a la CFE).</caption>
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -539,6 +544,9 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Para este modelo, se toma como línea base el comportamiento del año <strong>2024</strong>, el cual indica un promedio de <strong>43 cortes por mes</strong>. Esto resulta en un promedio anual a nivel municipal de:</p>
 <p><span class="math display">\[43 \text{ cortes/mes} \times 12 \text{ meses} = 516 \text{ cortes/año}\]</span></p>
 </section>
@@ -559,8 +567,13 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 <section id="distribución-temporal-de-las-fallas" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="distribución-temporal-de-las-fallas"><span class="header-section-number">3.4</span> Distribución Temporal de las Fallas</h2>
 <p>Las interrupciones no ocurren de manera homogénea a lo largo del año (es decir, no se presentan exactamente 5.33 cortes idénticos cada mes). La variabilidad mensual depende directamente de los factores climáticos estacionales de la región. Para no asignar los apagones de manera aleatoria, utilizamos el comportamiento documentado en el <em>Informe Anual de la CFE 2024</em> <span class="citation" data-cites="cfe2024informe">(<a href="references.html#ref-cfe2024informe" role="doc-biblioref">Comisión Federal de Electricidad 2024</a>)</span>, específicamente en su página 82, donde se registra la evolución de los indicadores de continuidad del servicio a lo largo de los meses.</p>
+<div id="tbl-saidi-saifi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-saidi-saifi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3.2: Evolución mensual acumulada de los indicadores SAIDI y SAIFI (Fuente: Informe Anual CFE 2024, p.&nbsp;82).
+</figcaption>
+<div aria-describedby="tbl-saidi-saifi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Tabla 2. Evolución mensual acumulada de los indicadores SAIDI y SAIFI (Fuente: Informe Anual CFE 2024, p.&nbsp;82).</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Mes</th>
@@ -631,6 +644,9 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Dado que el informe de la CFE publica el indicador SAIFI de forma acumulada, es necesario calcular la diferencia marginal (<span class="math inline">\(\Delta\)</span>) respecto al mes anterior para aislar el peso estadístico de cada mes de forma individual:</p>
 <p><span class="math display">\[
 \Delta \text{SAIFI}_i = \text{SAIFI}_i - \text{SAIFI}_{i-1}
@@ -644,8 +660,13 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 \text{Cortes}_i = \left( \frac{\Delta \text{SAIFI}_i}{0.113} \right) \times 64
 \]</span></p>
 <p>Al hacer este cálculo y redondeando al entero más cercano (realizando un ajuste para mantener la conservación de la suma total en 64), obtenemos la distribución estacional empírica de fallas:</p>
+<div id="tbl-cortes-mensuales" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cortes-mensuales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3.3: Distribución estacional de los 64 cortes locales calculada mediante proporcionalidad sobre el SAIFI 2024.
+</figcaption>
+<div aria-describedby="tbl-cortes-mensuales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Tabla 3. Distribución estacional de los 64 cortes locales calculada mediante proporcionalidad sobre el SAIFI 2024.</caption>
 <colgroup>
 <col style="width: 21%">
 <col style="width: 26%">
@@ -735,6 +756,9 @@ SAIDI = \frac{\sum \text{Duración total de las interrupciones sufridas por usua
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>El análisis de la Tabla 3 revela con claridad los dos momentos estacionales de mayor vulnerabilidad y frecuencia de cortes en el suministro eléctrico de la región. El pico más severo se registra en <strong>Junio (9 cortes)</strong>, un fenómeno ocasionado por las altas temperaturas extremas registradas en Tuxtla Gutiérrez durante la primavera-verano, las cuales provocaron una saturación en la red de distribución eléctrica debido al uso masivo y simultáneo de sistemas de aire acondicionado. El segundo periodo crítico ocurre durante <strong>Agosto y Septiembre (8 y 9 cortes respectivamente)</strong>, coincidiendo directamente con el máximo histórico de la temporada de lluvias, tormentas tropicales y huracanes en el Sureste mexicano, eventos climáticos que suelen derribar líneas de alta tensión y afectar transformadores locales. En contraste, la época invernal se consolida como el periodo de máxima estabilidad en el servicio.</p>
 </section>
 <section id="modelado-del-proceso-de-poisson-no-homogéneo-ppnh" class="level2" data-number="3.5">
@@ -772,8 +796,13 @@ Figura&nbsp;3.1: Función de intensidad diaria de fallas eléctricas <span class
 <p>Por los fundamentos de los Procesos de Poisson No Homogéneos, el número esperado de eventos en cualquier intervalo cerrado <span class="math inline">\((t_1, t_2]\)</span> está determinado por la integral definida de su función de intensidad:</p>
 <p><span class="math display">\[\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\]</span></p>
 <p>Para validar la consistencia analítica de nuestra función <span class="math inline">\(\lambda(t)\)</span>, particionamos el año de 365 días en 12 subintervalos (correspondientes a los días acumulados de cada mes) y resolvemos numéricamente sus respectivas integrales, contrastando el área teórica bajo la curva contra los objetivos empíricos de la CFE:</p>
+<div id="tbl-validacion-integral" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-validacion-integral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3.4: Validación de Valores Esperados por Integral vs.&nbsp;Datos Empíricos de la CFE 2024.
+</figcaption>
+<div aria-describedby="tbl-validacion-integral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Tabla 4. Validación de Valores Esperados por Integral vs.&nbsp;Datos Empíricos de la CFE 2024.</caption>
 <colgroup>
 <col style="width: 21%">
 <col style="width: 26%">
@@ -863,19 +892,22 @@ Figura&nbsp;3.1: Función de intensidad diaria de fallas eléctricas <span class
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>La suma acumulada de las 12 integrales definidas a lo largo de todo el dominio anual arrojó un valor total de <strong>65.25 eventos esperados</strong>. Al comparar este resultado con la meta de 64 cortes empíricos, se observa que el modelo añade, en promedio, una falla anual extra.</p>
 <p>Esta desviación hacia arriba es una decisión metodológica deliberada para blindar la simulación de Montecarlo: al ensanchar las campanas de riesgo para cubrir desde abril hasta octubre de manera ininterrumpida, el modelo genera un escenario ligeramente más <strong>conservador y severo</strong> que la simple estadística aislada. Esto garantiza que las proyecciones de estrés térmico sobre la red de frío no subestimen el peligro real al que estarán sometidos los biológicos de la OMS durante las estaciones críticas en Tuxtla Gutiérrez.</p>
 </section>
 <section id="distribución-log-normal-de-las-duraciones-de-las-fallas" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="distribución-log-normal-de-las-duraciones-de-las-fallas"><span class="header-section-number">3.7</span> Distribución Log-Normal de las Duraciones de las Fallas</h2>
-<p>Una vez modelada la frecuencia estocástica con la que ocurren las interrupciones eléctricas, el siguiente componente crítico para el simulador termodinámico consiste en determinar cuánto tiempo dura cada apagón (<span class="math inline">\(D\)</span>). La duración de una falla es una variable aleatoria continua estrictamente positiva con una marcada asimetría hacia la derecha (la mayoría de los cortes se resuelven en pocas horas, pero existen eventos atípicos muy prolongados). Por este motivo, la teoría analítica establece que el comportamiento de las duraciones se modela mediante una distribución Log-normal:</p>
+<p>Una vez modelada la frecuencia con la que ocurren las interrupciones eléctricas, el siguiente componente crítico para el simulador termodinámico consiste en determinar cuánto tiempo dura cada apagón (<span class="math inline">\(D\)</span>). La duración de una falla es una variable aleatoria continua estrictamente positiva con una marcada asimetría hacia la derecha (la mayoría de los cortes se resuelven en pocas horas, pero existen eventos atípicos muy prolongados). Por este motivo, la teoría analítica establece que el comportamiento de las duraciones se modela mediante una distribución Log-normal:</p>
 <p><span class="math display">\[
 D \sim \text{LogNormal}(\mu, \sigma^2)
 \]</span></p>
 <p>Para calibrar los parámetros de escala <span class="math inline">\(\mu\)</span> (media de los logaritmos) y de forma <span class="math inline">\(\sigma\)</span> (desviación estándar de los logaritmos) para cada régimen estacional, es necesario procesar los indicadores empíricos de la CFE bajo un esquema de desagregación temporal.</p>
 <section id="desglose-mensual-de-horas-de-interrupción" class="level3" data-number="3.7.1">
 <h3 data-number="3.7.1" class="anchored" data-anchor-id="desglose-mensual-de-horas-de-interrupción"><span class="header-section-number">3.7.1</span> Desglose Mensual de Horas de Interrupción</h3>
-<p>De acuerdo con el registro histórico municipal consolidado para el año 2024, la duración promedio general de una interrupción en Tuxtla Gutiérrez fue de <strong><span class="math inline">\(2.39\)</span> horas por corte</strong>. Sabiendo que el factor de escala espacial redujo el riesgo del edificio a una esperanza de <strong><span class="math inline">\(64\)</span> cortes locales al año</strong>, podemos deducir la cantidad total de tiempo que el refrigerador experimentará desabasto eléctrico a lo largo de todo el año:</p>
+<p>De acuerdo con el registro histórico municipal consolidado para el año 2024, la duración promedio general de una interrupción en Tuxtla Gutiérrez fue de <strong><span class="math inline">\(2.39\)</span> horas por corte</strong> <a href="#tbl-interrupciones-cfe" class="quarto-xref">Tabla&nbsp;<span>3.1</span></a>. Sabiendo que el factor de escala espacial redujo el riesgo del edificio a una esperanza de <strong><span class="math inline">\(64\)</span> cortes locales al año</strong>, podemos deducir la cantidad total de tiempo que el refrigerador experimentará desabasto eléctrico a lo largo de todo el año:</p>
 <p><span class="math display">\[
 \text{Horas Totales del Año} = 64 \text{ cortes/año} \times 2.39 \text{ horas/corte} = 152.96 \text{ horas/año}
 \]</span></p>
@@ -884,8 +916,13 @@ D \sim \text{LogNormal}(\mu, \sigma^2)
 \text{Horas del Mes}_i = \left( \frac{\Delta \text{SAIDI}_i}{10.812} \right) \times 152.96
 \]</span></p>
 <p>Finalmente, para conocer la duración promedio esperada de un corte individual en un mes específico (<span class="math inline">\(E_i\)</span>), se divide el presupuesto de horas asignadas de ese mes entre el número de cortes discretos calculados previamente en la Tabla 3 (<span class="math inline">\(E_i = \text{Horas del Mes}_i / \text{Cortes}_i\)</span>):</p>
+<div id="tbl-duracion-cortes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-duracion-cortes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3.5: Estimación de la duración promedio mensual por corte a partir de los indicadores SAIDI 2024.
+</figcaption>
+<div aria-describedby="tbl-duracion-cortes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Tabla 5. Estimación de la duración promedio mensual por corte a partir de los indicadores SAIDI 2024.</caption>
 <colgroup>
 <col style="width: 13%">
 <col style="width: 17%">
@@ -1003,6 +1040,9 @@ D \sim \text{LogNormal}(\mu, \sigma^2)
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 </section>
 <section id="cálculo-empírico-de-medias-y-varianzas-por-régimen" class="level3" data-number="3.7.2">
 <h3 data-number="3.7.2" class="anchored" data-anchor-id="cálculo-empírico-de-medias-y-varianzas-por-régimen"><span class="header-section-number">3.7.2</span> Cálculo Empírico de Medias y Varianzas por Régimen</h3>
