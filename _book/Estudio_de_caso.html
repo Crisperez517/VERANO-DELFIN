@@ -435,7 +435,7 @@ window.Quarto = {
   <li><a href="#distribución-log-normal-de-las-duraciones-de-las-fallas" id="toc-distribución-log-normal-de-las-duraciones-de-las-fallas" class="nav-link" data-scroll-target="#distribución-log-normal-de-las-duraciones-de-las-fallas"><span class="header-section-number">3.7</span> Distribución Log-Normal de las Duraciones de las Fallas</a>
   <ul class="collapse">
   <li><a href="#desglose-mensual-de-horas-de-interrupción" id="toc-desglose-mensual-de-horas-de-interrupción" class="nav-link" data-scroll-target="#desglose-mensual-de-horas-de-interrupción"><span class="header-section-number">3.7.1</span> Desglose Mensual de Horas de Interrupción</a></li>
-  <li><a href="#cálculo-empírico-de-medias-y-varianzas-por-régimen" id="toc-cálculo-empírico-de-medias-y-varianzas-por-régimen" class="nav-link" data-scroll-target="#cálculo-empírico-de-medias-y-varianzas-por-régimen"><span class="header-section-number">3.7.2</span> Cálculo Empírico de Medias y Varianzas por Régimen</a></li>
+  <li><a href="#cálculo-de-medias-y-varianzas-por-régimen" id="toc-cálculo-de-medias-y-varianzas-por-régimen" class="nav-link" data-scroll-target="#cálculo-de-medias-y-varianzas-por-régimen"><span class="header-section-number">3.7.2</span> Cálculo de Medias y Varianzas por Régimen</a></li>
   <li><a href="#transformación-analítica-a-parámetros-log-normales" id="toc-transformación-analítica-a-parámetros-log-normales" class="nav-link" data-scroll-target="#transformación-analítica-a-parámetros-log-normales"><span class="header-section-number">3.7.3</span> Transformación Analítica a Parámetros Log-Normales</a></li>
   </ul></li>
   <li><a href="#calibración-de-la-ecuación-diferencial-estocástica-ede" id="toc-calibración-de-la-ecuación-diferencial-estocástica-ede" class="nav-link" data-scroll-target="#calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.8</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</a>
@@ -1044,17 +1044,22 @@ Tabla&nbsp;3.5: Estimación de la duración promedio mensual por corte a partir 
 </figure>
 </div>
 </section>
-<section id="cálculo-empírico-de-medias-y-varianzas-por-régimen" class="level3" data-number="3.7.2">
-<h3 data-number="3.7.2" class="anchored" data-anchor-id="cálculo-empírico-de-medias-y-varianzas-por-régimen"><span class="header-section-number">3.7.2</span> Cálculo Empírico de Medias y Varianzas por Régimen</h3>
+<section id="cálculo-de-medias-y-varianzas-por-régimen" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="cálculo-de-medias-y-varianzas-por-régimen"><span class="header-section-number">3.7.2</span> Cálculo de Medias y Varianzas por Régimen</h3>
 <p>Para alimentar la conmutación de regímenes de la EDE, agrupamos los meses en las tres temporadas climáticas analizadas. Sin embargo, realizar un promedio aritmético simple entre las duraciones mensuales introduciría un sesgo metodológico, ya que trataría por igual a un mes con 9 cortes que a uno con solo 2 cortes.</p>
-<p>Para resolver esto, calculamos la media empírica (<span class="math inline">\(\mathbb{E}[D_{reg}]\)</span>) y la varianza empírica (<span class="math inline">\(\mathbb{V}[D_{reg}]\)</span>) de cada régimen utilizando estadística descriptiva ponderada, donde el peso de cada mes está determinado estrictamente por su número de cortes (<span class="math inline">\(\omega_i = \text{Cortes}_i\)</span>). Analíticamente, las ecuaciones operativas son:</p>
+<p>Para resolver esto, calculamos la media empírica (<span class="math inline">\(\mathbb{E}[D_{reg}]\)</span>) y la varianza empírica (<span class="math inline">\(\mathbb{V}[D_{reg}]\)</span>) de cada régimen utilizando estadística descriptiva ponderada, donde el peso de cada mes está determinado estrictamente por su número de cortes (<span class="math inline">\(\omega_i = \text{Cortes}_i\)</span>). Analíticamente, es decir:</p>
 <p><span class="math display">\[
 \mathbb{E}[D_{reg}] = \frac{\sum \omega_i E_i}{\sum \omega_i} = \frac{\text{Total de Horas del Régimen}}{\text{Total de Cortes del Régimen}}
 \]</span></p>
 <p><span class="math display">\[
 \mathbb{V}[D_{reg}] = \frac{\sum \omega_i (E_i - \mathbb{E}[D_{reg}])^2}{\sum \omega_i}
 \]</span></p>
-<p>Agrupando los datos bajo este criterio de ponderación, se obtienen las siguientes métricas muestrales por temporada: * <strong>Régimen de Calor (Mayo, Junio y Julio):</strong> Acumula <span class="math inline">\(22\)</span> cortes y <span class="math inline">\(53.25\)</span> horas de interrupción, resultando en una duración media de <span class="math inline">\(\mathbb{E}[D] = 2.420\)</span> horas y una varianza de <span class="math inline">\(\mathbb{V}[D] = 0.373\)</span>. * <strong>Régimen de Lluvias (Agosto, Septiembre y Octubre):</strong> Suma <span class="math inline">\(21\)</span> cortes y <span class="math inline">\(35.45\)</span> horas de interrupción, generando una duración media de <span class="math inline">\(\mathbb{E}[D] = 1.688\)</span> horas y una varianza de <span class="math inline">\(\mathbb{V}[D] = 0.343\)</span>. * <strong>Régimen Base e Invierno (Resto de meses):</strong> Concentra <span class="math inline">\(23\)</span> cortes y <span class="math inline">\(64.25\)</span> horas, arrojando una duración media de <span class="math inline">\(\mathbb{E}[D] = 2.793\)</span> horas con una varianza más dispersa de <span class="math inline">\(\mathbb{V}[D] = 4.650\)</span> debido a la anomalía de abril.</p>
+<p>Agrupando los datos bajo este criterio de ponderación, se obtienen las siguientes métricas muestrales por temporada:</p>
+<ul>
+<li><p><strong>Régimen de Calor (Mayo, Junio y Julio):</strong> Acumula <span class="math inline">\(22\)</span> cortes y <span class="math inline">\(53.25\)</span> horas de interrupción, resultando en una duración media de <span class="math inline">\(\mathbb{E}[D] = 2.420\)</span> horas y una varianza de <span class="math inline">\(\mathbb{V}[D] = 0.373\)</span>.</p></li>
+<li><p><strong>Régimen de Lluvias (Agosto, Septiembre y Octubre):</strong> Suma <span class="math inline">\(21\)</span> cortes y <span class="math inline">\(35.45\)</span> horas de interrupción, generando una duración media de <span class="math inline">\(\mathbb{E}[D] = 1.688\)</span> horas y una varianza de <span class="math inline">\(\mathbb{V}[D] = 0.343\)</span>.</p></li>
+<li><p><strong>Régimen Base e Invierno (Resto de meses):</strong> Concentra <span class="math inline">\(23\)</span> cortes y <span class="math inline">\(64.25\)</span> horas, arrojando una duración media de <span class="math inline">\(\mathbb{E}[D] = 2.793\)</span> horas con una varianza más dispersa de <span class="math inline">\(\mathbb{V}[D] = 4.650\)</span> debido a la anomalía de abril.</p></li>
+</ul>
 </section>
 <section id="transformación-analítica-a-parámetros-log-normales" class="level3" data-number="3.7.3">
 <h3 data-number="3.7.3" class="anchored" data-anchor-id="transformación-analítica-a-parámetros-log-normales"><span class="header-section-number">3.7.3</span> Transformación Analítica a Parámetros Log-Normales</h3>

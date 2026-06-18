@@ -1805,8 +1805,8 @@ Noviembre & 9.314 & 0.251 & 3.55 & 2 & 1.775 \\
 Diciembre & 10.812 & 1.498 & 21.19 & 4 & 5.298 \\
 \end{longtable}
 
-\subsection{Cálculo Empírico de Medias y Varianzas por
-Régimen}\label{cuxe1lculo-empuxedrico-de-medias-y-varianzas-por-ruxe9gimen}
+\subsection{Cálculo de Medias y Varianzas por
+Régimen}\label{cuxe1lculo-de-medias-y-varianzas-por-ruxe9gimen}
 
 Para alimentar la conmutación de regímenes de la EDE, agrupamos los
 meses en las tres temporadas climáticas analizadas. Sin embargo,
@@ -1819,7 +1819,7 @@ Para resolver esto, calculamos la media empírica
 (\(\mathbb{V}[D_{reg}]\)) de cada régimen utilizando estadística
 descriptiva ponderada, donde el peso de cada mes está determinado
 estrictamente por su número de cortes (\(\omega_i = \text{Cortes}_i\)).
-Analíticamente, las ecuaciones operativas son:
+Analíticamente, es decir:
 
 \[
 \mathbb{E}[D_{reg}] = \frac{\sum \omega_i E_i}{\sum \omega_i} = \frac{\text{Total de Horas del Régimen}}{\text{Total de Cortes del Régimen}}
@@ -1830,18 +1830,25 @@ Analíticamente, las ecuaciones operativas son:
 \]
 
 Agrupando los datos bajo este criterio de ponderación, se obtienen las
-siguientes métricas muestrales por temporada: * \textbf{Régimen de Calor
-(Mayo, Junio y Julio):} Acumula \(22\) cortes y \(53.25\) horas de
-interrupción, resultando en una duración media de
-\(\mathbb{E}[D] = 2.420\) horas y una varianza de
-\(\mathbb{V}[D] = 0.373\). * \textbf{Régimen de Lluvias (Agosto,
-Septiembre y Octubre):} Suma \(21\) cortes y \(35.45\) horas de
-interrupción, generando una duración media de \(\mathbb{E}[D] = 1.688\)
-horas y una varianza de \(\mathbb{V}[D] = 0.343\). * \textbf{Régimen
-Base e Invierno (Resto de meses):} Concentra \(23\) cortes y \(64.25\)
-horas, arrojando una duración media de \(\mathbb{E}[D] = 2.793\) horas
-con una varianza más dispersa de \(\mathbb{V}[D] = 4.650\) debido a la
-anomalía de abril.
+siguientes métricas muestrales por temporada:
+
+\begin{itemize}
+\item
+  \textbf{Régimen de Calor (Mayo, Junio y Julio):} Acumula \(22\) cortes
+  y \(53.25\) horas de interrupción, resultando en una duración media de
+  \(\mathbb{E}[D] = 2.420\) horas y una varianza de
+  \(\mathbb{V}[D] = 0.373\).
+\item
+  \textbf{Régimen de Lluvias (Agosto, Septiembre y Octubre):} Suma
+  \(21\) cortes y \(35.45\) horas de interrupción, generando una
+  duración media de \(\mathbb{E}[D] = 1.688\) horas y una varianza de
+  \(\mathbb{V}[D] = 0.343\).
+\item
+  \textbf{Régimen Base e Invierno (Resto de meses):} Concentra \(23\)
+  cortes y \(64.25\) horas, arrojando una duración media de
+  \(\mathbb{E}[D] = 2.793\) horas con una varianza más dispersa de
+  \(\mathbb{V}[D] = 4.650\) debido a la anomalía de abril.
+\end{itemize}
 
 \subsection{Transformación Analítica a Parámetros
 Log-Normales}\label{transformaciuxf3n-analuxedtica-a-paruxe1metros-log-normales}
