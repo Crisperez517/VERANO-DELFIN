@@ -793,7 +793,7 @@ Figura&nbsp;3.1: Función de intensidad diaria de fallas eléctricas <span class
 </section>
 <section id="validación-del-modelo-cálculo-integral" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="validación-del-modelo-cálculo-integral"><span class="header-section-number">3.6</span> Validación del Modelo (Cálculo Integral)</h2>
-<p>Por los fundamentos de los Procesos de Poisson No Homogéneos, el número esperado de eventos en cualquier intervalo cerrado <span class="math inline">\((t_1, t_2]\)</span> está determinado por la integral definida de su función de intensidad:</p>
+<p>Por los fundamentos de los Procesos de Poisson No Homogéneos, el número esperado de eventos en cualquier intervalo <span class="math inline">\((t_1, t_2]\)</span> está determinado por la integral definida de su función de intensidad:</p>
 <p><span class="math display">\[\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\]</span></p>
 <p>Para validar la consistencia analítica de nuestra función <span class="math inline">\(\lambda(t)\)</span>, particionamos el año de 365 días en 12 subintervalos (correspondientes a los días acumulados de cada mes) y resolvemos numéricamente sus respectivas integrales, contrastando el área teórica bajo la curva contra los objetivos empíricos de la CFE:</p>
 <div id="tbl-validacion-integral" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -911,11 +911,11 @@ D \sim \text{LogNormal}(\mu, \sigma^2)
 <p><span class="math display">\[
 \text{Horas Totales del Año} = 64 \text{ cortes/año} \times 2.39 \text{ horas/corte} = 152.96 \text{ horas/año}
 \]</span></p>
-<p>Para distribuir estas <span class="math inline">\(152.96\)</span> horas anuales entre los 12 meses respetando la estacionalidad de la red, utilizamos el indicador SAIDI acumulado del <em>Informe Anual de la CFE 2024</em>. Primero, calculamos la diferencia marginal (<span class="math inline">\(\Delta \text{SAIDI}_i\)</span>) para aislar el impacto de cada mes. Posteriormente, mediante una regla de tres simple, equiparamos el SAIDI total acumulado al final del año (<span class="math inline">\(10.812\)</span> horas) con nuestras <span class="math inline">\(152.96\)</span> horas de afectación local. La asignación de horas de falla para cada mes viene dada por:</p>
+<p>Para distribuir estas <span class="math inline">\(152.96\)</span> horas anuales entre los 12 meses respetando la estacionalidad de la red, utilizamos el indicador SAIDI acumulado del <em>Informe Anual de la CFE 2024</em> <a href="#tbl-saidi-saifi" class="quarto-xref">Tabla&nbsp;<span>3.2</span></a>. Primero, calculamos la diferencia marginal (<span class="math inline">\(\Delta \text{SAIDI}_i\)</span>) para aislar el impacto de cada mes. Posteriormente, mediante una regla de tres simple, equiparamos el SAIDI total acumulado al final del año (<span class="math inline">\(10.812\)</span> horas) con nuestras <span class="math inline">\(152.96\)</span> horas de afectación local. La asignación de horas de falla para cada mes viene dada por:</p>
 <p><span class="math display">\[
 \text{Horas del Mes}_i = \left( \frac{\Delta \text{SAIDI}_i}{10.812} \right) \times 152.96
 \]</span></p>
-<p>Finalmente, para conocer la duración promedio esperada de un corte individual en un mes específico (<span class="math inline">\(E_i\)</span>), se divide el presupuesto de horas asignadas de ese mes entre el número de cortes discretos calculados previamente en la Tabla 3 (<span class="math inline">\(E_i = \text{Horas del Mes}_i / \text{Cortes}_i\)</span>):</p>
+<p>Finalmente, para conocer la duración promedio esperada de un corte individual en un mes específico (<span class="math inline">\(E_i\)</span>), se divide la cantidad de horas asignadas de ese mes entre el número de cortes calculados previamente <a href="#tbl-cortes-mensuales" class="quarto-xref">Tabla&nbsp;<span>3.3</span></a> (<span class="math inline">\(E_i = \text{Horas del Mes}_i / \text{Cortes}_i\)</span>):</p>
 <div id="tbl-duracion-cortes" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-duracion-cortes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">

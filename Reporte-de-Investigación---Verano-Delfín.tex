@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -1617,7 +1617,7 @@ críticos del año: la temporada de estiaje y calor extremo
 Integral)}\label{validaciuxf3n-del-modelo-cuxe1lculo-integral}
 
 Por los fundamentos de los Procesos de Poisson No Homogéneos, el número
-esperado de eventos en cualquier intervalo cerrado \((t_1, t_2]\) está
+esperado de eventos en cualquier intervalo \((t_1, t_2]\) está
 determinado por la integral definida de su función de intensidad:
 
 \[\mathbb{E}[N(t_1, t_2)] = \int_{t_1}^{t_2} \lambda(t) dt\]
@@ -1729,21 +1729,22 @@ año:
 
 Para distribuir estas \(152.96\) horas anuales entre los 12 meses
 respetando la estacionalidad de la red, utilizamos el indicador SAIDI
-acumulado del \emph{Informe Anual de la CFE 2024}. Primero, calculamos
-la diferencia marginal (\(\Delta \text{SAIDI}_i\)) para aislar el
-impacto de cada mes. Posteriormente, mediante una regla de tres simple,
-equiparamos el SAIDI total acumulado al final del año (\(10.812\) horas)
-con nuestras \(152.96\) horas de afectación local. La asignación de
-horas de falla para cada mes viene dada por:
+acumulado del \emph{Informe Anual de la CFE 2024}
+Tabla~\ref{tbl-saidi-saifi}. Primero, calculamos la diferencia marginal
+(\(\Delta \text{SAIDI}_i\)) para aislar el impacto de cada mes.
+Posteriormente, mediante una regla de tres simple, equiparamos el SAIDI
+total acumulado al final del año (\(10.812\) horas) con nuestras
+\(152.96\) horas de afectación local. La asignación de horas de falla
+para cada mes viene dada por:
 
 \[
 \text{Horas del Mes}_i = \left( \frac{\Delta \text{SAIDI}_i}{10.812} \right) \times 152.96
 \]
 
 Finalmente, para conocer la duración promedio esperada de un corte
-individual en un mes específico (\(E_i\)), se divide el presupuesto de
-horas asignadas de ese mes entre el número de cortes discretos
-calculados previamente en la Tabla 3
+individual en un mes específico (\(E_i\)), se divide la cantidad de
+horas asignadas de ese mes entre el número de cortes calculados
+previamente Tabla~\ref{tbl-cortes-mensuales}
 (\(E_i = \text{Horas del Mes}_i / \text{Cortes}_i\)):
 
 \begin{longtable}[]{@{}
