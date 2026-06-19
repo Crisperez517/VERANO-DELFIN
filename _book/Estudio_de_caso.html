@@ -1138,7 +1138,7 @@ Tabla&nbsp;3.6: Parámetros de la distribución Log-normal finales.
 </section>
 <section id="calibración-de-la-ecuación-diferencial-estocástica-ede" class="level2" data-number="3.8">
 <h2 data-number="3.8" class="anchored" data-anchor-id="calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.8</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</h2>
-<p>Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna <span class="math inline">\(T(t)\)</span> del refrigerador está gobernada por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico <span class="math inline">\(\alpha(t)\)</span>:</p>
+<p>Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna <span class="math inline">\(T(t)\)</span> del refrigerador se puede aproximar por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico <span class="math inline">\(\alpha(t)\)</span>:</p>
 <p><span id="eq-ede-operativa"><span class="math display">\[
 dT(t) =
 \begin{cases}
@@ -1157,7 +1157,7 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Ice-Line
 </figcaption>
 </figure>
 </div>
-<p>Para reflejar fielmente el comportamiento de este equipo bajo el estándar normativo de la OMS, calibramos cada coeficiente de la <a href="#eq-ede-operativa" class="quarto-xref">Ecuación&nbsp;<span>3.1</span></a> con base en la física del enfriamiento:</p>
+<p>Para reflejar el comportamiento de este equipo bajo el estándar normativo de la OMS, calibramos cada coeficiente de la <a href="#eq-ede-operativa" class="quarto-xref">Ecuación&nbsp;<span>3.1</span></a> con base en la física del enfriamiento:</p>
 <section id="régimen-1-operación-normal-alphat-1" class="level3" data-number="3.8.1">
 <h3 data-number="3.8.1" class="anchored" data-anchor-id="régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.8.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
 <p>Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.</p>

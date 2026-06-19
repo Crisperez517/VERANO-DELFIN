@@ -274,7 +274,7 @@ Al sustituir las medias y varianzas de cada temporada en estas relaciones, obten
 
 ## Calibración de la Ecuación Diferencial Estocástica (EDE)
 
-Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna $T(t)$ del refrigerador está gobernada por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico $\alpha(t)$:
+Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna $T(t)$ del refrigerador se puede aproximar por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico $\alpha(t)$:
 
 $$
 dT(t) = 
@@ -288,7 +288,7 @@ Para la modelación estocástica, los parámetros de inercia térmica y tiempo d
 
 ![Refrigerador institucional para vacunas Haier HBC-150 (Ice-Lined Refrigerator). Este equipo cuenta con certificación PQS de la OMS y masa térmica incorporada para garantizar la red de frío durante cortes prolongados de energía eléctrica.](haier_hbc150.jpg){#fig-haier-hbc150 width="70%" fig-align="center"}
 
-Para reflejar fielmente el comportamiento de este equipo bajo el estándar normativo de la OMS, calibramos cada coeficiente de la @eq-ede-operativa con base en la física del enfriamiento:
+Para reflejar el comportamiento de este equipo bajo el estándar normativo de la OMS, calibramos cada coeficiente de la @eq-ede-operativa con base en la física del enfriamiento:
 
 ### Régimen 1: Operación Normal ($\alpha(t) = 1$)
 Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.
