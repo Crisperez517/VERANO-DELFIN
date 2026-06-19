@@ -232,17 +232,17 @@ $$
 
 Agrupando los datos bajo este criterio de ponderación, se obtienen las siguientes métricas muestrales por temporada:
 
-* **Régimen de Calor (Mayo, Junio y Julio):** Acumula $22$ cortes y $53.25$ horas de interrupción, resultando en una duración media de $\mathbb{E}[D] = 2.420$ horas y una varianza de $\mathbb{V}[D] = 0.373$.
+* **Temporada de Calor (Mayo, Junio y Julio):** Acumula $22$ cortes y $53.25$ horas de interrupción, resultando en una duración media de $\mathbb{E}[D] = 2.420$ horas y una varianza de $\mathbb{V}[D] = 0.373$.
 
-* **Régimen de Lluvias (Agosto, Septiembre y Octubre):** Suma $21$ cortes y $35.45$ horas de interrupción, generando una duración media de $\mathbb{E}[D] = 1.688$ horas y una varianza de $\mathbb{V}[D] = 0.343$.
+* **Temporada de Lluvias (Agosto, Septiembre y Octubre):** Suma $21$ cortes y $35.45$ horas de interrupción, generando una duración media de $\mathbb{E}[D] = 1.688$ horas y una varianza de $\mathbb{V}[D] = 0.343$.
 
-* **Régimen Base e Invierno (Resto de meses):** Concentra $23$ cortes y $64.25$ horas, arrojando una duración media de $\mathbb{E}[D] = 2.793$ horas con una varianza más dispersa de $\mathbb{V}[D] = 4.650$ debido a la anomalía de abril.
+* **Temporada Base e Invierno (Resto de meses):** Concentra $23$ cortes y $64.25$ horas, arrojando una duración media de $\mathbb{E}[D] = 2.793$ horas con una varianza más dispersa de $\mathbb{V}[D] = 4.650$ debido a la anomalía de abril.
 
 ### Transformación Analítica a Parámetros Log-Normales
 
-Una vez que conocemos la media aritmética real ($\mathbb{E}[D]$) y la varianza geométrica real ($\mathbb{V}[D]$) del sistema, debemos mapearlas hacia los parámetros analíticos internos $\mu$ y $\sigma$ que requiere la función de distribución de probabilidad en el código de Python. 
+Una vez que conocemos la media ($\mathbb{E}[D]$) y la varianza ($\mathbb{V}[D]$) del sistema, debemos mapearlas hacia los parámetros analíticos internos $\mu$ y $\sigma$ que requiere la función de distribución de probabilidad Log-normal. 
 
-Por definición matemática, la esperanza matemática y la varianza de una variable aleatoria con distribución Log-normal se rigen por las siguientes dos identidades:
+La esperanza y la varianza de una variable aleatoria con distribución Log-normal están dadas por las siguientes dos identidades:
 
 $$
 \mathbb{E}[D] = \exp\left(\mu + \frac{\sigma^2}{2}\right)
@@ -262,47 +262,52 @@ $$
 \mu = \ln(\mathbb{E}[D]) - \frac{\sigma^2}{2} = \ln\left( \frac{(\mathbb{E}[D])^2}{\sqrt{\mathbb{V}[D] + (\mathbb{E}[D])^2}} \right)
 $$
 
-Al sustituir las medias y varianzas empíricas ponderadas de cada temporada en estas relaciones analíticas de transformación, obtenemos los parámetros exactos calibrados que gobernará el reloj de simulación de Montecarlo:
+Al sustituir las medias y varianzas de cada temporada en estas relaciones, obtenemos los parámetros exactos de la distribución Log-normal que modelará la duración de las fallas eléctricas en cada temporada:
 
-| Régimen Estacional | Meses que lo integran | Media Empírica $\mathbb{E}[D]$ | Varianza Empírica $\mathbb{V}[D]$ | Parámetro $\mu$ | Parámetro $\sigma$ |
+| Temporada | Meses que lo integran | Media Empírica $\mathbb{E}[D]$ | Varianza Empírica $\mathbb{V}[D]$ | Parámetro $\mu$ | Parámetro $\sigma$ |
 |:---|:---:|:---:|:---:|:---:|:---:|
 | **Base (Invierno)** | Ene, Feb, Mar, Abr, Nov, Dic | 2.793 | 4.650 | 0.7933 | 0.6838 |
 | **Calor (Ola de Verano)** | May, Jun, Jul | 2.420 | 0.373 | 0.8529 | 0.2485 |
 | **Lluvias (Ciclones)** | Ago, Sep, Oct | 1.688 | 0.343 | 0.4667 | 0.3371 |
 
-: Tabla 6. Parámetros lognormales finales calculados mediante el método de momentos ponderados.
+: Parámetros de la distribución Log-normal finales. {#tbl-parametros-lognormal}
 
 ## Calibración de la Ecuación Diferencial Estocástica (EDE)
 
-Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna $T(t)$ del refrigerador está gobernada por:
+Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna $T(t)$ del refrigerador está gobernada por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico $\alpha(t)$:
 
-$$dT(t) = \kappa(\alpha(t)) [\theta(\alpha(t)) - T(t)] dt + \sigma(\alpha(t)) dW(t) + \gamma dN_{puerta}(t)$$
+$$
+dT(t) = 
+\begin{cases} 
+\kappa_{on}(\theta_{set} - T(t))dt + \sigma_{on}dW(t) + \gamma dN_{puerta}(t) & \text{si } \alpha(t) = 1 \text{ (Con energía)} \\ 
+\kappa_{off}(T_{amb}(t) - T(t))dt + \sigma_{off}dW(t) + \gamma dN_{puerta}(t) & \text{si } \alpha(t) = 2 \text{ (Corte de luz)} 
+\end{cases}
+$$ {#eq-ede-operativa}
 
-Para reflejar fielmente a un equipo institucional que cumple el estándar de la OMS (como el modelo Haier HBC-150), calibraremos los coeficientes.
+Para la modelación estocástica, los parámetros de inercia térmica y tiempo de autonomía (*holdover time*) se calibraron utilizando los datos técnicos del refrigerador institucional Haier HBC-150, el cual cuenta con certificación de protección Grado A contra congelamiento en el catálogo oficial PQS de la OMS [@oms_pqs_e003].
+
+![Refrigerador institucional para vacunas Haier HBC-150 (Ice-Lined Refrigerator). Este equipo cuenta con certificación PQS de la OMS y masa térmica incorporada para garantizar la red de frío durante cortes prolongados de energía eléctrica.](haier_hbc150.jpg){#fig-haier-hbc150 width="70%" fig-align="center"}
+
+Para reflejar fielmente el comportamiento de este equipo bajo el estándar normativo de la OMS, calibramos cada coeficiente de la @eq-ede-operativa con base en la física del enfriamiento:
 
 ### Régimen 1: Operación Normal ($\alpha(t) = 1$)
-Ocurre cuando hay energía eléctrica y el compresor funciona.
+Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.
 
-* **Temperatura de Consigna ($\theta_1$)**: Se establece en **$5^\circ \text{C}$**, el centro ideal del rango normativo de seguridad (2°C a 8°C).
-
-* **Velocidad de Enfriamiento ($\kappa_1$)**: Representa la capacidad del motor para recuperar la temperatura. Se calibra en $\kappa_1 = 0.1188$.
-
-* **Ruido del Compresor ($\sigma_1$)**: El motor prende y apaga intermitentemente para mantener los 5°C. Para que el 99.7% del tiempo las fluctuaciones se mantengan en un rango de $\pm 3^\circ \text{C}$ (regla empírica de 3 sigmas del proceso Ornstein-Uhlenbeck), calculamos $\sigma_1 = \sqrt{0.2376} \approx 0.487$.
+* **Temperatura de Consigna ($\theta_{set}$)**: Se establece en **$5^\circ \text{C}$**, el centro ideal del rango normativo de seguridad (2°C a 8°C).
+* **Velocidad de Enfriamiento ($\kappa_{on}$)**: Representa la capacidad de potencia del motor para recuperar la temperatura. Se calibra en $\kappa_{on} = 0.1188$, una velocidad rápida propia de la compresión activa.
+* **Ruido del Compresor ($\sigma_{on}$)**: El motor prende y apaga intermitentemente para mantener los 5°C. Para que el 99.7% del tiempo las fluctuaciones se mantengan en un rango de $\pm 3^\circ \text{C}$ (aplicando la regla empírica de 3 sigmas para la varianza estacionaria de un proceso Ornstein-Uhlenbeck), se calcula una desviación de $\sigma_{on} = \sqrt{0.2376} \approx 0.487$.
 
 ### Régimen 2: Falla Eléctrica ($\alpha(t) = 2$)
-Se activa cuando el Proceso de Poisson dispara un apagón.
+Se activa cuando el Proceso de Poisson dispara un apagón y el enfriamiento activo se detiene.
 
-* **Temperatura Exterior ($\theta_2$)**: Para evaluar el caso crítico en Tuxtla Gutiérrez, fijamos una temperatura ambiental extrema de **$43^\circ \text{C}$**.
-
-* **Inercia Térmica ($\kappa_2$)**: Los refrigeradores OMS cuentan con paquetes de hielo como "masa térmica". El equipo Haier garantiza un *Holdover Time* (tiempo de autonomía) de 63.8 horas a 43°C antes de rebasar los 8°C. Usando la solución analítica de enfriamiento determinista de 5°C a 8°C:
-  $$8 = 43 + (5 - 43) e^{-\kappa_2 (63.8)}$$
-  Al despejar, obtenemos un valor sumamente bajo de $\kappa_2 \approx 0.00128$, lo que demuestra la alta efectividad del aislamiento térmico.
-
-* **Volatilidad Externa ($\sigma_2$)**: Sin compresor encendido, las variaciones obedecen solo a micro-filtraciones de aire. Establecemos un ruido menor: $\sigma_2 = 0.05$.
+* **Temperatura Exterior ($T_{amb}(t)$)**: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo diario a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de **$43^\circ \text{C}$**. En este escenario, el término de deriva $(T_{amb} - T(t))$ se vuelve enorme y genera un calentamiento fuertemente acelerado.
+* **Velocidad de Pérdida Térmica ($\kappa_{off}$)**: Los refrigeradores OMS cuentan con paquetes de hielo en su interior que actúan como "masa térmica". El equipo Haier garantiza un *Holdover Time* (tiempo de autonomía) de 63.8 horas a 43°C antes de rebasar los 8°C. Usando la solución analítica de la Ley de Enfriamiento de Newton desde 5°C a 8°C:
+  $$8 = 43 + (5 - 43) e^{-\kappa_{off} (63.8)}$$
+  Al despejar, obtenemos un valor sumamente bajo de $\kappa_{off} \approx 0.00128$. Esta transición de un parámetro rápido ($\kappa_{on}$) a uno muy lento ($\kappa_{off}$) es lo que justifica el uso de EDEs con conmutación de régimen.
+* **Volatilidad Externa ($\sigma_{off}$)**: Sin el compresor encendido, las variaciones aleatorias obedecen únicamente a micro-filtraciones de aire por las gomas de la puerta. Por ello, establecemos un ruido significativamente menor: $\sigma_{off} = 0.05$.
 
 ### Perturbaciones Discretas: Apertura de Puertas ($N_{puerta}(t)$)
-Las aperturas de puerta son provocadas activamente por el personal de enfermería para sacar o guardar biológicos. 
+A diferencia de los cortes de luz, las aperturas de puerta son eventos provocados activamente por el personal de enfermería. 
 
-* **Tasa de Aperturas**: Se modelan con un Proceso de Poisson Homogéneo que ocurre solo durante el horario laboral.
-
-* **Impacto de la Apertura ($\gamma$)**: Asignamos un incremento térmico inmediato de **$+0.5^\circ \text{C}$** por evento. Esta es la perturbación que altera bruscamente la temperatura.
+* **Tasa de Aperturas**: Se modelan con un Proceso de Poisson Homogéneo tradicional que ocurre exclusivamente durante los horarios operativos del centro de salud.
+* **Impacto de la Apertura ($\gamma$)**: Asignamos un incremento térmico inmediato de **$+0.5^\circ \text{C}$** por evento. Esta es la perturbación inelástica instantánea que rompe la continuidad de la temperatura y "roba" el frío del equipo de forma acumulativa antes de un posible apagón.
