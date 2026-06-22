@@ -1,10 +1,10 @@
-# Estudio de Caso: Calibración de Parámetros y Fallas Eléctricas
+# Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación
 
 ## Motivación y Contexto del Estudio
 
 El presente estudio de caso consolida el marco teórico y metodológico de nuestra investigación aplicándolo a un escenario real y altamente crítico: la red de frío para la preservación de vacunas en Tuxtla Gutiérrez, Chiapas. Debido a las altas temperaturas de la región y a la vulnerabilidad de la infraestructura eléctrica ante eventos climáticos, los refrigeradores institucionales de vacunas se enfrentan a una dificultad operativa constante.
 
-Para que nuestra simulacion sea valida, no podemos usar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En esta sección, calibraremos todos los parámetros de nuestro modelo. Primero, determinaremos la frecuencia de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de un Proceso de Poisson No Homogéneo. Posteriormente, utilizaremos la física del enfriamiento para deducir numéricamente los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores.
+Para que nuestra simulación sea valida, no podemos usar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En esta sección, calibraremos todos los parámetros de nuestro modelo en tres fases fundamentales. Primero, determinaremos la frecuencia y duración de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de procesos estocásticos de Poisson. Segundo, utilizaremos la física del enfriamiento para deducir los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores. Finalmente, acoplaremos estos resultados a las leyes de la cinética química para cuantificar la degradación térmica exacta que sufren los biológicos durante un apagón.
 
 ## Datos Base (CFE) e Indicadores de Confiabilidad
 
@@ -294,21 +294,49 @@ Para reflejar el comportamiento de este equipo bajo los rigurosos estándares no
 Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.
 
 * **Temperatura de Consigna ($\theta_{set}$)**: Se establece en **$4^\circ \text{C}$**, el centro ideal del rango normativo de seguridad (2°C a 8°C).
-* **Velocidad de Enfriamiento ($\kappa_{on}$)**: Representa la capacidad de potencia del motor para recuperar la temperatura. Se calibra en $\kappa_{on} = 0.1188$, una velocidad rápida propia de la compresión activa.
-* **Ruido del Compresor ($\sigma_{on}$)**: El motor prende y apaga intermitentemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla empírica de 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los $\pm 2^\circ \text{C}$ para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que $3 \times SD = 2^\circ \text{C}$, la desviación estándar estacionaria debe ser $SD \approx 0.667^\circ \text{C}$. Despejando matemáticamente la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck $\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)$:
+* **Velocidad de Enfriamiento ($\kappa_{on}$)**: Representa la capacidad de potencia del motor para recuperar la temperatura. Se calibra en $\kappa_{on} = 0.1188$, una velocidad rápida propia de la compresión activa de acuerdo con [@oms_pqs_e003].
+* **Ruido del Compresor ($\sigma_{on}$)**: El motor se prende y se apaga constantemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla de las 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los $\pm 2^\circ \text{C}$ para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que $3 \times SD = 2^\circ \text{C}$, la desviación estándar estacionaria debe ser $SD \approx 0.667^\circ \text{C}$. Despejando la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck $\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)$:
   $$0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325$$
 
 ### Régimen 2: Falla Eléctrica ($\alpha(t) = 2$)
-Se activa cuando el Proceso de Poisson dispara un apagón y el enfriamiento activo se detiene.
+Se activa cuando el Proceso de Poisson dice que hay un apagón y el enfriamiento activo se detiene.
 
 * **Temperatura Exterior ($T_{amb}(t)$)**: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de **$43^\circ \text{C}$**. En este escenario, el término $(T_{amb} - T(t))$ se vuelve enorme y genera un calentamiento fuertemente acelerado.
 * **Velocidad de Pérdida Térmica ($\kappa_{off}$)**: De acuerdo con las especificaciones del fabricante validadas por la OMS [@oms_pqs_e003], el equipo Haier HBC-150 garantiza un *Holdover Time* (tiempo de autonomía) de 60 horas con 50 minutos (60.83 horas) a una temperatura ambiente extrema de 43°C antes de rebasar los 8°C. Usando la solución analítica determinista de la Ley de Enfriamiento de Newton desde los 4°C de consigna hasta el límite de 8°C:
   $$8 = 43 + (4 - 43) e^{-\kappa_{off} (60.83)}$$
-  Al resolver la ecuación $\left(\ln\left(\frac{35}{39}\right) = -60.83 \kappa_{off}\right)$, obtenemos un valor sumamente bajo de $\kappa_{off} \approx 0.00178 \text{ hr}^{-1}$. Esta dramática diferencia entre un parámetro rápido ($\kappa_{on}$) y uno muy lento ($\kappa_{off}$) demuestra la efectividad de los revestimientos de hielo (Icelined) y justifica plenamente el uso de EDEs con conmutación de régimen.
+  Al resolver la ecuación $\left(\ln\left(\frac{35}{39}\right) = -60.83 \kappa_{off}\right)$, obtenemos un valor sumamente bajo de $\kappa_{off} \approx 0.00178 \text{ hr}^{-1}$. Esta dramática diferencia entre un parámetro rápido ($\kappa_{on}$) y uno muy lento ($\kappa_{off}$) demuestra la efectividad de los revestimientos de hielo y justifica el uso de EDEs con conmutación de régimen.
 * **Volatilidad Externa ($\sigma_{off}$)**: Sin el compresor encendido, las variaciones aleatorias obedecen únicamente a micro-filtraciones de aire por las gomas de la puerta. Por ello, establecemos un ruido significativamente menor: $\sigma_{off} = 0.05$.
 
 ### Perturbaciones Discretas: Apertura de Puertas ($N_{puerta}(t)$)
 De acuerdo con las normativas internacionales de manejo de red de frío, el refrigerador debe abrirse idealmente un máximo de dos veces al día: una apertura rutinaria matutina para extraer los frascos necesarios para la jornada y una vespertina para resguardar los sobrantes.
 
 * **Tasa de Aperturas ($\lambda_{puerta}$)**: Dado que la apertura matutina es un evento operativo fijo, la verdadera estocasticidad recae en la tarde, ya que el ingreso de biológicos depende de si hubo sobrantes en los termos clínicos. Por ello, la perturbación aleatoria se restringe a este momento y se modela computacionalmente con un Proceso de Poisson Homogéneo con una tasa de $\lambda = 1$ evento/día.
-* **Impacto de la Apertura ($\gamma$)**: Al tratarse de un equipo tipo cofre (*Icelined Refrigerator*), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica súbita. Asignamos un incremento conservador de **$\gamma = +0.5^\circ \text{C}$** por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el "colchón térmico" disponible en caso de ocurrir un apagón durante la noche.
+* **Impacto de la Apertura ($\gamma$)**: Al tratarse de un equipo tipo cofre (*Icelined Refrigerator*), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica inesperada. Asignamos un incremento conservador de **$\gamma = +0.5^\circ \text{C}$** por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el "colchón térmico" disponible en caso de ocurrir un apagón durante la noche.
+
+## Cinética de Degradación Térmica (Ecuación de Arrhenius)
+
+La Ecuación Diferencial Estocástica calibrada anteriormente nos permite simular con alta precisión la temperatura interna del refrigerador $T(t)$. Sin embargo, para evaluar el impacto en la salud pública, es imperativo traducir estas variaciones térmicas en pérdida de viabilidad del biológico.
+
+La degradación de las vacunas (particularmente las vivas atenuadas, como el biológico contra el Sarampión o la Poliomielitis) es un proceso de desnaturalización proteica que se acelera exponencialmente con el calor. Esta velocidad de degradación $k(T)$ se modela mediante la **Ecuación de Arrhenius** [@chen2009thermostable]:
+
+$$
+k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
+$$
+
+Donde la temperatura $T_K(t) = T(t) + 273.15$ se expresa en grados Kelvin y los parámetros cinéticos para un biológico termosensible genérico se establecen como:
+
+* **Constante Universal de los Gases ($R$)**: $8.314 \, \text{J/(mol} \cdot \text{K)}$.
+* **Energía de Activación ($E_a$)**: Se calibra en **$85,000 \, \text{J/mol}$** ($85 \text{ kJ/mol}$). Este valor representa la barrera energética que debe superarse para que las proteínas del antígeno comiencen a romperse irreversiblemente.
+* **Factor Pre-exponencial ($A$)**: Se ajusta empíricamente a **$1.2 \times 10^{14}$**. Este factor de frecuencia asegura que la tasa de degradación sea prácticamente nula cuando el equipo opera correctamente en el rango normativo de 2°C a 8°C, pero escale logarítmicamente durante una excursión térmica severa.
+
+### El Modelo de Daño Térmico Acumulado ($DA$)
+
+En la práctica clínica normativa, las variaciones térmicas dentro del rango seguro (2°C a 8°C) se consideran tolerables y su impacto en la caducidad a corto plazo es ignorado. El daño crítico ocurre exclusivamente cuando la red de frío se rompe. 
+
+Para modelar este protocolo operativo dentro de nuestra simulación, el **Daño Acumulado ($DA$)** se calcula como la integral de la tasa de Arrhenius, condicionada por una función indicadora $\mathbb{I}_{\{T(t) > 8^\circ\text{C}\}}$ que "enciende" el reloj de degradación únicamente cuando la temperatura cruza el límite superior de seguridad:
+
+$$
+DA(t) = \int_{0}^{t} \mathbb{I}_{\{T(s) > 8\}} \cdot k(T(s)) \, ds
+$$
+
+Esta formulación integral permite que el simulador de Montecarlo contabilice el estrés térmico exacto de cada trayectoria. Si durante un apagón prolongado la EDE empuja a $T(t)$ muy por encima de los 8°C, el integrando crecerá rápidamente. Si al final de un año simulado el $DA(t)$ rebasa un umbral de descarte crítico predefinido, el lote de vacunas se considerará como pérdida total.

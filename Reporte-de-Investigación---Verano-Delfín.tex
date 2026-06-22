@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-21}
+\date{2026-06-22}
 \begin{document}
 \maketitle
 
@@ -1244,8 +1244,9 @@ de trayectorias erráticas.
 
 \part{Modelo Matemático}
 
-\chapter{Estudio de Caso: Calibración de Parámetros y Fallas
-Eléctricas}\label{estudio-de-caso-calibraciuxf3n-de-paruxe1metros-y-fallas-eluxe9ctricas}
+\chapter{Estudio de Caso: Calibración Termodinámica, Eléctrica y
+Cinética de
+Degradación}\label{estudio-de-caso-calibraciuxf3n-termodinuxe1mica-eluxe9ctrica-y-cinuxe9tica-de-degradaciuxf3n}
 
 \section{Motivación y Contexto del
 Estudio}\label{motivaciuxf3n-y-contexto-del-estudio}
@@ -1258,15 +1259,18 @@ vulnerabilidad de la infraestructura eléctrica ante eventos climáticos,
 los refrigeradores institucionales de vacunas se enfrentan a una
 dificultad operativa constante.
 
-Para que nuestra simulacion sea valida, no podemos usar la Ecuación
+Para que nuestra simulación sea valida, no podemos usar la Ecuación
 Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En
-esta sección, calibraremos todos los parámetros de nuestro modelo.
-Primero, determinaremos la frecuencia de los cortes de energía
-basándonos en datos oficiales de la Comisión Federal de Electricidad
-(CFE), modelándolos a través de un Proceso de Poisson No Homogéneo.
-Posteriormente, utilizaremos la física del enfriamiento para deducir
-numéricamente los parámetros de la EDE a partir de las especificaciones
-termodinámicas reales de los refrigeradores.
+esta sección, calibraremos todos los parámetros de nuestro modelo en
+tres fases fundamentales. Primero, determinaremos la frecuencia y
+duración de los cortes de energía basándonos en datos oficiales de la
+Comisión Federal de Electricidad (CFE), modelándolos a través de
+procesos estocásticos de Poisson. Segundo, utilizaremos la física del
+enfriamiento para deducir los parámetros de la EDE a partir de las
+especificaciones termodinámicas reales de los refrigeradores.
+Finalmente, acoplaremos estos resultados a las leyes de la cinética
+química para cuantificar la degradación térmica exacta que sufren los
+biológicos durante un apagón.
 
 \section{Datos Base (CFE) e Indicadores de
 Confiabilidad}\label{datos-base-cfe-e-indicadores-de-confiabilidad}
@@ -1999,18 +2003,19 @@ temperatura hacia su objetivo.
   \textbf{Velocidad de Enfriamiento (\(\kappa_{on}\))}: Representa la
   capacidad de potencia del motor para recuperar la temperatura. Se
   calibra en \(\kappa_{on} = 0.1188\), una velocidad rápida propia de la
-  compresión activa.
+  compresión activa de acuerdo con
+  (\citeproc{ref-oms_pqs_e003}{Organización Mundial de la Salud 2024}).
 \item
-  \textbf{Ruido del Compresor (\(\sigma_{on}\))}: El motor prende y
-  apaga intermitentemente para mantener los 4°C. Acorde con un intervalo
-  de confianza del 99.7\% (aplicando la regla empírica de 3 sigmas de la
+  \textbf{Ruido del Compresor (\(\sigma_{on}\))}: El motor se prende y
+  se apaga constantemente para mantener los 4°C. Acorde con un intervalo
+  de confianza del 99.7\% (aplicando la regla de las 3 sigmas de la
   distribución normal), queremos que las fluctuaciones máximas no
   excedan los \(\pm 2^\circ \text{C}\) para evitar llegar a los 2°C
   (riesgo de congelación) o a los 6°C. Sabiendo que
   \(3 \times SD = 2^\circ \text{C}\), la desviación estándar
   estacionaria debe ser \(SD \approx 0.667^\circ \text{C}\). Despejando
-  matemáticamente la volatilidad de la varianza a largo plazo del
-  proceso Ornstein-Uhlenbeck
+  la volatilidad de la varianza a largo plazo del proceso
+  Ornstein-Uhlenbeck
   \(\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)\):
   \[0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325\]
 \end{itemize}
@@ -2018,7 +2023,7 @@ temperatura hacia su objetivo.
 \subsection{\texorpdfstring{Régimen 2: Falla Eléctrica
 (\(\alpha(t) = 2\))}{Régimen 2: Falla Eléctrica (\textbackslash alpha(t) = 2)}}\label{ruxe9gimen-2-falla-eluxe9ctrica-alphat-2}
 
-Se activa cuando el Proceso de Poisson dispara un apagón y el
+Se activa cuando el Proceso de Poisson dice que hay un apagón y el
 enfriamiento activo se detiene.
 
 \begin{itemize}
@@ -2049,8 +2054,7 @@ enfriamiento activo se detiene.
   \(\kappa_{off} \approx 0.00178 \text{ hr}^{-1}\). Esta dramática
   diferencia entre un parámetro rápido (\(\kappa_{on}\)) y uno muy lento
   (\(\kappa_{off}\)) demuestra la efectividad de los revestimientos de
-  hielo (Icelined) y justifica plenamente el uso de EDEs con conmutación
-  de régimen.
+  hielo y justifica el uso de EDEs con conmutación de régimen.
 \item
   \textbf{Volatilidad Externa (\(\sigma_{off}\))}: Sin el compresor
   encendido, las variaciones aleatorias obedecen únicamente a
@@ -2085,12 +2089,80 @@ la jornada y una vespertina para resguardar los sobrantes.
   denso, tiende a permanecer en el fondo del gabinete. Sin embargo,
   basándonos en estudios de convección para una apertura prolongada
   típica de 5 minutos (tiempo estimado para organizar y contabilizar
-  viales), se introduce una carga térmica súbita. Asignamos un
+  viales), se introduce una carga térmica inesperada. Asignamos un
   incremento conservador de \textbf{\(\gamma = +0.5^\circ \text{C}\)}
   por evento. Esta es una perturbación instantánea que rompe la
   continuidad de la trayectoria y reduce críticamente el ``colchón
   térmico'' disponible en caso de ocurrir un apagón durante la noche.
 \end{itemize}
+
+\section{Cinética de Degradación Térmica (Ecuación de
+Arrhenius)}\label{cinuxe9tica-de-degradaciuxf3n-tuxe9rmica-ecuaciuxf3n-de-arrhenius}
+
+La Ecuación Diferencial Estocástica calibrada anteriormente nos permite
+simular con alta precisión la temperatura interna del refrigerador
+\(T(t)\). Sin embargo, para evaluar el impacto en la salud pública, es
+imperativo traducir estas variaciones térmicas en pérdida de viabilidad
+del biológico.
+
+La degradación de las vacunas (particularmente las vivas atenuadas, como
+el biológico contra el Sarampión o la Poliomielitis) es un proceso de
+desnaturalización proteica que se acelera exponencialmente con el calor.
+Esta velocidad de degradación \(k(T)\) se modela mediante la
+\textbf{Ecuación de Arrhenius} (\citeproc{ref-chen2009thermostable}{Chen
+y Kristensen 2009}):
+
+\[
+k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
+\]
+
+Donde la temperatura \(T_K(t) = T(t) + 273.15\) se expresa en grados
+Kelvin y los parámetros cinéticos para un biológico termosensible
+genérico se establecen como:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Constante Universal de los Gases (\(R\))}:
+  \(8.314 \, \text{J/(mol} \cdot \text{K)}\).
+\item
+  \textbf{Energía de Activación (\(E_a\))}: Se calibra en
+  \textbf{\(85,000 \, \text{J/mol}\)} (\(85 \text{ kJ/mol}\)). Este
+  valor representa la barrera energética que debe superarse para que las
+  proteínas del antígeno comiencen a romperse irreversiblemente.
+\item
+  \textbf{Factor Pre-exponencial (\(A\))}: Se ajusta empíricamente a
+  \textbf{\(1.2 \times 10^{14}\)}. Este factor de frecuencia asegura que
+  la tasa de degradación sea prácticamente nula cuando el equipo opera
+  correctamente en el rango normativo de 2°C a 8°C, pero escale
+  logarítmicamente durante una excursión térmica severa.
+\end{itemize}
+
+\subsection{\texorpdfstring{El Modelo de Daño Térmico Acumulado
+(\(DA\))}{El Modelo de Daño Térmico Acumulado (DA)}}\label{el-modelo-de-dauxf1o-tuxe9rmico-acumulado-da}
+
+En la práctica clínica normativa, las variaciones térmicas dentro del
+rango seguro (2°C a 8°C) se consideran tolerables y su impacto en la
+caducidad a corto plazo es ignorado. El daño crítico ocurre
+exclusivamente cuando la red de frío se rompe.
+
+Para modelar este protocolo operativo dentro de nuestra simulación, el
+\textbf{Daño Acumulado (\(DA\))} se calcula como la integral de la tasa
+de Arrhenius, condicionada por una función indicadora
+\(\mathbb{I}_{\{T(t) > 8^\circ\text{C}\}}\) que ``enciende'' el reloj de
+degradación únicamente cuando la temperatura cruza el límite superior de
+seguridad:
+
+\[
+DA(t) = \int_{0}^{t} \mathbb{I}_{\{T(s) > 8\}} \cdot k(T(s)) \, ds
+\]
+
+Esta formulación integral permite que el simulador de Montecarlo
+contabilice el estrés térmico exacto de cada trayectoria. Si durante un
+apagón prolongado la EDE empuja a \(T(t)\) muy por encima de los 8°C, el
+integrando crecerá rápidamente. Si al final de un año simulado el
+\(DA(t)\) rebasa un umbral de descarte crítico predefinido, el lote de
+vacunas se considerará como pérdida total.
 
 \part{Simulación de Equipos (Haier HBC-150)}
 
@@ -2117,6 +2189,11 @@ and Applications}. New York, NY: John Wiley \& Sons.
 Asmussen, Søren. 2003. {«Applied Probability and Queues»}. En, 2nd ed.,
 51:39-59. Stochastic Modelling y Applied Probability. New York, NY:
 Springer-Verlag. \url{https://doi.org/10.1007/0-387-21525-5_2}.
+
+\bibitem[\citeproctext]{ref-chen2009thermostable}
+Chen, Dexiang, y Debra Kristensen. 2009. {«Opportunities and challenges
+of developing thermostable vaccines»}. \emph{Expert review of vaccines}
+8 (5): 547-57.
 
 \bibitem[\citeproctext]{ref-cfe2024informe}
 Comisión Federal de Electricidad. 2024. {«Informe Anual 2024»}. Ciudad

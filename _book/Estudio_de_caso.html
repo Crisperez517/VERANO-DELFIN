@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Estudio de Caso: Calibración de Parámetros y Fallas Eléctricas – Reporte de Investigación - Verano Delfín</title>
+<title>3&nbsp; Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación – Reporte de Investigación - Verano Delfín</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -305,7 +305,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Estudio_de_caso.html">Modelo Matemático</a></li><li class="breadcrumb-item"><a href="./Estudio_de_caso.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración de Parámetros y Fallas Eléctricas</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Estudio_de_caso.html">Modelo Matemático</a></li><li class="breadcrumb-item"><a href="./Estudio_de_caso.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -378,7 +378,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Estudio_de_caso.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración de Parámetros y Fallas Eléctricas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación</span></span></a>
   </div>
 </li>
       </ul>
@@ -444,6 +444,10 @@ window.Quarto = {
   <li><a href="#régimen-2-falla-eléctrica-alphat-2" id="toc-régimen-2-falla-eléctrica-alphat-2" class="nav-link" data-scroll-target="#régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.8.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
   <li><a href="#perturbaciones-discretas-apertura-de-puertas-n_puertat" id="toc-perturbaciones-discretas-apertura-de-puertas-n_puertat" class="nav-link" data-scroll-target="#perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.8.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</a></li>
   </ul></li>
+  <li><a href="#cinética-de-degradación-térmica-ecuación-de-arrhenius" id="toc-cinética-de-degradación-térmica-ecuación-de-arrhenius" class="nav-link" data-scroll-target="#cinética-de-degradación-térmica-ecuación-de-arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</a>
+  <ul class="collapse">
+  <li><a href="#el-modelo-de-daño-térmico-acumulado-da" id="toc-el-modelo-de-daño-térmico-acumulado-da" class="nav-link" data-scroll-target="#el-modelo-de-daño-térmico-acumulado-da"><span class="header-section-number">3.9.1</span> El Modelo de Daño Térmico Acumulado (<span class="math inline">\(DA\)</span>)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -451,9 +455,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Estudio_de_caso.html">Modelo Matemático</a></li><li class="breadcrumb-item"><a href="./Estudio_de_caso.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración de Parámetros y Fallas Eléctricas</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Estudio_de_caso.html">Modelo Matemático</a></li><li class="breadcrumb-item"><a href="./Estudio_de_caso.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración de Parámetros y Fallas Eléctricas</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación</span></h1>
 </div>
 
 
@@ -473,7 +477,7 @@ window.Quarto = {
 <section id="motivación-y-contexto-del-estudio" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="motivación-y-contexto-del-estudio"><span class="header-section-number">3.1</span> Motivación y Contexto del Estudio</h2>
 <p>El presente estudio de caso consolida el marco teórico y metodológico de nuestra investigación aplicándolo a un escenario real y altamente crítico: la red de frío para la preservación de vacunas en Tuxtla Gutiérrez, Chiapas. Debido a las altas temperaturas de la región y a la vulnerabilidad de la infraestructura eléctrica ante eventos climáticos, los refrigeradores institucionales de vacunas se enfrentan a una dificultad operativa constante.</p>
-<p>Para que nuestra simulacion sea valida, no podemos usar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En esta sección, calibraremos todos los parámetros de nuestro modelo. Primero, determinaremos la frecuencia de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de un Proceso de Poisson No Homogéneo. Posteriormente, utilizaremos la física del enfriamiento para deducir numéricamente los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores.</p>
+<p>Para que nuestra simulación sea valida, no podemos usar la Ecuación Diferencial Estocástica (EDE) con números aleatorios sin fundamento. En esta sección, calibraremos todos los parámetros de nuestro modelo en tres fases fundamentales. Primero, determinaremos la frecuencia y duración de los cortes de energía basándonos en datos oficiales de la Comisión Federal de Electricidad (CFE), modelándolos a través de procesos estocásticos de Poisson. Segundo, utilizaremos la física del enfriamiento para deducir los parámetros de la EDE a partir de las especificaciones termodinámicas reales de los refrigeradores. Finalmente, acoplaremos estos resultados a las leyes de la cinética química para cuantificar la degradación térmica exacta que sufren los biológicos durante un apagón.</p>
 </section>
 <section id="datos-base-cfe-e-indicadores-de-confiabilidad" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="datos-base-cfe-e-indicadores-de-confiabilidad"><span class="header-section-number">3.2</span> Datos Base (CFE) e Indicadores de Confiabilidad</h2>
@@ -1163,16 +1167,16 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Icelined
 <p>Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.</p>
 <ul>
 <li><strong>Temperatura de Consigna (<span class="math inline">\(\theta_{set}\)</span>)</strong>: Se establece en <strong><span class="math inline">\(4^\circ \text{C}\)</span></strong>, el centro ideal del rango normativo de seguridad (2°C a 8°C).</li>
-<li><strong>Velocidad de Enfriamiento (<span class="math inline">\(\kappa_{on}\)</span>)</strong>: Representa la capacidad de potencia del motor para recuperar la temperatura. Se calibra en <span class="math inline">\(\kappa_{on} = 0.1188\)</span>, una velocidad rápida propia de la compresión activa.</li>
-<li><strong>Ruido del Compresor (<span class="math inline">\(\sigma_{on}\)</span>)</strong>: El motor prende y apaga intermitentemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla empírica de 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los <span class="math inline">\(\pm 2^\circ \text{C}\)</span> para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que <span class="math inline">\(3 \times SD = 2^\circ \text{C}\)</span>, la desviación estándar estacionaria debe ser <span class="math inline">\(SD \approx 0.667^\circ \text{C}\)</span>. Despejando matemáticamente la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck <span class="math inline">\(\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)\)</span>: <span class="math display">\[0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325\]</span></li>
+<li><strong>Velocidad de Enfriamiento (<span class="math inline">\(\kappa_{on}\)</span>)</strong>: Representa la capacidad de potencia del motor para recuperar la temperatura. Se calibra en <span class="math inline">\(\kappa_{on} = 0.1188\)</span>, una velocidad rápida propia de la compresión activa de acuerdo con <span class="citation" data-cites="oms_pqs_e003">(<a href="references.html#ref-oms_pqs_e003" role="doc-biblioref">Organización Mundial de la Salud 2024</a>)</span>.</li>
+<li><strong>Ruido del Compresor (<span class="math inline">\(\sigma_{on}\)</span>)</strong>: El motor se prende y se apaga constantemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla de las 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los <span class="math inline">\(\pm 2^\circ \text{C}\)</span> para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que <span class="math inline">\(3 \times SD = 2^\circ \text{C}\)</span>, la desviación estándar estacionaria debe ser <span class="math inline">\(SD \approx 0.667^\circ \text{C}\)</span>. Despejando la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck <span class="math inline">\(\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)\)</span>: <span class="math display">\[0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325\]</span></li>
 </ul>
 </section>
 <section id="régimen-2-falla-eléctrica-alphat-2" class="level3" data-number="3.8.2">
 <h3 data-number="3.8.2" class="anchored" data-anchor-id="régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.8.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
-<p>Se activa cuando el Proceso de Poisson dispara un apagón y el enfriamiento activo se detiene.</p>
+<p>Se activa cuando el Proceso de Poisson dice que hay un apagón y el enfriamiento activo se detiene.</p>
 <ul>
 <li><strong>Temperatura Exterior (<span class="math inline">\(T_{amb}(t)\)</span>)</strong>: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de <strong><span class="math inline">\(43^\circ \text{C}\)</span></strong>. En este escenario, el término <span class="math inline">\((T_{amb} - T(t))\)</span> se vuelve enorme y genera un calentamiento fuertemente acelerado.</li>
-<li><strong>Velocidad de Pérdida Térmica (<span class="math inline">\(\kappa_{off}\)</span>)</strong>: De acuerdo con las especificaciones del fabricante validadas por la OMS <span class="citation" data-cites="oms_pqs_e003">(<a href="references.html#ref-oms_pqs_e003" role="doc-biblioref">Organización Mundial de la Salud 2024</a>)</span>, el equipo Haier HBC-150 garantiza un <em>Holdover Time</em> (tiempo de autonomía) de 60 horas con 50 minutos (60.83 horas) a una temperatura ambiente extrema de 43°C antes de rebasar los 8°C. Usando la solución analítica determinista de la Ley de Enfriamiento de Newton desde los 4°C de consigna hasta el límite de 8°C: <span class="math display">\[8 = 43 + (4 - 43) e^{-\kappa_{off} (60.83)}\]</span> Al resolver la ecuación <span class="math inline">\(\left(\ln\left(\frac{35}{39}\right) = -60.83 \kappa_{off}\right)\)</span>, obtenemos un valor sumamente bajo de <span class="math inline">\(\kappa_{off} \approx 0.00178 \text{ hr}^{-1}\)</span>. Esta dramática diferencia entre un parámetro rápido (<span class="math inline">\(\kappa_{on}\)</span>) y uno muy lento (<span class="math inline">\(\kappa_{off}\)</span>) demuestra la efectividad de los revestimientos de hielo (Icelined) y justifica plenamente el uso de EDEs con conmutación de régimen.</li>
+<li><strong>Velocidad de Pérdida Térmica (<span class="math inline">\(\kappa_{off}\)</span>)</strong>: De acuerdo con las especificaciones del fabricante validadas por la OMS <span class="citation" data-cites="oms_pqs_e003">(<a href="references.html#ref-oms_pqs_e003" role="doc-biblioref">Organización Mundial de la Salud 2024</a>)</span>, el equipo Haier HBC-150 garantiza un <em>Holdover Time</em> (tiempo de autonomía) de 60 horas con 50 minutos (60.83 horas) a una temperatura ambiente extrema de 43°C antes de rebasar los 8°C. Usando la solución analítica determinista de la Ley de Enfriamiento de Newton desde los 4°C de consigna hasta el límite de 8°C: <span class="math display">\[8 = 43 + (4 - 43) e^{-\kappa_{off} (60.83)}\]</span> Al resolver la ecuación <span class="math inline">\(\left(\ln\left(\frac{35}{39}\right) = -60.83 \kappa_{off}\right)\)</span>, obtenemos un valor sumamente bajo de <span class="math inline">\(\kappa_{off} \approx 0.00178 \text{ hr}^{-1}\)</span>. Esta dramática diferencia entre un parámetro rápido (<span class="math inline">\(\kappa_{on}\)</span>) y uno muy lento (<span class="math inline">\(\kappa_{off}\)</span>) demuestra la efectividad de los revestimientos de hielo y justifica el uso de EDEs con conmutación de régimen.</li>
 <li><strong>Volatilidad Externa (<span class="math inline">\(\sigma_{off}\)</span>)</strong>: Sin el compresor encendido, las variaciones aleatorias obedecen únicamente a micro-filtraciones de aire por las gomas de la puerta. Por ello, establecemos un ruido significativamente menor: <span class="math inline">\(\sigma_{off} = 0.05\)</span>.</li>
 </ul>
 </section>
@@ -1181,11 +1185,37 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Icelined
 <p>De acuerdo con las normativas internacionales de manejo de red de frío, el refrigerador debe abrirse idealmente un máximo de dos veces al día: una apertura rutinaria matutina para extraer los frascos necesarios para la jornada y una vespertina para resguardar los sobrantes.</p>
 <ul>
 <li><strong>Tasa de Aperturas (<span class="math inline">\(\lambda_{puerta}\)</span>)</strong>: Dado que la apertura matutina es un evento operativo fijo, la verdadera estocasticidad recae en la tarde, ya que el ingreso de biológicos depende de si hubo sobrantes en los termos clínicos. Por ello, la perturbación aleatoria se restringe a este momento y se modela computacionalmente con un Proceso de Poisson Homogéneo con una tasa de <span class="math inline">\(\lambda = 1\)</span> evento/día.</li>
-<li><strong>Impacto de la Apertura (<span class="math inline">\(\gamma\)</span>)</strong>: Al tratarse de un equipo tipo cofre (<em>Icelined Refrigerator</em>), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica súbita. Asignamos un incremento conservador de <strong><span class="math inline">\(\gamma = +0.5^\circ \text{C}\)</span></strong> por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el “colchón térmico” disponible en caso de ocurrir un apagón durante la noche.</li>
+<li><strong>Impacto de la Apertura (<span class="math inline">\(\gamma\)</span>)</strong>: Al tratarse de un equipo tipo cofre (<em>Icelined Refrigerator</em>), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica inesperada. Asignamos un incremento conservador de <strong><span class="math inline">\(\gamma = +0.5^\circ \text{C}\)</span></strong> por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el “colchón térmico” disponible en caso de ocurrir un apagón durante la noche.</li>
 </ul>
+</section>
+</section>
+<section id="cinética-de-degradación-térmica-ecuación-de-arrhenius" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="cinética-de-degradación-térmica-ecuación-de-arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</h2>
+<p>La Ecuación Diferencial Estocástica calibrada anteriormente nos permite simular con alta precisión la temperatura interna del refrigerador <span class="math inline">\(T(t)\)</span>. Sin embargo, para evaluar el impacto en la salud pública, es imperativo traducir estas variaciones térmicas en pérdida de viabilidad del biológico.</p>
+<p>La degradación de las vacunas (particularmente las vivas atenuadas, como el biológico contra el Sarampión o la Poliomielitis) es un proceso de desnaturalización proteica que se acelera exponencialmente con el calor. Esta velocidad de degradación <span class="math inline">\(k(T)\)</span> se modela mediante la <strong>Ecuación de Arrhenius</strong> <span class="citation" data-cites="chen2009thermostable">(<a href="references.html#ref-chen2009thermostable" role="doc-biblioref">Chen y Kristensen 2009</a>)</span>:</p>
+<p><span class="math display">\[
+k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
+\]</span></p>
+<p>Donde la temperatura <span class="math inline">\(T_K(t) = T(t) + 273.15\)</span> se expresa en grados Kelvin y los parámetros cinéticos para un biológico termosensible genérico se establecen como:</p>
+<ul>
+<li><strong>Constante Universal de los Gases (<span class="math inline">\(R\)</span>)</strong>: <span class="math inline">\(8.314 \, \text{J/(mol} \cdot \text{K)}\)</span>.</li>
+<li><strong>Energía de Activación (<span class="math inline">\(E_a\)</span>)</strong>: Se calibra en <strong><span class="math inline">\(85,000 \, \text{J/mol}\)</span></strong> (<span class="math inline">\(85 \text{ kJ/mol}\)</span>). Este valor representa la barrera energética que debe superarse para que las proteínas del antígeno comiencen a romperse irreversiblemente.</li>
+<li><strong>Factor Pre-exponencial (<span class="math inline">\(A\)</span>)</strong>: Se ajusta empíricamente a <strong><span class="math inline">\(1.2 \times 10^{14}\)</span></strong>. Este factor de frecuencia asegura que la tasa de degradación sea prácticamente nula cuando el equipo opera correctamente en el rango normativo de 2°C a 8°C, pero escale logarítmicamente durante una excursión térmica severa.</li>
+</ul>
+<section id="el-modelo-de-daño-térmico-acumulado-da" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="el-modelo-de-daño-térmico-acumulado-da"><span class="header-section-number">3.9.1</span> El Modelo de Daño Térmico Acumulado (<span class="math inline">\(DA\)</span>)</h3>
+<p>En la práctica clínica normativa, las variaciones térmicas dentro del rango seguro (2°C a 8°C) se consideran tolerables y su impacto en la caducidad a corto plazo es ignorado. El daño crítico ocurre exclusivamente cuando la red de frío se rompe.</p>
+<p>Para modelar este protocolo operativo dentro de nuestra simulación, el <strong>Daño Acumulado (<span class="math inline">\(DA\)</span>)</strong> se calcula como la integral de la tasa de Arrhenius, condicionada por una función indicadora <span class="math inline">\(\mathbb{I}_{\{T(t) &gt; 8^\circ\text{C}\}}\)</span> que “enciende” el reloj de degradación únicamente cuando la temperatura cruza el límite superior de seguridad:</p>
+<p><span class="math display">\[
+DA(t) = \int_{0}^{t} \mathbb{I}_{\{T(s) &gt; 8\}} \cdot k(T(s)) \, ds
+\]</span></p>
+<p>Esta formulación integral permite que el simulador de Montecarlo contabilice el estrés térmico exacto de cada trayectoria. Si durante un apagón prolongado la EDE empuja a <span class="math inline">\(T(t)\)</span> muy por encima de los 8°C, el integrando crecerá rápidamente. Si al final de un año simulado el <span class="math inline">\(DA(t)\)</span> rebasa un umbral de descarte crítico predefinido, el lote de vacunas se considerará como pérdida total.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-chen2009thermostable" class="csl-entry" role="listitem">
+Chen, Dexiang, y Debra Kristensen. 2009. <span>«Opportunities and challenges of developing thermostable vaccines»</span>. <em>Expert review of vaccines</em> 8 (5): 547-57.
+</div>
 <div id="ref-cfe2024informe" class="csl-entry" role="listitem">
 Comisión Federal de Electricidad. 2024. <span>«Informe Anual 2024»</span>. Ciudad de México: Gobierno de México.
 </div>
