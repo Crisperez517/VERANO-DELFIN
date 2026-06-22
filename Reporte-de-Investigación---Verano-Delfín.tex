@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-19}
+\date{2026-06-21}
 \begin{document}
 \maketitle
 
@@ -1942,8 +1942,8 @@ Parámetro \(\sigma\)
 (EDE)}\label{calibraciuxf3n-de-la-ecuaciuxf3n-diferencial-estocuxe1stica-ede}
 
 Enlazando la dinámica de la red eléctrica con la termodinámica,
-recordamos que la temperatura interna \(T(t)\) del refrigerador se puede
-aproximar por un proceso de Ornstein-Uhlenbeck con saltos y conmutación
+recordamos que la temperatura interna \(T(t)\) del refrigerador está
+gobernada por un proceso de Ornstein-Uhlenbeck con saltos y conmutación
 de régimen. Para que la transición hacia el modelo computacional sea
 transparente, desglosamos la ecuación abstracta en su forma operativa
 mediante un sistema de ecuaciones acopladas, el cual depende
@@ -1973,14 +1973,14 @@ el catálogo oficial PQS de la OMS
 }
 
 \caption{\label{fig-haier-hbc150}Refrigerador institucional para vacunas
-Haier HBC-150 (Ice-Lined Refrigerator). Este equipo cuenta con
+Haier HBC-150 (Icelined Refrigerator). Este equipo tipo cofre cuenta con
 certificación PQS de la OMS y masa térmica incorporada para garantizar
 la red de frío durante cortes prolongados de energía eléctrica.}
 
 \end{figure}%
 
-Para reflejar el comportamiento de este equipo bajo el estándar
-normativo de la OMS, calibramos cada coeficiente de la
+Para reflejar el comportamiento de este equipo bajo los rigurosos
+estándares normativos, calibramos cada coeficiente de la
 Ecuación~\ref{eq-ede-operativa} con base en la física del enfriamiento:
 
 \subsection{\texorpdfstring{Régimen 1: Operación Normal
@@ -1993,7 +1993,7 @@ temperatura hacia su objetivo.
 \tightlist
 \item
   \textbf{Temperatura de Consigna (\(\theta_{set}\))}: Se establece en
-  \textbf{\(5^\circ \text{C}\)}, el centro ideal del rango normativo de
+  \textbf{\(4^\circ \text{C}\)}, el centro ideal del rango normativo de
   seguridad (2°C a 8°C).
 \item
   \textbf{Velocidad de Enfriamiento (\(\kappa_{on}\))}: Representa la
@@ -2002,11 +2002,17 @@ temperatura hacia su objetivo.
   compresión activa.
 \item
   \textbf{Ruido del Compresor (\(\sigma_{on}\))}: El motor prende y
-  apaga intermitentemente para mantener los 5°C. Para que el 99.7\% del
-  tiempo las fluctuaciones se mantengan en un rango de
-  \(\pm 3^\circ \text{C}\) (aplicando la regla empírica de 3 sigmas para
-  la varianza estacionaria de un proceso Ornstein-Uhlenbeck), se calcula
-  una desviación de \(\sigma_{on} = \sqrt{0.2376} \approx 0.487\).
+  apaga intermitentemente para mantener los 4°C. Acorde con un intervalo
+  de confianza del 99.7\% (aplicando la regla empírica de 3 sigmas de la
+  distribución normal), queremos que las fluctuaciones máximas no
+  excedan los \(\pm 2^\circ \text{C}\) para evitar llegar a los 2°C
+  (riesgo de congelación) o a los 6°C. Sabiendo que
+  \(3 \times SD = 2^\circ \text{C}\), la desviación estándar
+  estacionaria debe ser \(SD \approx 0.667^\circ \text{C}\). Despejando
+  matemáticamente la volatilidad de la varianza a largo plazo del
+  proceso Ornstein-Uhlenbeck
+  \(\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)\):
+  \[0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325\]
 \end{itemize}
 
 \subsection{\texorpdfstring{Régimen 2: Falla Eléctrica
@@ -2022,22 +2028,28 @@ enfriamiento activo se detiene.
   ambiente actúa como el atractor del sistema. Dado que en Tuxtla
   Gutiérrez el calor oscila drásticamente a lo largo del día, esta
   variable se modela computacionalmente como una función senoidal que
-  alcanza su pico máximo diario a las 15:00 hrs. Para nuestra
-  calibración analítica del peor escenario (estiaje), evaluamos este
-  atractor en un máximo absoluto de \textbf{\(43^\circ \text{C}\)}. En
-  este escenario, el término de deriva \((T_{amb} - T(t))\) se vuelve
-  enorme y genera un calentamiento fuertemente acelerado.
+  alcanza su pico máximo a las 15:00 hrs. Para nuestra calibración
+  analítica del peor escenario (estiaje), evaluamos este atractor en un
+  máximo absoluto de \textbf{\(43^\circ \text{C}\)}. En este escenario,
+  el término \((T_{amb} - T(t))\) se vuelve enorme y genera un
+  calentamiento fuertemente acelerado.
 \item
-  \textbf{Velocidad de Pérdida Térmica (\(\kappa_{off}\))}: Los
-  refrigeradores OMS cuentan con paquetes de hielo en su interior que
-  actúan como ``masa térmica''. El equipo Haier garantiza un
-  \emph{Holdover Time} (tiempo de autonomía) de 63.8 horas a 43°C antes
-  de rebasar los 8°C. Usando la solución analítica de la Ley de
-  Enfriamiento de Newton desde 5°C a 8°C:
-  \[8 = 43 + (5 - 43) e^{-\kappa_{off} (63.8)}\] Al despejar, obtenemos
-  un valor sumamente bajo de \(\kappa_{off} \approx 0.00128\). Esta
-  transición de un parámetro rápido (\(\kappa_{on}\)) a uno muy lento
-  (\(\kappa_{off}\)) es lo que justifica el uso de EDEs con conmutación
+  \textbf{Velocidad de Pérdida Térmica (\(\kappa_{off}\))}: De acuerdo
+  con las especificaciones del fabricante validadas por la OMS
+  (\citeproc{ref-oms_pqs_e003}{Organización Mundial de la Salud 2024}),
+  el equipo Haier HBC-150 garantiza un \emph{Holdover Time} (tiempo de
+  autonomía) de 60 horas con 50 minutos (60.83 horas) a una temperatura
+  ambiente extrema de 43°C antes de rebasar los 8°C. Usando la solución
+  analítica determinista de la Ley de Enfriamiento de Newton desde los
+  4°C de consigna hasta el límite de 8°C:
+  \[8 = 43 + (4 - 43) e^{-\kappa_{off} (60.83)}\] Al resolver la
+  ecuación
+  \(\left(\ln\left(\frac{35}{39}\right) = -60.83 \kappa_{off}\right)\),
+  obtenemos un valor sumamente bajo de
+  \(\kappa_{off} \approx 0.00178 \text{ hr}^{-1}\). Esta dramática
+  diferencia entre un parámetro rápido (\(\kappa_{on}\)) y uno muy lento
+  (\(\kappa_{off}\)) demuestra la efectividad de los revestimientos de
+  hielo (Icelined) y justifica plenamente el uso de EDEs con conmutación
   de régimen.
 \item
   \textbf{Volatilidad Externa (\(\sigma_{off}\))}: Sin el compresor
@@ -2051,21 +2063,33 @@ enfriamiento activo se detiene.
 Puertas
 (\(N_{puerta}(t)\))}{Perturbaciones Discretas: Apertura de Puertas (N\_\{puerta\}(t))}}\label{perturbaciones-discretas-apertura-de-puertas-n_puertat}
 
-A diferencia de los cortes de luz, las aperturas de puerta son eventos
-provocados activamente por el personal de enfermería.
+De acuerdo con las normativas internacionales de manejo de red de frío,
+el refrigerador debe abrirse idealmente un máximo de dos veces al día:
+una apertura rutinaria matutina para extraer los frascos necesarios para
+la jornada y una vespertina para resguardar los sobrantes.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Tasa de Aperturas}: Se modelan con un Proceso de Poisson
-  Homogéneo tradicional que ocurre exclusivamente durante los horarios
-  operativos del centro de salud.
+  \textbf{Tasa de Aperturas (\(\lambda_{puerta}\))}: Dado que la
+  apertura matutina es un evento operativo fijo, la verdadera
+  estocasticidad recae en la tarde, ya que el ingreso de biológicos
+  depende de si hubo sobrantes en los termos clínicos. Por ello, la
+  perturbación aleatoria se restringe a este momento y se modela
+  computacionalmente con un Proceso de Poisson Homogéneo con una tasa de
+  \(\lambda = 1\) evento/día.
 \item
-  \textbf{Impacto de la Apertura (\(\gamma\))}: Asignamos un incremento
-  térmico inmediato de \textbf{\(+0.5^\circ \text{C}\)} por evento. Esta
-  es la perturbación inelástica instantánea que rompe la continuidad de
-  la temperatura y ``roba'' el frío del equipo de forma acumulativa
-  antes de un posible apagón.
+  \textbf{Impacto de la Apertura (\(\gamma\))}: Al tratarse de un equipo
+  tipo cofre (\emph{Icelined Refrigerator}), la pérdida térmica es mucho
+  menor que en equipos verticales, ya que el aire frío, siendo más
+  denso, tiende a permanecer en el fondo del gabinete. Sin embargo,
+  basándonos en estudios de convección para una apertura prolongada
+  típica de 5 minutos (tiempo estimado para organizar y contabilizar
+  viales), se introduce una carga térmica súbita. Asignamos un
+  incremento conservador de \textbf{\(\gamma = +0.5^\circ \text{C}\)}
+  por evento. Esta es una perturbación instantánea que rompe la
+  continuidad de la trayectoria y reduce críticamente el ``colchón
+  térmico'' disponible en caso de ocurrir un apagón durante la noche.
 \end{itemize}
 
 \part{Simulación de Equipos (Haier HBC-150)}

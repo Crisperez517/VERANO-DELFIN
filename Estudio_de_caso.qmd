@@ -274,7 +274,7 @@ Al sustituir las medias y varianzas de cada temporada en estas relaciones, obten
 
 ## Calibración de la Ecuación Diferencial Estocástica (EDE)
 
-Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna $T(t)$ del refrigerador se puede aproximar por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico $\alpha(t)$:
+Enlazando la dinámica de la red eléctrica con la termodinámica, recordamos que la temperatura interna $T(t)$ del refrigerador está gobernada por un proceso de Ornstein-Uhlenbeck con saltos y conmutación de régimen. Para que la transición hacia el modelo computacional sea transparente, desglosamos la ecuación abstracta en su forma operativa mediante un sistema de ecuaciones acopladas, el cual depende estrictamente del estado del suministro eléctrico $\alpha(t)$:
 
 $$
 dT(t) = 
@@ -286,28 +286,29 @@ $$ {#eq-ede-operativa}
 
 Para la modelación estocástica, los parámetros de inercia térmica y tiempo de autonomía (*holdover time*) se calibraron utilizando los datos técnicos del refrigerador institucional Haier HBC-150, el cual cuenta con certificación de protección Grado A contra congelamiento en el catálogo oficial PQS de la OMS [@oms_pqs_e003].
 
-![Refrigerador institucional para vacunas Haier HBC-150 (Ice-Lined Refrigerator). Este equipo cuenta con certificación PQS de la OMS y masa térmica incorporada para garantizar la red de frío durante cortes prolongados de energía eléctrica.](haier_hbc150.jpg){#fig-haier-hbc150 width="70%" fig-align="center"}
+![Refrigerador institucional para vacunas Haier HBC-150 (Icelined Refrigerator). Este equipo tipo cofre cuenta con certificación PQS de la OMS y masa térmica incorporada para garantizar la red de frío durante cortes prolongados de energía eléctrica.](haier_hbc150.jpg){#fig-haier-hbc150 width="70%" fig-align="center"}
 
-Para reflejar el comportamiento de este equipo bajo el estándar normativo de la OMS, calibramos cada coeficiente de la @eq-ede-operativa con base en la física del enfriamiento:
+Para reflejar el comportamiento de este equipo bajo los rigurosos estándares normativos, calibramos cada coeficiente de la @eq-ede-operativa con base en la física del enfriamiento:
 
 ### Régimen 1: Operación Normal ($\alpha(t) = 1$)
 Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.
 
-* **Temperatura de Consigna ($\theta_{set}$)**: Se establece en **$5^\circ \text{C}$**, el centro ideal del rango normativo de seguridad (2°C a 8°C).
+* **Temperatura de Consigna ($\theta_{set}$)**: Se establece en **$4^\circ \text{C}$**, el centro ideal del rango normativo de seguridad (2°C a 8°C).
 * **Velocidad de Enfriamiento ($\kappa_{on}$)**: Representa la capacidad de potencia del motor para recuperar la temperatura. Se calibra en $\kappa_{on} = 0.1188$, una velocidad rápida propia de la compresión activa.
-* **Ruido del Compresor ($\sigma_{on}$)**: El motor prende y apaga intermitentemente para mantener los 5°C. Para que el 99.7% del tiempo las fluctuaciones se mantengan en un rango de $\pm 3^\circ \text{C}$ (aplicando la regla empírica de 3 sigmas para la varianza estacionaria de un proceso Ornstein-Uhlenbeck), se calcula una desviación de $\sigma_{on} = \sqrt{0.2376} \approx 0.487$.
+* **Ruido del Compresor ($\sigma_{on}$)**: El motor prende y apaga intermitentemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla empírica de 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los $\pm 2^\circ \text{C}$ para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que $3 \times SD = 2^\circ \text{C}$, la desviación estándar estacionaria debe ser $SD \approx 0.667^\circ \text{C}$. Despejando matemáticamente la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck $\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)$:
+  $$0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325$$
 
 ### Régimen 2: Falla Eléctrica ($\alpha(t) = 2$)
 Se activa cuando el Proceso de Poisson dispara un apagón y el enfriamiento activo se detiene.
 
-* **Temperatura Exterior ($T_{amb}(t)$)**: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo diario a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de **$43^\circ \text{C}$**. En este escenario, el término de deriva $(T_{amb} - T(t))$ se vuelve enorme y genera un calentamiento fuertemente acelerado.
-* **Velocidad de Pérdida Térmica ($\kappa_{off}$)**: Los refrigeradores OMS cuentan con paquetes de hielo en su interior que actúan como "masa térmica". El equipo Haier garantiza un *Holdover Time* (tiempo de autonomía) de 63.8 horas a 43°C antes de rebasar los 8°C. Usando la solución analítica de la Ley de Enfriamiento de Newton desde 5°C a 8°C:
-  $$8 = 43 + (5 - 43) e^{-\kappa_{off} (63.8)}$$
-  Al despejar, obtenemos un valor sumamente bajo de $\kappa_{off} \approx 0.00128$. Esta transición de un parámetro rápido ($\kappa_{on}$) a uno muy lento ($\kappa_{off}$) es lo que justifica el uso de EDEs con conmutación de régimen.
+* **Temperatura Exterior ($T_{amb}(t)$)**: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de **$43^\circ \text{C}$**. En este escenario, el término $(T_{amb} - T(t))$ se vuelve enorme y genera un calentamiento fuertemente acelerado.
+* **Velocidad de Pérdida Térmica ($\kappa_{off}$)**: De acuerdo con las especificaciones del fabricante validadas por la OMS [@oms_pqs_e003], el equipo Haier HBC-150 garantiza un *Holdover Time* (tiempo de autonomía) de 60 horas con 50 minutos (60.83 horas) a una temperatura ambiente extrema de 43°C antes de rebasar los 8°C. Usando la solución analítica determinista de la Ley de Enfriamiento de Newton desde los 4°C de consigna hasta el límite de 8°C:
+  $$8 = 43 + (4 - 43) e^{-\kappa_{off} (60.83)}$$
+  Al resolver la ecuación $\left(\ln\left(\frac{35}{39}\right) = -60.83 \kappa_{off}\right)$, obtenemos un valor sumamente bajo de $\kappa_{off} \approx 0.00178 \text{ hr}^{-1}$. Esta dramática diferencia entre un parámetro rápido ($\kappa_{on}$) y uno muy lento ($\kappa_{off}$) demuestra la efectividad de los revestimientos de hielo (Icelined) y justifica plenamente el uso de EDEs con conmutación de régimen.
 * **Volatilidad Externa ($\sigma_{off}$)**: Sin el compresor encendido, las variaciones aleatorias obedecen únicamente a micro-filtraciones de aire por las gomas de la puerta. Por ello, establecemos un ruido significativamente menor: $\sigma_{off} = 0.05$.
 
 ### Perturbaciones Discretas: Apertura de Puertas ($N_{puerta}(t)$)
-A diferencia de los cortes de luz, las aperturas de puerta son eventos provocados activamente por el personal de enfermería. 
+De acuerdo con las normativas internacionales de manejo de red de frío, el refrigerador debe abrirse idealmente un máximo de dos veces al día: una apertura rutinaria matutina para extraer los frascos necesarios para la jornada y una vespertina para resguardar los sobrantes.
 
-* **Tasa de Aperturas**: Se modelan con un Proceso de Poisson Homogéneo tradicional que ocurre exclusivamente durante los horarios operativos del centro de salud.
-* **Impacto de la Apertura ($\gamma$)**: Asignamos un incremento térmico inmediato de **$+0.5^\circ \text{C}$** por evento. Esta es la perturbación inelástica instantánea que rompe la continuidad de la temperatura y "roba" el frío del equipo de forma acumulativa antes de un posible apagón.
+* **Tasa de Aperturas ($\lambda_{puerta}$)**: Dado que la apertura matutina es un evento operativo fijo, la verdadera estocasticidad recae en la tarde, ya que el ingreso de biológicos depende de si hubo sobrantes en los termos clínicos. Por ello, la perturbación aleatoria se restringe a este momento y se modela computacionalmente con un Proceso de Poisson Homogéneo con una tasa de $\lambda = 1$ evento/día.
+* **Impacto de la Apertura ($\gamma$)**: Al tratarse de un equipo tipo cofre (*Icelined Refrigerator*), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica súbita. Asignamos un incremento conservador de **$\gamma = +0.5^\circ \text{C}$** por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el "colchón térmico" disponible en caso de ocurrir un apagón durante la noche.
