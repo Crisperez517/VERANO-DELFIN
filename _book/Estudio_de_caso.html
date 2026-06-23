@@ -395,7 +395,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./montecarlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">montecarlo.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Metodología de Simulación Computacional y Análisis Estadístico de Riesgo</span></span></a>
   </div>
 </li>
       </ul>
@@ -1185,13 +1185,13 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Icelined
 <p>De acuerdo con las normativas internacionales de manejo de red de frío, el refrigerador debe abrirse idealmente un máximo de dos veces al día: una apertura rutinaria matutina para extraer los frascos necesarios para la jornada y una vespertina para resguardar los sobrantes.</p>
 <ul>
 <li><strong>Tasa de Aperturas (<span class="math inline">\(\lambda_{puerta}\)</span>)</strong>: Dado que la apertura matutina es un evento operativo fijo, la verdadera estocasticidad recae en la tarde, ya que el ingreso de biológicos depende de si hubo sobrantes en los termos clínicos. Por ello, la perturbación aleatoria se restringe a este momento y se modela computacionalmente con un Proceso de Poisson Homogéneo con una tasa de <span class="math inline">\(\lambda = 1\)</span> evento/día.</li>
-<li><strong>Impacto de la Apertura (<span class="math inline">\(\gamma\)</span>)</strong>: Al tratarse de un equipo tipo cofre (<em>Icelined Refrigerator</em>), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica inesperada. Asignamos un incremento conservador de <strong><span class="math inline">\(\gamma = +0.5^\circ \text{C}\)</span></strong> por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el “colchón térmico” disponible en caso de ocurrir un apagón durante la noche.</li>
+<li><strong>Impacto de la Apertura (<span class="math inline">\(\gamma\)</span>)</strong>: Al tratarse de un equipo tipo cofre (<em>Icelined Refrigerator</em>), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica inesperada. Asignamos un incremento de <strong><span class="math inline">\(\gamma = +1^\circ \text{C}\)</span></strong> por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el “colchón térmico” disponible en caso de ocurrir un apagón durante la noche.</li>
 </ul>
 </section>
 </section>
 <section id="cinética-de-degradación-térmica-ecuación-de-arrhenius" class="level2" data-number="3.9">
 <h2 data-number="3.9" class="anchored" data-anchor-id="cinética-de-degradación-térmica-ecuación-de-arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</h2>
-<p>La Ecuación Diferencial Estocástica calibrada anteriormente nos permite simular con alta precisión la temperatura interna del refrigerador <span class="math inline">\(T(t)\)</span>. Sin embargo, para evaluar el impacto en la salud pública, es imperativo traducir estas variaciones térmicas en pérdida de viabilidad del biológico.</p>
+<p>La Ecuación Diferencial Estocástica calibrada anteriormente nos permite simular con alta precisión la temperatura interna del refrigerador <span class="math inline">\(T(t)\)</span>. Sin embargo, para evaluar el impacto en la salud pública, es necesario traducir estas variaciones térmicas en pérdida de viabilidad del biológico.</p>
 <p>La degradación de las vacunas (particularmente las vivas atenuadas, como el biológico contra el Sarampión o la Poliomielitis) es un proceso de desnaturalización proteica que se acelera exponencialmente con el calor. Esta velocidad de degradación <span class="math inline">\(k(T)\)</span> se modela mediante la <strong>Ecuación de Arrhenius</strong> <span class="citation" data-cites="chen2009thermostable">(<a href="references.html#ref-chen2009thermostable" role="doc-biblioref">Chen y Kristensen 2009</a>)</span>:</p>
 <p><span class="math display">\[
 k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
@@ -1200,7 +1200,7 @@ k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
 <ul>
 <li><strong>Constante Universal de los Gases (<span class="math inline">\(R\)</span>)</strong>: <span class="math inline">\(8.314 \, \text{J/(mol} \cdot \text{K)}\)</span>.</li>
 <li><strong>Energía de Activación (<span class="math inline">\(E_a\)</span>)</strong>: Se calibra en <strong><span class="math inline">\(85,000 \, \text{J/mol}\)</span></strong> (<span class="math inline">\(85 \text{ kJ/mol}\)</span>). Este valor representa la barrera energética que debe superarse para que las proteínas del antígeno comiencen a romperse irreversiblemente.</li>
-<li><strong>Factor Pre-exponencial (<span class="math inline">\(A\)</span>)</strong>: Se ajusta empíricamente a <strong><span class="math inline">\(1.2 \times 10^{14}\)</span></strong>. Este factor de frecuencia asegura que la tasa de degradación sea prácticamente nula cuando el equipo opera correctamente en el rango normativo de 2°C a 8°C, pero escale logarítmicamente durante una excursión térmica severa.</li>
+<li><strong>Factor Pre-exponencial (<span class="math inline">\(A\)</span>)</strong>: Se ajusta a un valor de <strong><span class="math inline">\(1.2 \times 10^{14}\)</span></strong>. Este factor de frecuencia asegura que la tasa de degradación sea prácticamente nula cuando el equipo opera correctamente en el rango normativo de 2°C a 8°C, pero escale logarítmicamente durante una excursión térmica severa.</li>
 </ul>
 <section id="el-modelo-de-daño-térmico-acumulado-da" class="level3" data-number="3.9.1">
 <h3 data-number="3.9.1" class="anchored" data-anchor-id="el-modelo-de-daño-térmico-acumulado-da"><span class="header-section-number">3.9.1</span> El Modelo de Daño Térmico Acumulado (<span class="math inline">\(DA\)</span>)</h3>
@@ -1214,7 +1214,7 @@ DA(t) = \int_{0}^{t} \mathbb{I}_{\{T(s) &gt; 8\}} \cdot k(T(s)) \, ds
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-chen2009thermostable" class="csl-entry" role="listitem">
-Chen, Dexiang, y Debra Kristensen. 2009. <span>«Opportunities and challenges of developing thermostable vaccines»</span>. <em>Expert review of vaccines</em> 8 (5): 547-57.
+Chen, Dexiang, y Debra Kristensen. 2009. <span>«Opportunities and challenges of developing thermostable vaccines»</span>. <em>Expert review of vaccines</em> 8 (5): 547-57. <a href="https://doi.org/10.1586/erv.09.20">https://doi.org/10.1586/erv.09.20</a>.
 </div>
 <div id="ref-cfe2024informe" class="csl-entry" role="listitem">
 Comisión Federal de Electricidad. 2024. <span>«Informe Anual 2024»</span>. Ciudad de México: Gobierno de México.
@@ -1650,8 +1650,8 @@ Secretaría de Energía. 2024. <span>«Programa para el Desarrollo del Sistema E
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./montecarlo.html" class="pagination-link" aria-label="montecarlo.html">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">montecarlo.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./montecarlo.html" class="pagination-link" aria-label="Metodología de Simulación Computacional y Análisis Estadístico de Riesgo">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Metodología de Simulación Computacional y Análisis Estadístico de Riesgo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
