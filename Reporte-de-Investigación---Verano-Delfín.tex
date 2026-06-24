@@ -995,7 +995,7 @@ consultar a (\citeproc{ref-kloeden1992numerical}{Kloeden y Platen
 1992}).
 
 \subsection{Esquema Numérico de
-Euler-Maruyama}\label{esquema-numuxe9rico-de-euler-maruyama}
+Euler-Maruyama}\label{sec-euler-maruyama}
 
 El método de Euler-Maruyama constituye la extensión estocástica más
 elemental del método de Euler para ecuaciones diferenciales ordinarias.
@@ -2325,7 +2325,7 @@ CFE}\label{paruxe1metros-estocuxe1sticos-de-fallas-de-la-cfe}
 El riesgo externo del suministro eléctrico se parametriza mediante el
 comportamiento histórico de fallas de la Comisión Federal de
 Electricidad (CFE) en la región Sureste. Retomando los calculos de la
-sección Sección~\ref{sec-ppnh}, programamos la tasa de fallas diarias
+Sección~\ref{sec-ppnh}, programamos la tasa de fallas diarias
 \(\lambda_{cfe}(t)\) como un Proceso de Poisson No Homogéneo, donde
 combinamos un riesgo base de fallas locales (\(0.0667\) cortes/día) con
 dos campanas gaussianas estacionales que modelan los picos de cortes
@@ -2370,7 +2370,7 @@ Para las aperturas de la puerta del refrigerador, el algoritmo genera un
 vector binario de eventos evaluado en el dominio de tiempo discreto
 \(t \in \{0, \Delta t, 2\Delta t, \dots, 8784\}\) horas. Dado que el
 paso de integración se fijó en \(\Delta t = 5/60\) horas (es decir 5
-minutos), este espacio temporal se particiona exactamente en \(105,408\)
+minutos), este conjunto se particiona exactamente en \(105408\)
 iteraciones para cubrir la totalidad del año. Este vector se construye
 combinando la apertura de las 8:00 AM con un muestreo de Poisson
 ejecutado sobre la tasa de intensidad de la tarde
@@ -2404,42 +2404,44 @@ de vacunas.
 \subsection{Integración de la Temperatura por Cambios de
 Régimen}\label{integraciuxf3n-de-la-temperatura-por-cambios-de-ruxe9gimen}
 
-Para avanzar en el tiempo, el algoritmo evalúa en cada iteración \(i\)
-el estado del suministro eléctrico en el paso previo (\(S_{t}[i-1]\)),
-activando un cambio de régimen dinámico (\emph{regime-switching}). Si el
+Para avanzar en el tiempo, el algoritmo recorre la iteración \(i\) en el
+intervalo \(i \in [1, 105407]\). El índice arranca en 1 y no en 0 porque
+el primer valor de la matriz corresponde a la condición inicial ya
+conocida de la temperatura interna del refrigerador
+(\(T_0 = 4^\circ\text{C}\)). En cada iteración \(i\), evalúa el estado
+del suministro eléctrico en el paso previo (\(S_{t}[i-1]\)), activando
+un cambio de régimen dinámico (\emph{regime-switching}). Si el
 suministro está activo, aplica los parámetros de convección forzada
-(\(\kappa_{on}, \sigma_{on}\)) empujando la temperatura hacia el centro
-de confort del termostato (\(\theta = 4.0^\circ\text{C}\)) y le suma el
-salto térmico si la puerta fue manipulada. Si el suministro está
-apagado, el algoritmo desactiva los ventiladores y acopla la inercia
-térmica pasiva (\(\kappa_{off}, \sigma_{off}\)), provocando que la
-temperatura del refrigerador sea atraída de forma estocástica hacia la
-temperatura ambiente exterior de Tuxtla Gutiérrez (\(T_{amb}[i-1]\))
-calculada en la Celda 1.
+(\(\kappa_{on}, \sigma_{on}\)) llevando a la temperatura hacia la
+temperatura ideal (\(\theta = 4.0^\circ\text{C}\)) y le suma el salto
+térmico si la puerta fue manipulada. Si el suministro está apagado, el
+algoritmo desactiva los ventiladores y acopla la inercia térmica pasiva
+(\(\kappa_{off}, \sigma_{off}\)), provocando que la temperatura del
+refrigerador sea atraída hacia la temperatura ambiente exterior de
+Tuxtla Gutiérrez (\(T_{amb}[i-1]\)).
 
-La solución numérica se ejecuta mediante el esquema de Euler-Maruyama.
-Es fundamental destacar que, dado que las volatilidades térmicas
-(\(\sigma_{on}\) y \(\sigma_{off}\)) actúan como ruidos aditivos
-constantes independientes del estado de la temperatura \(X(t)\), sus
-derivadas parciales respecto al estado son nulas
-(\(\frac{\partial \sigma}{\partial x} = 0\)). Debido a esta propiedad
-del cálculo estocástico, el término de corrección de segundo orden del
-método de Milstein se multiplica por cero y desaparece por completo,
-demostrando rigurosamente que el esquema de Milstein se reduce de forma
+La solución numérica se ejecuta mediante el esquema de Euler-Maruyama
+desarrollado en la Sección~\ref{sec-euler-maruyama}. Es fundamental
+destacar que, dado que las volatilidades térmicas (\(\sigma_{on}\) y
+\(\sigma_{off}\)) actúan como ruidos aditivos constantes independientes
+del estado de la temperatura \(X(t)\), sus derivadas parciales respecto
+al estado son nulas (\(\frac{\partial \sigma}{\partial x} = 0\)). Debido
+a esta propiedad del cálculo estocástico, el término de corrección de
+segundo orden del método de Milstein se multiplica por cero y desaparece
+por completo, demostrando que el esquema de Milstein se reduce de forma
 exacta al método de Euler-Maruyama aquí empleado.
 
 Simultáneamente, el ciclo evalúa el daño térmico acumulado mediante la
-ecuación de Arrhenius. Si la temperatura interna de la vacuna supera el
-límite normativo de seguridad (\(X_{t}[i] > 8.0^\circ\text{C}\)), el
-algoritmo convierte la lectura a grados Kelvin, calcula la constante
+ecuación de Arrhenius. Si la temperatura interna del refrigerador supera
+el límite normativo de seguridad (\(X_{t}[i] > 8.0^\circ\text{C}\)), el
+algoritmo convierte la temperatura a grados Kelvin, calcula la constante
 cinética instantánea \(k(t)\) y actualiza la viabilidad de la vacuna
-(\(V_t\)) aplicando un decaimiento exponencial exponencial dependiente
-de \(\Delta t\). Si la temperatura se mantiene a salvo dentro del rango
+(\(V_t\)) aplicando un decaimiento exponencial dependiente de
+\(\Delta t\). Si la temperatura se mantiene a salvo dentro del rango
 seguro, la viabilidad farmacológica permanece congelada en su valor
 previo. La dinámica resultante para el año completo se expone en la
 Figura~\ref{fig-sde-anual}, mientras que la Figura~\ref{fig-sde-zoom}
-presenta un acercamiento exclusivo al mes crítico de junio (mostrando el
-eje Y desde cero y las aperturas abajo en \(Y = 0.5\) sobre el eje X).
+presenta un acercamiento exclusivo al mes crítico de junio.
 
 \begin{figure}
 
@@ -2451,8 +2453,10 @@ eje Y desde cero y las aperturas abajo en \(Y = 0.5\) sobre el eje X).
 
 \caption{\label{fig-sde-anual}Dinámica térmica anual simulada para el
 refrigerador Haier HBC-150. Las zonas sombreadas en rojo indican la
-ocurrencia de los 68 apagones sobre la temperatura ambiente y la
-respuesta del equipo.}
+ocurrencia de los 68 apagones a lo largo del año, la trayectoria de
+color azul indica la tempertura interna del refrigerador (la solución
+numerica de la EDE), y la trayectoria de color amarillo inidica la
+temperatura ambiente en Tuxtla Gutiérrez, Chiapas.}
 
 \end{figure}%
 
@@ -2464,22 +2468,20 @@ respuesta del equipo.}
 
 }
 
-\caption{\label{fig-sde-zoom}Acercamiento microscópico del
-comportamiento de la EDE durante el mes de junio. Se omitió el clima
-exterior para observar limpiamente la estabilidad del termostato (4°C),
-los impactos de las aperturas (triángulos verdes inferiores) y la
-pérdida de frío en los apagones.}
+\caption{\label{fig-sde-zoom}Acercamiento del comportamiento de la EDE
+durante el mes de junio. Se omitió el clima exterior para observar la
+estabilidad del termostato (4°C), los impactos de las aperturas
+(triángulos verdes inferiores) y la pérdida de frío en los apagones.}
 
 \end{figure}%
 
 \subsection{Integración de la Dinámica Logística de Inventario y
 Mermas}\label{integraciuxf3n-de-la-dinuxe1mica-loguxedstica-de-inventario-y-mermas}
 
-Para transicionar de una pérdida de viabilidad teórica a pérdidas
-materiales absolutas de insumos médicos, acoplamos la simulación al
-inventario físico real del equipo (\(I_t\)). El algoritmo avanza
-iteración por iteración en una escala de tiempo de 5 minutos,
-entrelazando tres fuerzas logísticas:
+Para pasar de una pérdida de viabilidad teórica a pérdidas de vacunas,
+acomodamos la simulación al inventario físico real del equipo (\(I_t\)).
+El algoritmo avanza iteración por iteración en una escala de tiempo de 5
+minutos, utilizando tres características logísticas clave:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

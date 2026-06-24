@@ -308,7 +308,7 @@ $$
 
 La convergencia débil no compara trayectoria por trayectoria, sino que evalúa la aproximación de la distribución de probabilidad global y sus momentos estadísticos (como la media y la varianza), para más detalles consultar a [@kloeden1992numerical].
 
-### Esquema Numérico de Euler-Maruyama
+### Esquema Numérico de Euler-Maruyama {#sec-euler-maruyama}
 
 El método de Euler-Maruyama constituye la extensión estocástica más elemental del método de Euler para ecuaciones diferenciales ordinarias. Este esquema aproxima el cambio continuo truncando las integrales de la ecuación mediante aproximaciones de orden inferior.
 

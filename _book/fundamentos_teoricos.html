@@ -435,7 +435,7 @@ window.Quarto = {
   <li><a href="#el-lema-de-itô-clásico-y-generalizado" id="toc-el-lema-de-itô-clásico-y-generalizado" class="nav-link" data-scroll-target="#el-lema-de-itô-clásico-y-generalizado"><span class="header-section-number">2.6</span> El Lema de Itô Clásico y Generalizado</a></li>
   <li><a href="#soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas" id="toc-soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas" class="nav-link" data-scroll-target="#soluciones-numéricas-de-ecuaciones-diferenciales-estocásticas"><span class="header-section-number">2.7</span> Soluciones Numéricas de Ecuaciones Diferenciales Estocásticas</a>
   <ul class="collapse">
-  <li><a href="#esquema-numérico-de-euler-maruyama" id="toc-esquema-numérico-de-euler-maruyama" class="nav-link" data-scroll-target="#esquema-numérico-de-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</a></li>
+  <li><a href="#sec-euler-maruyama" id="toc-sec-euler-maruyama" class="nav-link" data-scroll-target="#sec-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</a></li>
   <li><a href="#esquema-numérico-de-milstein" id="toc-esquema-numérico-de-milstein" class="nav-link" data-scroll-target="#esquema-numérico-de-milstein"><span class="header-section-number">2.7.2</span> Esquema Numérico de Milstein</a></li>
   </ul></li>
   <li><a href="#análisis-comparativo-de-convergencia-fuerte" id="toc-análisis-comparativo-de-convergencia-fuerte" class="nav-link" data-scroll-target="#análisis-comparativo-de-convergencia-fuerte"><span class="header-section-number">2.8</span> Análisis Comparativo de Convergencia Fuerte</a></li>
@@ -713,8 +713,8 @@ dV(t, T(t), \alpha(t)) = &amp; \left[ \frac{\partial V}{\partial t} + \frac{\par
 \]</span></p>
 </div>
 <p>La convergencia débil no compara trayectoria por trayectoria, sino que evalúa la aproximación de la distribución de probabilidad global y sus momentos estadísticos (como la media y la varianza), para más detalles consultar a <span class="citation" data-cites="kloeden1992numerical">(<a href="references.html#ref-kloeden1992numerical" role="doc-biblioref">Kloeden y Platen 1992</a>)</span>.</p>
-<section id="esquema-numérico-de-euler-maruyama" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="esquema-numérico-de-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</h3>
+<section id="sec-euler-maruyama" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="sec-euler-maruyama"><span class="header-section-number">2.7.1</span> Esquema Numérico de Euler-Maruyama</h3>
 <p>El método de Euler-Maruyama constituye la extensión estocástica más elemental del método de Euler para ecuaciones diferenciales ordinarias. Este esquema aproxima el cambio continuo truncando las integrales de la ecuación mediante aproximaciones de orden inferior.</p>
 <div id="thm-euler-maruyama" class="theorem">
 <p><span class="theorem-title"><strong>Teorema 2.4 (Teorema de Convergencia de Euler-Maruyama)</strong></span> Sea <span class="math inline">\(\{X(t)\}_{t \ge 0}\)</span>, considere la EDE dada por la <a href="#eq-ede-general-diff" class="quarto-xref">Ecuación&nbsp;<span>2.1</span></a>, con condición inicial <span class="math inline">\(X(0) = x_0\)</span>, si se cumplen las hipotesis del teorema de existencia y unicidad <a href="#thm-existencia-unicidad" class="quarto-xref">Teorema&nbsp;<span>2.1</span></a> y los coeficientes <span class="math inline">\(b\)</span> y de difusión <span class="math inline">\(\sigma\)</span> son continuamente diferenciables, entonces el esquema de Euler-Maruyama converge fuertemente con orden:</p>
