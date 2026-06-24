@@ -114,7 +114,7 @@ Al hacer este cálculo y redondeando al entero más cercano (realizando un ajust
 
 El análisis de la Tabla 3 revela con claridad los dos momentos estacionales de mayor vulnerabilidad y frecuencia de cortes en el suministro eléctrico de la región. El pico más severo se registra en **Junio (9 cortes)**, un fenómeno ocasionado por las altas temperaturas extremas registradas en Tuxtla Gutiérrez durante la primavera-verano, las cuales provocaron una saturación en la red de distribución eléctrica debido al uso masivo y simultáneo de sistemas de aire acondicionado. El segundo periodo crítico ocurre durante **Agosto y Septiembre (8 y 9 cortes respectivamente)**, coincidiendo directamente con el máximo histórico de la temporada de lluvias, tormentas tropicales y huracanes en el Sureste mexicano, eventos climáticos que suelen derribar líneas de alta tensión y afectar transformadores locales. En contraste, la época invernal se consolida como el periodo de máxima estabilidad en el servicio.
 
-## Modelado del Proceso de Poisson No Homogéneo (PPNH)
+## Modelado del Proceso de Poisson No Homogéneo (PPNH) {#sec-ppnh}
 
 Para integrar estas interrupciones eléctricas dentro de la Ecuación Diferencial Estocástica (EDE) en tiempo continuo $t$, donde $t \in [0, 365]$ representa los días del año, utilizamos un **Proceso de Poisson No Homogéneo**, cuya intensidad instantánea de eventos $\lambda(t)$ varía en función del tiempo para absorber la estacionalidad climática.
 
