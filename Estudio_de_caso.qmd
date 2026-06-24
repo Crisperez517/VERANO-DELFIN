@@ -290,7 +290,7 @@ Para la modelación estocástica, los parámetros de inercia térmica y tiempo d
 
 Para reflejar el comportamiento de este equipo bajo los rigurosos estándares normativos, calibramos cada coeficiente de la @eq-ede-operativa con base en la física del enfriamiento:
 
-### Régimen 1: Operación Normal ($\alpha(t) = 1$)
+### Régimen 1: Operación Normal ($\alpha(t) = 1$) {#sec-regimen-1}
 Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.
 
 * **Temperatura de Consigna ($\theta_{set}$)**: Se establece en **$4^\circ \text{C}$**, el centro ideal del rango normativo de seguridad (2°C a 8°C).
@@ -298,7 +298,7 @@ Ocurre cuando hay energía eléctrica y el compresor funciona empujando la tempe
 * **Ruido del Compresor ($\sigma_{on}$)**: El motor se prende y se apaga constantemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla de las 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los $\pm 2^\circ \text{C}$ para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que $3 \times SD = 2^\circ \text{C}$, la desviación estándar estacionaria debe ser $SD \approx 0.667^\circ \text{C}$. Despejando la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck $\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)$:
   $$0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325$$
 
-### Régimen 2: Falla Eléctrica ($\alpha(t) = 2$)
+### Régimen 2: Falla Eléctrica ($\alpha(t) = 2$) {#sec-regimen-2}
 Se activa cuando el Proceso de Poisson dice que hay un apagón y el enfriamiento activo se detiene.
 
 * **Temperatura Exterior ($T_{amb}(t)$)**: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de **$43^\circ \text{C}$**. En este escenario, el término $(T_{amb} - T(t))$ se vuelve enorme y genera un calentamiento fuertemente acelerado.
@@ -313,7 +313,7 @@ De acuerdo con las normativas internacionales de manejo de red de frío, el refr
 * **Tasa de Aperturas ($\lambda_{puerta}$)**: Dado que la apertura matutina es un evento operativo fijo, la verdadera estocasticidad recae en la tarde, ya que el ingreso de biológicos depende de si hubo sobrantes en los termos clínicos. Por ello, la perturbación aleatoria se restringe a este momento y se modela computacionalmente con un Proceso de Poisson Homogéneo con una tasa de $\lambda = 1$ evento/día.
 * **Impacto de la Apertura ($\gamma$)**: Al tratarse de un equipo tipo cofre (*Icelined Refrigerator*), la pérdida térmica es mucho menor que en equipos verticales, ya que el aire frío, siendo más denso, tiende a permanecer en el fondo del gabinete. Sin embargo, basándonos en estudios de convección para una apertura prolongada típica de 5 minutos (tiempo estimado para organizar y contabilizar viales), se introduce una carga térmica inesperada. Asignamos un incremento de **$\gamma = +1^\circ \text{C}$** por evento. Esta es una perturbación instantánea que rompe la continuidad de la trayectoria y reduce críticamente el "colchón térmico" disponible en caso de ocurrir un apagón durante la noche.
 
-## Cinética de Degradación Térmica (Ecuación de Arrhenius)
+## Cinética de Degradación Térmica (Ecuación de Arrhenius) {#sec-Arrhenius}
 
 La Ecuación Diferencial Estocástica calibrada anteriormente nos permite simular con alta precisión la temperatura interna del refrigerador $T(t)$. Sin embargo, para evaluar el impacto en la salud pública, es necesario traducir estas variaciones térmicas en pérdida de viabilidad del biológico.
 
@@ -321,7 +321,7 @@ La degradación de las vacunas (particularmente las vivas atenuadas, como el bio
 
 $$
 k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
-$$
+$$ {#eq-Arrhenius}
 
 Donde la temperatura $T_K(t) = T(t) + 273.15$ se expresa en grados Kelvin y los parámetros cinéticos para un biológico termosensible genérico se establecen como:
 

@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -221,7 +221,7 @@
 
 \title{Reporte de Investigación - Verano Delfín}
 \author{Cristóbal Pérez González}
-\date{2026-06-23}
+\date{2026-06-24}
 \begin{document}
 \maketitle
 
@@ -1988,7 +1988,7 @@ estándares normativos, calibramos cada coeficiente de la
 Ecuación~\ref{eq-ede-operativa} con base en la física del enfriamiento:
 
 \subsection{\texorpdfstring{Régimen 1: Operación Normal
-(\(\alpha(t) = 1\))}{Régimen 1: Operación Normal (\textbackslash alpha(t) = 1)}}\label{ruxe9gimen-1-operaciuxf3n-normal-alphat-1}
+(\(\alpha(t) = 1\))}{Régimen 1: Operación Normal (\textbackslash alpha(t) = 1)}}\label{sec-regimen-1}
 
 Ocurre cuando hay energía eléctrica y el compresor funciona empujando la
 temperatura hacia su objetivo.
@@ -2021,7 +2021,7 @@ temperatura hacia su objetivo.
 \end{itemize}
 
 \subsection{\texorpdfstring{Régimen 2: Falla Eléctrica
-(\(\alpha(t) = 2\))}{Régimen 2: Falla Eléctrica (\textbackslash alpha(t) = 2)}}\label{ruxe9gimen-2-falla-eluxe9ctrica-alphat-2}
+(\(\alpha(t) = 2\))}{Régimen 2: Falla Eléctrica (\textbackslash alpha(t) = 2)}}\label{sec-regimen-2}
 
 Se activa cuando el Proceso de Poisson dice que hay un apagón y el
 enfriamiento activo se detiene.
@@ -2097,7 +2097,7 @@ la jornada y una vespertina para resguardar los sobrantes.
 \end{itemize}
 
 \section{Cinética de Degradación Térmica (Ecuación de
-Arrhenius)}\label{cinuxe9tica-de-degradaciuxf3n-tuxe9rmica-ecuaciuxf3n-de-arrhenius}
+Arrhenius)}\label{sec-Arrhenius}
 
 La Ecuación Diferencial Estocástica calibrada anteriormente nos permite
 simular con alta precisión la temperatura interna del refrigerador
@@ -2112,9 +2112,9 @@ Esta velocidad de degradación \(k(T)\) se modela mediante la
 \textbf{Ecuación de Arrhenius} (\citeproc{ref-chen2009thermostable}{Chen
 y Kristensen 2009}):
 
-\[
+\begin{equation}\phantomsection\label{eq-Arrhenius}{
 k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
-\]
+}\end{equation}
 
 Donde la temperatura \(T_K(t) = T(t) + 273.15\) se expresa en grados
 Kelvin y los parámetros cinéticos para un biológico termosensible
@@ -2172,67 +2172,63 @@ Riesgo}\label{metodologuxeda-de-simulaciuxf3n-computacional-y-anuxe1lisis-estadu
 
 Para evaluar la confiabilidad de la red de frío frente a la volatilidad
 del suministro eléctrico y las condiciones climáticas de Tuxtla
-Gutiérrez, Chiapas, desarrollamos un simulador estocástico modular en
-Python enfocado en el refrigerador institucional Haier HBC-150. Debido a
-la interacción de múltiples procesos aleatorios intermitentes (cortes de
-energía de CFE, aperturas de puerta y variaciones extremas de
-temperatura), el sistema no posee una solución matemática analítica
-cerrada. En consecuencia, recurrimos a la integración numérica de
-trayectorias acoplada al método de Montecarlo.
+Gutiérrez, Chiapas, desarrollamos un simulador estocástico en Python
+enfocado en el refrigerador institucional Haier HBC-150 presentado en la
+sección anterior. Debido a la interacción de múltiples procesos
+aleatorios inesperados (cortes de energía de CFE, aperturas de puerta y
+variaciones extremas de temperatura), el sistema no posee una solución
+matemática analítica cerrada. En consecuencia, recurrimos a la
+integración numérica de trayectorias acoplada al método de Montecarlo.
 
 \begin{quote}
 \textbf{Nota sobre Reproducibilidad:} Con el fin de mantener este
-documento con un formato académico limpio y legible, hemos omitido el
-código fuente de programación en el cuerpo del texto. El script
-completo, estructurado en celdas de ejecución con semillas de
-aleatoriedad controladas para su total replicabilidad, se encuentra
-alojado y documentado detalladamente en el repositorio público de GitHub
-de este proyecto (\citeproc{ref-CPG2026Delfin}{Repositorio de GitHub}).
+reporte de investigación con un formato académico limpio y legible,
+hemos omitido el código fuente de programación. El script completo,
+estructurado en celdas de ejecución con semillas de aleatoriedad
+controladas para su total replicabilidad, se encuentra alojado y
+documentado detalladamente en el repositorio público de GitHub de este
+proyecto (\citeproc{ref-CPG2026Delfin}{Repositorio de GitHub}).
 \end{quote}
 
 A continuación, exponemos detalladamente el diseño metodológico de la
 simulación estructurado según el orden lógico de las celdas del
 algoritmo computacional, seguido de la discusión profunda de los
-resultados macroscópicos obtenidos.
+resultados obtenidos.
 
-\section{1. Procesamiento Temporal y Entorno Climático
-Determinista}\label{procesamiento-temporal-y-entorno-climuxe1tico-determinista}
+\section{1. Procesamiento Temporal y Entorno
+Climático}\label{procesamiento-temporal-y-entorno-climuxe1tico}
 
-El primer módulo de la simulación constituye el motor temporal del
-sistema. Definimos una malla de tiempo continua para cubrir un año
-completo (\(366\) días, contemplando el año bisiesto 2024). Para
-capturar microfluctuaciones de la temperatura interna y la naturaleza
-instantánea de los eventos logísticos, seleccionamos un paso de
-integración discreto de exactamente 5 minutos (\(\Delta t = 5/60\)
-horas), lo que genera un total de \(105,408\) iteraciones por cada
-trayectoria anual simulada.
+El primer módulo de la simulación constituye el eje central del sistema.
+Definimos una malla de tiempo continua para cubrir un año completo
+(\(366\) días, contemplando el año bisiesto 2024). Para capturar las
+microfluctuaciones de la temperatura interna del refrigerador,
+seleccionamos un paso de integración discreto de exactamente 5 minutos
+(\(\Delta t = 5/60\) horas), lo que genera un total de \(105408\)
+iteraciones por cada trayectoria anual simulada.
 
-Para acoplar la logística humana, programamos un calendario interno que
-identifica los días hábiles (lunes a viernes) y los fines de semana
-(sábados y domingos), debido a que la extracción de vacunas y las
-consultas clínicas ocurren exclusivamente en jornadas laborales.
+Para acoplar con la logística institucional, programamos un calendario
+interno que identifica los días hábiles (lunes a viernes) y los fines de
+semana (sábados y domingos), debido a que la extracción de vacunas
+ocurren exclusivamente en jornadas laborales.
 
-En el aspecto ambiental, cargamos la base de datos meteorológicos reales
-de Tuxtla Gutiérrez. No obstante, las bases de datos públicas solo
-proveen la temperatura promedio diaria (\(T_{media}\)), ocultando el
-estrés térmico intradiario. Para solucionar esto sin saturar
-computacionalmente el programa con archivos horarios masivos, expandimos
-el vector diario a la escala microscópica de 5 minutos mediante una
-asignación de piso matemático y sobrepusimos una función armónica (onda
-senoidal) con una amplitud térmica calibrada de \(7^\circ\text{C}\)
-(equivalente a una oscilación típica de 14°C entre la madrugada y la
-tarde chiapaneca). Desfasamos el argumento del coseno por 15 horas para
-forzar matemáticamente que el pico absoluto de calor golpee al equipo a
+Primero cargamos la base de datos meteorológicos reales de Tuxtla
+Gutiérrez. No obstante, las bases de datos públicas solo proveen la
+temperatura promedio diaria (\(T_{media}\)), ocultando el estrés térmico
+entre días. Para solucionar, expandimos el vector diario a la escala de
+5 minutos mediante una función armónica (onda senoidal) con una amplitud
+térmica calibrada de \(7^\circ\text{C}\) (equivalente a una oscilación
+típica de 14°C entre la madrugada y la tarde chiapaneca). Desfasamos el
+argumento del coseno por 15 horas para forzar que el pico de calor sea a
 las 15:00 horas de cada día simulado:
 
 \[
 T_{amb}(t) = T_{media}(t) + 7.0 \cdot \cos\left(2\pi \frac{t - 15}{24}\right)
 \]
 
-La validación visual de este entorno climático se presenta en la
-Figura~\ref{fig-clima-anual}, que exhibe el comportamiento macroscópico
-anual, y en la Figura~\ref{fig-clima-zoom}, que demuestra la
-consistencia del ciclo diurno continuo.
+La validación visual de la oscilación de la temperatura ambiente se
+presenta en la Figura~\ref{fig-clima-anual}, que exhibe el
+comportamiento anual, y en la Figura~\ref{fig-clima-zoom}, que demuestra
+la consistencia del ciclo diurno continuo.
 
 \begin{figure}
 
@@ -2243,7 +2239,7 @@ consistencia del ciclo diurno continuo.
 }
 
 \caption{\label{fig-clima-anual}Temperatura ambiente continua simulada
-para Tuxtla Gutiérrez a lo largo de un año completo, contrastada con los
+para Tuxtla Gutiérrez a lo largo de un año completo, comparada con los
 promedios diarios de la base de datos meteorológica original.}
 
 \end{figure}%
@@ -2256,7 +2252,7 @@ promedios diarios de la base de datos meteorológica original.}
 
 }
 
-\caption{\label{fig-clima-zoom}Acercamiento a una ventana de 5 días de
+\caption{\label{fig-clima-zoom}Acercamiento a un periodo de 5 días de
 simulación climática (Mayo), donde se observa el comportamiento de la
 oscilación senoidal intradiaria y la ubicación exacta de los picos
 térmicos a las 15:00 horas.}
@@ -2267,7 +2263,7 @@ térmicos a las 15:00 horas.}
 Red}\label{parametrizaciuxf3n-fuxedsica-cinuxe9tica-y-estocuxe1stica-de-la-red}
 
 Una vez construido el entorno temporal y climático, procedemos a
-inicializar las constantes que gobiernan las fuerzas físicas del
+inicializar las constantes que controlan las fuerzas físicas del
 refrigerador Haier HBC-150 y las propiedades biológicas de las vacunas.
 
 \subsection{Parámetros Termodinámicos y Cinéticos del
@@ -2277,24 +2273,26 @@ Asignamos los coeficientes térmicos constantes previamente estimados
 para el modelo de Ornstein-Uhlenbeck (EDE). Cuando el equipo cuenta con
 electricidad, la tasa de abatimiento térmico se fija en
 \(\kappa_{on} = 0.1188\,\text{hr}^{-1}\) con una volatilidad interna de
-los ventiladores de \(\sigma_{on} = 0.325\). Ante un escenario de falla
-eléctrica, el compresor se apaga y el aislamiento de alta densidad del
-equipo (reforzado por sus paquetes de hielo internos) frena la
+los ventiladores de \(\sigma_{on} = 0.325\), obtenidos con los calculos
+de la sección anterior Sección~\ref{sec-regimen-1}. Ante un escenario de
+falla eléctrica, el compresor se apaga y el aislamiento de alta densidad
+del equipo (reforzado por sus paquetes de hielo internos) frena la
 transferencia de calor, lo que se modela con una inercia pasiva
 sumamente lenta de \(\kappa_{off} = 0.00178\,\text{hr}^{-1}\) y un ruido
-por microfiltraciones de aire de \(\sigma_{off} = 0.05\). La temperatura
-objetivo del termostato se establece en \(\theta = 4.0^\circ\text{C}\) y
-el equipo arranca estabilizado en esta misma condición inicial
-(\(T_0 = 4.0^\circ\text{C}\)).
+por microfiltraciones de aire de \(\sigma_{off} = 0.05\), estimado en
+Sección~\ref{sec-regimen-2}. La temperatura objetivo del termostato se
+establece en \(\theta = 4.0^\circ\text{C}\) y el equipo arranca en esta
+misma condición inicial (\(T_0 = 4.0^\circ\text{C}\)).
 
 Para modelar la degradación biológica, configuramos las constantes de la
-ecuación de Arrhenius para un biológico termosensible genérico (perfil
-biológico representativo de vacunas vivas atenuadas como Sarampión o
-Poliomielitis). La energía de activación crítica se establece en
-\(E_a = 85,000\,\text{J/mol}\) (\(85\,\text{kJ/mol}\)), la constante
-universal de los gases en \(R = 8.314\,\text{J/(mol}\cdot\text{K)}\) y
-el factor de frecuencia preexponencial empírico en
-\(A = 1.2 \times 10^{14}\).
+ecuación de Arrhenius Ecuación~\ref{eq-Arrhenius} para un biológico
+termosensible genérico (perfil biológico representativo de vacunas vivas
+atenuadas como Sarampión o Poliomielitis). La energía de activación
+crítica se establece en \(E_a = 85,000\,\text{J/mol}\)
+(\(85\,\text{kJ/mol}\)), la constante universal de los gases en
+\(R = 8.314\,\text{J/(mol}\cdot\text{K)}\) y el factor de frecuencia
+preexponencial en \(A = 1.2 \times 10^{14}\), estos parámtros se
+obtuvieron de la sección Sección~\ref{sec-Arrhenius}.
 
 Finalmente, programamos la lógica operativa para las aperturas de puerta
 durante las jornadas de consulta (lunes a viernes). Para aproximarnos a
