@@ -440,11 +440,11 @@ window.Quarto = {
   </ul></li>
   <li><a href="#calibración-de-la-ecuación-diferencial-estocástica-ede" id="toc-calibración-de-la-ecuación-diferencial-estocástica-ede" class="nav-link" data-scroll-target="#calibración-de-la-ecuación-diferencial-estocástica-ede"><span class="header-section-number">3.8</span> Calibración de la Ecuación Diferencial Estocástica (EDE)</a>
   <ul class="collapse">
-  <li><a href="#régimen-1-operación-normal-alphat-1" id="toc-régimen-1-operación-normal-alphat-1" class="nav-link" data-scroll-target="#régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.8.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</a></li>
-  <li><a href="#régimen-2-falla-eléctrica-alphat-2" id="toc-régimen-2-falla-eléctrica-alphat-2" class="nav-link" data-scroll-target="#régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.8.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
+  <li><a href="#sec-regimen-1" id="toc-sec-regimen-1" class="nav-link" data-scroll-target="#sec-regimen-1"><span class="header-section-number">3.8.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</a></li>
+  <li><a href="#sec-regimen-2" id="toc-sec-regimen-2" class="nav-link" data-scroll-target="#sec-regimen-2"><span class="header-section-number">3.8.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</a></li>
   <li><a href="#perturbaciones-discretas-apertura-de-puertas-n_puertat" id="toc-perturbaciones-discretas-apertura-de-puertas-n_puertat" class="nav-link" data-scroll-target="#perturbaciones-discretas-apertura-de-puertas-n_puertat"><span class="header-section-number">3.8.3</span> Perturbaciones Discretas: Apertura de Puertas (<span class="math inline">\(N_{puerta}(t)\)</span>)</a></li>
   </ul></li>
-  <li><a href="#cinética-de-degradación-térmica-ecuación-de-arrhenius" id="toc-cinética-de-degradación-térmica-ecuación-de-arrhenius" class="nav-link" data-scroll-target="#cinética-de-degradación-térmica-ecuación-de-arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</a>
+  <li><a href="#sec-Arrhenius" id="toc-sec-Arrhenius" class="nav-link" data-scroll-target="#sec-Arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</a>
   <ul class="collapse">
   <li><a href="#el-modelo-de-daño-térmico-acumulado-da" id="toc-el-modelo-de-daño-térmico-acumulado-da" class="nav-link" data-scroll-target="#el-modelo-de-daño-térmico-acumulado-da"><span class="header-section-number">3.9.1</span> El Modelo de Daño Térmico Acumulado (<span class="math inline">\(DA\)</span>)</a></li>
   </ul></li>
@@ -1162,8 +1162,8 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Icelined
 </figure>
 </div>
 <p>Para reflejar el comportamiento de este equipo bajo los rigurosos estándares normativos, calibramos cada coeficiente de la <a href="#eq-ede-operativa" class="quarto-xref">Ecuación&nbsp;<span>3.1</span></a> con base en la física del enfriamiento:</p>
-<section id="régimen-1-operación-normal-alphat-1" class="level3" data-number="3.8.1">
-<h3 data-number="3.8.1" class="anchored" data-anchor-id="régimen-1-operación-normal-alphat-1"><span class="header-section-number">3.8.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
+<section id="sec-regimen-1" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="sec-regimen-1"><span class="header-section-number">3.8.1</span> Régimen 1: Operación Normal (<span class="math inline">\(\alpha(t) = 1\)</span>)</h3>
 <p>Ocurre cuando hay energía eléctrica y el compresor funciona empujando la temperatura hacia su objetivo.</p>
 <ul>
 <li><strong>Temperatura de Consigna (<span class="math inline">\(\theta_{set}\)</span>)</strong>: Se establece en <strong><span class="math inline">\(4^\circ \text{C}\)</span></strong>, el centro ideal del rango normativo de seguridad (2°C a 8°C).</li>
@@ -1171,8 +1171,8 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Icelined
 <li><strong>Ruido del Compresor (<span class="math inline">\(\sigma_{on}\)</span>)</strong>: El motor se prende y se apaga constantemente para mantener los 4°C. Acorde con un intervalo de confianza del 99.7% (aplicando la regla de las 3 sigmas de la distribución normal), queremos que las fluctuaciones máximas no excedan los <span class="math inline">\(\pm 2^\circ \text{C}\)</span> para evitar llegar a los 2°C (riesgo de congelación) o a los 6°C. Sabiendo que <span class="math inline">\(3 \times SD = 2^\circ \text{C}\)</span>, la desviación estándar estacionaria debe ser <span class="math inline">\(SD \approx 0.667^\circ \text{C}\)</span>. Despejando la volatilidad de la varianza a largo plazo del proceso Ornstein-Uhlenbeck <span class="math inline">\(\left(SD = \frac{\sigma_{on}}{\sqrt{2\kappa_{on}}}\right)\)</span>: <span class="math display">\[0.667 = \frac{\sigma_{on}}{\sqrt{2(0.1188)}} \implies \sigma_{on} \approx 0.325\]</span></li>
 </ul>
 </section>
-<section id="régimen-2-falla-eléctrica-alphat-2" class="level3" data-number="3.8.2">
-<h3 data-number="3.8.2" class="anchored" data-anchor-id="régimen-2-falla-eléctrica-alphat-2"><span class="header-section-number">3.8.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
+<section id="sec-regimen-2" class="level3" data-number="3.8.2">
+<h3 data-number="3.8.2" class="anchored" data-anchor-id="sec-regimen-2"><span class="header-section-number">3.8.2</span> Régimen 2: Falla Eléctrica (<span class="math inline">\(\alpha(t) = 2\)</span>)</h3>
 <p>Se activa cuando el Proceso de Poisson dice que hay un apagón y el enfriamiento activo se detiene.</p>
 <ul>
 <li><strong>Temperatura Exterior (<span class="math inline">\(T_{amb}(t)\)</span>)</strong>: La temperatura ambiente actúa como el atractor del sistema. Dado que en Tuxtla Gutiérrez el calor oscila drásticamente a lo largo del día, esta variable se modela computacionalmente como una función senoidal que alcanza su pico máximo a las 15:00 hrs. Para nuestra calibración analítica del peor escenario (estiaje), evaluamos este atractor en un máximo absoluto de <strong><span class="math inline">\(43^\circ \text{C}\)</span></strong>. En este escenario, el término <span class="math inline">\((T_{amb} - T(t))\)</span> se vuelve enorme y genera un calentamiento fuertemente acelerado.</li>
@@ -1189,13 +1189,13 @@ Figura&nbsp;3.2: Refrigerador institucional para vacunas Haier HBC-150 (Icelined
 </ul>
 </section>
 </section>
-<section id="cinética-de-degradación-térmica-ecuación-de-arrhenius" class="level2" data-number="3.9">
-<h2 data-number="3.9" class="anchored" data-anchor-id="cinética-de-degradación-térmica-ecuación-de-arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</h2>
+<section id="sec-Arrhenius" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="sec-Arrhenius"><span class="header-section-number">3.9</span> Cinética de Degradación Térmica (Ecuación de Arrhenius)</h2>
 <p>La Ecuación Diferencial Estocástica calibrada anteriormente nos permite simular con alta precisión la temperatura interna del refrigerador <span class="math inline">\(T(t)\)</span>. Sin embargo, para evaluar el impacto en la salud pública, es necesario traducir estas variaciones térmicas en pérdida de viabilidad del biológico.</p>
 <p>La degradación de las vacunas (particularmente las vivas atenuadas, como el biológico contra el Sarampión o la Poliomielitis) es un proceso de desnaturalización proteica que se acelera exponencialmente con el calor. Esta velocidad de degradación <span class="math inline">\(k(T)\)</span> se modela mediante la <strong>Ecuación de Arrhenius</strong> <span class="citation" data-cites="chen2009thermostable">(<a href="references.html#ref-chen2009thermostable" role="doc-biblioref">Chen y Kristensen 2009</a>)</span>:</p>
-<p><span class="math display">\[
+<p><span id="eq-Arrhenius"><span class="math display">\[
 k(T(t)) = A \exp\left(-\frac{E_a}{R \cdot T_K(t)}\right)
-\]</span></p>
+\tag{3.2}\]</span></span></p>
 <p>Donde la temperatura <span class="math inline">\(T_K(t) = T(t) + 273.15\)</span> se expresa en grados Kelvin y los parámetros cinéticos para un biológico termosensible genérico se establecen como:</p>
 <ul>
 <li><strong>Constante Universal de los Gases (<span class="math inline">\(R\)</span>)</strong>: <span class="math inline">\(8.314 \, \text{J/(mol} \cdot \text{K)}\)</span>.</li>
