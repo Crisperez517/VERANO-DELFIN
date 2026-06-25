@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>conclusiones – Reporte de Investigación - Verano Delfín</title>
+<title>5&nbsp; Conclusiones y Trabajo Futuro – Reporte de Investigación - Verano Delfín</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,6 +81,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -256,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conclusiones.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">conclusiones.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conclusiones.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusiones y Trabajo Futuro</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -354,7 +383,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./conclusiones.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">conclusiones.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusiones y Trabajo Futuro</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -368,18 +397,71 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#conclusiones-del-análisis-de-riesgo-operativo" id="toc-conclusiones-del-análisis-de-riesgo-operativo" class="nav-link active" data-scroll-target="#conclusiones-del-análisis-de-riesgo-operativo"><span class="header-section-number">5.1</span> 1. Conclusiones del Análisis de Riesgo Operativo</a></li>
+  <li><a href="#limitaciones-del-modelo-y-trabajo-futuro" id="toc-limitaciones-del-modelo-y-trabajo-futuro" class="nav-link" data-scroll-target="#limitaciones-del-modelo-y-trabajo-futuro"><span class="header-section-number">5.2</span> 2. Limitaciones del Modelo y Trabajo Futuro</a>
+  <ul class="collapse">
+  <li><a href="#estimación-y-dinamismo-de-parámetros-thermal" id="toc-estimación-y-dinamismo-de-parámetros-thermal" class="nav-link" data-scroll-target="#estimación-y-dinamismo-de-parámetros-thermal"><span class="header-section-number">5.2.1</span> Estimación y Dinamismo de Parámetros Thermal</a></li>
+  <li><a href="#flexibilización-del-proceso-de-saltos-por-aperturas" id="toc-flexibilización-del-proceso-de-saltos-por-aperturas" class="nav-link" data-scroll-target="#flexibilización-del-proceso-de-saltos-por-aperturas"><span class="header-section-number">5.2.2</span> Flexibilización del Proceso de Saltos por Aperturas</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusiones y Trabajo Futuro</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p>El análisis estocástico implementado mediante 1,000 simulaciones independientes de Montecarlo permitió cuantificar de forma objetiva el riesgo térmico y operativo al que está expuesta la conservación de vacunas en Tuxtla Gutiérrez, Chiapas, utilizando el refrigerador institucional Haier HBC-150. Los resultados integran de manera formal las fuerzas termodinámicas locales, la intermitencia del suministro eléctrico y las restricciones de la cinética química de degradación.</p>
+<section id="conclusiones-del-análisis-de-riesgo-operativo" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="conclusiones-del-análisis-de-riesgo-operativo"><span class="header-section-number">5.1</span> 1. Conclusiones del Análisis de Riesgo Operativo</h2>
+<p>A partir de los datos consolidados en la base de datos de la simulación, se extraen las siguientes conclusiones principales:</p>
+<ul>
+<li><strong>Cuantificación de Mermas Anuales:</strong> Bajo un escenario normado que registró un promedio global de 64.0 apagones de la CFE y 515 aperturas de puerta anuales, la mediana de pérdidas se estableció en 751 dosis por refrigerador (equivalente a una tasa de descarte del 2.57% del biológico administrado), mientras que el promedio se ubicó en 827 dosis (2.87%).</li>
+<li><strong>Intervalo de Predicción e Incertidumbre:</strong> El análisis de los percentiles empíricos del histograma permite concluir, con un 95% de nivel de confianza estadística, que una unidad de salud operando bajo estas condiciones experimentará mermas inevitables de entre el 0.72% y el 6.57% de su inventario anual. Asimismo, el indicador <em>Value at Risk</em> (VaR) al 95% advierte que en escenarios de alta vulnerabilidad las pérdidas pueden ascender hasta las 1,736 dosis por equipo.</li>
+<li><strong>Dominancia Termodinámica sobre la Logística:</strong> Al evaluar la estacionalidad del daño, se rechazó la hipótesis de que el volumen de saturación logística por la campaña de Influenza en octubre y noviembre provocaría el mayor descarte de biológicos. Los datos demuestran que el factor climático y eléctrico ejerce una dominancia absoluta sobre el inventario. Las mermas se concentran de manera sostenida en el trimestre de marzo, abril y mayo debido a que las elevadas temperaturas ambientales reducen el tiempo de retención del frío pasivo del equipo y aceleran la tasa cinética de la ecuación de Arrhenius. La métrica de la mediana identificó a <strong>abril</strong> como el mes con el mayor índice de riesgo y destrucción de vacunas del año.</li>
+</ul>
+</section>
+<section id="limitaciones-del-modelo-y-trabajo-futuro" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="limitaciones-del-modelo-y-trabajo-futuro"><span class="header-section-number">5.2</span> 2. Limitaciones del Modelo y Trabajo Futuro</h2>
+<p>El modelo desarrollado durante la estancia del Verano Delfín proporciona una metodología matemática reproducible para la evaluación de políticas de salud pública y equipamiento térmico. No obstante, con el fin de simplificar el cómputo y mantener el alcance de una investigación de licenciatura, se omitieron ciertas dinámicas que se proponen como trabajo futuro:</p>
+<section id="estimación-y-dinamismo-de-parámetros-thermal" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="estimación-y-dinamismo-de-parámetros-thermal"><span class="header-section-number">5.2.1</span> Estimación y Dinamismo de Parámetros Thermal</h3>
+<p>En este estudio se consideraron constantes los coeficientes de transferencia de calor por conducción y convección del refrigerador, representados por la tasa de abatimiento activo (<span class="math inline">\(\kappa_{on}\)</span>) y la tasa de inercia pasiva (<span class="math inline">\(\kappa_{off}\)</span>). Como trabajo futuro, se plantea desarrollar un modelo de estimación paramétrica donde estos coeficientes varíen continuamente en el tiempo. Esta variación se programará en función directa de la fracción de llenado diario del refrigerador, permitiendo que la fluctuación real de la masa térmica interna afecte dinámicamente la velocidad de amortiguación térmica ante las fallas eléctricas.</p>
+</section>
+<section id="flexibilización-del-proceso-de-saltos-por-aperturas" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="flexibilización-del-proceso-de-saltos-por-aperturas"><span class="header-section-number">5.2.2</span> Flexibilización del Proceso de Saltos por Aperturas</h3>
+<p>La regla de manipulación humana del refrigerador se limitó a un escenario promedio de uso diario (una apertura fija matutina y un proceso estocástico vespertino). Para aproximar el simulador a la variabilidad real de las unidades médicas, el trabajo futuro requiere incorporar escenarios extremos en el proceso de saltos:</p>
+<ol type="1">
+<li><strong>Escenario de Aperturas Nulas:</strong> Modelar formalmente los días en que el refrigerador no es operado por el personal (como fines de semana prolongados o periodos de inactividad). En estos casos, las microfluctuaciones de temperatura interna deberán ser absorbidas y capturadas exclusivamente por el ruido aditivo del movimiento browniano de la EDE, manteniendo el proceso de saltos discretos en cero.</li>
+<li><strong>Escenario de Alta Demanda:</strong> Incorporar una tasa de intensidad variable que simule jornadas de vacunación masiva extramuros o contingencias sanitarias, donde el volumen de aperturas sea excesivo e incremente la inyección de calor acumulado por encima de los parámetros estándar evaluados en este reporte.</li>
+</ol>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
