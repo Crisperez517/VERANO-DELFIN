@@ -187,10 +187,10 @@
 \floatname{codelisting}{Listado}
 \newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
@@ -2708,7 +2708,106 @@ del 95\%.}
 
 \bookmarksetup{startatroot}
 
-\chapter{}\label{section}
+\chapter{Conclusiones y Trabajo
+Futuro}\label{conclusiones-y-trabajo-futuro}
+
+El análisis estocástico implementado mediante 1,000 simulaciones
+independientes de Montecarlo permitió cuantificar de forma objetiva el
+riesgo térmico y operativo al que está expuesta la conservación de
+vacunas en Tuxtla Gutiérrez, Chiapas, utilizando el refrigerador
+institucional Haier HBC-150. Los resultados integran de manera formal
+las fuerzas termodinámicas locales, la intermitencia del suministro
+eléctrico y las restricciones de la cinética química de degradación.
+
+\section{1. Conclusiones del Análisis de Riesgo
+Operativo}\label{conclusiones-del-anuxe1lisis-de-riesgo-operativo}
+
+A partir de los datos consolidados en la base de datos de la simulación,
+se extraen las siguientes conclusiones principales:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Cuantificación de Mermas Anuales:} Bajo un escenario normado
+  que registró un promedio global de 64.0 apagones de la CFE y 515
+  aperturas de puerta anuales, la mediana de pérdidas se estableció en
+  751 dosis por refrigerador (equivalente a una tasa de descarte del
+  2.57\% del biológico administrado), mientras que el promedio se ubicó
+  en 827 dosis (2.87\%).
+\item
+  \textbf{Intervalo de Predicción e Incertidumbre:} El análisis de los
+  percentiles empíricos del histograma permite concluir, con un 95\% de
+  nivel de confianza estadística, que una unidad de salud operando bajo
+  estas condiciones experimentará mermas inevitables de entre el 0.72\%
+  y el 6.57\% de su inventario anual. Asimismo, el indicador \emph{Value
+  at Risk} (VaR) al 95\% advierte que en escenarios de alta
+  vulnerabilidad las pérdidas pueden ascender hasta las 1,736 dosis por
+  equipo.
+\item
+  \textbf{Dominancia Termodinámica sobre la Logística:} Al evaluar la
+  estacionalidad del daño, se rechazó la hipótesis de que el volumen de
+  saturación logística por la campaña de Influenza en octubre y
+  noviembre provocaría el mayor descarte de biológicos. Los datos
+  demuestran que el factor climático y eléctrico ejerce una dominancia
+  absoluta sobre el inventario. Las mermas se concentran de manera
+  sostenida en el trimestre de marzo, abril y mayo debido a que las
+  elevadas temperaturas ambientales reducen el tiempo de retención del
+  frío pasivo del equipo y aceleran la tasa cinética de la ecuación de
+  Arrhenius. La métrica de la mediana identificó a \textbf{abril} como
+  el mes con el mayor índice de riesgo y destrucción de vacunas del año.
+\end{itemize}
+
+\section{2. Limitaciones del Modelo y Trabajo
+Futuro}\label{limitaciones-del-modelo-y-trabajo-futuro}
+
+El modelo desarrollado durante la estancia del Verano Delfín proporciona
+una metodología matemática reproducible para la evaluación de políticas
+de salud pública y equipamiento térmico. No obstante, con el fin de
+simplificar el cómputo y mantener el alcance de una investigación de
+licenciatura, se omitieron ciertas dinámicas que se proponen como
+trabajo futuro:
+
+\subsection{Estimación y Dinamismo de Parámetros
+Thermal}\label{estimaciuxf3n-y-dinamismo-de-paruxe1metros-thermal}
+
+En este estudio se consideraron constantes los coeficientes de
+transferencia de calor por conducción y convección del refrigerador,
+representados por la tasa de abatimiento activo (\(\kappa_{on}\)) y la
+tasa de inercia pasiva (\(\kappa_{off}\)). Como trabajo futuro, se
+plantea desarrollar un modelo de estimación paramétrica donde estos
+coeficientes varíen continuamente en el tiempo. Esta variación se
+programará en función directa de la fracción de llenado diario del
+refrigerador, permitiendo que la fluctuación real de la masa térmica
+interna afecte dinámicamente la velocidad de amortiguación térmica ante
+las fallas eléctricas.
+
+\subsection{Flexibilización del Proceso de Saltos por
+Aperturas}\label{flexibilizaciuxf3n-del-proceso-de-saltos-por-aperturas}
+
+La regla de manipulación humana del refrigerador se limitó a un
+escenario promedio de uso diario (una apertura fija matutina y un
+proceso estocástico vespertino). Para aproximar el simulador a la
+variabilidad real de las unidades médicas, el trabajo futuro requiere
+incorporar escenarios extremos en el proceso de saltos:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Escenario de Aperturas Nulas:} Modelar formalmente los días en
+  que el refrigerador no es operado por el personal (como fines de
+  semana prolongados o periodos de inactividad). En estos casos, las
+  microfluctuaciones de temperatura interna deberán ser absorbidas y
+  capturadas exclusivamente por el ruido aditivo del movimiento
+  browniano de la EDE, manteniendo el proceso de saltos discretos en
+  cero.
+\item
+  \textbf{Escenario de Alta Demanda:} Incorporar una tasa de intensidad
+  variable que simule jornadas de vacunación masiva extramuros o
+  contingencias sanitarias, donde el volumen de aperturas sea excesivo e
+  incremente la inyección de calor acumulado por encima de los
+  parámetros estándar evaluados en este reporte.
+\end{enumerate}
 
 \bookmarksetup{startatroot}
 
