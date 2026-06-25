@@ -234,10 +234,69 @@
 
 \bookmarksetup{startatroot}
 
-\chapter*{Introducción}\label{introducciuxf3n}
-\addcontentsline{toc}{chapter}{Introducción}
+\chapter{Introducción}\label{introducciuxf3n}
 
-\markboth{Introducción}{Introducción}
+La conservación de vacunas en condiciones óptimas es uno de los mayores
+desafíos para los sistemas de salud pública. Los biológicos son
+productos sensibles que requieren mantenerse estrictamente dentro del
+rango normativo de \(2^\circ\text{C}\) a \(8^\circ\text{C}\) desde su
+producción hasta su aplicación. Romper esta cadena de frío altera la
+estructura de los antígenos, reduciendo o anulando su efectividad
+inmunológica de manera irreversible.
+
+Este problema se agudiza en regiones con climas cálidos extremos, como
+la ciudad de Tuxtla Gutiérrez, Chiapas. Las altas temperaturas
+ambientales aceleran la transferencia de calor hacia el interior de los
+equipos de refrigeración, reduciendo su tiempo de autonomía pasiva. A
+este factor climático se suman dos perturbaciones operativas críticas:
+las fallas intermitentes en el suministro de la red eléctrica local por
+parte de la Comisión Federal de Electricidad (CFE) y el intercambio de
+aire con el exterior cada vez que el personal clínico abre la puerta del
+equipo para extraer o resguardar dosis.
+
+Dado que tanto los apagones como las aperturas de puerta ocurren en
+momentos aleatorios y con duraciones variables, los modelos matemáticos
+deterministas tradicionales resultan insuficientes para evaluar el
+comportamiento real del sistema. Para resolver esta complejidad, este
+trabajo presenta el desarrollo de un modelo estocástico continuo
+acoplado a una simulación de eventos discretos. El enfoque principal
+consiste en simular el comportamiento termodinámico de un refrigerador
+precalificado por la Organización Mundial de la Salud (OMS),
+específicamente el modelo Haier HBC-150, bajo las condiciones de estrés
+ambiental y eléctrico de la capital chiapaneca.
+
+El documento se estructura de la siguiente manera para guiar al lector
+en la resolución del problema:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Fundamentos Teóricos:} Se definen los principios matemáticos
+  de los procesos estocásticos, detallando el proceso de
+  Ornstein-Uhlenbeck y su modificación mediante cambios de régimen
+  (\emph{regime-switching}) para alternar entre el estado de
+  enfriamiento activo y el calentamiento pasivo.
+\item
+  \textbf{Estudio de Caso y Calibración:} Se recopilan los parámetros
+  técnicos del refrigerador Haier HBC-150 y los datos históricos de
+  fallas de la CFE y del clima de Tuxtla Gutiérrez, asignando valores
+  numéricos a las tasas de atracción térmica, volatilidades y
+  frecuencias de eventos.
+\item
+  \textbf{Metodología de Simulación Computacional:} Se describe el
+  diseño del algoritmo implementado en Python, explicando la partición
+  temporal en pasos de 5 minutos, la vectorización del ruido browniano y
+  el acoplamiento de la ecuación de Arrhenius con un modelo de
+  inventario clínico en dientes de sierra.
+\item
+  \textbf{Análisis de Montecarlo y Riesgo Operativo:} Se discuten los
+  resultados estadísticos extraídos de 1,000 trayectorias anuales
+  independientes. Se analizan las mermas esperadas, el comportamiento
+  estacional de las pérdidas en relación con las campañas de vacunación
+  y se establece el intervalo de predicción final para la toma de
+  decisiones en salud pública.
+\end{enumerate}
 
 \part{Marco Teórico y Normativa}
 
