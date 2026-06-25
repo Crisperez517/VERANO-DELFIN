@@ -15,7 +15,6 @@ book:
   page-navigation: true 
   chapters:
     - index.qmd
-    - intro.qmd
     
     - part: "Marco Teórico y Normativa"
       chapters: 
