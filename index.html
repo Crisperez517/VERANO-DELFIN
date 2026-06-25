@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Cristóbal Pérez González">
+<meta name="author" content="Yofre Hernán García Gómez">
 
 <title>Reporte de Investigación - Verano Delfín</title>
 <style>
@@ -81,6 +82,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -256,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Prefacio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -291,7 +321,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Prefacio</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -306,7 +336,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fundamentos_teoricos.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></span></a>
   </div>
 </li>
       </ul>
@@ -323,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Estudio_de_caso.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estudio de Caso: Calibración Termodinámica, Eléctrica y Cinética de Degradación</span></span></a>
   </div>
 </li>
       </ul>
@@ -340,7 +370,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./montecarlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Metodología de Simulación Computacional y Análisis Estadístico de Riesgo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Metodología de Simulación Computacional y Análisis Estadístico de Riesgo</span></span></a>
   </div>
 </li>
       </ul>
@@ -348,7 +378,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./conclusiones.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conclusiones y Trabajo Futuro</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusiones y Trabajo Futuro</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -385,9 +415,10 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-heading">Autores/as</div>
     <div class="quarto-title-meta-contents">
-             <p>Cristóbal Pérez González </p>
+             <p>Cristóbal Pérez González <a href="mailto:cristobal.perez70@unach.mx" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Yofre Hernán García Gómez, PhD <a href="mailto:yofre.garcia@unach.mx" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
           </div>
   </div>
     
@@ -408,6 +439,16 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introducción" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
+<p>La conservación de vacunas en condiciones óptimas es uno de los mayores desafíos para los sistemas de salud pública. Los biológicos son productos sensibles que requieren mantenerse estrictamente dentro del rango normativo de <span class="math inline">\(2^\circ\text{C}\)</span> a <span class="math inline">\(8^\circ\text{C}\)</span> desde su producción hasta su aplicación. Romper esta cadena de frío altera la estructura de los antígenos, reduciendo o anulando su efectividad inmunológica de manera irreversible.</p>
+<p>Este problema se agudiza en regiones con climas cálidos extremos, como la ciudad de Tuxtla Gutiérrez, Chiapas. Las altas temperaturas ambientales aceleran la transferencia de calor hacia el interior de los equipos de refrigeración, reduciendo su tiempo de autonomía pasiva. A este factor climático se suman dos perturbaciones operativas críticas: las fallas intermitentes en el suministro de la red eléctrica local por parte de la Comisión Federal de Electricidad (CFE) y el intercambio de aire con el exterior cada vez que el personal clínico abre la puerta del equipo para extraer o resguardar dosis.</p>
+<p>Dado que tanto los apagones como las aperturas de puerta ocurren en momentos aleatorios y con duraciones variables, los modelos matemáticos deterministas tradicionales resultan insuficientes para evaluar el comportamiento real del sistema. Para resolver esta complejidad, este trabajo presenta el desarrollo de un modelo estocástico continuo acoplado a una simulación de eventos discretos. El enfoque principal consiste en simular el comportamiento termodinámico de un refrigerador precalificado por la Organización Mundial de la Salud (OMS), específicamente el modelo Haier HBC-150, bajo las condiciones de estrés ambiental y eléctrico de la capital chiapaneca.</p>
+<p>El documento se estructura de la siguiente manera para guiar al lector en la resolución del problema:</p>
+<ol type="1">
+<li><strong>Fundamentos Teóricos:</strong> Se definen los principios matemáticos de los procesos estocásticos, detallando el proceso de Ornstein-Uhlenbeck y su modificación mediante cambios de régimen (<em>regime-switching</em>) para alternar entre el estado de enfriamiento activo y el calentamiento pasivo.</li>
+<li><strong>Estudio de Caso y Calibración:</strong> Se recopilan los parámetros técnicos del refrigerador Haier HBC-150 y los datos históricos de fallas de la CFE y del clima de Tuxtla Gutiérrez, asignando valores numéricos a las tasas de atracción térmica, volatilidades y frecuencias de eventos.</li>
+<li><strong>Metodología de Simulación Computacional:</strong> Se describe el diseño del algoritmo implementado en Python, explicando la partición temporal en pasos de 5 minutos, la vectorización del ruido browniano y el acoplamiento de la ecuación de Arrhenius con un modelo de inventario clínico en dientes de sierra.</li>
+<li><strong>Análisis de Montecarlo y Riesgo Operativo:</strong> Se discuten los resultados estadísticos extraídos de 1,000 trayectorias anuales independientes. Se analizan las mermas esperadas, el comportamiento estacional de las pérdidas en relación con las campañas de vacunación y se establece el intervalo de predicción final para la toma de decisiones en salud pública.</li>
+</ol>
 
 
 </section>
@@ -831,7 +872,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./fundamentos_teoricos.html" class="pagination-link" aria-label="Fundamentos Teóricos">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos Teóricos</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
