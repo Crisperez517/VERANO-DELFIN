@@ -434,8 +434,8 @@ window.Quarto = {
   <li><a href="#integración-de-la-temperatura-por-cambios-de-régimen" id="toc-integración-de-la-temperatura-por-cambios-de-régimen" class="nav-link" data-scroll-target="#integración-de-la-temperatura-por-cambios-de-régimen"><span class="header-section-number">4.4.1</span> Integración de la Temperatura por Cambios de Régimen</a></li>
   <li><a href="#integración-de-la-dinámica-logística-de-inventario-y-mermas" id="toc-integración-de-la-dinámica-logística-de-inventario-y-mermas" class="nav-link" data-scroll-target="#integración-de-la-dinámica-logística-de-inventario-y-mermas"><span class="header-section-number">4.4.2</span> Integración de la Dinámica Logística de Inventario y Mermas</a></li>
   </ul></li>
-  <li><a href="#el-motor-estocástico-de-montecarlo" id="toc-el-motor-estocástico-de-montecarlo" class="nav-link" data-scroll-target="#el-motor-estocástico-de-montecarlo"><span class="header-section-number">4.5</span> 5. El Motor Estocástico de Montecarlo</a></li>
-  <li><a href="#resultados-estadísticos-la-paradoja-estacional-y-el-riesgo-operativo" id="toc-resultados-estadísticos-la-paradoja-estacional-y-el-riesgo-operativo" class="nav-link" data-scroll-target="#resultados-estadísticos-la-paradoja-estacional-y-el-riesgo-operativo"><span class="header-section-number">4.6</span> 6. Resultados Estadísticos: La Paradoja Estacional y el Riesgo Operativo</a></li>
+  <li><a href="#estructura-de-la-simulación-montecarlo" id="toc-estructura-de-la-simulación-montecarlo" class="nav-link" data-scroll-target="#estructura-de-la-simulación-montecarlo"><span class="header-section-number">4.5</span> 5. Estructura de la Simulación Montecarlo</a></li>
+  <li><a href="#resultados-estadísticos-y-riesgo-operativo" id="toc-resultados-estadísticos-y-riesgo-operativo" class="nav-link" data-scroll-target="#resultados-estadísticos-y-riesgo-operativo"><span class="header-section-number">4.6</span> 6. Resultados Estadísticos y Riesgo Operativo</a></li>
   </ul>
 </nav>
     </div>
@@ -561,9 +561,9 @@ Figura&nbsp;4.4: Acercamiento del comportamiento de la EDE durante el mes de jun
 <h3 data-number="4.4.2" class="anchored" data-anchor-id="integración-de-la-dinámica-logística-de-inventario-y-mermas"><span class="header-section-number">4.4.2</span> Integración de la Dinámica Logística de Inventario y Mermas</h3>
 <p>Para pasar de una pérdida de viabilidad teórica a pérdidas de vacunas, acomodamos la simulación al inventario físico real del equipo (<span class="math inline">\(I_t\)</span>). El algoritmo avanza iteración por iteración en una escala de tiempo de 5 minutos, utilizando tres características logísticas clave:</p>
 <ol type="1">
-<li><strong>Consumo Mensual Estacional:</strong> Si el reloj de la simulación marca exactamente las 8:00 AM en un día hábil, el algoritmo descuenta en bloque la demanda diaria asignada a ese mes según los registros históricos de vacunación de Chiapas (ej. 65 dosis en meses regulares, escalando a 163 dosis en octubre por Influenza).</li>
-<li><strong>Penalización por Merma Instantánea:</strong> En ese mismo paso de tiempo, si la temperatura rompió la barrera de los 8°C, el algoritmo extrae la fracción de pérdida calculada por Arrhenius (<span class="math inline">\(1 - \exp(-k_t \cdot \Delta t)\)</span>) y la multiplica por el número exacto de vacunas almacenadas en el refrigerador en ese instante. El resultado representa las dosis destruidas, las cuales son restadas inmediatamente del inventario activo y acumuladas en un vector de mermas.</li>
-<li><strong>Reabastecimiento Automático:</strong> Si el inventario remanente cae por debajo del stock de seguridad o punto de reorden (<span class="math inline">\(1,000\)</span> dosis), se simula la llegada instantánea del camión de distribución jurisdiccional, el cual recarga el equipo hasta su capacidad máxima de <span class="math inline">\(5,000\)</span> dosis. El algoritmo registra la cantidad exacta de dosis inyectadas en la variable <code>total_dosis_ingresadas</code> para calcular con precisión la tasa de pérdida global al final de la corrida. La interacción de esta masa logística con las mermas físicas se visualiza en la <a href="#fig-inventario-mermas" class="quarto-xref">Figura&nbsp;<span>4.5</span></a>.</li>
+<li><strong>Consumo Mensual Estacional:</strong> Si el reloj de la simulación marca exactamente las 8:00 AM en un día hábil, el algoritmo resta la demanda diaria asignada a ese mes (ej. 65 dosis en meses regulares, aumentando a 163 dosis en octubre por Influenza).</li>
+<li><strong>Penalización por Merma Instantánea:</strong> En ese mismo paso de tiempo, si la temperatura supera los 8°C, el algoritmo extrae la fracción de pérdida calculada por la ecuación de Arrhenius (<span class="math inline">\(1 - \exp(-k_t \cdot \Delta t)\)</span>) y se multiplica por el número exacto de vacunas almacenadas en el refrigerador en ese instante. El resultado representa las dosis perdidas, las cuales son restadas del inventario activo y acumuladas en un vector de mermas acumuladas.</li>
+<li><strong>Reabastecimiento Automático:</strong> Si el inventario cae por debajo del stock de seguridad o punto de reorden (<span class="math inline">\(1,000\)</span> dosis), se simula la llegada instantánea del camión de distribución, el cual recarga el equipo hasta su capacidad máxima de <span class="math inline">\(5,000\)</span> dosis. El algoritmo registra la cantidad exacta de dosis entregadas en la variable <code>total_dosis_ingresadas</code> para calcular con precisión la tasa de pérdida global al final de la simulación. La interacción de esta logística con las mermas físicas se visualiza en la <a href="#fig-inventario-mermas" class="quarto-xref">Figura&nbsp;<span>4.5</span></a>.</li>
 </ol>
 <div id="fig-inventario-mermas" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -571,33 +571,35 @@ Figura&nbsp;4.4: Acercamiento del comportamiento de la EDE durante el mes de jun
 <img src="inventario_vs_mermas.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-inventario-mermas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4.5: Simulación paralela de los dientes de sierra del inventario activo de la clínica (eje izquierdo) y el crecimiento acumulado de las dosis destruidas por fallas térmicas (eje derecho).
+Figura&nbsp;4.5: Simulación del inventario de vacunas a lo largo del año (dientes de sierra) de la central de almacenamiento de vacunas (eje izquierdo) y el crecimiento acumulado de las dosis destruidas por fallas térmicas (eje derecho).
 </figcaption>
 </figure>
 </div>
 </section>
 </section>
-<section id="el-motor-estocástico-de-montecarlo" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="el-motor-estocástico-de-montecarlo"><span class="header-section-number">4.5</span> 5. El Motor Estocástico de Montecarlo</h2>
-<p>Con el fin de obtener validez científica y no depender del escenario fortuito de una sola corrida, empaquetamos el algoritmo completo dentro de la función maestra <code>simular_un_ano(semilla)</code>. Para optimizar drásticamente la velocidad de ejecución en Google Colab y permitir análisis masivos, vectorizamos la generación del ruido browniano creando el arreglo global de variables normales <code>dW_vec</code> al inicio de la función.</p>
-<p>Invocamos esta función dentro de un bucle de <strong>Montecarlo parametrizado con 1,000 simulaciones independientes</strong>, asignando en cada iteración una semilla de aleatoriedad indexada (<code>semilla = sim + 42</code>). Al correr 1,000 años simulados, el motor estocástico mitiga las fluctuaciones extremas de los escenarios individuales y permite que actúe la <strong>Ley de los Grandes Números</strong>. Esto provoca que las métricas de control se estabilicen firmemente en promedios realistas: el simulador reportó un promedio global de <strong>64.0 apagones por año</strong> (alineado con los datos meteorológicos de la zona sureste de CFE) y un promedio de <strong>515 aperturas de puerta anuales</strong>, validando estadísticamente el comportamiento del personal clínico y la infraestructura eléctrica de entrada.</p>
+<section id="estructura-de-la-simulación-montecarlo" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="estructura-de-la-simulación-montecarlo"><span class="header-section-number">4.5</span> 5. Estructura de la Simulación Montecarlo</h2>
+<p>Con el fin de obtener validez científica y no depender del escenario de una sola simulación, empaquetamos el algoritmo completo dentro de la función <code>simular_un_ano(semilla)</code>. Para optimizar drásticamente la velocidad de ejecución en Google Colab y permitir análisis masivos, vectorizamos la generación del ruido browniano creando el arreglo global de variables normales <code>dW_vec</code> al inicio de la función.</p>
+<p>Invocamos esta función dentro de un bucle de <strong>Montecarlo con 1,000 simulaciones independientes</strong>, asignando en cada iteración una semilla de aleatoriedad indexada (<code>semilla = sim + 42</code>). Al correr 1,000 años simulados, el algoritmo elimina las fluctuaciones extremas de los escenarios individuales y permite que actúe la <strong>Ley de los Grandes Números</strong> <span class="citation" data-cites="ross2018first">(<a href="references.html#ref-ross2018first" role="doc-biblioref">Ross 2018</a>)</span>. Esto provoca que las métricas de control se estabilicen firmemente en promedios realistas: el simulador reportó un promedio global de <strong>64.0 apagones por año</strong> (alineado con los datos meteorológicos de la zona de Tuxtla Gutiérrez, Chiapas de la CFE) y un promedio de <strong>515 aperturas de puerta anuales</strong>, validando el comportamiento del personal clínico y la infraestructura eléctrica de entrada.</p>
 </section>
-<section id="resultados-estadísticos-la-paradoja-estacional-y-el-riesgo-operativo" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="resultados-estadísticos-la-paradoja-estacional-y-el-riesgo-operativo"><span class="header-section-number">4.6</span> 6. Resultados Estadísticos: La Paradoja Estacional y el Riesgo Operativo</h2>
-<p>Tras consolidar las matrices de datos de las 1,000 trayectorias de Montecarlo, procedemos a realizar el análisis de inferencia estadística para determinar el verdadero nivel de riesgo al que están expuestas las vacunas en Tuxtla Gutiérrez.</p>
-<p>La divergencia estocástica de los daños acumulados se aprecia con claridad en el abanico de trayectorias aleatorias presentado en la <a href="#fig-abanico" class="quarto-xref">Figura&nbsp;<span>4.6</span></a>. El comportamiento de las curvas demuestra que el riesgo no es lineal; la gravedad de la merma anual depende estrictamente de la coincidencia temporal fortuita entre la duración del apagón de la CFE y el nivel de saturación del inventario clínico en ese día específico del año.</p>
+<section id="resultados-estadísticos-y-riesgo-operativo" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="resultados-estadísticos-y-riesgo-operativo"><span class="header-section-number">4.6</span> 6. Resultados Estadísticos y Riesgo Operativo</h2>
+<p>Después de simular las 1,000 trayectorias de Montecarlo, procedemos a realizar el análisis de inferencia estadística para determinar el verdadero nivel de riesgo al que están expuestas las vacunas en Tuxtla Gutiérrez.</p>
+<p>El comportamiento de los daños acumulados se aprecia con claridad en las trayectorias aleatorias presentadas en la <a href="#fig-abanico" class="quarto-xref">Figura&nbsp;<span>4.6</span></a>. El comportamiento de las curvas demuestra que el riesgo no es lineal; la tendencia de la merma anual depende estrictamente de la coincidencia temporal entre la duración de un apagón de la CFE y el nivel de saturación del almacenamiento de vacunas en ese día específico del año.</p>
 <div id="fig-abanico" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-abanico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="abanico_riesgo.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-abanico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4.6: Abanico estocástico de 30 trayectorias anuales aleatorias. Muestra la divergencia en la acumulación de dosis destruidas a lo largo de los 365 días del año.
+Figura&nbsp;4.6: 30 trayectorias anuales aleatorias. Muestra la tendencia en la acumulación de dosis destruidas a lo largo de los 366 días del año.
 </figcaption>
 </figure>
 </div>
-<p>Al desglosar las pérdidas de dosis de forma mensual, los datos revelan un fenómeno altamente relevante para la administración de la salud pública, expuesto en la <a href="#fig-barras-promedio" class="quarto-xref">Figura&nbsp;<span>4.7</span></a> (Promedio mensual) y en la <a href="#fig-barras-mediana" class="quarto-xref">Figura&nbsp;<span>4.8</span></a> (Mediana mensual). Intuitivamente, se esperaría que los meses de verano (mayo y junio) concentraran la mayor destrucción de vacunas debido a que registran las temperaturas más altas de Tuxtla Gutiérrez y la mayor tasa de apagones por transformadores sobrecalentados.</p>
-<p>Sin embargo, tanto el promedio como la mediana revelan que <strong>el verdadero pico de pérdidas materiales se desplaza severamente hacia octubre y noviembre.</strong> A este fenómeno lo denominamos la <strong>Anomalía de Masa Logística</strong>. Durante el otoño, las fallas eléctricas de CFE son estadísticamente menos frecuentes que en verano; no obstante, el refrigerador clínico se encuentra operando a su máxima capacidad de saturación debido al arranque de la campaña nacional de vacunación invernal contra la Influenza. En consecuencia, cuando ocurre un apagón prolongado en otoño, el impacto de Arrhenius muerde un volumen de vacunas drásticamente mayor, destruyendo miles de dosis de un solo golpe, en contraste con un apagón de verano que golpea a un refrigerador semivacío.</p>
+<p>Al desglosar las pérdidas de dosis de forma mensual, los datos revelan el verdadero comportamiento del riesgo operativo a lo largo del año, expuesto en la <a href="#fig-barras-promedio" class="quarto-xref">Figura&nbsp;<span>4.7</span></a> (Promedio mensual) y en la <a href="#fig-barras-mediana" class="quarto-xref">Figura&nbsp;<span>4.8</span></a> (Mediana mensual).</p>
+<p>Inicialmente, desde un punto de vista puramente logístico, se podría pensar que los meses de otoño (octubre y noviembre) presentarían la mayor cantidad de vacunas perdidas, debido a que en esa temporada el refrigerador opera a su máxima capacidad por el arranque de la campaña nacional invernal contra la Influenza. Sin embargo, la simulación muestra que <strong>el factor termodinámico y eléctrico domina por completo al volumen de inventario.</strong> Tanto el promedio como la mediana revelan que <strong>el verdadero pico de pérdidas materiales se concentra severamente en la temporada de calor extremo: marzo, abril y mayo.</strong></p>
+<p>Durante este trimestre, Tuxtla Gutiérrez experimenta sus temperaturas ambientales máximas. Este calor extremo genera un doble impacto en el sistema: por un lado, dispara el estrés sobre la infraestructura de la CFE (debido al uso masivo de aires acondicionados en la ciudad), provocando la mayor tasa de apagones por sobrecalentamiento de transformadores; por otro lado, reduce drásticamente el tiempo de autonomía pasiva del refrigerador apagado, acelerando la cinética de degradación de Arrhenius de las vacunas.</p>
+<p>En el gráfico de promedios, estos tres meses resultan casi idénticos en su alto nivel de destrucción, confirmando que la primavera es la temporada crítica. Al observar la métrica de la mediana (estadísticamente más robusta porque aísla los años atípicamente catastróficos), el mes de <strong>abril</strong> sobresale como el periodo donde la pérdida de vacunas es superior a la de los otros meses. Queda comprobado que la red de frío chiapaneca es altamente vulnerable al choque térmico primaveral, superando cualquier riesgo derivado de la saturación logística de otras temporadas.</p>
 <div id="layout-barras" class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -607,7 +609,7 @@ Figura&nbsp;4.6: Abanico estocástico de 30 trayectorias anuales aleatorias. Mue
 <img src="barras_estacionales_promedio.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barras-promedio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4.7: Pérdida promedio de dosis de vacunas por mes calculada sobre las 1,000 trayectorias de Montecarlo, exhibiendo el impacto estacional del inventario.
+Figura&nbsp;4.7: Pérdida promedio de dosis de vacunas por mes calculada sobre las 1,000 trayectorias de Montecarlo, mostrando el impacto crítico durante los meses de calor.
 </figcaption>
 </figure>
 </div>
@@ -619,28 +621,28 @@ Figura&nbsp;4.7: Pérdida promedio de dosis de vacunas por mes calculada sobre l
 <img src="barras_estacionales_mediana.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barras-mediana-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4.8: Pérdida mediana de dosis de vacunas por mes, confirmando de manera robusta que el riesgo crítico se concentra en la temporada de Influenza de otoño.
+Figura&nbsp;4.8: Pérdida mediana de dosis de vacunas por mes, confirmando que el mes de abril representa el escenario de mayor riesgo operativo para la red de frío.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<p>Finalmente, para estandarizar el riesgo sin importar la escala de la unidad médica, transformamos las dosis destruidas en porcentajes relativos respecto al volumen total de vacunas manejadas por el equipo en el año. Al procesar las 1,000 simulaciones, el algoritmo arrojó el histograma de probabilidad presentado en la <a href="#fig-histograma-final" class="quarto-xref">Figura&nbsp;<span>4.9</span></a>. La distribución presenta una marcada asimetría positiva (cola estirada hacia la derecha), comportamiento típico de los sistemas de riesgo operativo expuestos a fallas intermitentes severas.</p>
-<p><strong>Los estadísticos descriptivos e inferenciales definitivos del modelo revelan que:</strong></p>
+<p>Finalmente, para estandarizar el riesgo sin importar la escala de la unidad médica, transformamos las dosis destruidas en porcentajes relativos respecto al volumen total de vacunas manejadas por el equipo en el año. Al hacer las 1,000 simulaciones, el algoritmo arrojó el histograma presentado en la <a href="#fig-histograma-final" class="quarto-xref">Figura&nbsp;<span>4.9</span></a>. La distribución presenta una asimetría positiva (cola estirada hacia la derecha), comportamiento típico de los sistemas de riesgo operativo expuestos a fallas intermitentes severas.</p>
+<p><strong>Los estadísticos descriptivos e inferenciales del modelo revelan que:</strong></p>
 <ul>
 <li>La <strong>mediana de mermas</strong> anuales se ubica en <strong>751 dosis</strong>, lo que representa una tasa de pérdida del <strong>2.57%</strong> de los lotes administrados.</li>
-<li>El <strong>promedio de mermas</strong> anuales se eleva a <strong>827 dosis</strong> (tasa del <strong>2.87%</strong>), empujado de forma ascendente por la presencia de años atípicamente catastróficos en la cola de la distribución.</li>
-<li>El <strong>Value at Risk (VaR) al 95% de confianza</strong> (riesgo severo) advierte que las clínicas se enfrentan a escenarios extremos donde se destruirán hasta <strong>1,736 dosis</strong> en un solo refrigerador institucional.</li>
+<li>El <strong>promedio de mermas</strong> anuales se eleva a <strong>827 dosis</strong> (tasa del <strong>2.87%</strong>), el cual es mas alto por la presencia de años atípicamente catastróficos en la cola de la distribución.</li>
+<li>El <strong>Value at Risk (VaR) al 95% de confianza</strong> (riesgo severo) advierte que los centros de almacenamiento de vacunas se enfrentan a escenarios extremos donde se perderán hasta <strong>1,736 dosis</strong> en un solo refrigerador institucional.</li>
 </ul>
-<p>A partir de los percentiles empíricos del histograma, podemos concluir con un <strong>95% de nivel de certeza estadística (Intervalo de Predicción)</strong> que una clínica de primer nivel en Tuxtla Gutiérrez, operando con un equipo normado por la OMS de última generación (Haier HBC-150), <strong>sufrirá una pérdida inevitable de entre el 0.72% y el 6.57% de su inventario anual</strong> debido a las condiciones climáticas locales y la calidad actual de la red eléctrica de la CFE.</p>
+<p>A partir de los percentiles del histograma, podemos concluir con un <strong>95% de nivel de confianza (Intervalo de Predicción)</strong> que un centro de almacenamiento de vacunas en Tuxtla Gutiérrez, operando con un equipo normado por la OMS de última generación (Haier HBC-150), <strong>sufrirá una pérdida inevitable de entre el 0.72% y el 6.57% de su inventario anual</strong> debido a las condiciones climáticas locales y las condiciones eléctricas.</p>
 <div id="fig-histograma-final" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-histograma-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="histograma_porcentajes.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-histograma-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4.9: Histograma de distribución de probabilidad para el porcentaje de vacunas perdidas anualmente. Se detallan las casillas de centralidad (media y mediana) y las líneas de acotación del intervalo de predicción del 95%.
+Figura&nbsp;4.9: Histograma para el porcentaje de vacunas perdidas anualmente. Se detallan las casillas de centralidad (media y mediana) y las líneas de acotación del intervalo de predicción del 95%.
 </figcaption>
 </figure>
 </div>
@@ -649,6 +651,9 @@ Figura&nbsp;4.9: Histograma de distribución de probabilidad para el porcentaje 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-CPG2026Delfin" class="csl-entry" role="listitem">
 Repositorio de GitHub. <span>«Simulador Estocástico y Análisis de Riesgo en la Red de Frío para Vacunas: Código Fuente en Python»</span>. <a href="https://github.com/Crisperez517/VERANO-DELFIN/blob/3a3f49b27bca9671e71b40c738dec826c8eb30cc/VERANO_DELFIN_SIMULACION_CODIGO_DE_PYTHON.ipynb">https://github.com/Crisperez517/VERANO-DELFIN/blob/3a3f49b27bca9671e71b40c738dec826c8eb30cc/VERANO_DELFIN_SIMULACION_CODIGO_DE_PYTHON.ipynb</a>.
+</div>
+<div id="ref-ross2018first" class="csl-entry" role="listitem">
+Ross, Sheldon M. 2018. <em>A First Course in Probability</em>. 10th ed. Pearson.
 </div>
 </div>
 </section>
