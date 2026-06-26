@@ -2380,12 +2380,12 @@ El riesgo externo del suministro eléctrico se parametriza mediante el
 comportamiento histórico de fallas de la Comisión Federal de
 Electricidad (CFE) en la región Sureste. Retomando los calculos de la
 Sección~\ref{sec-ppnh}, programamos la tasa de fallas diarias
-\(\lambda_{cfe}(t)\) como un Proceso de Poisson No Homogéneo, donde
-combinamos un riesgo base de fallas locales (\(0.0667\) cortes/día) con
-dos campanas gaussianas estacionales que modelan los picos de cortes
-debidos al sobrecalentamiento de transformadores en verano (centrada en
-el día 152) y la temporada de tormentas tropicales (centrada en el día
-244):
+\(\lambda_{cfe}(t), t > 0\) como un Proceso de Poisson No Homogéneo,
+donde combinamos un riesgo base de fallas locales (\(0.0667\)
+cortes/día) con dos campanas gaussianas estacionales que modelan los
+picos de cortes debidos al sobrecalentamiento de transformadores en
+verano (centrada en el día 152) y la temporada de tormentas tropicales
+(centrada en el día 244):
 
 \[
 \lambda_{cfe}(t) = 0.0667 + 0.2333 \cdot \exp\left(-\frac{(t - 152)^2}{3200}\right) + 0.2333 \cdot \exp\left(-\frac{(t - 244)^2}{1800}\right).
