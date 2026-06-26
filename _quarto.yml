@@ -13,6 +13,10 @@ book:
   search: true
   repo-url: https://github.com/Crisperez517/VERANO-DELFIN.git
   page-navigation: true 
+  image: LogoDelfin.jpeg
+  cover-image: LogoDelfin.jpeg
+  sidebar:
+    logo: LOGOunach.jpeg
   chapters:
     - index.qmd
     
@@ -59,3 +63,4 @@ format:
     link-citations: true
     number-sections: true
     colorlinks: true
+    titlegraphic: LOGOunach.jpeg
