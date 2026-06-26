@@ -6,7 +6,11 @@ execute:
 
 book:
   title: "Reporte de Investigación - Verano Delfín"
-  author: "Cristóbal Pérez González"
+  author: 
+      - name: "Cristóbal Pérez González"
+        email: "cristobal.perez70@unach.mx"
+      - name: "Dr. Yofre Hernán García Gómez"
+        email: "yofre.garcia@unach.mx"
   language: es
   date: "today"
   downloads: [pdf]

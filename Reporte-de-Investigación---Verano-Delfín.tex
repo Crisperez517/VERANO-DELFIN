@@ -209,7 +209,7 @@
 \urlstyle{same}
 \hypersetup{
   pdftitle={Reporte de Investigación - Verano Delfín},
-  pdfauthor={Cristóbal Pérez González},
+  pdfauthor={Cristóbal Pérez González; Dr.~Yofre Hernán García Gómez},
   pdflang={es},
   colorlinks=true,
   linkcolor={blue},
@@ -220,7 +220,7 @@
 
 
 \title{Reporte de Investigación - Verano Delfín}
-\author{Cristóbal Pérez González}
+\author{Cristóbal Pérez González \and Dr.~Yofre Hernán García Gómez}
 \date{2026-06-26}
 \begin{document}
 \maketitle
@@ -2275,11 +2275,12 @@ argumento del coseno por 15 horas para forzar que el pico de calor sea a
 las 15:00 horas de cada día simulado:
 
 \[
-T_{amb}(t) = T_{media}(t) + 7.0 \cdot \cos\left(2\pi \frac{t - 15}{24}\right)
+T_{amb}(t) = T_{media}(t) + 7.0 \cdot \cos\left(2\pi \frac{t - 15}{24}\right).
 \]
 
-La validación visual de la oscilación de la temperatura ambiente se
-presenta en la Figura~\ref{fig-clima-anual}, que exhibe el
+Donde \(t\) representa el tiempo en horas, es decir, \(t \in [0, 8784)\)
+para un año de 366 días. La oscilación de la temperatura ambiente se
+presenta en la Figura~\ref{fig-clima-anual}, que muestra el
 comportamiento anual, y en la Figura~\ref{fig-clima-zoom}, que demuestra
 la consistencia del ciclo diurno continuo.
 
@@ -2467,7 +2468,7 @@ un cambio de régimen dinámico (\emph{regime-switching}). Si el
 suministro está activo, aplica los parámetros de convección forzada
 (\(\kappa_{on}, \sigma_{on}\)) llevando a la temperatura hacia la
 temperatura ideal (\(\theta = 4.0^\circ\text{C}\)) y le suma el salto
-térmico si la puerta fue manipulada. Si el suministro está apagado, el
+térmico si la puerta fué manipulada. Si el suministro está apagado, el
 algoritmo desactiva los ventiladores y acopla la inercia térmica pasiva
 (\(\kappa_{off}, \sigma_{off}\)), provocando que la temperatura del
 refrigerador sea atraída hacia la temperatura ambiente exterior de
@@ -2532,9 +2533,10 @@ estabilidad del termostato (4°C), los impactos de las aperturas
 Mermas}\label{integraciuxf3n-de-la-dinuxe1mica-loguxedstica-de-inventario-y-mermas}
 
 Para pasar de una pérdida de viabilidad teórica a pérdidas de vacunas,
-acomodamos la simulación al inventario físico real del equipo (\(I_t\)).
-El algoritmo avanza iteración por iteración en una escala de tiempo de 5
-minutos, utilizando tres características logísticas clave:
+acomodamos la simulación al inventario físico real del equipo (\(I_t\)),
+donde \(t\) representa el tiempo cada 5 minutos. El algoritmo avanza
+iteración por iteración, utilizando tres características logísticas
+clave:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2658,14 +2660,14 @@ autonomía pasiva del refrigerador apagado, acelerando la cinética de
 degradación de Arrhenius de las vacunas.
 
 En el gráfico de promedios, estos tres meses resultan casi idénticos en
-su alto nivel de destrucción, confirmando que la primavera es la
-temporada crítica. Al observar la métrica de la mediana
-(estadísticamente más robusta porque aísla los años atípicamente
-catastróficos), el mes de \textbf{abril} sobresale como el periodo donde
-la pérdida de vacunas es superior a la de los otros meses. Queda
-comprobado que la red de frío chiapaneca es altamente vulnerable al
-choque térmico primaveral, superando cualquier riesgo derivado de la
-saturación logística de otras temporadas.
+su alto nivel de pérdidas, confirmando que la primavera es la temporada
+crítica. Al observar la métrica de la mediana (estadísticamente más
+robusta porque aísla los años atípicamente catastróficos), el mes de
+\textbf{abril} sobresale como el periodo donde la pérdida de vacunas es
+superior a la de los otros meses. Queda comprobado que la red de frío
+chiapaneca es altamente vulnerable al choque térmico primaveral,
+superando cualquier riesgo derivado de la saturación logística de otras
+temporadas.
 
 \begin{figure}
 
@@ -2794,7 +2796,7 @@ principales:
   experimentará mermas inevitables de entre el 0.72\% y el 6.57\% de su
   inventario anual. Asimismo, el indicador \emph{Value at Risk} (VaR) al
   95\% advierte que en escenarios de alta vulnerabilidad las pérdidas
-  pueden ascender hasta las 1,736 dosis por equipo.
+  pueden ascender hasta las 1736 dosis por equipo.
 \item
   \textbf{Dominancia Termodinámica sobre la Logística:} Al evaluar la
   estacionalidad del daño, se rechazó la hipótesis de que el volumen de
